@@ -119,6 +119,12 @@ class Foyer {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-foyer-public.php';
 
+		/**
+		 * The classes that hold the slide and channel models
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-slide.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-channel.php';
+
 		$this->loader = new Foyer_Loader();
 
 	}
@@ -153,6 +159,9 @@ class Foyer {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+
+		$this->loader->add_action( 'init', $plugin_admin, 'register_post_types' );
+		$this->loader->add_action( 'admin_menu', $plugin_admin, 'admin_menu' );
 
 	}
 
