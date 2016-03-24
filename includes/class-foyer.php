@@ -73,6 +73,7 @@ class Foyer {
 
 		$this->load_dependencies();
 		$this->set_locale();
+		$this->define_setup_hooks();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 
@@ -107,6 +108,11 @@ class Foyer {
 		 * of the plugin.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-i18n.php';
+
+		/**
+		 * The class responsible for defining all general (not public/admin) setup actions.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-setup.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
@@ -160,7 +166,6 @@ class Foyer {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
-		$this->loader->add_action( 'init', $plugin_admin, 'register_post_types' );
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'admin_menu' );
 
 	}
@@ -178,6 +183,21 @@ class Foyer {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+
+	}
+
+	/**
+	 * Register all of the hooks related to the general (not public/admin) setup functionality
+	 * of the plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
+	private function define_setup_hooks() {
+
+		$plugin_setup = new Foyer_Setup( $this->get_plugin_name(), $this->get_version() );
+
+		$this->loader->add_action( 'init', $plugin_setup, 'register_post_types' );
 
 	}
 
