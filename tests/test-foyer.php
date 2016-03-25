@@ -19,12 +19,11 @@ class Foyer_Test extends WP_UnitTestCase {
 
 		/* Create channel with two slides */
 		$this->channel1 = $this->factory->post->create( $channel_args );
-		add_post_meta( $this->channel1, Foyer_Slide::post_type_name, $this->slide1 );
-		add_post_meta( $this->channel1, Foyer_Slide::post_type_name, $this->slide2 );
+		add_post_meta( $this->channel1, Foyer_Slide::post_type_name, array( $this->slide1, $this->slide2 ) );
 
 		/* Create channel with one slide */
 		$this->channel2 = $this->factory->post->create( $channel_args );
-		add_post_meta( $this->channel2, Foyer_Slide::post_type_name, $this->slide1 );
+		add_post_meta( $this->channel2, Foyer_Slide::post_type_name, array( $this->slide1 ) );
 	}
 
 

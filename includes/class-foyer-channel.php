@@ -28,7 +28,7 @@ class Foyer_Channel {
 	 */
 	const post_type_name = 'foyer_channel';
 
-	private $ID;
+	public $ID;
 	private $post;
 
 	/**
@@ -69,13 +69,12 @@ class Foyer_Channel {
 
 		if ( ! isset( $this->slides ) ) {
 
-			$posts = get_post_meta( $this->ID, Foyer_Slide::post_type_name );
-			var_dump($posts);
+			$posts = get_post_meta( $this->ID, Foyer_Slide::post_type_name, true );
 
 			$slides = array();
 
-			for ( $i = 0; $i < count( $posts ); $i++ ) {
-				$slide = new Foyer_Slide( $posts[ $i ] );
+			foreach ( $posts as $post ) {
+				$slide = new Foyer_Slide( $post );
 				$slides[] = $slide;
 			}
 

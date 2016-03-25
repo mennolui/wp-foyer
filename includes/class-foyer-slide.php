@@ -28,7 +28,7 @@ class Foyer_Slide {
 	 */
 	const post_type_name = 'foyer_slide';
 
-	private $ID;
+	public $ID;
 	private $post;
 
 	/**

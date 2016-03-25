@@ -29,4 +29,35 @@
 	 * practising this, we should strive to set a better example in our own work.
 	 */
 
+
+	 $(function() {
+		 /* DOM is ready */
+
+		 $('.foyer_slides_editor_form_action_remove').unbind('click').click(function(e) {
+
+				if (confirm(foyer_slides_editor_defaults.confirm_remove_message)) {
+
+					var data = {
+						'action': 'foyer_slides_editor_remove_slide',
+						'channel_id': $(e.currentTarget).parents('table').data('channel-id'),
+						'slide_key': $(e.currentTarget).parents('tr').data('slide-key'),
+						'nonce': foyer_slides_editor_security.nonce,
+					};
+
+					$.post(ajaxurl, data, function(response) {
+						if (response != '') {
+							$('*[data-slide-key="'+response+'"]').remove();
+						}
+					});
+
+				}
+
+				return false;
+
+
+		 });
+
+	});
+
+
 })( jQuery );
