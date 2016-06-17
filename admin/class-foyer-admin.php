@@ -127,6 +127,86 @@ class Foyer_Admin {
 		);
 	}
 
+
+	/**
+	 * Gets the HTML that lists all slides in the slides editor.
+	 *
+	 * @since	1.0.0
+	 * @access	public
+	 * @param	WP_Post	$post
+	 * @return	string	$html	The HTML that lists all slides in the slides editor.
+	 */
+	public function get_slides_list_html( $post ) {
+
+		$i = 0;
+		$channel_slide_ids = get_post_meta( $post->ID, Foyer_Slide::post_type_name, true ); //@todo: move to class
+
+		ob_start();
+
+		foreach( $channel_slide_ids as $slide_id ) {
+			?>
+				<tr data-slide-key="<?php echo $i; ?>">
+					<th>
+						<label for="foyer_slides_editor_slide_<?php echo $i; ?>">
+							<?php echo __( 'Slide', 'foyer' ) . ' ' . ($i + 1); ?>
+						</label>
+					</th>
+					<td>
+						<input type="hidden" id="foyer_slides_editor_slide_<?php echo $i; ?>"
+	name="foyer_slides_editor_slide_<?php echo $i; ?>" value="<?php echo $slide_id; ?>">
+						<?php echo get_the_title( $slide_id ); ?>
+						(<a href="#" class="foyer_slides_editor_form_action_remove"><?php echo __( 'Remove', 'foyer' ); ?></a>)
+					</td>
+				</tr>
+			<?php
+			$i++;
+		}
+
+		$html = ob_get_clean();
+
+		return $html;
+	}
+
+	/**
+	 * Gets the HTML to add a slide in the slides editor.
+	 *
+	 * @since	1.0.0
+	 * @access	public
+	 * @return	string	$html	The HTML to add a slide in the slides editor.
+	 */
+	public function get_add_slide_html() {
+
+		ob_start();
+		$i = 99; //@todo
+
+		?>
+			<tr>
+				<th>
+					<label for="foyer_slides_editor_slide_<?php echo $i; ?>">
+						<?php echo __( 'Add slide', 'foyer' ) . ' ' . ($i + 1); ?>
+					</label>
+				</th>
+				<td>
+					<select id="foyer_slides_editor_slide_<?php echo $i; ?>" name="foyer_slides_editor_slide_<?php echo $i; ?>">
+						<option value="">(<?php echo __( 'Select a slide', 'foyer' ); ?>)</option>
+						<?php
+							$slides = get_posts( array( 'post_type' => Foyer_Slide::post_type_name ) );
+							foreach ( $slides as $slide ) {
+							?>
+								<option value="<?php echo $slide->ID; ?>"><?php echo $slide->post_title; ?></option>
+							<?php
+							}
+						?>
+					</select>
+				</td>
+			</tr>
+		<?php
+
+		$html = ob_get_clean();
+
+		return $html;
+	}
+
 	/**
 	 * Outputs the content of the slides editor meta box.
 	 *
@@ -146,53 +226,16 @@ class Foyer_Admin {
 			<table class="foyer_meta_box_form foyer_slides_editor_form" data-channel-id="<?php echo $post->ID; ?>">
 				<tbody>
 					<?php
-						$i = 0;
-						$channel_slide_ids = get_post_meta( $post->ID, Foyer_Slide::post_type_name, true );
 
-						foreach( $channel_slide_ids as $slide_id ) {
-						?>
-							<tr data-slide-key="<?php echo $i; ?>">
-								<th>
-									<label for="foyer_slides_editor_slide_<?php echo $i; ?>">
-										<?php echo __( 'Slide', 'foyer' ) . ' ' . ($i + 1); ?>
-									</label>
-								</th>
-								<td>
-									<input type="hidden" id="foyer_slides_editor_slide_<?php echo $i; ?>"
-				name="foyer_slides_editor_slide_<?php echo $i; ?>" value="<?php echo $slide_id; ?>">
-									<?php echo get_the_title( $slide_id ); ?>
-									(<a href="#" class="foyer_slides_editor_form_action_remove"><?php echo __( 'Remove', 'foyer' ); ?></a>)
-								</td>
-							</tr>
-						<?php
-							$i++;
-						}
+						echo $this->get_slides_list_html( $post );
+						echo $this->get_add_slide_html();
+
 					?>
-					<tr>
-						<th>
-							<label for="foyer_slides_editor_slide_<?php echo $i; ?>">
-								<?php echo __( 'Add slide', 'foyer' ) . ' ' . ($i + 1); ?>
-							</label>
-						</th>
-						<td>
-							<select id="foyer_slides_editor_slide_<?php echo $i; ?>" name="foyer_slides_editor_slide_<?php echo $i; ?>">
-								<option value="">(<?php echo __( 'Select a slide', 'foyer' ); ?>)</option>
-								<?php
-									$slides = get_posts( array( 'post_type' => Foyer_Slide::post_type_name ) );
-									foreach ( $slides as $slide ) {
-									?>
-										<option value="<?php echo $slide->ID; ?>"><?php echo $slide->post_title; ?></option>
-									<?php
-									}
-								?>
-							</select>
-						</td>
-					</tr>
-
 				</tbody>
 			</table>
 
 		<?php
+
 		$html = ob_get_clean();
 
 		echo $html;
