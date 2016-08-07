@@ -153,7 +153,7 @@ class Foyer_Admin {
 					</th>
 					<td>
 						<input type="hidden" id="foyer_slides_editor_slide_<?php echo $i; ?>"
-	name="foyer_slides_editor_slide_<?php echo $i; ?>" value="<?php echo $slide_id; ?>">
+							name="foyer_slides_editor_slides[]" value="<?php echo $slide_id; ?>">
 						<?php echo get_the_title( $slide_id ); ?>
 						(<a href="#" class="foyer_slides_editor_form_action_remove"><?php echo __( 'Remove', 'foyer' ); ?></a>)
 					</td>
@@ -177,17 +177,16 @@ class Foyer_Admin {
 	public function get_add_slide_html() {
 
 		ob_start();
-		$i = 99; //@todo
 
 		?>
 			<tr>
 				<th>
-					<label for="foyer_slides_editor_slide_<?php echo $i; ?>">
-						<?php echo __( 'Add slide', 'foyer' ) . ' ' . ($i + 1); ?>
+					<label for="foyer_slides_editor_slide_add">
+						<?php echo __( 'Add slide', 'foyer' ); ?>
 					</label>
 				</th>
 				<td>
-					<select id="foyer_slides_editor_slide_<?php echo $i; ?>" name="foyer_slides_editor_slide_<?php echo $i; ?>">
+					<select id="foyer_slides_editor_slide_add" name="foyer_slides_editor_slides[]">
 						<option value="">(<?php echo __( 'Select a slide', 'foyer' ); ?>)</option>
 						<?php
 							$slides = get_posts( array( 'post_type' => Foyer_Slide::post_type_name ) );
@@ -280,12 +279,17 @@ class Foyer_Admin {
 			return $post_id;
 		}
 
-		/* OK, its safe for us to save the data now */
-		$i = 0;
-		$slides = array();
-		while ( isset( $_POST['foyer_slides_editor_slide_'.$i] ) ) {
-			$slides[] = $_POST['foyer_slides_editor_slide_'.$i];
-			$i++;
+		$slides = $_POST['foyer_slides_editor_slides'];
+
+		/* Input validation */
+		/* See: https://codex.wordpress.org/Data_Validation#Input_Validation */
+		$slides = array_map( 'absint', $slides );
+
+		/* Remove any empty positions */
+		foreach ( $slides as $key => $slide ) {
+			if ( empty ( $slide ) ) {
+				unset ( $slides[$key] );
+			}
 		}
 
 		if ( ! empty( $slides ) ) {
