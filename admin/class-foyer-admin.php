@@ -138,12 +138,13 @@ class Foyer_Admin {
 	 */
 	public function get_slides_list_html( $post ) {
 
-		$i = 0;
-		$channel_slide_ids = get_post_meta( $post->ID, Foyer_Slide::post_type_name, true ); //@todo: move to class
+		$channel = new Foyer_Channel( $post );
+		$slides = $channel->get_slides();
 
 		ob_start();
 
-		foreach( $channel_slide_ids as $slide_id ) {
+		$i = 0;
+		foreach( $slides as $slide ) {
 			?>
 				<tr data-slide-key="<?php echo $i; ?>">
 					<th>
@@ -153,8 +154,8 @@ class Foyer_Admin {
 					</th>
 					<td>
 						<input type="hidden" id="foyer_slides_editor_slide_<?php echo $i; ?>"
-							name="foyer_slides_editor_slides[]" value="<?php echo $slide_id; ?>">
-						<?php echo get_the_title( $slide_id ); ?>
+							name="foyer_slides_editor_slides[]" value="<?php echo $slide->ID; ?>">
+						<?php echo get_the_title( $slide->ID ); ?>
 						(<a href="#" class="foyer_slides_editor_form_action_remove"><?php echo __( 'Remove', 'foyer' ); ?></a>)
 					</td>
 				</tr>
