@@ -118,6 +118,8 @@ class Foyer {
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-foyer-admin.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-foyer-admin-channel.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-foyer-admin-display.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
@@ -126,15 +128,18 @@ class Foyer {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-foyer-public.php';
 
 		/**
-		 * The classes that hold the slide and channel models
+		 * The classes that hold the slide, channel and display models
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-slide.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-channel.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-display.php';
 
 		$this->loader = new Foyer_Loader();
 
 		$this->setup = new Foyer_Setup( $this->get_plugin_name(), $this->get_version() );
 		$this->admin = new Foyer_Admin( $this->get_plugin_name(), $this->get_version() );
+		$this->admin_channel = new Foyer_Admin_Channel( $this->get_plugin_name(), $this->get_version() );
+		$this->admin_display = new Foyer_Admin_Display( $this->get_plugin_name(), $this->get_version() );
 		$this->public = new Foyer_Public( $this->get_plugin_name(), $this->get_version() );
 
 	}
@@ -167,11 +172,15 @@ class Foyer {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $this->admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $this->admin, 'enqueue_scripts' );
-
 		$this->loader->add_action( 'admin_menu', $this->admin, 'admin_menu' );
-		$this->loader->add_action( 'add_meta_boxes', $this->admin, 'add_slides_editor_meta_box' );
-		$this->loader->add_action( 'save_post', $this->admin, 'save_channel' );
-		$this->loader->add_action( 'wp_ajax_foyer_slides_editor_remove_slide', $this->admin, 'remove_slide_over_ajax' );
+
+		$this->loader->add_action( 'admin_enqueue_scripts', $this->admin_channel, 'enqueue_scripts' );
+		$this->loader->add_action( 'add_meta_boxes', $this->admin_channel, 'add_slides_editor_meta_box' );
+		$this->loader->add_action( 'save_post', $this->admin_channel, 'save_channel' );
+		$this->loader->add_action( 'wp_ajax_foyer_slides_editor_remove_slide', $this->admin_channel, 'remove_slide_over_ajax' );
+
+		$this->loader->add_action( 'add_meta_boxes', $this->admin_display, 'add_channel_editor_meta_box' );
+		$this->loader->add_action( 'save_post', $this->admin_display, 'save_display' );
 	}
 
 	/**

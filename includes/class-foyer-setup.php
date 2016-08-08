@@ -60,6 +60,26 @@ class Foyer_Setup {
 	 */
 	public function register_post_types() {
 
+		register_post_type( Foyer_Display::post_type_name,
+			array(
+				'labels' => array(
+					'name' => __( 'Displays', 'foyer' ),
+					'singular_name' => __( 'Display', 'foyer'),
+					'add_new' =>  _x( 'Add New', 'display', 'foyer'),
+					'new_item' => __( 'New display', 'foyer' ),
+					'add_new_item' => __( 'Add new display', 'foyer' ),
+					'edit_item' => __( 'Edit display', 'foyer' ),
+				),
+				'public' => true,
+				'has_archive' => false,
+				'show_in_menu' => 'foyer',
+				'show_in_admin_bar' => true,
+	  			'supports' => array( 'title' ),
+	  			'taxonomies' => array(),
+	  			'rewrite' => false,
+			)
+		);
+
 		register_post_type( Foyer_Channel::post_type_name,
 			array(
 				'labels' => array(
