@@ -50,13 +50,13 @@ class Foyer_Test_Slides_Editor extends WP_UnitTestCase {
 
 		$meta_boxes = $this->get_meta_boxes_for_channel( $this->channel1 );
 
-		$this->assertContains( '<table class="foyer_meta_box_form foyer_slides_editor_form"', $meta_boxes );
+		$this->assertContains( '<div class="foyer_meta_box foyer_slides_editor"', $meta_boxes );
 	}
 
 	function test_add_slide_html_is_displayed_on_channel_admin_page() {
 
-		$foyer_admin = new Foyer_Admin( 1, 1 ); //@todo
-		$add_slide_html = $foyer_admin->get_add_slide_html();
+		$foyer_admin_channel = new Foyer_Admin_Channel( 1, 1 ); //@todo
+		$add_slide_html = $foyer_admin_channel->get_add_slide_html();
 
 		$meta_boxes = $this->get_meta_boxes_for_channel( $this->channel1 );
 
@@ -65,8 +65,8 @@ class Foyer_Test_Slides_Editor extends WP_UnitTestCase {
 
 	function test_slides_list_html_is_displayed_on_channel_admin_page() {
 
-		$foyer_admin = new Foyer_Admin( 1, 1 ); //@todo
-		$slides_list_html = $foyer_admin->get_slides_list_html( get_post( $this->channel1 ) );
+		$foyer_admin_channel = new Foyer_Admin_Channel( 1, 1 ); //@todo
+		$slides_list_html = $foyer_admin_channel->get_slides_list_html( get_post( $this->channel1 ) );
 
 		$meta_boxes = $this->get_meta_boxes_for_channel( $this->channel1 );
 
