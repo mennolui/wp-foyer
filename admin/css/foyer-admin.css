@@ -2,3 +2,20 @@
  * All of the CSS for your admin-specific functionality should be
  * included in this file.
  */
+ 
+
+div[id^=foyer_slide_format_] {
+	display: none;
+}
+.slide_image_field .slide_image_upload_button {
+	display: none;
+}
+
+.slide_image_field.empty .image-preview-wrapper,
+.slide_image_field.empty .slide_image_delete_button {
+	display: none;
+}
+
+.slide_image_field.empty .slide_image_upload_button {
+	display: inline;
+}
