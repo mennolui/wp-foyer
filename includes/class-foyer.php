@@ -120,6 +120,7 @@ class Foyer {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-foyer-admin.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-foyer-admin-channel.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-foyer-admin-display.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-foyer-admin-slide.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
@@ -134,13 +135,20 @@ class Foyer {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-channel.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-display.php';
 
+		/**
+		 * Theater for WordPress support.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-theater.php';
+
 		$this->loader = new Foyer_Loader();
 
 		$this->setup = new Foyer_Setup( $this->get_plugin_name(), $this->get_version() );
 		$this->admin = new Foyer_Admin( $this->get_plugin_name(), $this->get_version() );
 		$this->admin_channel = new Foyer_Admin_Channel( $this->get_plugin_name(), $this->get_version() );
 		$this->admin_display = new Foyer_Admin_Display( $this->get_plugin_name(), $this->get_version() );
+		$this->admin_slide = new Foyer_Admin_Slide( $this->get_plugin_name(), $this->get_version() );
 		$this->public = new Foyer_Public( $this->get_plugin_name(), $this->get_version() );
+		$this->theater = new Foyer_Theater( $this->get_plugin_name(), $this->get_version() );
 
 	}
 
@@ -181,6 +189,12 @@ class Foyer {
 
 		$this->loader->add_action( 'add_meta_boxes', $this->admin_display, 'add_channel_editor_meta_box' );
 		$this->loader->add_action( 'save_post', $this->admin_display, 'save_display' );
+
+		$this->loader->add_action( 'admin_enqueue_scripts', $this->admin_slide, 'enqueue_scripts' );
+		$this->loader->add_action( 'add_meta_boxes', $this->admin_slide, 'add_slide_editor_meta_boxes' );
+		$this->loader->add_action( 'save_post', $this->admin_slide, 'save_slide' );
+		
+		$this->loader->add_action( 'foyer/slide/formats', $this->theater, 'add_production_slide_format');
 	}
 
 	/**

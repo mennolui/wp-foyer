@@ -114,7 +114,7 @@ class Foyer_Setup {
 				'has_archive' => false,
 				'show_in_menu' => 'foyer',
 				'show_in_admin_bar' => true,
-	  			'supports' => array( 'title', 'editor', 'thumbnail' ),
+	  			'supports' => array( 'title' ),
 	  			'taxonomies' => array(),
 	  			'rewrite' => false,
 			)
