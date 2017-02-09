@@ -48,4 +48,18 @@ class Foyer_Slide {
 		$this->ID = $ID;
 	}
 
+	public function format() {
+
+		$slide_format = get_post_meta( $this->ID, 'slide_format', true );
+		
+		$slide_format_keys = array_keys( Foyer_Slides::get_slide_formats() );
+		
+		if (empty ($slide_format) || !in_array( $slide_format, $slide_format_keys ) ) {
+			$slide_format = $slide_format_keys[0];
+		}
+		
+		return $slide_format;
+		
+	}
+
 }

@@ -75,8 +75,6 @@ class Foyer_Admin_Slide {
 	 * @since	1.0.0
 	 */
 	public function add_slide_editor_meta_boxes() {
-		global $foyer;
-		
 		add_meta_box(
 			'foyer_slide_format',
 			__( 'Slide format' , 'foyer' ),
@@ -142,22 +140,18 @@ class Foyer_Admin_Slide {
 	public function slide_format_meta_box( $post ) {
 
 		wp_nonce_field( Foyer_Slide::post_type_name, Foyer_Slide::post_type_name.'_nonce' );
-
-		ob_start();
+		
+		$slide = new Foyer_Slide( $post->ID );
 
 		?><input type="hidden" id="foyer_slide_editor_<?php echo Foyer_Slide::post_type_name; ?>"
 			name="foyer_slide_editor_<?php echo Foyer_Slide::post_type_name; ?>" value="<?php echo $post->ID; ?>"><?php
 		
 		foreach( Foyer_Slides::get_slide_formats() as $slide_format_key => $slide_format_data ) {
 			?><label>
-				<input type="radio" value="<?php echo $slide_format_key; ?>" name="slide_format" <?php checked( Foyer_Slides::get_slide_format_for_slide( get_the_id() ), $slide_format_key, true ); ?> />
+				<input type="radio" value="<?php echo $slide_format_key; ?>" name="slide_format" <?php checked( $slide->format(), $slide_format_key, true ); ?> />
 				<span><?php echo $slide_format_data['title']; ?></span>
 			</label><?php			
 		}
-
-		$html = ob_get_clean();
-
-		echo $html;
 	}
 
 

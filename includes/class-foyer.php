@@ -162,7 +162,6 @@ class Foyer {
 		$this->theater = new Foyer_Theater( $this->get_plugin_name(), $this->get_version() );
 
 		$this->public = new Foyer_Public( $this->get_plugin_name(), $this->get_version() );
-		$this->templates = new Foyer_Templates( $this->get_plugin_name(), $this->get_version() );
 
 
 	}
@@ -225,7 +224,7 @@ class Foyer {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $this->public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $this->public, 'enqueue_scripts' );
-		$this->loader->add_action( 'template_include', $this->templates, 'template_include' );
+		$this->loader->add_action( 'template_include', 'Foyer_Templates', 'template_include' );
 
 	}
 
