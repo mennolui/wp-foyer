@@ -135,20 +135,35 @@ class Foyer {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-channel.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-display.php';
 
+
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-slides.php';
+
 		/**
 		 * Theater for WordPress support.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-theater.php';
 
+		/**
+		 * Templating.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-foyer-templates.php';
+
 		$this->loader = new Foyer_Loader();
 
 		$this->setup = new Foyer_Setup( $this->get_plugin_name(), $this->get_version() );
+		
+		$this->slides = new Foyer_Slides( $this->get_plugin_name(), $this->get_version() );
+
 		$this->admin = new Foyer_Admin( $this->get_plugin_name(), $this->get_version() );
 		$this->admin_channel = new Foyer_Admin_Channel( $this->get_plugin_name(), $this->get_version() );
 		$this->admin_display = new Foyer_Admin_Display( $this->get_plugin_name(), $this->get_version() );
 		$this->admin_slide = new Foyer_Admin_Slide( $this->get_plugin_name(), $this->get_version() );
-		$this->public = new Foyer_Public( $this->get_plugin_name(), $this->get_version() );
+
 		$this->theater = new Foyer_Theater( $this->get_plugin_name(), $this->get_version() );
+
+		$this->public = new Foyer_Public( $this->get_plugin_name(), $this->get_version() );
+		$this->templates = new Foyer_Templates( $this->get_plugin_name(), $this->get_version() );
+
 
 	}
 
@@ -196,7 +211,7 @@ class Foyer {
 		$this->loader->add_action( 'add_meta_boxes', $this->admin_slide, 'add_slide_editor_meta_boxes' );
 		$this->loader->add_action( 'save_post', $this->admin_slide, 'save_slide' );
 		
-		$this->loader->add_action( 'foyer/slide/formats', $this->theater, 'add_production_slide_format');
+		$this->loader->add_action( 'foyer/slides/formats', $this->theater, 'add_production_slide_format');
 	}
 
 	/**
@@ -210,6 +225,7 @@ class Foyer {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $this->public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $this->public, 'enqueue_scripts' );
+		$this->loader->add_action( 'template_include', $this->templates, 'template_include' );
 
 	}
 

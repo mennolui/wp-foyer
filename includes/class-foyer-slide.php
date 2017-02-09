@@ -48,7 +48,4 @@ class Foyer_Slide {
 		$this->ID = $ID;
 	}
 
-
-
-
 }

@@ -75,6 +75,7 @@ class Foyer_Admin_Slide {
 	 * @since	1.0.0
 	 */
 	public function add_slide_editor_meta_boxes() {
+		global $foyer;
 		
 		add_meta_box(
 			'foyer_slide_format',
@@ -85,60 +86,25 @@ class Foyer_Admin_Slide {
 			'low'
 		);
 		
-		foreach( $this->get_slide_formats() as $slide_format_key => $slide_format_data ) {
-			if ( !empty( $slide_format_data['meta_box'] ) ) {
-				add_meta_box(
-					'foyer_slide_format_'.$slide_format_key,
-					sprintf( __( 'Slide format: %s ', 'foyer'), $slide_format_data['title'] ),
-					$slide_format_data['meta_box'],
-					Foyer_Slide::post_type_name,
-					'normal',
-					'low'
-				);
+		foreach( Foyer_Slides::get_slide_formats() as $slide_format_key => $slide_format_data ) {
+			
+			if ( empty( $slide_format_data['meta_box'] ) ) {
+				$meta_box_callback = array( $this, 'slide_default_meta_box');
+			} else {
+				$meta_box_callback = $slide_format_data['meta_box'];
 			}
+			add_meta_box(
+				'foyer_slide_format_'.$slide_format_key,
+				sprintf( __( 'Slide format: %s ', 'foyer'), $slide_format_data['title'] ),
+				$meta_box_callback,
+				Foyer_Slide::post_type_name,
+				'normal',
+				'low'
+			);
 		}
 		
 	}
 
-	private function get_slide_format_by_slug( $slug ) {
-		
-		foreach( $this->get_slide_formats() as $slide_format_key => $slide_format_data ) {
-			if ($slug == $slide_format_key) {
-				return $slide_format_data;
-			}
-		}
-		
-		return false;
-	}
-
-	private function get_slide_format_for_slide( $post_id ) {
-
-		$slide_format = get_post_meta( $post_id, 'slide_format', true );
-		
-		$slide_format_keys = array_keys( $this->get_slide_formats() );
-		
-		if (empty ($slide_format) || !in_array( $slide_format, $slide_format_keys ) ) {
-			$slide_format = $slide_format_keys[0];
-		}
-		
-		return $slide_format;
-	}
-
-	private function get_slide_formats() {
-		$slide_formats = array(
-			'default' => array(
-				'title' => __( 'Default', 'foyer'),
-				'meta_box' => array( $this, 'slide_default_meta_box'),
-				'save_post' => array( $this, 'save_slide_default' ),
-			),
-		);
-		
-		
-		$slide_formats = apply_filters( 'foyer/slide/formats', $slide_formats);
-		
-		return $slide_formats;
-	}
-	
 	public function slide_default_meta_box( $post ) {
 
 		wp_enqueue_media();
@@ -182,9 +148,9 @@ class Foyer_Admin_Slide {
 		?><input type="hidden" id="foyer_slide_editor_<?php echo Foyer_Slide::post_type_name; ?>"
 			name="foyer_slide_editor_<?php echo Foyer_Slide::post_type_name; ?>" value="<?php echo $post->ID; ?>"><?php
 		
-		foreach( $this->get_slide_formats() as $slide_format_key => $slide_format_data ) {
+		foreach( Foyer_Slides::get_slide_formats() as $slide_format_key => $slide_format_data ) {
 			?><label>
-				<input type="radio" value="<?php echo $slide_format_key; ?>" name="slide_format" <?php checked( $this->get_slide_format_for_slide( get_the_id() ), $slide_format_key, true ); ?> />
+				<input type="radio" value="<?php echo $slide_format_key; ?>" name="slide_format" <?php checked( Foyer_Slides::get_slide_format_for_slide( get_the_id() ), $slide_format_key, true ); ?> />
 				<span><?php echo $slide_format_data['title']; ?></span>
 			</label><?php			
 		}
@@ -234,13 +200,15 @@ class Foyer_Admin_Slide {
 		}
 
 		$slide_format_slug = sanitize_title( $_POST['slide_format'] );
-		$slide_format = $this->get_slide_format_by_slug( $slide_format_slug );
+		$slide_format = Foyer_Slides::get_slide_format_by_slug( $slide_format_slug );
 
 		if (!empty( $slide_format ) ) {
 			update_post_meta( $post_id, 'slide_format', $slide_format_slug);
 		}
 		
-		if (!empty( $slide_format['save_post'] ) ) {
+		if (empty( $slide_format['save_post'] ) ) {
+			$this->save_slide_default( $post_id );
+		} else {
 			call_user_func_array( $slide_format['save_post'], array( $post_id ) );
 		}
 
