@@ -77,6 +77,42 @@ class Foyer_Admin_Channel {
 
 
 	/**
+	 * Adds a slide over AJAX and outputs the updated slides list HTML.
+	 *
+	 * @since	1.0.0
+	 * @access public
+	 * @return void
+	 */
+	public function add_slide_over_ajax() {
+
+		check_ajax_referer( 'foyer_slides_editor_ajax_nonce', 'nonce' , true );
+
+		$channel_id = $_POST['channel_id'];
+		$add_slide_id = $_POST['slide_id'];
+
+		/* Check if this post exists */
+		if ( is_null( get_post( $channel_id  ) ) ) {
+			wp_die();
+		}
+
+		$channel = new Foyer_Channel( $channel_id );
+		$slides = $channel->get_slides();
+
+		$new_slides = array();
+		foreach( $slides as $slide ) {
+			$new_slides[] = $slide->ID;
+		}
+
+		$new_slides[] = $add_slide_id;
+
+		update_post_meta( $channel_id, Foyer_Slide::post_type_name, $new_slides );
+
+		echo $this->get_slides_list_html( get_post( $channel_id ) );
+		wp_die();
+	}
+
+
+	/**
 	 * Adds the slides editor meta box to the channel admin page.
 	 *
 	 * @since	1.0.0
@@ -108,25 +144,32 @@ class Foyer_Admin_Channel {
 
 		ob_start();
 
-		$i = 0;
-		foreach( $slides as $slide ) {
-			?>
-				<tr data-slide-key="<?php echo $i; ?>">
-					<th>
-						<label for="foyer_slides_editor_slide_<?php echo $i; ?>">
-							<?php echo __( 'Slide', 'foyer' ) . ' ' . ($i + 1); ?>
-						</label>
-					</th>
-					<td>
-						<input type="hidden" id="foyer_slides_editor_slide_<?php echo $i; ?>"
-							name="foyer_slides_editor_slides[]" value="<?php echo $slide->ID; ?>">
-						<?php echo get_the_title( $slide->ID ); ?>
-						(<a href="#" class="foyer_slides_editor_form_action_remove"><?php echo __( 'Remove', 'foyer' ); ?></a>)
-					</td>
-				</tr>
-			<?php
-			$i++;
-		}
+		?>
+			<div class="foyer_slides_editor_slides">
+				<?php
+
+					$i = 0;
+					foreach( $slides as $slide ) {
+
+						?>
+							<div class="foyer_slides_editor_slides_slide"
+								data-slide-id="<?php echo $slide->ID; ?>"
+								data-slide-key="<?php echo $i; ?>"
+							>
+								<iframe src="<?php echo get_permalink( $slide->ID ) ?>" width="108" height="192"></iframe>
+								<div class="foyer_slides_editor_slides_slide_caption">
+									<?php echo __( 'Slide', 'foyer' ) . ' ' . ($i + 1); ?>
+									(<a href="#" class="foyer_slides_editor_slides_slide_remove"><?php echo __( 'x', 'foyer' ); ?></a>)
+
+								</div>
+							</div>
+						<?php
+
+						$i++;
+					}
+				?>
+			</div>
+		<?php
 
 		$html = ob_get_clean();
 
@@ -145,26 +188,23 @@ class Foyer_Admin_Channel {
 		ob_start();
 
 		?>
-			<tr>
-				<th>
-					<label for="foyer_slides_editor_slide_add">
-						<?php echo __( 'Add slide', 'foyer' ); ?>
-					</label>
-				</th>
-				<td>
-					<select id="foyer_slides_editor_slide_add" name="foyer_slides_editor_slides[]">
-						<option value="">(<?php echo __( 'Select a slide', 'foyer' ); ?>)</option>
-						<?php
-							$slides = get_posts( array( 'post_type' => Foyer_Slide::post_type_name ) ); //@todo: move to class
-							foreach ( $slides as $slide ) {
-							?>
-								<option value="<?php echo $slide->ID; ?>"><?php echo $slide->post_title; ?></option>
-							<?php
-							}
+			<div class="foyer_slides_editor_add">
+				<label for="foyer_slides_editor_add_select">
+					<?php echo __( 'Add slide', 'foyer' ); ?>
+				</label>
+
+				<select class="foyer_slides_editor_add_select">
+					<option value="">(<?php echo __( 'Select a slide', 'foyer' ); ?>)</option>
+					<?php
+						$slides = get_posts( array( 'post_type' => Foyer_Slide::post_type_name ) ); //@todo: move to class
+						foreach ( $slides as $slide ) {
 						?>
-					</select>
-				</td>
-			</tr>
+							<option value="<?php echo $slide->ID; ?>"><?php echo $slide->post_title; ?></option>
+						<?php
+						}
+					?>
+				</select>
+			</div>
 		<?php
 
 		$html = ob_get_clean();
@@ -185,20 +225,14 @@ class Foyer_Admin_Channel {
 		ob_start();
 
 		?>
-			<input type="hidden" id="foyer_slides_editor_<?php echo Foyer_Channel::post_type_name; ?>"
-				name="foyer_slides_editor_<?php echo Foyer_Channel::post_type_name; ?>" value="<?php echo $post->ID; ?>">
+			<div class="foyer_meta_box foyer_slides_editor" data-channel-id="<?php echo $post->ID; ?>">
 
-			<table class="foyer_meta_box_form foyer_slides_editor_form" data-channel-id="<?php echo $post->ID; ?>">
-				<tbody>
-					<?php
+				<?php
+					echo $this->get_slides_list_html( $post );
+					echo $this->get_add_slide_html();
+				?>
 
-						echo $this->get_slides_list_html( $post );
-						echo $this->get_add_slide_html();
-
-					?>
-				</tbody>
-			</table>
-
+			</div>
 		<?php
 
 		$html = ob_get_clean();
@@ -211,6 +245,7 @@ class Foyer_Admin_Channel {
 	 * Saves all custom fields for a channel.
 	 *
 	 * Triggered when a channel is submitted from the channel admin form.
+	 * Currently nothing is saved!
 	 *
 	 * @since 	1.0.0
 	 * @param 	int		$post_id	The channel id.
@@ -245,28 +280,15 @@ class Foyer_Admin_Channel {
 			return $post_id;
 		}
 
-		$slides = $_POST['foyer_slides_editor_slides'];
-
-		/* Input validation */
-		/* See: https://codex.wordpress.org/Data_Validation#Input_Validation */
-		$slides = array_map( 'absint', $slides );
-		$channel_id = intval( $_POST['foyer_slides_editor_' . Foyer_Channel::post_type_name] );
-
-		/* Remove any empty positions */
-		foreach ( $slides as $key => $slide ) {
-			if ( empty ( $slide ) ) {
-				unset ( $slides[$key] );
-			}
-		}
-
-		if ( ! empty( $slides ) ) {
-			update_post_meta( $channel_id, Foyer_Slide::post_type_name, $slides );
-		}
-		else {
-			delete_post_meta( $channel_id, Foyer_Slide::post_type_name );
-		}
 	}
 
+	/**
+	 * Removes a slide over AJAX and outputs the updated slides list HTML.
+	 *
+	 * @since	1.0.0
+	 * @access public
+	 * @return void
+	 */
 	public function remove_slide_over_ajax() {
 
 		check_ajax_referer( 'foyer_slides_editor_ajax_nonce', 'nonce' , true );
@@ -299,9 +321,38 @@ class Foyer_Admin_Channel {
 		unset( $new_slides[$remove_slide_key] );
 		update_post_meta( $channel_id, Foyer_Slide::post_type_name, $new_slides );
 
-		echo $remove_slide_key;
+		echo $this->get_slides_list_html( get_post( $channel_id ) );
 		wp_die();
 	}
 
+	/**
+	 * Reorders slides over AJAX and outputs the updated slides list HTML.
+	 *
+	 * @since	1.0.0
+	 * @access public
+	 * @return void
+	 */
+	public function reorder_slides_over_ajax() {
+
+		check_ajax_referer( 'foyer_slides_editor_ajax_nonce', 'nonce' , true );
+
+		$channel_id = $_POST['channel_id'];
+		$slide_ids = $_POST['slide_ids'];
+
+		/* Check if this post exists */
+		if ( is_null( get_post( $channel_id  ) ) ) {
+			wp_die();
+		}
+
+		$new_slides = array();
+		foreach( $slide_ids as $slide_id ) {
+			$new_slides[] = $slide_id;
+		}
+
+		update_post_meta( $channel_id, Foyer_Slide::post_type_name, $new_slides );
+
+		echo $this->get_slides_list_html( get_post( $channel_id ) );
+		wp_die();
+	}
 
 }
