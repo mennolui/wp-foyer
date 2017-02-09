@@ -85,14 +85,16 @@ class Foyer_Admin_Slide {
 		);
 		
 		foreach( $this->get_slide_formats() as $slide_format_key => $slide_format_data ) {
-			add_meta_box(
-				'foyer_slide_format_'.$slide_format_key,
-				sprintf( __( 'Slide format: %s ', 'foyer'), $slide_format_data['title'] ),
-				$slide_format_data['meta_box'],
-				Foyer_Slide::post_type_name,
-				'normal',
-				'low'
-			);		
+			if ( !empty( $slide_format_data['meta_box'] ) ) {
+				add_meta_box(
+					'foyer_slide_format_'.$slide_format_key,
+					sprintf( __( 'Slide format: %s ', 'foyer'), $slide_format_data['title'] ),
+					$slide_format_data['meta_box'],
+					Foyer_Slide::post_type_name,
+					'normal',
+					'low'
+				);
+			}
 		}
 		
 	}
