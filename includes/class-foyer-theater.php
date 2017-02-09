@@ -50,6 +50,8 @@ class Foyer_Theater {
 		
 		global $wp_theatre;
 		
+		$slide_production_image = get_post_meta( $post->ID, 'slide_production_image', true );
+
 		?><table class="form-table">
 			<tbody>
 				<tr>
@@ -66,11 +68,27 @@ class Foyer_Theater {
 						?></select>
 					</td>
 				</tr>
+				<tr>
+					<th scope="row">
+						<label for="slide_default_subtitle"><?php _e('Background image', 'foyer'); ?></label>
+					</th>
+					<td>
+						<div class="slide_image_field<?php if ( empty( $slide_production_image ) ) { ?> empty<?php } ?>">
+							<div class="image-preview-wrapper">
+								<img class="slide_image_preview" src="<?php echo wp_get_attachment_url( $slide_production_image ); ?>" height="100">
+							</div>
+							
+							<input type="button" class="button slide_image_upload_button" value="<?php _e( 'Upload image', 'foyer' ); ?>" />
+							<input type="button" class="button slide_image_delete_button" value="<?php _e( 'Remove image', 'foyer' ); ?>" />
+							<input type="hidden" name="slide_production_image" class="slide_image_value" value='<?php echo $slide_production_image; ?>'>
+						</div>	
+					</td>
+				</tr>
 			</tbody>
 		</table><?php
 	}
 	
 	function save_slide_production( $post_id ) {
-		update_post_meta( $post_id, 'slide_production_production_id', sanitize_text_field( $_POST['slide_production_production_id'] ) );	
+		update_post_meta( $post_id, 'slide_production_production_id', sanitize_text_field( $_POST['slide_production_production_id'] ) );		update_post_meta( $post_id, 'slide_production_image', intval( $_POST['slide_production_image'] ) );	
 	}
 }

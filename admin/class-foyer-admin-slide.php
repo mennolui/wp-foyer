@@ -66,6 +66,7 @@ class Foyer_Admin_Slide {
 			'text_use_photo' => __( 'Use this image', 'foyer' ),
 		);
 		wp_localize_script( $this->plugin_name, 'foyer_slide_format_default', $consulent_array );
+		
 	}
 	
 	/**
@@ -142,27 +143,24 @@ class Foyer_Admin_Slide {
 
 		wp_enqueue_media();
 
+		$slide_default_image = get_post_meta( $post->ID, 'slide_default_image', true );
+
 		?><table class="form-table">
 			<tbody>
-				<tr>
-					<th scope="row">
-						<label for="slide_default_subtitle"><?php _e('Subtitle', 'foyer'); ?></label>
-					</th>
-					<td>
-						<input type="text" class="regular-text" id="slide_default_subtitle" name="slide_default_subtitle" value="<?php echo esc_attr( get_post_meta( $post->ID, 'slide_default_subtitle', true ) );?>">
-					</td>
-				</tr>
 				<tr>
 					<th scope="row">
 						<label for="slide_default_subtitle"><?php _e('Background image', 'foyer'); ?></label>
 					</th>
 					<td>
-						<div class="image-preview-wrapper">
-							<img id="image-preview" src="<?php echo wp_get_attachment_url( get_post_meta( $post->ID, 'slide_default_image', true ) ); ?>" height="100">
-						</div>
-						<input id="upload_image_button" type="button" class="button" value="<?php _e( 'Upload image', 'foyer' ); ?>" />
-						<input type="hidden" name="slide_default_image" id="image_attachment_id" value='<?php echo get_post_meta( $post->ID, 'slide_default_image', true ); ?>'>
-
+						<div class="slide_image_field<?php if ( empty( $slide_default_image ) ) { ?> empty<?php } ?>">
+							<div class="image-preview-wrapper">
+								<img class="slide_image_preview" src="<?php echo wp_get_attachment_url( get_post_meta( $post->ID, 'slide_default_image', true ) ); ?>" height="100">
+							</div>
+							
+							<input type="button" class="button slide_image_upload_button" value="<?php _e( 'Upload image', 'foyer' ); ?>" />
+							<input type="button" class="button slide_image_delete_button" value="<?php _e( 'Remove image', 'foyer' ); ?>" />
+							<input type="hidden" name="slide_default_image" class="slide_image_value" value='<?php echo get_post_meta( $post->ID, 'slide_default_image', true ); ?>'>
+						</div>	
 					</td>
 				</tr>
 			</tbody>
