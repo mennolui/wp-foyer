@@ -156,7 +156,9 @@ class Foyer_Admin_Channel {
 								data-slide-id="<?php echo $slide->ID; ?>"
 								data-slide-key="<?php echo $i; ?>"
 							>
-								<iframe src="<?php echo get_permalink( $slide->ID ) ?>" width="108" height="192"></iframe>
+								<div class="foyer_slides_editor_slides_slide_iframe_container">
+									<iframe src="<?php echo get_permalink( $slide->ID ) ?>" width="1080" height="1920"></iframe>
+								</div>
 								<div class="foyer_slides_editor_slides_slide_caption">
 									<?php echo __( 'Slide', 'foyer' ) . ' ' . ($i + 1); ?>
 									(<a href="#" class="foyer_slides_editor_slides_slide_remove"><?php echo __( 'x', 'foyer' ); ?></a>)

@@ -1,0 +1,30 @@
+.foyer_slides_editor_slides {
+
+	margin-bottom: 2em;
+
+	.foyer_slides_editor_slides_slide {
+		display: inline-block;
+		margin: 1em;
+		margin-left: 0;
+		cursor: move;
+
+		.foyer_slides_editor_slides_slide_iframe_container {
+			border: 1px solid #eee;
+			width: 108px;
+			height: 192px;
+
+			iframe {
+				width: 1080px;
+				height: 1920px;
+				transform: scale(0.1, 0.1);
+				transform-origin: top left;
+				pointer-events: none;
+			}
+		}
+		.foyer_slides_editor_slides_slide_caption {
+			margin-top: 0.5em;
+			text-align: center;
+		}
+	}
+}
+
