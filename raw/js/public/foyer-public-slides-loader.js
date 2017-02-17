@@ -1,9 +1,15 @@
 jQuery(window).load(function() {
 
-	$holder = $('#holder-a');
+	var $slides = jQuery('.foyer-slides');
+	$slides.after('<div class="foyer-slides-container foyer-slides-container-2"></div>');
+	$slides.wrap('<div class="foyer-slides-container foyer-slides-container-1"></div>');
 
-	if ($holder.length > 0) {
-		foyer_display_load_data();
+	$container = jQuery('.foyer-slides-container-1');
+
+	if ($container.length > 0) {
+		$foyer_fader_slideshows = $container.find('.foyer-slides');
+		foyer_fader_setup_slideshows();
+//		foyer_display_load_data();
 	}
 
 });
@@ -11,7 +17,7 @@ jQuery(window).load(function() {
 function foyer_display_load_data() {
 
 	// Hide cursor
-	$(this).css('cursor','url("../img/nocursor.gif"), none;');
+	jQuery(this).css('cursor','url("../img/nocursor.gif"), none;');
 
 	// Smart to refresh the entire display at least a couple of times a day
 	majorrefresh = setTimeout(foyer_display_reload_window, 28800000); // (28800000 is 8 hours in milliseconds format)
@@ -21,7 +27,7 @@ function foyer_display_load_data() {
 		'channel_id': 1,
 	};
 
-	$.post(ajaxurl, data, function(response) {
+	jQuery.post(ajaxurl, data, function(response) {
 		if (response != '') {
 			$holder.html(response);
 

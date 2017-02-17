@@ -1,4 +1,6 @@
-/**
- * All of the CSS for your public-facing functionality should be
- * included in this file.
- */
+.foyer-slides .foyer-slide {
+  display: none;
+}
+.foyer-slides .foyer-slide.active {
+  display: block;
+}

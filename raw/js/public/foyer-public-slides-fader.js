@@ -1,13 +1,13 @@
-var foyer_fader_slideshows;
-var foyer_foyer_fader_intervalObject;
+var $foyer_fader_slideshows;
+var foyer_fader_intervalObject;
 
 function foyer_fader_setup_slideshows() {
 
-	foyer_fader_slideshows.each(function() {
+	$foyer_fader_slideshows.each(function() {
 		jQuery(this).children().first().addClass('active');
 	});
 
-	foyer_fader_slideshows
+	$foyer_fader_slideshows
 		.bind('next',function() {
 			var next = jQuery(this).children('.active').next();
 			if (!next.length) {
@@ -36,7 +36,7 @@ function foyer_fader_setup_slideshows() {
 			fader.trigger('stop');
 
 			foyer_fader_intervalObject = window.setInterval(function() {
-					foyer_fader_slideshows.trigger('next');
+					$foyer_fader_slideshows.trigger('next');
 				}, 6000);
 		})
 		.bind('stop',function() {
@@ -48,11 +48,11 @@ function foyer_fader_setup_slideshows() {
 	fader.trigger('start');
 
 	fader.find('.fader-prevnext.prev').click(function() {
-		foyer_fader_slideshows.trigger('prev');
+		$foyer_fader_slideshows.trigger('prev');
 		return false;
 	});
 	fader.find('.fader-prevnext.next').click(function() {
-		foyer_fader_slideshows.trigger('next');
+		$foyer_fader_slideshows.trigger('next');
 		return false;
 	});
 
