@@ -210,7 +210,7 @@ class Foyer {
 		$this->loader->add_action( 'add_meta_boxes', $this->admin_slide, 'add_slide_editor_meta_boxes' );
 		$this->loader->add_action( 'save_post', $this->admin_slide, 'save_slide' );
 		
-		$this->loader->add_action( 'foyer/slides/formats', $this->theater, 'add_production_slide_format');
+		$this->loader->add_filter( 'foyer/slides/formats', $this->theater, 'add_production_slide_format');
 	}
 
 	/**

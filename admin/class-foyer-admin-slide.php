@@ -57,7 +57,7 @@ class Foyer_Admin_Slide {
 	/**
 	 * Adds consulent variables for use in admin.js.
 	 *
-	 * @since	1.0
+	 * @since	1.0.0
 	 */
 	function enqueue_scripts() {
 		$consulent_array = array(
@@ -103,6 +103,13 @@ class Foyer_Admin_Slide {
 		
 	}
 
+	/**
+	 * Outputs the meta box for the default slide format.
+	 * 
+	 * @since	1.0.0
+	 * @param 	WP_Post	$post	The post of the slide that is being edited.
+	 * @return 	void
+	 */
 	public function slide_default_meta_box( $post ) {
 
 		wp_enqueue_media();
@@ -208,6 +215,13 @@ class Foyer_Admin_Slide {
 
 	}
 	
+	/**
+	 * Saves the additional data of the default slide format.
+	 * 
+	 * @since	1.0.0
+	 * @param 	int		$post_id	The Post ID of the slide being saved.
+	 * @return 	void
+	 */
 	function save_slide_default( $post_id ) {
 		update_post_meta( $post_id, 'slide_default_subtitle', sanitize_text_field( $_POST['slide_default_subtitle'] ) );	
 		update_post_meta( $post_id, 'slide_default_image', sanitize_text_field( $_POST['slide_default_image'] ) );	

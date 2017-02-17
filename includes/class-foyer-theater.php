@@ -26,6 +26,13 @@
  */
 class Foyer_Theater {
 
+	/**
+	 * Adds the Production slide format.
+	 * 
+	 * @since	1.0.0
+	 * @param 	array	$slide_formats
+	 * @return	array
+	 */
 	function add_production_slide_format( $slide_formats ) {
 		
 		if ( $this->is_theater_activated() ) {
@@ -42,10 +49,23 @@ class Foyer_Theater {
 		
 	}
 
+	/**
+	 * Checks if the Theater for Wordpress plugin is activated.
+	 * 
+	 * @since	1.0.0
+	 * @return	bool
+	 */
 	private function is_theater_activated() {
 		return class_exists( 'WP_Theatre' );
 	}
 
+	/**
+	 * Outputs the meta box for the Production slide format.
+	 * 
+	 * @since	1.0.0
+	 * @param	WP_Post	$post	The post of the current slide.
+	 * @return	void
+	 */
 	function slide_production_meta_box( $post ) {
 		
 		global $wp_theatre;
@@ -88,6 +108,13 @@ class Foyer_Theater {
 		</table><?php
 	}
 	
+	/**
+	 * Saves additional data for the Production slide format.
+	 * 
+	 * @since	1.0.0
+	 * @param	int	$post_id
+	 * @return	void
+	 */
 	function save_slide_production( $post_id ) {
 		update_post_meta( $post_id, 'slide_production_production_id', sanitize_text_field( $_POST['slide_production_production_id'] ) );		update_post_meta( $post_id, 'slide_production_image', intval( $_POST['slide_production_image'] ) );	
 	}

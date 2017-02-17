@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The class that holds all slide functionality.
+ * The class that holds all helper function for slides.
  *
  * @link       http://mennoluitjes.nl
  * @since      1.0.0
@@ -11,7 +11,7 @@
  */
 
 /**
- * The class that holds all slide functionality.
+ * The class that holds all helper function for slides.
  *
  * @package    Foyer
  * @subpackage Foyer/includes
@@ -19,6 +19,13 @@
  */
 class Foyer_Slides {
 
+	/**
+	 * Gets a slide format by its slug.
+	 * 
+	 * @since	1.0.0
+	 * @param	string	$slug
+	 * @return	array			The slide format data.
+	 */
 	static function get_slide_format_by_slug( $slug ) {
 		
 		foreach( self::get_slide_formats() as $slide_format_key => $slide_format_data ) {
@@ -30,19 +37,13 @@ class Foyer_Slides {
 		return false;
 	}
 
-	static function get_slide_format_for_slide( $post_id ) {
-
-		$slide_format = get_post_meta( $post_id, 'slide_format', true );
-		
-		$slide_format_keys = array_keys( self::get_slide_formats() );
-		
-		if (empty ($slide_format) || !in_array( $slide_format, $slide_format_keys ) ) {
-			$slide_format = $slide_format_keys[0];
-		}
-		
-		return $slide_format;
-	}
-
+	
+	/**
+	 * Gets all available slide formats.
+	 * 
+	 * @since	1.0.0
+	 * @return	array
+	 */
 	static function get_slide_formats() {
 
 		$slide_formats = array(
@@ -51,6 +52,14 @@ class Foyer_Slides {
 			),
 		);
 				
+		/**
+		 * Filter available slide formats.
+		 *
+		 * @see Foyer_Theater::add_production_slide_format() for an example.
+		 *
+		 * @since	1.0.0
+		 * @param	array	$slide_formats	The currently available slide formats.
+		 */
 		$slide_formats = apply_filters( 'foyer/slides/formats', $slide_formats);
 		
 		return $slide_formats;

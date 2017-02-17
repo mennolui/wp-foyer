@@ -48,6 +48,12 @@ class Foyer_Slide {
 		$this->ID = $ID;
 	}
 
+	/**
+	 * Gets the format of the slide.
+	 * 
+	 * @since	1.0.0
+	 * @return	string	The format key.
+	 */
 	public function format() {
 
 		$slide_format = get_post_meta( $this->ID, 'slide_format', true );

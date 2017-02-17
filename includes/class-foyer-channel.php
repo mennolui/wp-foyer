@@ -69,13 +69,15 @@ class Foyer_Channel {
 
 		if ( ! isset( $this->slides ) ) {
 
-			$posts = get_post_meta( $this->ID, Foyer_Slide::post_type_name, true );
-
 			$slides = array();
 
-			foreach ( $posts as $post ) {
-				$slide = new Foyer_Slide( $post );
-				$slides[] = $slide;
+			$posts = get_post_meta( $this->ID, Foyer_Slide::post_type_name, true );
+			
+			if (!empty($posts)) {
+				foreach ( $posts as $post ) {
+					$slide = new Foyer_Slide( $post );
+					$slides[] = $slide;
+				}
 			}
 
 			$this->slides = $slides;

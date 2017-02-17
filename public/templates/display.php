@@ -1,5 +1,9 @@
-<?php
-	
+<?php	
+/**
+ * Display template.
+ * 
+ * @since	1.0
+ */
 $display = new Foyer_Display( get_the_id() );
 $channel = new Foyer_Channel( $display->get_active_channel() );
 
@@ -11,8 +15,6 @@ $channel = new Foyer_Channel( $display->get_active_channel() );
 		$post = get_post( $slide->ID );
 		setup_postdata( $post );
 		
-		$slide_format = Foyer_Slides::get_slide_format_for_slide( $slide->ID );
-	
 		Foyer_Templates::get_template('slides/'.$slide->format().'.php');
 		
 	}
