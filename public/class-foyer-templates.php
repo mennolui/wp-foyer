@@ -55,10 +55,10 @@ class Foyer_Templates {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param 	string 	$template_name			Template to load.
-	 * @param 	string 	$string $template_path	Path to templates.
-	 * @param 	string	$default_path			Default path to template files.
-	 * @return 	string 							Path to the template file.
+	 * @param 	string 	$template_name		Template to load.
+	 * @param 	string 	$template_path		Path to templates.
+	 * @param 	string	$default_path		Default path to template files.
+	 * @return 	string 						Path to the template file.
 	 */
 	static function locate_template( $template_name, $template_path = '', $default_path = '' ) {
 		// Set variable to search in woocommerce-plugin-templates folder of theme.
@@ -98,10 +98,9 @@ class Foyer_Templates {
 		$file = '';
 
 		if ( is_singular( Foyer_Slide::post_type_name ) ) {
-			$slide = new Foyer_Slide( get_the_id() );
-			$file = 'slides/'.$slide->format().'.php';
+			$file = 'single-slide.php';
 		} else if ( is_singular( Foyer_Display::post_type_name ) ) {
-			$file = 'display.php';
+			$file = 'single-display.php';
 		} else {
 			return $template;
 		}
