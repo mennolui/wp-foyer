@@ -51,9 +51,6 @@ class Foyer_Public {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
-		
-		
-
 	}
 
 	/**
@@ -63,20 +60,9 @@ class Foyer_Public {
 	 */
 	public function enqueue_styles() {
 
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Foyer_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Foyer_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/foyer-public.css', array(), $this->version, 'all' );
-
+		if ( is_singular( Foyer_Display::post_type_name ) || is_singular( Foyer_Channel::post_type_name ) ) {
+			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/foyer-public.css', array(), $this->version, 'all' );
+		}
 	}
 
 	/**
@@ -86,20 +72,8 @@ class Foyer_Public {
 	 */
 	public function enqueue_scripts() {
 
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Foyer_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Foyer_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/foyer-public-min.js', array( 'jquery' ), $this->version, false );
-
+		if ( is_singular( Foyer_Display::post_type_name ) || is_singular( Foyer_Channel::post_type_name ) ) {
+			wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/foyer-public-min.js', array( 'jquery' ), $this->version, false );
+		}
 	}
-
 }
