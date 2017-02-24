@@ -3,8 +3,12 @@ var foyer_fader_shutdown_callback;
 var foyer_fader_shutdown_callback_options;
 
 function foyer_fader_setup_slideshow() {
-	jQuery(foyer_slide_selector).first().addClass('active');
+	foyer_fader_activate_first_slide();
 	foyer_fader_set_timeout();
+}
+
+function foyer_fader_activate_first_slide() {
+	jQuery(foyer_slide_selector).first().addClass('active');
 }
 
 function foyer_fader_set_timeout(sec) {

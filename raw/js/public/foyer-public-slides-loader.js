@@ -51,17 +51,35 @@ function foyer_load_display_data() {
 			$new_html = jQuery(jQuery.parseHTML(html));
 
 			if ($new_html.find(foyer_channel_selector).attr('class') !== jQuery(foyer_channel_selector).attr('class')) {
-				// Channel ID has changed or its other properties have changed, reload
+				// Channel ID has changed or its other properties have changed
+				// Replace channel HTML and restart slideshow when current slideshow has shutdown
 				foyer_fader_shutdown_slideshow(foyer_replace_channel, $new_html.find(foyer_channel_selector));
 			}
 			else {
-				// Channel unchanged, add slides from loaded html
-				$next_slide_group.html($new_html.find(foyer_slides_selector).children());
-				$next_slide_group.find(foyer_slide_selector + ':nth-child(2)').attrChange(function(attr_name) {
-					// Fader has advanced into the next group, second slide
-					// Empty the current (now previous) group to allow loading of fresh content
-					$current_slide_group.empty();
-				});
+				// Channel unchanged
+				if (
+					1 === $current_slide_group.children().length &&
+					1 === $new_html.find(foyer_slides_selector).children().length
+				) {
+					// Only one slide currently & one slide new slide
+					// Replace current slide group slides with new slide from loaded HTML
+					$current_slide_group.html($new_html.find(foyer_slides_selector).children());
+					foyer_fader_activate_first_slide();
+				}
+				else {
+					// More than one slide currently, or one slide currently but more new slides
+					// Add new slides from loaded HTML to next slide group
+					$next_slide_group.html($new_html.find(foyer_slides_selector).children());
+
+					$next_slide_group.find(foyer_slide_selector).first().attrChange(function(attr_name) {
+						// Fader has advanced into the next group, first slide has changed to active
+						$next_slide_group.find(foyer_slide_selector).first().attrChange(function(attr_name) {
+							// First slide has changed from active to not active
+							// Empty the current (now previous) group to allow loading of fresh content
+							$current_slide_group.empty();
+						});
+					});
+				}
 
 			}
 		});
