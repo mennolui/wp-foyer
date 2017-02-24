@@ -9,6 +9,7 @@
 }
 .foyer-slides .foyer-slide {
   height: 100%;
+  overflow: hidden;
   background-color: #fff;
 }
 .foyer-transition-fade .foyer-slides {
@@ -30,7 +31,7 @@
 }
 .foyer-transition-fade .foyer-slides .foyer-slide:first-child {
   position: relative;
-  opacity: 1;
+  opacity: 0;
   left: 0;
   z-index: 2;
 }

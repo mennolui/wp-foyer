@@ -1,16 +1,21 @@
+var foyer_display_selector = '.foyer-display';
 var foyer_channel_selector = '.foyer-channel';
 var foyer_slides_selector = '.foyer-slides';
 var foyer_slide_selector = '.foyer-slide';
 
 jQuery(window).load(function() {
 
-	foyer_setup_display();
-	foyer_setup_slide_classes();
+	if (jQuery(foyer_display_selector).length) {
+		// We're viewing a display
+		foyer_setup_display();
+		foyer_setup_slide_group_classes();
+	}
+
 	foyer_fader_setup_slideshow();
 
 });
 
-function foyer_setup_slide_classes() {
+function foyer_setup_slide_group_classes() {
 
 	// Add a group class to all slides
 	jQuery(foyer_slides_selector).children().addClass('foyer-slide-group-1');
@@ -65,7 +70,7 @@ function foyer_load_display_data() {
 					// Only one slide currently & one slide new slide
 					// Replace current slide with new slide from loaded HTML
 					jQuery(foyer_slides_selector).html($new_slides);
-					foyer_fader_activate_first_slide();
+					foyer_fader_set_slide_active_next_classes();
 				}
 				else {
 					// More than one slide currently, or one slide currently but more new slides
@@ -89,9 +94,10 @@ function foyer_load_display_data() {
 
 function foyer_replace_channel($new_channel_html) {
 	jQuery(foyer_channel_selector).replaceWith($new_channel_html);
+	foyer_setup_slide_group_classes();
 
-	foyer_setup_slide_classes();
-	foyer_fader_setup_slideshow();
+	// Use timeout to allow browser to detect class changing from next to active
+	setTimeout(foyer_fader_setup_slideshow, 0.1 * 1000); // (0.1 seconds in milliseconds)
 }
 
 function foyer_display_reload_window() {

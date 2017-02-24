@@ -3,11 +3,11 @@ var foyer_fader_shutdown_callback;
 var foyer_fader_shutdown_callback_options;
 
 function foyer_fader_setup_slideshow() {
-	foyer_fader_activate_first_slide();
+	foyer_fader_set_slide_active_next_classes();
 	foyer_fader_set_timeout();
 }
 
-function foyer_fader_activate_first_slide() {
+function foyer_fader_set_slide_active_next_classes() {
 	jQuery(foyer_slide_selector).first().removeClass('next').addClass('active');
 	jQuery(foyer_slide_selector).first().next().addClass('next');
 }
@@ -42,7 +42,11 @@ function foyer_fader_next_slide() {
 
 	if (foyer_fader_shutdown) {
 		foyer_fader_shutdown = false;
-		foyer_fader_shutdown_callback(foyer_fader_shutdown_callback_options);
+
+		// Trigger callback, but only after some time has passed to finish all CSS transitions
+		setTimeout(function() {
+			foyer_fader_shutdown_callback(foyer_fader_shutdown_callback_options);
+		}, 2 * 1000); // (2 seconds in milliseconds)
 	}
 	else {
 		jQuery(foyer_slide_selector).eq(new_active_index).removeClass('next').addClass('active');

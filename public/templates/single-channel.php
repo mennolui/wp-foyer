@@ -14,7 +14,7 @@ $channel = new Foyer_Channel( get_the_id() );
 		wp_head( );
 	?></head>
 	<body <?php body_class();?>>
-		<div class="foyer-channel foyer-transition-slide foyer-channel-<?php echo $channel->ID; ?>">
+		<div class="foyer-channel foyer-transition-fade foyer-channel-<?php echo $channel->ID; ?>">
 			<div class="foyer-slides"><?php
 
 				$first_slide_class = 'next';
