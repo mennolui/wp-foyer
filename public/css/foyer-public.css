@@ -1,6 +1,73 @@
-.foyer-slides .foyer-slide {
-  display: none;
+.foyer-display {
+  height: 100%;
 }
-.foyer-slides .foyer-slide.active {
-  display: block;
+.foyer-channel {
+  height: 100%;
+}
+.foyer-slides {
+  height: 100%;
+}
+.foyer-slides .foyer-slide {
+  height: 100%;
+  background-color: #fff;
+}
+.foyer-transition-fade .foyer-slides {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  z-index: 1;
+}
+.foyer-transition-fade .foyer-slides .foyer-slide {
+  width: 100%;
+  position: absolute;
+  left: 100%;
+  top: 0;
+  -webkit-backface-visibility: hidden;
+  /* fixes a Chrome opacity transition bug */
+  opacity: 0;
+  -webkit-transition: opacity 1.5s ease, left 0s ease 1.5s;
+  transition: opacity 1.5s ease, left 0s ease 1.5s;
+}
+.foyer-transition-fade .foyer-slides .foyer-slide:first-child {
+  position: relative;
+  opacity: 1;
+  left: 0;
+  z-index: 2;
+}
+.foyer-transition-fade .foyer-slides .foyer-slide.active {
+  opacity: 1;
+  left: 0;
+  z-index: 3;
+  -webkit-transition: left 0s, opacity 1.5s ease;
+  transition: left 0s, opacity 1.5s ease;
+}
+.foyer-transition-slide .foyer-slides {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  z-index: 1;
+}
+.foyer-transition-slide .foyer-slides .foyer-slide {
+  width: 100%;
+  position: absolute;
+  left: -100%;
+  top: 0;
+  bottom: 0;
+  opacity: 0;
+  -webkit-transition: left 1.5s ease, opacity 0s ease 1.5s;
+  transition: left 1.5s ease, opacity 0s ease 1.5s;
+}
+.foyer-transition-slide .foyer-slides .foyer-slide.active {
+  left: 0;
+  opacity: 1;
+  z-index: 2;
+  -webkit-transition: opacity 0s, left 1.5s ease;
+  transition: opacity 0s, left 1.5s ease;
+}
+.foyer-transition-slide .foyer-slides .foyer-slide.next {
+  left: 100%;
+  opacity: 1;
+  z-index: 2;
+  -webkit-transition: left 0s ease, opacity 0s ease;
+  transition: left 0s ease, opacity 0s ease;
 }

@@ -1,6 +1,15 @@
+var foyer_fader_shutdown = false;
+var foyer_fader_shutdown_callback;
+var foyer_fader_shutdown_callback_options;
+
 function foyer_fader_setup_slideshow() {
-	jQuery(foyer_slide_selector).first().addClass('active');
+	foyer_fader_activate_first_slide();
 	foyer_fader_set_timeout();
+}
+
+function foyer_fader_activate_first_slide() {
+	jQuery(foyer_slide_selector).first().removeClass('next').addClass('active');
+	jQuery(foyer_slide_selector).first().next().addClass('next');
 }
 
 function foyer_fader_set_timeout(sec) {
@@ -15,15 +24,35 @@ function foyer_fader_set_timeout(sec) {
 }
 
 function foyer_fader_next_slide() {
-	var $active_slide = jQuery(foyer_slide_selector + '.active');
-	var next_index = jQuery(foyer_slide_selector).index($active_slide) + 1;
 
-	if (next_index >= jQuery(foyer_slide_selector).length) {
-		next_index = 0;
+	var $active_slide = jQuery(foyer_slide_selector + '.active');
+	var slide_count = jQuery(foyer_slide_selector).length;
+
+	var new_active_index = jQuery(foyer_slide_selector).index($active_slide) + 1;
+	if (new_active_index >= slide_count) {
+		new_active_index = 0;
+	}
+
+	var new_next_index = new_active_index + 1;
+	if (new_next_index >= slide_count) {
+		new_next_index = 0;
 	}
 
 	$active_slide.removeClass('active');
-	jQuery(foyer_slide_selector).eq(next_index).addClass('active');
 
-	foyer_fader_set_timeout();
+	if (foyer_fader_shutdown) {
+		foyer_fader_shutdown = false;
+		foyer_fader_shutdown_callback(foyer_fader_shutdown_callback_options);
+	}
+	else {
+		jQuery(foyer_slide_selector).eq(new_active_index).removeClass('next').addClass('active');
+		jQuery(foyer_slide_selector).eq(new_next_index).addClass('next');
+		foyer_fader_set_timeout();
+	}
+}
+
+function foyer_fader_shutdown_slideshow(callback, options) {
+	foyer_fader_shutdown = true;
+	foyer_fader_shutdown_callback = callback;
+	foyer_fader_shutdown_callback_options = options;
 }
