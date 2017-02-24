@@ -99,6 +99,8 @@ class Foyer_Templates {
 
 		if ( is_singular( Foyer_Slide::post_type_name ) ) {
 			$file = 'single-slide.php';
+		} else if ( is_singular( Foyer_Channel::post_type_name ) ) {
+			$file = 'single-channel.php';
 		} else if ( is_singular( Foyer_Display::post_type_name ) ) {
 			$file = 'single-display.php';
 		} else {
