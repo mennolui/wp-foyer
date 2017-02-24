@@ -7,24 +7,24 @@
 
 global $post;
 
+$display = new Foyer_Display( get_the_id() );
+$channel = new Foyer_Channel( $display->get_active_channel() );
+
 ?><html>
 	<head><?php
 		wp_head( );
 	?></head>
 	<body <?php body_class();?>>
-		<div class="foyer-display">
-			<div class="foyer-channel">
+		<div class="foyer-display foyer-orientation-portrait">
+			<div class="foyer-channel foyer-transition-right-to-left">
 				<div class="foyer-slides"><?php
-
-					$display = new Foyer_Display( get_the_id() );
-					$channel = new Foyer_Channel( $display->get_active_channel() );
 
 					foreach( $channel->get_slides() as $slide ) {
 
 						$post = get_post( $slide->ID );
 						setup_postdata( $post );
 
-						?><div class="foyer-slide foyer-slide-<?php echo $slide->format(); ?>"><?php
+						?><div class="foyer-slide foyer-slide-<?php echo $slide->format(); ?>" data-foyer-slide-duration="4.5"><?php
 
 							Foyer_Templates::get_template('slides/'.$slide->format().'.php');
 

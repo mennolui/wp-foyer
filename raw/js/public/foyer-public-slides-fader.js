@@ -1,59 +1,29 @@
-var $foyer_fader_slideshows;
-var foyer_fader_intervalObject;
+function foyer_fader_setup_slideshow() {
+	jQuery(foyer_slide_selector).first().addClass('active');
+	foyer_fader_set_timeout();
+}
 
-function foyer_fader_setup_slideshows() {
+function foyer_fader_set_timeout(sec) {
+	// Get duration for active slide
+	var duration = parseFloat(jQuery(foyer_slide_selector + '.active').data('foyer-slide-duration'));
 
-	$foyer_fader_slideshows.each(function() {
-		jQuery(this).children().first().addClass('active');
-	});
+	if (!duration>0) {
+		duration = 5;
+	}
 
-	$foyer_fader_slideshows
-		.bind('next',function() {
-			var next = jQuery(this).children('.active').next();
-			if (!next.length) {
-				next = jQuery(this).children().first();
-			}
-			jQuery(this).children('.active').removeClass('active');
-			next.addClass('active');
-			fader.trigger('start');
-		})
-		.bind('prev',function() {
-			var prev = jQuery(this).children('.active').prev();
-			if (!prev.length) {
-				prev = jQuery(this).children().last();
-			}
-			jQuery(this).children('.active').removeClass('active');
-			prev.addClass('active');
-			fader.trigger('start');
-		})
-		.bind('goto',function(e, element) {
-		})
-	;
+	setTimeout(foyer_fader_next_slide, duration * 1000); // (seconds in milliseconds)
+}
 
-	var fader = jQuery('body');
-	fader
-		.bind('start',function() {
-			fader.trigger('stop');
+function foyer_fader_next_slide() {
+	var $active_slide = jQuery(foyer_slide_selector + '.active');
+	var next_index = jQuery(foyer_slide_selector).index($active_slide) + 1;
 
-			foyer_fader_intervalObject = window.setInterval(function() {
-					$foyer_fader_slideshows.trigger('next');
-				}, 6000);
-		})
-		.bind('stop',function() {
-			window.clearInterval(foyer_fader_intervalObject);
-		})
-	;
+	if (next_index >= jQuery(foyer_slide_selector).length) {
+		next_index = 0;
+	}
 
+	$active_slide.removeClass('active');
+	jQuery(foyer_slide_selector).eq(next_index).addClass('active');
 
-	fader.trigger('start');
-
-	fader.find('.fader-prevnext.prev').click(function() {
-		$foyer_fader_slideshows.trigger('prev');
-		return false;
-	});
-	fader.find('.fader-prevnext.next').click(function() {
-		$foyer_fader_slideshows.trigger('next');
-		return false;
-	});
-
+	foyer_fader_set_timeout();
 }

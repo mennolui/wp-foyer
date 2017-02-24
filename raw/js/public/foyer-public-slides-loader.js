@@ -1,47 +1,81 @@
+var foyer_slides_selector = '.foyer-slides';
+var foyer_slide_selector = '.foyer-slide';
+
 jQuery(window).load(function() {
 
-	var $slides = jQuery('.foyer-slides');
-	$slides.after('<div class="foyer-slides-container foyer-slides-container-2"></div>');
-	$slides.wrap('<div class="foyer-slides-container foyer-slides-container-1"></div>');
+	// Set up container structure
+	jQuery(foyer_slide_selector).wrapAll('<div class="foyer-slide-group foyer-slide-group-1"></div>');
+	jQuery('.foyer-slide-group-1').after('<div class="foyer-slide-group foyer-slide-group-2"></div>');
 
-	$container = jQuery('.foyer-slides-container-1');
-
-	if ($container.length > 0) {
-		$foyer_fader_slideshows = $container.find('.foyer-slides');
-		foyer_fader_setup_slideshows();
-//		foyer_display_load_data();
-	}
+	foyer_fader_setup_slideshow();
+	foyer_setup_display();
 
 });
 
-function foyer_display_load_data() {
+function foyer_setup_display() {
 
 	// Hide cursor
-	jQuery(this).css('cursor','url("../img/nocursor.gif"), none;');
+	jQuery(this).css('cursor','none');
 
 	// Smart to refresh the entire display at least a couple of times a day
-	majorrefresh = setTimeout(foyer_display_reload_window, 28800000); // (28800000 is 8 hours in milliseconds format)
+	major_refresh_timeout = setTimeout(foyer_display_reload_window, 8 * 60 * 60 * 1000); // (8 hours in milliseconds)
 
-	var data = {
-		'action': 'foyer_display_load_data',
-		'channel_id': 1,
-	};
+	// Load fresh display content every 5 minutes
+	foyer_loader_intervalObject = window.setInterval(foyer_load_display_data, 5 * 60 * 1000) // (5 minutes in milliseconds)
+}
 
-	jQuery.post(ajaxurl, data, function(response) {
-		if (response != '') {
-			$holder.html(response);
+function foyer_load_display_data() {
+	var $current_slide_group;
+	var $next_slide_group;
 
-			foyer_fader_slideshows = jQuery('.fader-slideshow');
+	if (!jQuery('.foyer-slide-group-1').children().length) {
+		// Group 1 is empty, up next
+		$next_slide_group = jQuery('.foyer-slide-group-1');
+		$current_slide_group = jQuery('.foyer-slide-group-2');
+	}
+	else if (!jQuery('.foyer-slide-group-2').children().length) {
+		// Group 2 is empty, up next
+		$next_slide_group = jQuery('.foyer-slide-group-2');
+		$current_slide_group = jQuery('.foyer-slide-group-1');
+	}
 
-			if (foyer_fader_slideshows.length > 0) {
-				foyer_fader_setup_slideshows();
-			}
-
-		}
-	});
-
+	if ($next_slide_group.length) {
+		// Found an empty group, load data
+		$next_slide_group.load(window.location + ' ' + foyer_slides_selector + ' > *', function(){
+			$next_slide_group.find('.foyer-slide').first().attrChange(function(attr_name) {
+				// Fader has advanced into the next group]
+				// Empty the current (now previous) group to allow loading of fresh content
+				$current_slide_group.empty();
+			});
+		});
+	}
 }
 
 function foyer_display_reload_window() {
 	window.location.reload();
 }
+
+jQuery(function() {
+	(function(jQuery) {
+	    var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
+
+	    jQuery.fn.attrChange = function(callback) {
+	        if (MutationObserver) {
+	            var options = {
+	                subtree: false,
+	                attributes: true
+	            };
+
+	            var observer = new MutationObserver(function(mutations) {
+	                mutations.forEach(function(e) {
+	                    callback.call(e.target, e.attributeName);
+	                });
+	            });
+
+	            return this.each(function() {
+	                observer.observe(this, options);
+	            });
+	        }
+	    }
+	})(jQuery);
+});
