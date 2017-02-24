@@ -19,13 +19,15 @@ $channel = new Foyer_Channel( $display->get_active_channel() );
 			<div class="foyer-channel foyer-transition-slide foyer-channel-<?php echo $channel->ID; ?>">
 				<div class="foyer-slides"><?php
 
+					$first_slide_class = 'next';
 					foreach( $channel->get_slides() as $slide ) {
 
 						$post = get_post( $slide->ID );
 						setup_postdata( $post );
+						?><div class="foyer-slide foyer-slide-<?php echo $slide->format(); ?> <?php echo $first_slide_class; ?>"
+							data-foyer-slide-duration="2.5"><?php
 
-						?><div class="foyer-slide foyer-slide-<?php echo $slide->format(); ?>" data-foyer-slide-duration="2.5"><?php
-
+							$first_slide_class = '';
 							Foyer_Templates::get_template('slides/'.$slide->format().'.php');
 
 						?></div><?php
