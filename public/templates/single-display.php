@@ -16,7 +16,7 @@ $channel = new Foyer_Channel( $display->get_active_channel() );
 	?></head>
 	<body <?php body_class();?>>
 		<div class="foyer-display foyer-orientation-portrait">
-			<div class="foyer-channel foyer-transition-right-to-left foyer-channel-<?php echo $channel->ID; ?>">
+			<div class="foyer-channel foyer-transition-fade foyer-channel-<?php echo $channel->ID; ?>">
 				<div class="foyer-slides"><?php
 
 					foreach( $channel->get_slides() as $slide ) {
