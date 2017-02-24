@@ -76,7 +76,7 @@ class Foyer_Setup {
 				'show_in_admin_bar' => true,
 	  			'supports' => array( 'title' ),
 	  			'taxonomies' => array(),
-	  			'rewrite' => false,
+	  			'rewrite' => array( 'slug' => 'foyer'),
 			)
 		);
 
