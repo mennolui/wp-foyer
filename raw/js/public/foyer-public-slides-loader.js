@@ -25,7 +25,7 @@ function foyer_setup_display() {
 	major_refresh_timeout = setTimeout(foyer_display_reload_window, 8 * 60 * 60 * 1000); // (8 hours in milliseconds)
 
 	// Load fresh display content every 5 minutes
-	foyer_loader_intervalObject = window.setInterval(foyer_load_display_data, 20 * 1000) // (@todo: 5 minutes in milliseconds)
+	foyer_loader_intervalObject = window.setInterval(foyer_load_display_data, 30 * 1000) // (@todo: 5 minutes in milliseconds)
 }
 
 function foyer_load_display_data() {
@@ -74,9 +74,7 @@ function foyer_load_display_data() {
 
 					jQuery(foyer_slides_selector).find('.'+next_slide_group_class).first().attrChange(function(attr_name) {
 						// Fader has advanced into the next group, first slide has changed to active
-						console.log('first change');
 						jQuery(foyer_slides_selector).find('.'+next_slide_group_class).first().attrChange(function(attr_name) {
-							console.log('second change');
 							// First slide has changed from active to not active
 							// Empty the current (now previous) group to allow loading of fresh content
 							jQuery(foyer_slides_selector).find('.'+current_slide_group_class).remove();
