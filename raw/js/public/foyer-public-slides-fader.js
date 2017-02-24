@@ -1,3 +1,7 @@
+var foyer_fader_shutdown = false;
+var foyer_fader_shutdown_callback;
+var foyer_fader_shutdown_callback_options;
+
 function foyer_fader_setup_slideshow() {
 	jQuery(foyer_slide_selector).first().addClass('active');
 	foyer_fader_set_timeout();
@@ -23,7 +27,19 @@ function foyer_fader_next_slide() {
 	}
 
 	$active_slide.removeClass('active');
-	jQuery(foyer_slide_selector).eq(next_index).addClass('active');
 
-	foyer_fader_set_timeout();
+	if (foyer_fader_shutdown) {
+		foyer_fader_shutdown = false;
+		foyer_fader_shutdown_callback(foyer_fader_shutdown_callback_options);
+	}
+	else {
+		jQuery(foyer_slide_selector).eq(next_index).addClass('active');
+		foyer_fader_set_timeout();
+	}
+}
+
+function foyer_fader_shutdown_slideshow(callback, options) {
+	foyer_fader_shutdown = true;
+	foyer_fader_shutdown_callback = callback;
+	foyer_fader_shutdown_callback_options = options;
 }
