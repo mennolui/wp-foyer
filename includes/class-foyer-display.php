@@ -69,6 +69,7 @@ class Foyer_Display {
 
 	/**
 	 * Get the currently active channel for this display.
+	 *	 
 	 *
 	 * @since	1.0.0
 	 * @access	public
@@ -81,7 +82,32 @@ class Foyer_Display {
 			$active_channel = $this->get_default_channel();
 
 			$this->active_channel = $active_channel;
-		}
+			
+			/**
+			 * Check if a temporary channel is scheduled.
+			 */
+			$schedule = $this->get_schedule();
+	
+			// Nothing scheduled at all. Return the default channel.
+			if ( empty( $schedule ) ) {
+				return $this->active_channel;
+			}
+			
+			// Return the first scheduled channel that matches the current time.
+			foreach ( $schedule as $scheduled_channel ) {
+				
+				if ( $scheduled_channel['start'] > time() ) {
+					continue;
+				}
+				
+				if ( $scheduled_channel['end'] < time() ) {
+					continue;
+				}
+				
+				$this->active_channel = $scheduled_channel['channel'];
+				
+			}
+		}		
 
 		return $this->active_channel;
 	}
@@ -104,6 +130,20 @@ class Foyer_Display {
 		}
 
 		return $this->default_channel;
+	}
+	
+	/**
+	 * Gets all scheduled channels for this display.
+	 * 
+	 * @since	1.0.0
+	 * @return 	array|string	All scheduled channels or an empty string if no channels are scheduled.
+	 */
+	public function get_schedule() {
+		$schedule = array();
+		
+		$schedule = get_post_meta( $this->ID, 'foyer_display_schedule', false );
+		
+		return $schedule;
 	}
 
 }

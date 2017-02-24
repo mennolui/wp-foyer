@@ -71,6 +71,22 @@ class Foyer_Admin_Display {
 		);
 	}
 
+	/**
+	 * Adds the channel scheduler meta box to the display admin page.
+	 *
+	 * @since	1.0.0
+	 */
+	public function add_channel_scheduler_meta_box() {
+		add_meta_box(
+			'foyer_channel_scheduler',
+			__( 'Schedule temporary channel' , 'foyer' ),
+			array( $this, 'channel_scheduler_meta_box' ),
+			Foyer_Display::post_type_name,
+			'normal',
+			'high'
+		);
+	}
+
 
 	/**
 	 * Gets the HTML that lists the default channel in the channel editor.
@@ -120,6 +136,79 @@ class Foyer_Admin_Display {
 	}
 
 	/**
+	 * Gets the HTML that lists the scheduled channels in the channel scheduler.
+	 *
+	 * Currently limited to only one scheduled channel.
+	 *
+	 * @since	1.0.0
+	 * @access	public
+	 * @param	WP_Post	$post
+	 * @return	string	$html	The HTML that lists the scheduled channels in the channel scheduler.
+	 */
+	public function get_scheduled_channel_html( $post ) {
+
+		$display = new Foyer_Display( $post );
+		$schedule = $display->get_schedule();
+		
+		if ( !empty( $schedule ) ) {
+			$scheduled_channel = $schedule[0];
+		}
+
+		ob_start();
+
+		?>
+			<tr>
+				<th>
+					<label for="foyer_channel_editor_scheduled_channel">
+						<?php echo __( 'Temporary channel', 'foyer' ); ?>
+					</label>
+				</th>
+				<td>
+					<select id="foyer_channel_editor_scheduled_channel" name="foyer_channel_editor_scheduled_channel">
+						<option value="">(<?php echo __( 'Select a channel', 'foyer' ); ?>)</option>
+						<?php
+							$channels = get_posts( array( 'post_type' => Foyer_Channel::post_type_name ) ); //@todo: move to class
+							foreach ( $channels as $channel ) {
+								$checked = '';
+								if ( !empty( $scheduled_channel['channel'] ) && $scheduled_channel['channel'] == $channel->ID ) {
+									$checked = 'selected="selected"';
+								}
+							?>
+								<option value="<?php echo $channel->ID; ?>" <?php echo $checked; ?>><?php echo $channel->post_title; ?></option>
+							<?php
+							}
+						?>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<label for="foyer_channel_editor_scheduled_channel_start">
+						<?php echo __( 'Show from', 'foyer' ); ?>
+					</label>
+				</th>
+				<td>
+					<input type="text" class="regular-text" id="foyer_channel_editor_scheduled_channel_start" name="foyer_channel_editor_scheduled_channel_start" value="<?php if ( !empty( $scheduled_channel['start'] ) ) { echo date_i18n( 'Y-m-d H:i:s', $scheduled_channel['start'] + get_option( 'gmt_offset' ) * 3600, true ); } ?>" />
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<label for="foyer_channel_editor_scheduled_channel_end">
+						<?php echo __( 'Until', 'foyer' ); ?>
+					</label>
+				</th>
+				<td>
+					<input type="text" class="regular-text" id="foyer_channel_editor_scheduled_channel_end" name="foyer_channel_editor_scheduled_channel_end" value="<?php if ( !empty( $scheduled_channel['end'] ) ) { echo date_i18n( 'Y-m-d H:i:s', $scheduled_channel['end'] + get_option( 'gmt_offset' ) * 3600, true ); } ?>" />
+				</td>
+			</tr>
+		<?php
+
+		$html = ob_get_clean();
+
+		return $html;
+	}
+
+	/**
 	 * Outputs the content of the channel editor meta box.
 	 *
 	 * @since	1.0.0
@@ -140,6 +229,39 @@ class Foyer_Admin_Display {
 					<?php
 
 						echo $this->get_default_channel_html( $post );
+
+					?>
+				</tbody>
+			</table>
+
+		<?php
+
+		$html = ob_get_clean();
+
+		echo $html;
+	}
+
+	/**
+	 * Outputs the content of the channel scheduler meta box.
+	 *
+	 * @since	1.0.0
+	 * @param	WP_Post		$post	The post object of the current display.
+	 */
+	public function channel_scheduler_meta_box( $post ) {
+
+		wp_nonce_field( Foyer_Display::post_type_name, Foyer_Display::post_type_name.'_nonce' );
+
+		ob_start();
+
+		?>
+			<input type="hidden" id="foyer_channel_editor_<?php echo Foyer_Display::post_type_name; ?>"
+				name="foyer_channel_editor_<?php echo Foyer_Display::post_type_name; ?>" value="<?php echo $post->ID; ?>">
+
+			<table class="foyer_meta_box_form form-table foyer_channel_editor_form" data-display-id="<?php echo $post->ID; ?>">
+				<tbody>
+					<?php
+
+						echo $this->get_scheduled_channel_html( $post );
 
 					?>
 				</tbody>
@@ -202,5 +324,52 @@ class Foyer_Admin_Display {
 		else {
 			delete_post_meta( $display_id, Foyer_Channel::post_type_name );
 		}
+		
+		/**
+		 * Save schedule for temporary channels.
+		 */		
+		$this->save_schedule( $_POST, $post_id );
+		
+	}
+	
+	/**
+	 * Save all scheduled channels for this display.
+	 * 
+	 * @access	private
+	 * @since	1.0.0
+	 * @param 	array	$values			All form values that were submitted from the display admin page.
+	 * @param 	int		$display_id		The ID of the display that is being saved.
+	 * @return 	void
+	 */
+	private function save_schedule( $values, $display_id ) {
+
+		delete_post_meta( $display_id, 'foyer_display_schedule' );
+		
+		if ( !is_numeric( $values['foyer_channel_editor_scheduled_channel'] ) ) {
+			return;
+		}
+		
+		if ( empty( $values['foyer_channel_editor_scheduled_channel_start'] ) ) {
+			return;
+		}
+		
+		if ( empty( $values['foyer_channel_editor_scheduled_channel_end'] ) ) {
+			return;
+		}
+
+		/**
+		 * Store all scheduled channels.
+		 * Currently only one scheduled channel is saved.
+		 * 
+		 * Makes sure that start and end times are stored in UTC.
+		 */
+		
+		$schedule = array(
+			'channel' => $values['foyer_channel_editor_scheduled_channel'],
+			'start' => 	strtotime( $values['foyer_channel_editor_scheduled_channel_start'] ) - get_option( 'gmt_offset' ) * 3600 ,
+			'end' => strtotime( $values['foyer_channel_editor_scheduled_channel_end'] ) - get_option( 'gmt_offset' ) * 3600,
+		);
+		
+		add_post_meta( $display_id, 'foyer_display_schedule', $schedule, false );
 	}
 }
