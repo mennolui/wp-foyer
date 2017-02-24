@@ -5,16 +5,15 @@ var foyer_slide_selector = '.foyer-slide';
 jQuery(window).load(function() {
 
 	foyer_setup_display();
-	foyer_setup_containers();
+	foyer_setup_slide_classes();
 	foyer_fader_setup_slideshow();
 
 });
 
-function foyer_setup_containers() {
+function foyer_setup_slide_classes() {
 
-	// Set up container structure
-	jQuery(foyer_slide_selector).wrapAll('<div class="foyer-slide-group foyer-slide-group-1"></div>');
-	jQuery('.foyer-slide-group-1').after('<div class="foyer-slide-group foyer-slide-group-2"></div>');
+	// Add a group class to all slides
+	jQuery(foyer_slides_selector).children().addClass('foyer-slide-group-1');
 }
 
 function foyer_setup_display() {
@@ -30,21 +29,21 @@ function foyer_setup_display() {
 }
 
 function foyer_load_display_data() {
-	var $current_slide_group;
-	var $next_slide_group;
+	var current_slide_group_class;
+	var next_slide_group_class;
 
-	if (!jQuery('.foyer-slide-group-1').children().length) {
-		// Group 1 is empty, up next
-		$next_slide_group = jQuery('.foyer-slide-group-1');
-		$current_slide_group = jQuery('.foyer-slide-group-2');
+	if (!jQuery('.foyer-slide-group-1').length) {
+		// No group 1 slides, add them
+		next_slide_group_class = 'foyer-slide-group-1';
+		current_slide_group_class = 'foyer-slide-group-2';
 	}
-	else if (!jQuery('.foyer-slide-group-2').children().length) {
-		// Group 2 is empty, up next
-		$next_slide_group = jQuery('.foyer-slide-group-2');
-		$current_slide_group = jQuery('.foyer-slide-group-1');
+	else if (!jQuery('.foyer-slide-group-2').length) {
+		// No group 2 slides, add them
+		next_slide_group_class = 'foyer-slide-group-2';
+		current_slide_group_class = 'foyer-slide-group-1';
 	}
 
-	if ($next_slide_group.length) {
+	if (next_slide_group_class.length) {
 		// Found an empty group, load html
 
 		jQuery.get(window.location, function(html) {
@@ -52,45 +51,48 @@ function foyer_load_display_data() {
 
 			if ($new_html.find(foyer_channel_selector).attr('class') !== jQuery(foyer_channel_selector).attr('class')) {
 				// Channel ID has changed or its other properties have changed
-				// Replace channel HTML and restart slideshow when current slideshow has shutdown
+				// Replace channel HTML and restart slideshow after current slideshow has shutdown
 				foyer_fader_shutdown_slideshow(foyer_replace_channel, $new_html.find(foyer_channel_selector));
 			}
 			else {
 				// Channel unchanged
+				var $new_slides = $new_html.find(foyer_slides_selector).children().addClass(next_slide_group_class);
+
 				if (
-					1 === $current_slide_group.children().length &&
+					1 === jQuery(foyer_slides_selector).children().length &&
 					1 === $new_html.find(foyer_slides_selector).children().length
 				) {
 					// Only one slide currently & one slide new slide
-					// Replace current slide group slides with new slide from loaded HTML
-					$current_slide_group.html($new_html.find(foyer_slides_selector).children());
+					// Replace current slide with new slide from loaded HTML
+					jQuery(foyer_slides_selector).html($new_slides);
 					foyer_fader_activate_first_slide();
 				}
 				else {
 					// More than one slide currently, or one slide currently but more new slides
 					// Add new slides from loaded HTML to next slide group
-					$next_slide_group.html($new_html.find(foyer_slides_selector).children());
+					jQuery(foyer_slides_selector).children().last().after($new_slides);
 
-					$next_slide_group.find(foyer_slide_selector).first().attrChange(function(attr_name) {
+					jQuery(foyer_slides_selector).find('.'+next_slide_group_class).first().attrChange(function(attr_name) {
 						// Fader has advanced into the next group, first slide has changed to active
-						$next_slide_group.find(foyer_slide_selector).first().attrChange(function(attr_name) {
+						console.log('first change');
+						jQuery(foyer_slides_selector).find('.'+next_slide_group_class).first().attrChange(function(attr_name) {
+							console.log('second change');
 							// First slide has changed from active to not active
 							// Empty the current (now previous) group to allow loading of fresh content
-							$current_slide_group.empty();
+							jQuery(foyer_slides_selector).find('.'+current_slide_group_class).remove();
 						});
 					});
 				}
 
 			}
 		});
-
 	}
 }
 
 function foyer_replace_channel($new_channel_html) {
 	jQuery(foyer_channel_selector).replaceWith($new_channel_html);
 
-	foyer_setup_containers();
+	foyer_setup_slide_classes();
 	foyer_fader_setup_slideshow();
 }
 
