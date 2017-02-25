@@ -76,4 +76,22 @@ class Foyer_Public {
 			wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/foyer-public-min.js', array( 'jquery' ), $this->version, false );
 		}
 	}
+
+	/**
+	 * Suppress the WordPress admin bar when viewing a display, channel or slide.
+	 *
+	 * @since    1.0.0
+	 */
+	public function suppress_admin_bar() {
+
+		if (
+			is_singular( Foyer_Display::post_type_name ) ||
+			is_singular( Foyer_Channel::post_type_name ) ||
+			is_singular( Foyer_Slide::post_type_name )
+		) {
+			return false;
+		}
+
+		return true;
+	}
 }
