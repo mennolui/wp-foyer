@@ -1,3 +1,13 @@
+body.single-foyer_display,
+body.single-foyer_channel,
+body.single-foyer_slide {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+}
 .foyer-display {
   height: 100%;
 }
@@ -11,6 +21,26 @@
   height: 100%;
   overflow: hidden;
   background-color: #fff;
+  position: relative;
+}
+.foyer-slides .foyer-slide figure {
+  margin: 0;
+}
+.foyer-slides .foyer-slide figure img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.foyer-slides .foyer-slide .foyer-slide-fields {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2%;
+  opacity: 0.5;
+  background-color: #fff;
+  color: #000;
 }
 .foyer-transition-fade .foyer-slides {
   position: relative;

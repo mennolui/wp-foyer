@@ -1,3 +1,14 @@
+body.single-foyer_display,
+body.single-foyer_channel,
+body.single-foyer_slide {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	max-width: none;
+	max-height: none;
+}
+
 .foyer-display {
 	height: 100%;
 }
@@ -10,7 +21,36 @@
 		height: 100%;
 		overflow: hidden;
 		background-color: #fff;
+
+		position: relative;
+		figure {
+			margin: 0;
+			img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover; // no IE/Edge support
+			}
+		}
+
+		.foyer-slide-fields {
+			position: absolute;
+			bottom: 0;
+			left: 0; right: 0;
+
+			padding: 2%;
+			opacity: 0.5;
+			background-color: #fff;
+
+			color: #000;
+		}
 	}
+}
+
+.foyer-display-16-9 {
+
+}
+.foyer-display-9-16 {
+
 }
 
 .foyer-transition-fade {
