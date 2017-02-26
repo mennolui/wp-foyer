@@ -1,6 +1,26 @@
-html.foyer {
-  font-size: 100% !important;
-  font-size: 1.48148148vmin !important;
+body.single-foyer_display,
+body.single-foyer_channel,
+body.single-foyer_slide {
+  background-color: #222;
+}
+.foyer-preview-9-16,
+.foyer-preview-16-9 {
+  margin: 0 auto;
+  overflow: hidden;
+}
+.foyer-preview-9-16 .foyer-slides,
+.foyer-preview-16-9 .foyer-slides {
+  background-color: #fff;
+}
+.foyer-preview-9-16 {
+  width: 54vh;
+  height: 100vh;
+  padding: 2vh 0;
+}
+.foyer-preview-16-9 {
+  width: 100vw;
+  height: 54vw;
+  padding: 0 2vw;
 }
 body.single-foyer_display,
 body.single-foyer_channel,
@@ -17,7 +37,6 @@ body.single-foyer_slide {
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
-  background-color: #222;
   box-sizing: border-box;
 }
 body.single-foyer_display *,
@@ -25,58 +44,14 @@ body.single-foyer_channel *,
 body.single-foyer_slide * {
   box-sizing: border-box;
 }
-.foyer-preview-9-16 {
-  width: 54vh;
-  height: 100vh;
-  margin: 0 auto;
-  padding: 2vh 0;
-  overflow: hidden;
-}
-.foyer-preview-16-9 {
-  width: 100vw;
-  height: 54vw;
-  margin: 0 auto;
-  padding: 0 2vw;
-  overflow: hidden;
-}
 .foyer-display,
 .foyer-channel,
 .foyer-slides {
   width: 100%;
   height: 100%;
 }
-.foyer-slides {
-  background-color: #fff;
-}
 .foyer-slide {
-  width: 100%;
-  height: 100%;
   overflow: hidden;
-  background-color: #fff;
-  position: relative;
-}
-.foyer-slide figure {
-  margin: 0;
-}
-.foyer-slide figure img {
-  width: 100%;
-  height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
-}
-.foyer-slide .foyer-slide-fields {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 2vmin 4vmin;
-  background-color: rgba(255, 255, 255, 0.5);
-  color: #000;
-  font-size: 1rem;
-  line-height: 1.2;
-}
-.foyer-slide .foyer-slide-fields h1 {
-  font-size: 3rem;
 }
 .foyer-transition-fade .foyer-slides {
   position: relative;
@@ -137,4 +112,37 @@ body.single-foyer_slide * {
   z-index: 2;
   -webkit-transition: left 0s ease, opacity 0s ease;
   transition: left 0s ease, opacity 0s ease;
+}
+html {
+  font-size: 100% !important;
+  font-size: 1.48148148vmin !important;
+}
+.foyer-slide {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  position: relative;
+}
+.foyer-slide figure {
+  margin: 0;
+}
+.foyer-slide figure img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.foyer-slide .foyer-slide-fields {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2vmin 4vmin;
+  background-color: rgba(255, 255, 255, 0.5);
+  color: #000;
+  font-size: 1rem;
+  line-height: 1.2;
+}
+.foyer-slide .foyer-slide-fields h1 {
+  font-size: 3rem;
 }

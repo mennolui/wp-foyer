@@ -5,14 +5,6 @@ var foyer_slide_selector = '.foyer-slide';
 
 jQuery(document).ready(function() {
 
-	if (
-		jQuery('body.single-foyer_display').length ||
-		jQuery('body.single-foyer_channel').length ||
-		jQuery('body.single-foyer_slide').length
-	) {
-		jQuery('html').addClass('foyer');
-	}
-
 	if (jQuery(foyer_display_selector).length) {
 		// Our view includes a display, setup loading
 		foyer_display_setup();
