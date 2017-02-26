@@ -14,20 +14,20 @@ jQuery(document).ready(function() {
 	}
 
 	if (jQuery(foyer_display_selector).length) {
-		// We're viewing a display
-		foyer_setup_display();
-		foyer_setup_slide_group_classes();
+		// Our view includes a display, setup loading
+		foyer_display_setup();
+		foyer_display_setup_slide_group_classes();
 	}
 
 });
 
-function foyer_setup_slide_group_classes() {
+function foyer_display_setup_slide_group_classes() {
 
 	// Add a group class to all slides
 	jQuery(foyer_slides_selector).children().addClass('foyer-slide-group-1');
 }
 
-function foyer_setup_display() {
+function foyer_display_setup() {
 
 	// Hide cursor
 	jQuery(this).css('cursor','none');
@@ -36,10 +36,10 @@ function foyer_setup_display() {
 	major_refresh_timeout = setTimeout(foyer_display_reload_window, 8 * 60 * 60 * 1000); // (8 hours in milliseconds)
 
 	// Load fresh display content every 5 minutes
-	foyer_loader_intervalObject = window.setInterval(foyer_load_display_data, 30 * 1000) // (@todo: 5 minutes in milliseconds)
+	foyer_loader_intervalObject = window.setInterval(foyer_display_load_data, 30 * 1000) // (@todo: 5 minutes in milliseconds)
 }
 
-function foyer_load_display_data() {
+function foyer_display_load_data() {
 	var current_slide_group_class;
 	var next_slide_group_class;
 
@@ -63,7 +63,7 @@ function foyer_load_display_data() {
 			if ($new_html.find(foyer_channel_selector).attr('class') !== jQuery(foyer_channel_selector).attr('class')) {
 				// Channel ID has changed or its other properties have changed
 				// Replace channel HTML and restart slideshow after current slideshow has shutdown
-				foyer_ticker_shutdown(foyer_replace_channel, $new_html.find(foyer_channel_selector));
+				foyer_ticker_shutdown(foyer_display_replace_channel, $new_html.find(foyer_channel_selector));
 			}
 			else {
 				// Channel unchanged
@@ -98,9 +98,9 @@ function foyer_load_display_data() {
 	}
 }
 
-function foyer_replace_channel($new_channel_html) {
+function foyer_display_replace_channel($new_channel_html) {
 	jQuery(foyer_channel_selector).replaceWith($new_channel_html);
-	foyer_setup_slide_group_classes();
+	foyer_display_setup_slide_group_classes();
 
 	// Use timeout to allow browser to detect class changing from next to active
 	setTimeout(foyer_ticker_setup, 0.1 * 1000); // (0.1 seconds in milliseconds)

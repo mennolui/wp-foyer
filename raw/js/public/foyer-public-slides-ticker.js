@@ -1,10 +1,13 @@
-var foyer_ticker_shutdown = false;
+var foyer_ticker_shutdown_status = false;
 var foyer_ticker_shutdown_callback;
 var foyer_ticker_shutdown_callback_options;
 
 jQuery(document).ready(function() {
 
-	foyer_ticker_setup();
+	if (jQuery(foyer_slides_selector).length) {
+		// Our view includes slides, setup ticker
+		foyer_ticker_setup();
+	}
 
 });
 
@@ -19,7 +22,7 @@ function foyer_ticker_set_slide_active_next_classes() {
 	jQuery(foyer_slide_selector).first().next().addClass('next');
 }
 
-function foyer_ticker_set_active_slide_timeout(sec) {
+function foyer_ticker_set_active_slide_timeout() {
 	// Get duration for active slide
 	var duration = parseFloat(jQuery(foyer_slide_selector + '.active').data('foyer-slide-duration'));
 
@@ -47,8 +50,8 @@ function foyer_ticker_next_slide() {
 
 	$active_slide.removeClass('active');
 
-	if (foyer_ticker_shutdown) {
-		foyer_ticker_shutdown = false;
+	if (foyer_ticker_shutdown_status) {
+		foyer_ticker_shutdown_status = false;
 
 		// Trigger callback, but only after some time has passed to finish all CSS transitions
 		setTimeout(function() {
@@ -63,7 +66,7 @@ function foyer_ticker_next_slide() {
 }
 
 function foyer_ticker_shutdown(callback, options) {
-	foyer_ticker_shutdown = true;
+	foyer_ticker_shutdown_status = true;
 	foyer_ticker_shutdown_callback = callback;
 	foyer_ticker_shutdown_callback_options = options;
 }
