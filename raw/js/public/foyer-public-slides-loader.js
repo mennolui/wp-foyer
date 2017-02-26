@@ -5,6 +5,15 @@ var foyer_slide_selector = '.foyer-slide';
 
 jQuery(window).load(function() {
 
+	if (
+		jQuery('body.single-foyer_display').length ||
+		jQuery('body.single-foyer_channel').length ||
+		jQuery('body.single-foyer_slide').length
+	) {
+		jQuery('html').addClass('foyer');
+	}
+
+
 	if (jQuery(foyer_display_selector).length) {
 		// We're viewing a display
 		foyer_setup_display();

@@ -1,56 +1,95 @@
+html.foyer {
+	font-size: 100% !important;
+	font-size: (16 / 1080) * 100vmin !important;
+}
+
 body.single-foyer_display,
 body.single-foyer_channel,
 body.single-foyer_slide {
 	margin: 0;
 	padding: 0;
-	width: 100%;
-	height: 100%;
+	width: 100vw;
+	height: 100vh;
 	max-width: none;
 	max-height: none;
-}
 
-.foyer-display {
-	height: 100%;
-}
-.foyer-channel {
-	height: 100%;
-}
-.foyer-slides {
-	height: 100%;
-	.foyer-slide {
-		height: 100%;
-		overflow: hidden;
-		background-color: #fff;
+    -webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+    -o-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
 
-		position: relative;
-		figure {
-			margin: 0;
-			img {
-				width: 100%;
-				height: 100%;
-				object-fit: cover; // no IE/Edge support
-			}
-		}
+	background-color: #222;
 
-		.foyer-slide-fields {
-			position: absolute;
-			bottom: 0;
-			left: 0; right: 0;
-
-			padding: 2%;
-			opacity: 0.5;
-			background-color: #fff;
-
-			color: #000;
-		}
+	box-sizing: border-box;
+	* {
+		box-sizing: border-box;
 	}
 }
 
-.foyer-display-16-9 {
+.foyer-preview-9-16 {
+	width: (9 / 16) * 96vh;
+	height: 100vh;
 
+	margin: 0 auto;
+	padding: 2vh 0;
+	overflow: hidden;
 }
-.foyer-display-9-16 {
 
+.foyer-preview-16-9 {
+	width: 100vw;
+	height: (9 / 16) * 96vw;
+
+	margin: 0 auto;
+	padding: 0 2vw;
+	overflow: hidden;
+}
+
+.foyer-display,
+.foyer-channel,
+.foyer-slides {
+	width: 100%;
+	height: 100%;
+}
+
+.foyer-slides {
+	background-color: #fff;
+}
+
+.foyer-slide {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	background-color: #fff;
+
+	position: relative;
+	figure {
+		margin: 0;
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover; // no IE/Edge support
+		}
+	}
+
+	.foyer-slide-fields {
+		position: absolute;
+		bottom: 0;
+		left: 0; right: 0;
+
+		padding: 2vmin 4vmin;
+		background-color: rgba(255,255,255, 0.5);
+
+		color: #000;
+
+		font-size: 1rem;
+		line-height: 1.2;
+
+		h1 {
+			font-size: 3rem;
+		}
+	}
 }
 
 .foyer-transition-fade {

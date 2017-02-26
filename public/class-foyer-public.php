@@ -60,7 +60,11 @@ class Foyer_Public {
 	 */
 	public function enqueue_styles() {
 
-		if ( is_singular( Foyer_Display::post_type_name ) || is_singular( Foyer_Channel::post_type_name ) ) {
+		if (
+			is_singular( Foyer_Display::post_type_name ) ||
+			is_singular( Foyer_Channel::post_type_name ) ||
+			is_singular( Foyer_Slide::post_type_name )
+		) {
 			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/foyer-public.css', array(), $this->version, 'all' );
 		}
 	}
@@ -72,7 +76,11 @@ class Foyer_Public {
 	 */
 	public function enqueue_scripts() {
 
-		if ( is_singular( Foyer_Display::post_type_name ) || is_singular( Foyer_Channel::post_type_name ) ) {
+		if (
+			is_singular( Foyer_Display::post_type_name ) ||
+			is_singular( Foyer_Channel::post_type_name ) ||
+			is_singular( Foyer_Slide::post_type_name )
+		) {
 			wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/foyer-public-min.js', array( 'jquery' ), $this->version, false );
 		}
 	}

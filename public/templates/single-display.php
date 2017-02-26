@@ -15,27 +15,32 @@ $channel = new Foyer_Channel( $display->get_active_channel() );
 		wp_head( );
 	?></head>
 	<body <?php body_class();?>>
-		<div class="foyer-display foyer-orientation-portrait">
-			<div class="foyer-channel foyer-transition-slide foyer-channel-<?php echo $channel->ID; ?>">
-				<div class="foyer-slides"><?php
+		<div class="foyer-preview-9-16">
 
-					$first_slide_class = 'next';
-					foreach( $channel->get_slides() as $slide ) {
+			<div class="foyer-display">
+				<div class="foyer-channel foyer-channel-<?php echo $channel->ID; ?> foyer-transition-slide">
+					<div class="foyer-slides"><?php
 
-						$post = get_post( $slide->ID );
-						setup_postdata( $post );
-						?><div class="foyer-slide foyer-slide-<?php echo $slide->format(); ?> <?php echo $first_slide_class; ?>"
-							data-foyer-slide-duration="2.5"><?php
+						$first_slide_class = 'next';
+						foreach( $channel->get_slides() as $slide ) {
 
-							$first_slide_class = '';
-							Foyer_Templates::get_template('slides/'.$slide->format().'.php');
+							$post = get_post( $slide->ID );
+							setup_postdata( $post );
 
-						?></div><?php
-					}
+							?><div class="foyer-slide foyer-slide-<?php echo $slide->format(); ?> <?php echo $first_slide_class; ?>"
+								data-foyer-slide-duration="2.5"><?php
 
-					wp_reset_postdata();
-				?></div>
+								$first_slide_class = '';
+								Foyer_Templates::get_template('slides/'.$slide->format().'.php');
+
+							?></div><?php
+						}
+
+						wp_reset_postdata();
+					?></div>
+				</div>
 			</div>
+
 		</div><?php
 		wp_footer();
 	?></body>
