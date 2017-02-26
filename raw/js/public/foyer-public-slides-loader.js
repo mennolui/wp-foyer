@@ -3,7 +3,7 @@ var foyer_channel_selector = '.foyer-channel';
 var foyer_slides_selector = '.foyer-slides';
 var foyer_slide_selector = '.foyer-slide';
 
-jQuery(window).load(function() {
+jQuery(document).ready(function() {
 
 	if (
 		jQuery('body.single-foyer_display').length ||
@@ -13,14 +13,11 @@ jQuery(window).load(function() {
 		jQuery('html').addClass('foyer');
 	}
 
-
 	if (jQuery(foyer_display_selector).length) {
 		// We're viewing a display
 		foyer_setup_display();
 		foyer_setup_slide_group_classes();
 	}
-
-	foyer_fader_setup_slideshow();
 
 });
 
@@ -66,7 +63,7 @@ function foyer_load_display_data() {
 			if ($new_html.find(foyer_channel_selector).attr('class') !== jQuery(foyer_channel_selector).attr('class')) {
 				// Channel ID has changed or its other properties have changed
 				// Replace channel HTML and restart slideshow after current slideshow has shutdown
-				foyer_fader_shutdown_slideshow(foyer_replace_channel, $new_html.find(foyer_channel_selector));
+				foyer_ticker_shutdown(foyer_replace_channel, $new_html.find(foyer_channel_selector));
 			}
 			else {
 				// Channel unchanged
@@ -79,7 +76,7 @@ function foyer_load_display_data() {
 					// Only one slide currently & one slide new slide
 					// Replace current slide with new slide from loaded HTML
 					jQuery(foyer_slides_selector).html($new_slides);
-					foyer_fader_set_slide_active_next_classes();
+					foyer_ticker_set_slide_active_next_classes();
 				}
 				else {
 					// More than one slide currently, or one slide currently but more new slides
@@ -87,7 +84,7 @@ function foyer_load_display_data() {
 					jQuery(foyer_slides_selector).children().last().after($new_slides);
 
 					jQuery(foyer_slides_selector).find('.'+next_slide_group_class).first().attrChange(function(attr_name) {
-						// Fader has advanced into the next group, first slide has changed to active
+						// Ticker has advanced into the next group, first slide has changed to active
 						jQuery(foyer_slides_selector).find('.'+next_slide_group_class).first().attrChange(function(attr_name) {
 							// First slide has changed from active to not active
 							// Empty the current (now previous) group to allow loading of fresh content
@@ -106,7 +103,7 @@ function foyer_replace_channel($new_channel_html) {
 	foyer_setup_slide_group_classes();
 
 	// Use timeout to allow browser to detect class changing from next to active
-	setTimeout(foyer_fader_setup_slideshow, 0.1 * 1000); // (0.1 seconds in milliseconds)
+	setTimeout(foyer_ticker_setup, 0.1 * 1000); // (0.1 seconds in milliseconds)
 }
 
 function foyer_display_reload_window() {
