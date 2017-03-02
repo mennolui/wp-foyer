@@ -354,7 +354,7 @@ class Foyer_Admin_Channel {
 	public function get_slides_duration_options() {
 
 		$slides_duration_options = array();
-		for ( $sec = 1; $sec <= 20; $sec++ ) {
+		for ( $sec = 2; $sec <= 20; $sec++ ) {
 			$slides_duration_options[ $sec ] = $sec . ' ' . _n( 'second', 'seconds', $sec, 'foyer' );
 		}
 
