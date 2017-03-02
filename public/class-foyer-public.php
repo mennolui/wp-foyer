@@ -54,9 +54,26 @@ class Foyer_Public {
 	}
 
 	/**
+	 * Adds image sizes used throughout the front-end of the plugin.
+	 *
+	 * See https://en.wikipedia.org/wiki/Display_resolution for a list of display resolutions and their names.
+	 *
+	 * @since	1.0.0
+	 *
+	 * @return	void
+	 */
+	public function add_image_sizes() {
+
+		// Full HD (1920 x 1080) square
+		add_image_size( 'foyer_fhd_square', 1920, 1920, true );
+	}
+
+	/**
 	 * Register the stylesheets for the public-facing side of the site.
 	 *
-	 * @since    1.0.0
+	 * @since	1.0.0
+	 *
+	 * @return	void
 	 */
 	public function enqueue_styles() {
 
@@ -72,7 +89,9 @@ class Foyer_Public {
 	/**
 	 * Register the JavaScript for the public-facing side of the site.
 	 *
-	 * @since    1.0.0
+	 * @since	1.0.0
+	 *
+	 * @return	void
 	 */
 	public function enqueue_scripts() {
 

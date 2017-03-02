@@ -2,10 +2,13 @@
 /**
  * Default slide template.
  *
- * @since	1.0
+ * @since	1.0.0
  */
+
+$slide = new Foyer_Slide( get_the_id() );
+
 ?><div class="inner">
 	<figure>
-		<img src="<?php echo wp_get_attachment_url( get_post_meta( get_the_id(), 'slide_default_image', true ) ); ?>" />
+		<img src="<?php echo $slide->image(); ?>" />
 	</figure>
 </div>
