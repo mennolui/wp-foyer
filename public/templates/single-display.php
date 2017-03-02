@@ -18,7 +18,7 @@ $channel = new Foyer_Channel( $display->get_active_channel() );
 		<div class="foyer-preview-9-16">
 
 			<div class="foyer-display">
-				<div class="foyer-channel foyer-channel-<?php echo $channel->ID; ?> foyer-transition-slide">
+				<div class="foyer-channel foyer-channel-<?php echo $channel->ID; ?> foyer-transition-<?php echo $channel->get_slides_transition(); ?>">
 					<div class="foyer-slides"><?php
 
 						$first_slide_class = 'next';
@@ -28,7 +28,7 @@ $channel = new Foyer_Channel( $display->get_active_channel() );
 							setup_postdata( $post );
 
 							?><div class="foyer-slide foyer-slide-<?php echo $slide->format(); ?> <?php echo $first_slide_class; ?>"
-								data-foyer-slide-duration="2.5"><?php
+								data-foyer-slide-duration="<?php echo $channel->get_slides_duration(); ?>"><?php
 
 								$first_slide_class = '';
 								Foyer_Templates::get_template('slides/'.$slide->format().'.php');
