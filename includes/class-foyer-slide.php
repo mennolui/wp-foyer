@@ -50,22 +50,39 @@ class Foyer_Slide {
 
 	/**
 	 * Gets the format of the slide.
-	 * 
+	 *
 	 * @since	1.0.0
 	 * @return	string	The format key.
 	 */
 	public function format() {
 
 		$slide_format = get_post_meta( $this->ID, 'slide_format', true );
-		
+
 		$slide_format_keys = array_keys( Foyer_Slides::get_slide_formats() );
-		
+
 		if (empty ($slide_format) || !in_array( $slide_format, $slide_format_keys ) ) {
 			$slide_format = $slide_format_keys[0];
 		}
-		
+
 		return $slide_format;
-		
+
 	}
 
+	/**
+	 * Gets the URL of the slide image.
+	 *
+	 *
+	 *
+	 * @since	1.0.0
+	 * @return	string	The URL of the slide image.
+	 */
+	public function image() {
+		$attachment_id = get_post_meta( $this->ID, 'slide_default_image', true );
+		$attachment_src = wp_get_attachment_image_src( $attachment_id, 'foyer_fhd_square' );
+		if ( empty ( $attachment_src[0] ) ) {
+			return false;
+		}
+
+		return $attachment_src[0];
+	}
 }

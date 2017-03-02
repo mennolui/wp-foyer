@@ -52,16 +52,6 @@ class Foyer_Setup {
 	}
 
 	/**
-	 * Adds default image sizes for slides.
-	 * 
-	 * @since	1.0.0
-	 * @return 	void
-	 */
-	function add_image_sizes() {
-		add_image_size( 'foyer_default_slide_image', 1920, 1920, true );
-	}
-
-	/**
 	 * Registers the custom post type for slides and channels.
 	 *
 	 * @since 	1.0.0

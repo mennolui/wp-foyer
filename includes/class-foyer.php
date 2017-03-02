@@ -236,6 +236,8 @@ class Foyer {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $this->public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $this->public, 'enqueue_scripts' );
+		$this->loader->add_action( 'init', $this->public, 'add_image_sizes' );
+
 		$this->loader->add_action( 'template_include', 'Foyer_Templates', 'template_include' );
 
 	}
@@ -250,7 +252,6 @@ class Foyer {
 	private function define_setup_hooks() {
 
 		$this->loader->add_action( 'init', $this->setup, 'register_post_types' );
-		$this->loader->add_action( 'after_setup_theme', $this->setup, 'add_image_sizes' );
 
 	}
 
