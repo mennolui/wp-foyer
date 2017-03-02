@@ -10,14 +10,14 @@ $production = new WPT_Production( get_post_meta( get_the_id(), 'slide_production
 $slide_image = get_post_meta( get_the_id(), 'slide_production_image', true );
 
 if ( !empty( $slide_image ) ) {
-	$slide_image_url = wp_get_attachment_url( $slide_image );
+	$slide_image_url = wp_get_attachment_image( $slide_image, 'foyer_default_slide_image' );
 }
 
 // Fallback to production image if slide image is not set or not found.
 if ( empty( $slide_image_url ) ) {
 	$slide_image = $production->thumbnail();
 	if ( !empty( $slide_image ) ) {
-		$slide_image_url = wp_get_attachment_url( $slide_image );
+		$slide_image_url = wp_get_attachment_image( $slide_image, 'foyer_default_slide_image' );
 	}
 }
 

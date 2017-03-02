@@ -250,6 +250,7 @@ class Foyer {
 	private function define_setup_hooks() {
 
 		$this->loader->add_action( 'init', $this->setup, 'register_post_types' );
+		$this->loader->add_action( 'after_setup_theme', $this->setup, 'add_image_sizes' );
 
 	}
 
