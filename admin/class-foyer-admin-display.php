@@ -56,6 +56,24 @@ class Foyer_Admin_Display {
 
 
 	/**
+	 * Adds Default Channel and Active Channel columns to the Displas admin table.
+	 * Removed the Date column.
+	 * 
+	 * @since	1.0.0
+	 * @param 	array	$columns	The current colums.
+	 * @return	array				The new columns.
+	 */
+	function add_channel_columns($columns) {
+	    unset($columns['date']);
+	    return array_merge($columns,
+	        array(
+	        	'default_channel' => __('Default channel', 'foyer'),
+	        	'active_channel' => __('Active channel', 'foyer'),
+	        ) 
+	    );
+	}
+
+	/**
 	 * Adds the channel editor meta box to the display admin page.
 	 *
 	 * @since	1.0.0
@@ -274,6 +292,41 @@ class Foyer_Admin_Display {
 		echo $html;
 	}
 
+
+	/**
+	 * Outputs the Active Channel and Defaults Channel columns.
+	 * 
+	 * @since	1.0.0
+	 * @param 	string	$column		The current column that needs output.
+	 * @param 	int 	$post_id 	The current display ID.
+	 * @return	void
+	 */
+	function do_channel_columns( $column, $post_id ) {
+	    switch ( $column ) {
+	
+		    case 'active_channel' :
+
+				$display = new Foyer_Display( get_the_id() );
+				$channel = new Foyer_Channel( $display->get_active_channel() );
+				
+				?><a href="<?php echo get_edit_post_link( $channel->ID); ?>"><?php 
+					echo get_the_title( $channel->ID ); 
+				?></a><?php
+					
+		        break;
+		    
+		    case 'default_channel' :
+
+				$display = new Foyer_Display( get_the_id() );
+				$channel = new Foyer_Channel( $display->get_default_channel() );
+				
+				?><a href="<?php echo get_edit_post_link( $channel->ID); ?>"><?php 
+					echo get_the_title( $channel->ID ); 
+				?></a><?php
+					
+		        break;
+	    }
+	}
 
 	/**
 	 * Saves all custom fields for a display.
