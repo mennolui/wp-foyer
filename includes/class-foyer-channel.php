@@ -41,6 +41,24 @@ class Foyer_Channel {
 	private $slides;
 
 	/**
+	 * The slides duration setting of this channel.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 * @var      string    $slides    The slides duration setting of this channel.
+	 */
+	private $slides_duration;
+
+	/**
+	 * The slides transition setting of this channel.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 * @var      string    $slides    The slides transition setting of this channel.
+	 */
+	private $slides_transition;
+
+	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since	1.0.0
@@ -57,7 +75,6 @@ class Foyer_Channel {
 		$this->ID = $ID;
 	}
 
-
 	/**
 	 * Get slides for this channel.
 	 *
@@ -72,7 +89,7 @@ class Foyer_Channel {
 			$slides = array();
 
 			$posts = get_post_meta( $this->ID, Foyer_Slide::post_type_name, true );
-			
+
 			if (!empty($posts)) {
 				foreach ( $posts as $post ) {
 					$slide = new Foyer_Slide( $post );
@@ -84,6 +101,42 @@ class Foyer_Channel {
 		}
 
 		return $this->slides;
+	}
+
+	/**
+	 * Get slides duration setting for this channel.
+	 *
+	 * @since	1.0.0
+	 * @access	public
+	 * @return	int		The slides duration setting for this channel.
+	 */
+	public function get_slides_duration() {
+
+		if ( ! isset( $this->slides_duration ) ) {
+
+			$slides_duration = get_post_meta( $this->ID, Foyer_Channel::post_type_name . '_slides_duration', true );
+			$this->slides_duration = $slides_duration;
+		}
+
+		return $this->slides_duration;
+	}
+
+	/**
+	 * Get slides transition setting for this channel.
+	 *
+	 * @since	1.0.0
+	 * @access	public
+	 * @return	int		The slides transition setting for this channel.
+	 */
+	public function get_slides_transition() {
+
+		if ( ! isset( $this->slides_transition ) ) {
+
+			$slides_transition = get_post_meta( $this->ID, Foyer_Channel::post_type_name . '_slides_transition', true );
+			$this->slides_transition = $slides_transition;
+		}
+
+		return $this->slides_transition;
 	}
 
 }

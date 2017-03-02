@@ -111,7 +111,6 @@ class Foyer_Admin_Channel {
 		wp_die();
 	}
 
-
 	/**
 	 * Adds the slides editor meta box to the channel admin page.
 	 *
@@ -128,6 +127,21 @@ class Foyer_Admin_Channel {
 		);
 	}
 
+	/**
+	 * Adds the settings meta box to the channel admin page.
+	 *
+	 * @since	1.0.0
+	 */
+	public function add_slides_settings_meta_box() {
+		add_meta_box(
+			'foyer_slides_settings',
+			__( 'Slideshow settings' , 'foyer' ),
+			array( $this, 'slides_settings_meta_box' ),
+			Foyer_Channel::post_type_name,
+			'normal',
+			'high'
+		);
+	}
 
 	/**
 	 * Gets the HTML that lists all slides in the slides editor.
@@ -194,11 +208,11 @@ class Foyer_Admin_Channel {
 
 		?>
 			<div class="foyer_slides_editor_add">
-				<label for="foyer_slides_editor_add_select">
+				<label for="foyer_slides_editor_add">
 					<?php echo __( 'Add slide', 'foyer' ); ?>
 				</label>
 
-				<select class="foyer_slides_editor_add_select">
+				<select id="foyer_slides_editor_add" class="foyer_slides_editor_add_select">
 					<option value="">(<?php echo __( 'Select a slide', 'foyer' ); ?>)</option>
 					<?php
 						$slides = get_posts( array( 'post_type' => Foyer_Slide::post_type_name ) ); //@todo: move to class
@@ -215,6 +229,165 @@ class Foyer_Admin_Channel {
 		$html = ob_get_clean();
 
 		return $html;
+	}
+
+	/**
+	 * Gets the HTML to set the slides duration in the slides settings metabox.
+	 *
+	 * @since	1.0.0
+	 * @access	public
+	 * @param	WP_Post	$post	The post object of the current display.
+	 * @return	string	$html	The HTML to set the slides duration in the slides settings metabox.
+	 */
+	public function get_set_duration_html( $post ) {
+
+		$duration_options = $this->get_slides_duration_options();
+		$default_duration = Foyer_Slides::get_default_slides_duration();
+
+		$default_option_name = '(' . __( 'Default', 'foyer' );
+		if ( ! empty( $duration_options[ $default_duration ] ) ) {
+			$default_option_name .= ' [' . $duration_options[ $default_duration ] . ']';
+		}
+		$default_option_name .= ')';
+
+		$channel = new Foyer_Channel( $post );
+		$selected_duration = $channel->get_slides_duration();
+
+		ob_start();
+
+		?>
+			<tr>
+				<th>
+					<label for="foyer_slides_settings_duration">
+						<?php echo __( 'Duration', 'foyer' ); ?>
+					</label>
+				</th>
+				<td>
+					<select id="foyer_slides_settings_duration" name="foyer_slides_settings_duration">
+						<option value=""><?php echo $default_option_name; ?></option>
+						<?php
+							foreach ( $duration_options as $key => $name ) {
+								$selected = '';
+								if ( $selected_duration == $key ) {
+									$selected = 'selected="selected"';
+								}
+								?>
+									<option value="<?php echo $key; ?>" <?php echo $selected; ?>>
+										<?php echo $name; ?>
+									</option>
+								<?php
+							}
+						?>
+					</select>
+				</td>
+			</tr>
+		<?php
+
+		$html = ob_get_clean();
+
+		return $html;
+	}
+
+	/**
+	 * Gets the HTML to set the slides transition in the slides settings metabox.
+	 *
+	 * @since	1.0.0
+	 * @access	public
+	 * @param	WP_Post	$post	The post object of the current display.
+	 * @return	string	$html	The HTML to set the slides transition in the slides settings metabox.
+	 */
+	public function get_set_transition_html( $post ) {
+
+		$transition_options = $this->get_slides_transition_options();
+		$default_transition = Foyer_Slides::get_default_slides_transition();
+
+		$default_option_name = '(' . __( 'Default', 'foyer' );
+		if ( ! empty( $transition_options[ $default_transition ] ) ) {
+			$default_option_name .= ' [' . $transition_options[ $default_transition ] . ']';
+		}
+		$default_option_name .= ')';
+
+		$channel = new Foyer_Channel( $post );
+		$selected_transition = $channel->get_slides_transition();
+
+		ob_start();
+
+		?>
+			<tr>
+				<th>
+					<label for="foyer_slides_settings_transition">
+						<?php echo __( 'Transition', 'foyer' ); ?>
+					</label>
+				</th>
+				<td>
+					<select id="foyer_slides_settings_transition" name="foyer_slides_settings_transition">
+						<option value=""><?php echo $default_option_name; ?></option>
+						<?php
+							foreach ( $transition_options as $key => $name ) {
+								$selected = '';
+								if ( $selected_transition == $key ) {
+									$selected = 'selected="selected"';
+								}
+								?>
+									<option value="<?php echo $key; ?>" <?php echo $selected; ?>>
+										<?php echo $name; ?>
+									</option>
+								<?php
+							}
+						?>
+					</select>
+				</td>
+			</tr>
+		<?php
+
+		$html = ob_get_clean();
+
+		return $html;
+	}
+
+	/**
+	 * Gets the slides duration options.
+	 *
+	 * @since	1.0.0
+	 * @return	array		The slides duration options.
+	 */
+	public function get_slides_duration_options() {
+
+		$slides_duration_options = array();
+		for ( $sec = 1; $sec <= 20; $sec++ ) {
+			$slides_duration_options[ $sec ] = $sec . ' ' . _n( 'second', 'seconds', $sec, 'foyer' );
+		}
+
+		/**
+		 * Filter available slides duration options.
+		 *
+		 * @since	1.0.0
+		 * @param	array	$slides_duration_options	The currently available slides duration options.
+		 */
+		$slides_duration_options = apply_filters( 'foyer/slides/duration/options', $slides_duration_options );
+
+		return $slides_duration_options;
+	}
+
+	/**
+	 * Gets the slides transition options.
+	 *
+	 * @since	1.0.0
+	 * @return	array		The slides transition options.
+	 */
+	public function get_slides_transition_options() {
+
+		$slides_transition_options = array( 'fade' => __( 'Fade', 'foyer' ), 'slide' => __( 'Slide', 'foyer' ) );
+
+		/**
+		 * Filter available slides transition options.
+		 *
+		 * @since	1.0.0
+		 * @param	array	$slides_transition_options	The currently available slides transition options.
+		 */
+		$slides_transition_options = apply_filters( 'foyer/slides/transition/options', $slides_transition_options );
+
+		return $slides_transition_options;
 	}
 
 	/**
@@ -245,12 +418,40 @@ class Foyer_Admin_Channel {
 		echo $html;
 	}
 
+	/**
+	 * Outputs the content of the slides settings meta box.
+	 *
+	 * @since	1.0.0
+	 * @param	WP_Post		$post	The post object of the current channel.
+	 */
+	public function slides_settings_meta_box( $post ) {
+
+		wp_nonce_field( Foyer_Channel::post_type_name, Foyer_Channel::post_type_name.'_nonce' );
+
+		ob_start();
+
+		?>
+			<table class="foyer_meta_box_form form-table foyer_slides_settings_form">
+				<tbody>
+					<?php
+
+						echo $this->get_set_duration_html( $post );
+						echo $this->get_set_transition_html( $post );
+
+					?>
+				</tbody>
+			</table>
+		<?php
+
+		$html = ob_get_clean();
+
+		echo $html;
+	}
 
 	/**
 	 * Saves all custom fields for a channel.
 	 *
 	 * Triggered when a channel is submitted from the channel admin form.
-	 * Currently nothing is saved!
 	 *
 	 * @since 	1.0.0
 	 * @param 	int		$post_id	The channel id.
@@ -285,6 +486,15 @@ class Foyer_Admin_Channel {
 			return $post_id;
 		}
 
+		if (
+			! isset( $_POST['foyer_slides_settings_duration'] ) ||
+			! isset( $_POST['foyer_slides_settings_transition'] )
+		) {
+			return $post_id;
+		}
+
+		update_post_meta( $post_id, Foyer_Channel::post_type_name . '_slides_duration' , $_POST['foyer_slides_settings_duration'] );
+		update_post_meta( $post_id, Foyer_Channel::post_type_name . '_slides_transition' , $_POST['foyer_slides_settings_transition'] );
 	}
 
 	/**
