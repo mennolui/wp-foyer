@@ -76,6 +76,12 @@ class Foyer_Admin_Preview {
 		
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/foyer-admin-min.js', array( 'jquery', 'jquery-ui-sortable' ), $this->version, false );
 		
+		wp_localize_script( $this->plugin_name, 'foyer_preview', array( 
+			'ajax_url' => admin_url( 'admin-ajax.php' ), 
+			'object_id' => get_the_id(), 
+			'orientations' => self::get_orientations(),
+		) );
+		
 	}
 	
 	/**
@@ -102,6 +108,83 @@ class Foyer_Admin_Preview {
 		}
 		
 		return false;
+	}
+	
+	/**
+	 * Get the current user's orientation choice for a Display, Channel or Slide.
+	 * 
+	 * @since	1.0.0
+	 * @static
+	 * @param 	int	$object_id
+	 * @return	string
+	 */
+	static function get_orientation_choice( $object_id ) {
+
+		$default_orientation_choice = '16-9';
+
+		if ( !is_user_logged_in( ) ) {
+			return $default_orientation_choice;
+		}
+		
+		$orientation_choices = get_user_meta( get_current_user_id( ), 'foyer_preview_orientation_choices', true );
+		
+		if ( empty( $orientation_choices[ $object_id ] ) ) {
+			return $default_orientation_choice;			
+		}
+		
+		return $orientation_choices[ $object_id ];
+	}
+	
+	/**
+	 * Gets all available preview orientations.
+	 * 
+	 * @since	1.0.0
+	 * @static
+	 * @return	array
+	 */
+	static function get_orientations() {
+		
+		$orientations = array(
+			'16-9' => __('landscape', 'foyer'),
+			'9-16' => __('portrait', 'foyer'),
+		);
+		
+		return $orientations;
+	}
+	
+	/**
+	 * Save a user's orientation choice for a Display, Channel of Slide.
+	 * 
+	 * Hooked to orientation button via AJAX.
+	 *
+	 * @return	void
+	 */
+	function save_orientation_choice( ) {
+		
+		if ( !is_user_logged_in( ) ) {
+			return;
+		}
+		
+		if (empty( $_POST[ 'orientation' ] ) ) {
+			return;
+		}
+		
+		if (empty( $_POST[ 'object_id' ] ) ) {
+			return;
+		}
+		
+		$orientation_choices = get_user_meta( get_current_user_id( ), 'foyer_preview_orientation_choices', true );
+		
+		if (empty( $orientation_choices )) {
+			$orientation_choices = array();
+		}
+		
+		$orientation_choices[ intval( $_POST[ 'object_id' ] ) ] = sanitize_title( $_POST[ 'orientation' ] );
+		
+		update_user_meta( get_current_user_id( ), 'foyer_preview_orientation_choices', $orientation_choices );
+
+		wp_die();		
+
 	}
 
 }

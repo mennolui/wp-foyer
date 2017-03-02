@@ -218,6 +218,8 @@ class Foyer {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $this->admin_preview, 'enqueue_scripts' );
 		$this->loader->add_filter( 'show_admin_bar', $this->admin_preview, 'hide_admin_bar' );
+		$this->loader->add_action( 'wp_ajax_foyer_preview_save_orientation_choice', $this->admin_preview, 'save_orientation_choice' );
+		$this->loader->add_action( 'wp_ajax_nopriv_foyer_preview_save_orientation_choice', $this->admin_preview, 'save_orientation_choice' );
 
 		$this->loader->add_filter( 'foyer/slides/formats', $this->theater, 'add_production_slide_format');
 

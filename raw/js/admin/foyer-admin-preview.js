@@ -21,14 +21,36 @@
 		var $preview = $('.foyer-preview');
 		
 		$preview_actions.on( 'click', function() {
+
+			var orientation_choice = jQuery(this).attr('data-orientation');
+
 			$preview_actions.removeClass('active');
-			if ($preview.hasClass('foyer-preview-9-16')) {
-				$preview.removeClass('foyer-preview-9-16').addClass('foyer-preview-16-9');
-			} else {
-				$preview.removeClass('foyer-preview-16-9').addClass('foyer-preview-9-16');				
+			
+			for( var orientation_key in foyer_preview.orientations ) {
+				$preview.removeClass( 'foyer-preview-' + orientation_key );
 			}
+
+			$preview.addClass( 'foyer-preview-'+orientation_choice );
+			
 			jQuery(this).addClass('active');
+			
+			save_orientation_choice( orientation_choice );
 		});
 	}
-
+	
+	/**
+	 * Submits the user's orientation choice for the current Display, Channel or Slide.
+	 *
+	 * @since	1.0.0
+	 * @return 	void
+	 */
+	function save_orientation_choice( orientation ) {
+		console.log(orientation);
+		var data = {
+			'action': 'foyer_preview_save_orientation_choice',
+			'orientation': orientation,
+			'object_id' : foyer_preview.object_id,
+		};
+		jQuery.post(foyer_preview.ajax_url, data );
+	}
 })( jQuery );
