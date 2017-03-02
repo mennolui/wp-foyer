@@ -251,7 +251,7 @@ class Foyer_Admin_Channel {
 		$default_option_name .= ')';
 
 		$channel = new Foyer_Channel( $post );
-		$selected_duration = $channel->get_slides_duration();
+		$selected_duration = $channel->get_saved_slides_duration();
 
 		ob_start();
 
@@ -308,7 +308,7 @@ class Foyer_Admin_Channel {
 		$default_option_name .= ')';
 
 		$channel = new Foyer_Channel( $post );
-		$selected_transition = $channel->get_slides_transition();
+		$selected_transition = $channel->get_saved_slides_transition();
 
 		ob_start();
 
@@ -354,7 +354,7 @@ class Foyer_Admin_Channel {
 	public function get_slides_duration_options() {
 
 		$slides_duration_options = array();
-		for ( $sec = 1; $sec <= 20; $sec++ ) {
+		for ( $sec = 2; $sec <= 20; $sec++ ) {
 			$slides_duration_options[ $sec ] = $sec . ' ' . _n( 'second', 'seconds', $sec, 'foyer' );
 		}
 
