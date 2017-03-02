@@ -1,9 +1,15 @@
+@height-admin-bar: 32px;
+@height-admin-bar-mobile: 46px;
+@height-actions-bar: 45px;
+
 body.single-foyer_display,
 body.single-foyer_channel,
 body.single-foyer_slide {
-	background-color: #555;
 	&.admin-bar {
+		display: flex;
+		align-items: center;
 		height: auto;
+		background-color: #555;
 	}
 }
 
@@ -14,18 +20,28 @@ body.single-foyer_slide {
 	display: block;
 	border: none;
 	transition: .5s all ease;
+	margin-top: -1 * @height-actions-bar; // compensate for actions bar
+	@media screen and (max-width: 782px) {
+		margin-top: -1 * @height-actions-bar;
+	}
 }
 
 .foyer-preview-9-16 {
-	width: (9 / 16) * 96vh;
-	height: calc( 100vh ~'-' 64px);
-	padding: 2vh 0;
+	width: calc( (9 / 16) * 96vh ~'-' ( (9 / 16) * (@height-admin-bar + @height-actions-bar) ) );
+	height: calc( 96vh ~'-' (@height-admin-bar + @height-actions-bar) );
+	@media screen and (max-width: 782px) {
+		width: calc( (9 / 16) * 96vh ~'-' ( (9 / 16) * (@height-admin-bar-mobile + @height-actions-bar) ) );
+		height: calc( 96vh ~'-' (@height-admin-bar-mobile + @height-actions-bar) );
+	}
 }
 
 .foyer-preview-16-9 {
-	width: 100vw;
-	height: (9 / 16) * 96vw;
-	padding: 0 2vw;
+	width: calc( 96vh ~'-' (@height-admin-bar + @height-actions-bar) );
+	height: calc( (9 / 16) * 96vh ~'-' ( (9 / 16) * (@height-admin-bar + @height-actions-bar) ) );
+	@media screen and (max-width: 782px) {
+		width: calc( 96vh ~'-' (@height-admin-bar-mobile + @height-actions-bar) );
+		height: calc( (9 / 16) * 96vh ~'-' ( (9 / 16) * (@height-admin-bar-mobile + @height-actions-bar) ) );
+	}
 }
 
 .foyer-preview-actions {
