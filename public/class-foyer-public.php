@@ -85,21 +85,5 @@ class Foyer_Public {
 		}
 	}
 
-	/**
-	 * Suppress the WordPress admin bar when viewing a display, channel or slide.
-	 *
-	 * @since    1.0.0
-	 */
-	public function suppress_admin_bar() {
 
-		if (
-			is_singular( Foyer_Display::post_type_name ) ||
-			is_singular( Foyer_Channel::post_type_name ) ||
-			is_singular( Foyer_Slide::post_type_name )
-		) {
-			return false;
-		}
-
-		return true;
-	}
 }

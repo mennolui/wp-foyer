@@ -121,6 +121,7 @@ class Foyer {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-foyer-admin-channel.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-foyer-admin-display.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-foyer-admin-slide.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-foyer-admin-preview.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
@@ -158,6 +159,7 @@ class Foyer {
 		$this->admin_channel = new Foyer_Admin_Channel( $this->get_plugin_name(), $this->get_version() );
 		$this->admin_display = new Foyer_Admin_Display( $this->get_plugin_name(), $this->get_version() );
 		$this->admin_slide = new Foyer_Admin_Slide( $this->get_plugin_name(), $this->get_version() );
+		$this->admin_preview = new Foyer_Admin_Preview( $this->get_plugin_name(), $this->get_version() );
 
 		$this->theater = new Foyer_Theater( $this->get_plugin_name(), $this->get_version() );
 
@@ -211,7 +213,11 @@ class Foyer {
 		$this->loader->add_action( 'add_meta_boxes', $this->admin_slide, 'add_slide_editor_meta_boxes' );
 		$this->loader->add_action( 'save_post', $this->admin_slide, 'save_slide' );
 
+		$this->loader->add_action( 'wp_enqueue_scripts', $this->admin_preview, 'enqueue_scripts' );
+		$this->loader->add_filter( 'show_admin_bar', $this->admin_preview, 'hide_admin_bar' );
+
 		$this->loader->add_filter( 'foyer/slides/formats', $this->theater, 'add_production_slide_format');
+
 	}
 
 	/**
@@ -227,7 +233,6 @@ class Foyer {
 		$this->loader->add_action( 'wp_enqueue_scripts', $this->public, 'enqueue_scripts' );
 		$this->loader->add_action( 'template_include', 'Foyer_Templates', 'template_include' );
 
-		$this->loader->add_filter( 'show_admin_bar', $this->public, 'suppress_admin_bar' );
 	}
 
 	/**
