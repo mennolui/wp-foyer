@@ -104,17 +104,42 @@ class Foyer_Channel {
 	}
 
 	/**
-	 * Get slides duration setting for this channel.
+	 * Get slides duration setting for this channel as saved in the database.
 	 *
 	 * @since	1.0.0
 	 * @access	public
-	 * @return	int		The slides duration setting for this channel.
+	 * @return	string		The slides duration setting for this channel as saved in the database.
+	 */
+	public function get_saved_slides_duration() {
+		return get_post_meta( $this->ID, Foyer_Channel::post_type_name . '_slides_duration', true );
+	}
+
+	/**
+	 * Get slides transition setting for this channel as saved in the database.
+	 *
+	 * @since	1.0.0
+	 * @access	public
+	 * @return	string		The slides transition setting for this channel as saved in the database.
+	 */
+	public function get_saved_slides_transition() {
+			return get_post_meta( $this->ID, Foyer_Channel::post_type_name . '_slides_transition', true );
+	}
+
+	/**
+	 * Get slides duration setting for this channel, or the default slides duration when not set.
+	 *
+	 * @since	1.0.0
+	 * @access	public
+	 * @return	string		The slides duration setting for this channel, or the default slides duration when not set.
 	 */
 	public function get_slides_duration() {
 
 		if ( ! isset( $this->slides_duration ) ) {
 
-			$slides_duration = get_post_meta( $this->ID, Foyer_Channel::post_type_name . '_slides_duration', true );
+			$slides_duration = self::get_saved_slides_duration();
+			if ( empty( $slides_duration ) ) {
+				$slides_duration = Foyer_Slides::get_default_slides_duration();
+			}
 			$this->slides_duration = $slides_duration;
 		}
 
@@ -122,17 +147,20 @@ class Foyer_Channel {
 	}
 
 	/**
-	 * Get slides transition setting for this channel.
+	 * Get slides transition setting for this channel, or the default slides transition when not set.
 	 *
 	 * @since	1.0.0
 	 * @access	public
-	 * @return	int		The slides transition setting for this channel.
+	 * @return	string		The slides transition setting for this channel, or the default slides transition when not set.
 	 */
 	public function get_slides_transition() {
 
 		if ( ! isset( $this->slides_transition ) ) {
 
-			$slides_transition = get_post_meta( $this->ID, Foyer_Channel::post_type_name . '_slides_transition', true );
+			$slides_transition = self::get_saved_slides_transition();
+			if ( empty( $slides_transition ) ) {
+				$slides_transition = Foyer_Slides::get_default_slides_transition();
+			}
 			$this->slides_transition = $slides_transition;
 		}
 

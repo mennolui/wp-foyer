@@ -248,7 +248,7 @@ class Foyer_Admin_Channel {
 		$default_option_name .= ')';
 
 		$channel = new Foyer_Channel( $post );
-		$selected_duration = $channel->get_slides_duration();
+		$selected_duration = $channel->get_saved_slides_duration();
 
 		ob_start();
 
@@ -305,7 +305,7 @@ class Foyer_Admin_Channel {
 		$default_option_name .= ')';
 
 		$channel = new Foyer_Channel( $post );
-		$selected_transition = $channel->get_slides_transition();
+		$selected_transition = $channel->get_saved_slides_transition();
 
 		ob_start();
 
