@@ -229,18 +229,23 @@ class Foyer_Admin_Channel {
 	}
 
 	/**
-	 * Gets the HTML to set the default slide duration in the slides settings metabox.
+	 * Gets the HTML to set the slides duration in the slides settings metabox.
 	 *
 	 * @since	1.0.0
 	 * @access	public
 	 * @param	WP_Post	$post	The post object of the current display.
-	 * @return	string	$html	The HTML to set the default slide duration in the slides settings metabox.
+	 * @return	string	$html	The HTML to set the slides duration in the slides settings metabox.
 	 */
 	public function get_set_duration_html( $post ) {
 
-		for ( $sec = 1; $sec <= 20; $sec++ ) {
-			$durations[] = $sec;
+		$duration_options = $this->get_slides_duration_options();
+		$default_duration = Foyer_Slides::get_default_slides_duration();
+
+		$default_option_name = '(' . __( 'Default', 'foyer' );
+		if ( ! empty( $duration_options[ $default_duration ] ) ) {
+			$default_option_name .= ' [' . $duration_options[ $default_duration ] . ']';
 		}
+		$default_option_name .= ')';
 
 		$channel = new Foyer_Channel( $post );
 		$selected_duration = $channel->get_slides_duration();
@@ -256,16 +261,16 @@ class Foyer_Admin_Channel {
 				</th>
 				<td>
 					<select id="foyer_slides_settings_duration" name="foyer_slides_settings_duration">
-						<option value="">(<?php echo __( 'Default', 'foyer' ); ?>)</option>
+						<option value=""><?php echo $default_option_name; ?></option>
 						<?php
-							foreach ( $durations as $sec ) {
+							foreach ( $duration_options as $key => $name ) {
 								$selected = '';
-								if ( $selected_duration == $sec ) {
+								if ( $selected_duration == $key ) {
 									$selected = 'selected="selected"';
 								}
 								?>
-									<option value="<?php echo $sec; ?>" <?php echo $selected; ?>>
-										<?php echo $sec . ' ' . _n( 'second', 'seconds', $sec, 'foyer' ); ?>
+									<option value="<?php echo $key; ?>" <?php echo $selected; ?>>
+										<?php echo $name; ?>
 									</option>
 								<?php
 							}
@@ -281,16 +286,23 @@ class Foyer_Admin_Channel {
 	}
 
 	/**
-	 * Gets the HTML to set the default slide transition in the slides settings metabox.
+	 * Gets the HTML to set the slides transition in the slides settings metabox.
 	 *
 	 * @since	1.0.0
 	 * @access	public
 	 * @param	WP_Post	$post	The post object of the current display.
-	 * @return	string	$html	The HTML to set the default slide transition in the slides settings metabox.
+	 * @return	string	$html	The HTML to set the slides transition in the slides settings metabox.
 	 */
 	public function get_set_transition_html( $post ) {
 
-		$transitions = array( 'fade' => __( 'Fade', 'foyer' ), 'slide' => __( 'Slide', 'foyer' ) );
+		$transition_options = $this->get_slides_transition_options();
+		$default_transition = Foyer_Slides::get_default_slides_transition();
+
+		$default_option_name = '(' . __( 'Default', 'foyer' );
+		if ( ! empty( $transition_options[ $default_transition ] ) ) {
+			$default_option_name .= ' [' . $transition_options[ $default_transition ] . ']';
+		}
+		$default_option_name .= ')';
 
 		$channel = new Foyer_Channel( $post );
 		$selected_transition = $channel->get_slides_transition();
@@ -306,9 +318,9 @@ class Foyer_Admin_Channel {
 				</th>
 				<td>
 					<select id="foyer_slides_settings_transition" name="foyer_slides_settings_transition">
-						<option value="">(<?php echo __( 'Default', 'foyer' ); ?>)</option>
+						<option value=""><?php echo $default_option_name; ?></option>
 						<?php
-							foreach ( $transitions as $key => $name ) {
+							foreach ( $transition_options as $key => $name ) {
 								$selected = '';
 								if ( $selected_transition == $key ) {
 									$selected = 'selected="selected"';
@@ -328,6 +340,51 @@ class Foyer_Admin_Channel {
 		$html = ob_get_clean();
 
 		return $html;
+	}
+
+	/**
+	 * Gets the slides duration options.
+	 *
+	 * @since	1.0.0
+	 * @return	array		The slides duration options.
+	 */
+	public function get_slides_duration_options() {
+
+		$slides_duration_options = array();
+		for ( $sec = 1; $sec <= 20; $sec++ ) {
+			$slides_duration_options[ $sec ] = $sec . ' ' . _n( 'second', 'seconds', $sec, 'foyer' );
+		}
+
+		/**
+		 * Filter available slides duration options.
+		 *
+		 * @since	1.0.0
+		 * @param	array	$slides_duration_options	The currently available slides duration options.
+		 */
+		$slides_duration_options = apply_filters( 'foyer/slides/duration/options', $slides_duration_options );
+
+		return $slides_duration_options;
+	}
+
+	/**
+	 * Gets the slides transition options.
+	 *
+	 * @since	1.0.0
+	 * @return	array		The slides transition options.
+	 */
+	public function get_slides_transition_options() {
+
+		$slides_transition_options = array( 'fade' => __( 'Fade', 'foyer' ), 'slide' => __( 'Slide', 'foyer' ) );
+
+		/**
+		 * Filter available slides transition options.
+		 *
+		 * @since	1.0.0
+		 * @param	array	$slides_transition_options	The currently available slides transition options.
+		 */
+		$slides_transition_options = apply_filters( 'foyer/slides/transition/options', $slides_transition_options );
+
+		return $slides_transition_options;
 	}
 
 	/**
