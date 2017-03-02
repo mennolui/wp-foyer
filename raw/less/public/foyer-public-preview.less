@@ -1,23 +1,24 @@
 body.single-foyer_display,
 body.single-foyer_channel,
 body.single-foyer_slide {
-	background-color: #222;
+	background-color: #555;
+	&.admin-bar {
+		height: auto;
+	}
 }
 
 
 .foyer-preview-9-16,
 .foyer-preview-16-9 {
 	margin: 0 auto;
-	overflow: hidden;
-
-	.foyer-slides {
-		background-color: #fff;
-	}
+	display: block;
+	border: none;
+	transition: .5s all ease;
 }
 
 .foyer-preview-9-16 {
 	width: (9 / 16) * 96vh;
-	height: 100vh;
+	height: calc( 100vh ~'-' 64px);
 	padding: 2vh 0;
 }
 
@@ -25,4 +26,29 @@ body.single-foyer_slide {
 	width: 100vw;
 	height: (9 / 16) * 96vw;
 	padding: 0 2vw;
+}
+
+.foyer-preview-actions {
+	position: fixed;
+	height: 32px;
+	width: 100%;
+	bottom: 0;
+	background: #23282d;
+	color: #ccc;
+	font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+	font-size: 13px;
+    font-weight: 400;
+    line-height: 32px;
+    -webkit-font-smoothing:subpixel-antialiased;-moz-osx-font-smoothing:auto;
+    text-align: center;
+	button {
+		color: #eee;
+		padding: 0 8px 0 7px;
+		font:inherit;
+		&.active,
+		&:hover {
+			background: #32373c;
+			color: #00b9eb;
+		}
+	}
 }

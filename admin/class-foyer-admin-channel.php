@@ -165,13 +165,16 @@ class Foyer_Admin_Channel {
 					$i = 0;
 					foreach( $slides as $slide ) {
 
+						$slide_url = get_permalink( $slide->ID );
+						$slide_url = add_query_arg( 'preview', 1, $slide_url );
+
 						?>
 							<div class="foyer_slides_editor_slides_slide"
 								data-slide-id="<?php echo $slide->ID; ?>"
 								data-slide-key="<?php echo $i; ?>"
 							>
 								<div class="foyer_slides_editor_slides_slide_iframe_container">
-									<iframe src="<?php echo get_permalink( $slide->ID ) ?>" width="1080" height="1920"></iframe>
+									<iframe src="<?php echo $slide_url; ?>" width="1080" height="1920"></iframe>
 								</div>
 								<div class="foyer_slides_editor_slides_slide_caption">
 									<?php echo __( 'Slide', 'foyer' ) . ' ' . ($i + 1); ?>
