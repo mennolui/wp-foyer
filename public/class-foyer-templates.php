@@ -97,7 +97,11 @@ class Foyer_Templates {
 		
 		$file = '';
 
-		if ( is_user_logged_in( ) && empty( $_GET['preview'] ) ) {
+		if ( 
+			is_singular( array( Foyer_Slide::post_type_name, Foyer_Channel::post_type_name, Foyer_Display::post_type_name ) ) && 
+			is_user_logged_in( ) && 
+			empty( $_GET['preview'] ) 
+		) {
 			// Show inside preview iframe when logged in.
 			$file = 'preview.php';
 		} else if ( is_singular( Foyer_Slide::post_type_name ) ) {
@@ -109,7 +113,7 @@ class Foyer_Templates {
 		} else {
 			return $template;
 		}
-		
+
 		if ( file_exists( self::locate_template( $file ) ) ) {
 			$template = self::locate_template( $file );
 		}
