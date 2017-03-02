@@ -163,6 +163,25 @@ class Foyer_Admin_Slide {
 
 
 	/**
+	 * Removes the sample permalink from the Slide edit screen.
+	 * 
+	 * @since	1.0.0
+	 * @param 	string	$sample_permalink
+	 * @return 	string
+	 */
+	public function remove_sample_permalink( $sample_permalink ) {
+		
+		$screen = get_current_screen();
+	
+		// Bail if not on Channel edit screen.
+		if ( Foyer_Slide::post_type_name != $screen->post_type ) {
+			return $sample_permalink;
+		}
+		
+		return '';
+	}
+
+	/**
 	 * Saves all custom fields for a display.
 	 *
 	 * Triggered when a display is submitted from the display admin form.

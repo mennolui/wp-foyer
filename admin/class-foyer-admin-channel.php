@@ -498,6 +498,25 @@ class Foyer_Admin_Channel {
 	}
 
 	/**
+	 * Removes the sample permalink from the Channel edit screen.
+	 * 
+	 * @since	1.0.0
+	 * @param 	string	$sample_permalink
+	 * @return 	string
+	 */
+	public function remove_sample_permalink( $sample_permalink ) {
+		
+		$screen = get_current_screen();
+	
+		// Bail if not on Channel edit screen.
+		if ( Foyer_Channel::post_type_name != $screen->post_type ) {
+			return $sample_permalink;
+		}
+		
+		return '';
+	}
+
+	/**
 	 * Removes a slide over AJAX and outputs the updated slides list HTML.
 	 *
 	 * @since	1.0.0
