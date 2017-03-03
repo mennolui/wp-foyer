@@ -55,28 +55,6 @@ class Foyer_Admin_Channel {
 	}
 
 	/**
-	 * Localize the JavaScript for the channel admin area.
-	 *
-	 * @since    1.0.0
-	 */
-	public function enqueue_scripts() {
-
-		/**
-		 * An instance of this class is passed to the run() function
-		 * defined in Foyer_Loader as all of the hooks are defined
-		 * in that particular class.
-		 */
-
-		/* Localize the script */
-		$defaults = array( 'confirm_remove_message' => __( 'Are you sure you want to remove this slide from the channel?', 'foyer' ) );
-		wp_localize_script( $this->plugin_name, 'foyer_slides_editor_defaults', $defaults );
-
-		$security = array( 'nonce' => wp_create_nonce( 'foyer_slides_editor_ajax_nonce' ) );
-		wp_localize_script( $this->plugin_name, 'foyer_slides_editor_security', $security );
-	}
-
-
-	/**
 	 * Adds a slide over AJAX and outputs the updated slides list HTML.
 	 *
 	 * @since	1.0.0
@@ -391,6 +369,20 @@ class Foyer_Admin_Channel {
 	}
 
 	/**
+	 * Localizes the JavaScript for the channel admin area.
+	 *
+	 * @since	1.0.0
+	 */
+	public function localize_scripts() {
+
+		$defaults = array( 'confirm_remove_message' => __( 'Are you sure you want to remove this slide from the channel?', 'foyer' ) );
+		wp_localize_script( $this->plugin_name, 'foyer_slides_editor_defaults', $defaults );
+
+		$security = array( 'nonce' => wp_create_nonce( 'foyer_slides_editor_ajax_nonce' ) );
+		wp_localize_script( $this->plugin_name, 'foyer_slides_editor_security', $security );
+	}
+
+	/**
 	 * Outputs the content of the slides editor meta box.
 	 *
 	 * @since	1.0.0
@@ -499,20 +491,20 @@ class Foyer_Admin_Channel {
 
 	/**
 	 * Removes the sample permalink from the Channel edit screen.
-	 * 
+	 *
 	 * @since	1.0.0
 	 * @param 	string	$sample_permalink
 	 * @return 	string
 	 */
 	public function remove_sample_permalink( $sample_permalink ) {
-		
+
 		$screen = get_current_screen();
-	
+
 		// Bail if not on Channel edit screen.
 		if ( Foyer_Channel::post_type_name != $screen->post_type ) {
 			return $sample_permalink;
 		}
-		
+
 		return '';
 	}
 

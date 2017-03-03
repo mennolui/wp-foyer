@@ -55,21 +55,6 @@ class Foyer_Admin_Slide {
 	}
 
 	/**
-	 * Adds consulent variables for use in admin.js.
-	 *
-	 * @since	1.0.0
-	 */
-	function enqueue_scripts() {
-		$consulent_array = array(
-			'photo' => intval( get_post_meta( get_the_id(), 'slide_default_image', true ) ),
-			'text_select_photo' => __( 'Select an image', 'foyer' ),
-			'text_use_photo' => __( 'Use this image', 'foyer' ),
-		);
-		wp_localize_script( $this->plugin_name, 'foyer_slide_format_default', $consulent_array );
-		
-	}
-	
-	/**
 	 * Adds the channel editor meta box to the display admin page.
 	 *
 	 * @since	1.0.0
@@ -83,9 +68,9 @@ class Foyer_Admin_Slide {
 			'normal',
 			'low'
 		);
-		
+
 		foreach( Foyer_Slides::get_slide_formats() as $slide_format_key => $slide_format_data ) {
-			
+
 			if ( empty( $slide_format_data['meta_box'] ) ) {
 				$meta_box_callback = array( $this, 'slide_default_meta_box');
 			} else {
@@ -100,12 +85,27 @@ class Foyer_Admin_Slide {
 				'low'
 			);
 		}
-		
+
+	}
+
+	/**
+	 * Localizes the JavaScript for the slide admin area.
+	 *
+	 * @since	1.0.0
+	 */
+	public function localize_scripts() {
+		$slide_format_default = array(
+			'photo' => intval( get_post_meta( get_the_id(), 'slide_default_image', true ) ),
+			'text_select_photo' => __( 'Select an image', 'foyer' ),
+			'text_use_photo' => __( 'Use this image', 'foyer' ),
+		);
+		wp_localize_script( $this->plugin_name, 'foyer_slide_format_default', $slide_format_default );
+
 	}
 
 	/**
 	 * Outputs the meta box for the default slide format.
-	 * 
+	 *
 	 * @since	1.0.0
 	 * @param 	WP_Post	$post	The post of the slide that is being edited.
 	 * @return 	void
@@ -127,17 +127,17 @@ class Foyer_Admin_Slide {
 							<div class="image-preview-wrapper">
 								<img class="slide_image_preview" src="<?php echo wp_get_attachment_url( get_post_meta( $post->ID, 'slide_default_image', true ) ); ?>" height="100">
 							</div>
-							
+
 							<input type="button" class="button slide_image_upload_button" value="<?php _e( 'Upload image', 'foyer' ); ?>" />
 							<input type="button" class="button slide_image_delete_button" value="<?php _e( 'Remove image', 'foyer' ); ?>" />
 							<input type="hidden" name="slide_default_image" class="slide_image_value" value='<?php echo get_post_meta( $post->ID, 'slide_default_image', true ); ?>'>
-						</div>	
+						</div>
 					</td>
 				</tr>
 			</tbody>
 		</table><?php
 	}
-	
+
 	/**
 	 * Outputs the content of the channel editor meta box.
 	 *
@@ -147,37 +147,37 @@ class Foyer_Admin_Slide {
 	public function slide_format_meta_box( $post ) {
 
 		wp_nonce_field( Foyer_Slide::post_type_name, Foyer_Slide::post_type_name.'_nonce' );
-		
+
 		$slide = new Foyer_Slide( $post->ID );
 
 		?><input type="hidden" id="foyer_slide_editor_<?php echo Foyer_Slide::post_type_name; ?>"
 			name="foyer_slide_editor_<?php echo Foyer_Slide::post_type_name; ?>" value="<?php echo $post->ID; ?>"><?php
-		
+
 		foreach( Foyer_Slides::get_slide_formats() as $slide_format_key => $slide_format_data ) {
 			?><label>
 				<input type="radio" value="<?php echo $slide_format_key; ?>" name="slide_format" <?php checked( $slide->format(), $slide_format_key, true ); ?> />
 				<span><?php echo $slide_format_data['title']; ?></span>
-			</label><?php			
+			</label><?php
 		}
 	}
 
 
 	/**
 	 * Removes the sample permalink from the Slide edit screen.
-	 * 
+	 *
 	 * @since	1.0.0
 	 * @param 	string	$sample_permalink
 	 * @return 	string
 	 */
 	public function remove_sample_permalink( $sample_permalink ) {
-		
+
 		$screen = get_current_screen();
-	
+
 		// Bail if not on Channel edit screen.
 		if ( Foyer_Slide::post_type_name != $screen->post_type ) {
 			return $sample_permalink;
 		}
-		
+
 		return '';
 	}
 
@@ -225,7 +225,7 @@ class Foyer_Admin_Slide {
 		if (!empty( $slide_format ) ) {
 			update_post_meta( $post_id, 'slide_format', $slide_format_slug);
 		}
-		
+
 		if (empty( $slide_format['save_post'] ) ) {
 			$this->save_slide_default( $post_id );
 		} else {
@@ -233,16 +233,16 @@ class Foyer_Admin_Slide {
 		}
 
 	}
-	
+
 	/**
 	 * Saves the additional data of the default slide format.
-	 * 
+	 *
 	 * @since	1.0.0
 	 * @param 	int		$post_id	The Post ID of the slide being saved.
 	 * @return 	void
 	 */
 	function save_slide_default( $post_id ) {
-		update_post_meta( $post_id, 'slide_default_subtitle', sanitize_text_field( $_POST['slide_default_subtitle'] ) );	
-		update_post_meta( $post_id, 'slide_default_image', sanitize_text_field( $_POST['slide_default_image'] ) );	
+		update_post_meta( $post_id, 'slide_default_subtitle', sanitize_text_field( $_POST['slide_default_subtitle'] ) );
+		update_post_meta( $post_id, 'slide_default_image', sanitize_text_field( $_POST['slide_default_image'] ) );
 	}
 }

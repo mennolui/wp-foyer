@@ -198,7 +198,7 @@ class Foyer {
 		$this->loader->add_action( 'admin_enqueue_scripts', $this->admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'admin_menu', $this->admin, 'admin_menu' );
 
-		$this->loader->add_action( 'admin_enqueue_scripts', $this->admin_channel, 'enqueue_scripts' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $this->admin_channel, 'localize_scripts' );
 		$this->loader->add_action( 'add_meta_boxes', $this->admin_channel, 'add_slides_editor_meta_box', 20 );
 		$this->loader->add_action( 'add_meta_boxes', $this->admin_channel, 'add_slides_settings_meta_box', 40 );
 		$this->loader->add_action( 'save_post', $this->admin_channel, 'save_channel' );
@@ -212,7 +212,7 @@ class Foyer {
 		$this->loader->add_action( 'add_meta_boxes', $this->admin_display, 'add_channel_scheduler_meta_box' );
 		$this->loader->add_action( 'save_post', $this->admin_display, 'save_display' );
 
-		$this->loader->add_action( 'admin_enqueue_scripts', $this->admin_slide, 'enqueue_scripts' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $this->admin_slide, 'localize_scripts' );
 		$this->loader->add_action( 'add_meta_boxes', $this->admin_slide, 'add_slide_editor_meta_boxes' );
 		$this->loader->add_action( 'save_post', $this->admin_slide, 'save_slide' );
 		$this->loader->add_filter( 'get_sample_permalink_html', $this->admin_slide, 'remove_sample_permalink' );
