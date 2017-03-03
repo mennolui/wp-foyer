@@ -207,6 +207,7 @@ class Foyer {
 		$this->loader->add_action( 'wp_ajax_foyer_slides_editor_reorder_slides', $this->admin_channel, 'reorder_slides_over_ajax' );
 		$this->loader->add_filter( 'get_sample_permalink_html', $this->admin_channel, 'remove_sample_permalink' );
 
+		$this->loader->add_action( 'admin_enqueue_scripts', $this->admin_display, 'localize_scripts' );
 		$this->loader->add_action( 'add_meta_boxes', $this->admin_display, 'add_channel_editor_meta_box' );
 		$this->loader->add_action( 'add_meta_boxes', $this->admin_display, 'add_channel_scheduler_meta_box' );
 		$this->loader->add_action( 'save_post', $this->admin_display, 'save_display' );

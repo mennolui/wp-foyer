@@ -105,6 +105,35 @@ class Foyer_Admin_Display {
 		);
 	}
 
+	/**
+	 * Gets the date/time format for the channel scheduler.
+	 *
+	 * @since	1.0.0
+	 * @return	string	The date/time format for the channel scheduler.
+	 */
+	public function get_channel_scheduler_datetime_format() {
+		return 'Y-m-d H:i';
+	}
+
+	/**
+	 * Gets the default schedule duration for the channel scheduler.
+	 *
+	 * @since	1.0.0
+	 * @return	int		The default schedule locale for the channel scheduler.
+	 */
+	public function get_channel_scheduler_duration() {
+		return 1 * 60 * 60; // one hour in seconds
+	}
+
+	/**
+	 * Gets the locale for the channel scheduler.
+	 *
+	 * @since	1.0.0
+	 * @return	string	The locale for the channel scheduler.
+	 */
+	public function get_channel_scheduler_locale() {
+		return 'nl';
+	}
 
 	/**
 	 * Gets the HTML that lists the default channel in the channel editor.
@@ -206,7 +235,7 @@ class Foyer_Admin_Display {
 					</label>
 				</th>
 				<td>
-					<input type="text" class="regular-text" id="foyer_channel_editor_scheduled_channel_start" name="foyer_channel_editor_scheduled_channel_start" value="<?php if ( !empty( $scheduled_channel['start'] ) ) { echo date_i18n( 'Y-m-d H:i', $scheduled_channel['start'] + get_option( 'gmt_offset' ) * 3600, true ); } ?>" />
+					<input type="text" class="regular-text" id="foyer_channel_editor_scheduled_channel_start" name="foyer_channel_editor_scheduled_channel_start" value="<?php if ( !empty( $scheduled_channel['start'] ) ) { echo date_i18n( $this->get_channel_scheduler_datetime_format(), $scheduled_channel['start'] + get_option( 'gmt_offset' ) * 3600, true ); } ?>" />
 				</td>
 			</tr>
 			<tr>
@@ -216,7 +245,7 @@ class Foyer_Admin_Display {
 					</label>
 				</th>
 				<td>
-					<input type="text" class="regular-text" id="foyer_channel_editor_scheduled_channel_end" name="foyer_channel_editor_scheduled_channel_end" value="<?php if ( !empty( $scheduled_channel['end'] ) ) { echo date_i18n( 'Y-m-d H:i', $scheduled_channel['end'] + get_option( 'gmt_offset' ) * 3600, true ); } ?>" />
+					<input type="text" class="regular-text" id="foyer_channel_editor_scheduled_channel_end" name="foyer_channel_editor_scheduled_channel_end" value="<?php if ( !empty( $scheduled_channel['end'] ) ) { echo date_i18n( $this->get_channel_scheduler_datetime_format(), $scheduled_channel['end'] + get_option( 'gmt_offset' ) * 3600, true ); } ?>" />
 				</td>
 			</tr>
 		<?php
@@ -292,7 +321,6 @@ class Foyer_Admin_Display {
 		echo $html;
 	}
 
-
 	/**
 	 * Outputs the Active Channel and Defaults Channel columns.
 	 *
@@ -326,6 +354,21 @@ class Foyer_Admin_Display {
 
 		        break;
 	    }
+	}
+
+	/**
+	 * Localizes the JavaScript for the display admin area.
+	 *
+	 * @since	1.0.0
+	 */
+	public function localize_scripts() {
+
+		$channel_scheduler_defaults = array(
+			'datetime_format' => $this->get_channel_scheduler_datetime_format(),
+			'duration' => $this->get_channel_scheduler_duration(),
+			'locale' => $this->get_channel_scheduler_locale(),
+		);
+		wp_localize_script( $this->plugin_name, 'foyer_channel_scheduler_defaults', $channel_scheduler_defaults );
 	}
 
 	/**
