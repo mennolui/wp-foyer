@@ -58,7 +58,7 @@ class Foyer_Admin_Display {
 	/**
 	 * Adds Default Channel and Active Channel columns to the Displas admin table.
 	 * Removed the Date column.
-	 * 
+	 *
 	 * @since	1.0.0
 	 * @param 	array	$columns	The current colums.
 	 * @return	array				The new columns.
@@ -69,7 +69,7 @@ class Foyer_Admin_Display {
 	        array(
 	        	'default_channel' => __('Default channel', 'foyer'),
 	        	'active_channel' => __('Active channel', 'foyer'),
-	        ) 
+	        )
 	    );
 	}
 
@@ -167,7 +167,7 @@ class Foyer_Admin_Display {
 
 		$display = new Foyer_Display( $post );
 		$schedule = $display->get_schedule();
-		
+
 		if ( !empty( $schedule ) ) {
 			$scheduled_channel = $schedule[0];
 		}
@@ -206,7 +206,7 @@ class Foyer_Admin_Display {
 					</label>
 				</th>
 				<td>
-					<input type="text" class="regular-text" id="foyer_channel_editor_scheduled_channel_start" name="foyer_channel_editor_scheduled_channel_start" value="<?php if ( !empty( $scheduled_channel['start'] ) ) { echo date_i18n( 'Y-m-d H:i:s', $scheduled_channel['start'] + get_option( 'gmt_offset' ) * 3600, true ); } ?>" />
+					<input type="text" class="regular-text" id="foyer_channel_editor_scheduled_channel_start" name="foyer_channel_editor_scheduled_channel_start" value="<?php if ( !empty( $scheduled_channel['start'] ) ) { echo date_i18n( 'Y-m-d H:i', $scheduled_channel['start'] + get_option( 'gmt_offset' ) * 3600, true ); } ?>" />
 				</td>
 			</tr>
 			<tr>
@@ -216,7 +216,7 @@ class Foyer_Admin_Display {
 					</label>
 				</th>
 				<td>
-					<input type="text" class="regular-text" id="foyer_channel_editor_scheduled_channel_end" name="foyer_channel_editor_scheduled_channel_end" value="<?php if ( !empty( $scheduled_channel['end'] ) ) { echo date_i18n( 'Y-m-d H:i:s', $scheduled_channel['end'] + get_option( 'gmt_offset' ) * 3600, true ); } ?>" />
+					<input type="text" class="regular-text" id="foyer_channel_editor_scheduled_channel_end" name="foyer_channel_editor_scheduled_channel_end" value="<?php if ( !empty( $scheduled_channel['end'] ) ) { echo date_i18n( 'Y-m-d H:i', $scheduled_channel['end'] + get_option( 'gmt_offset' ) * 3600, true ); } ?>" />
 				</td>
 			</tr>
 		<?php
@@ -295,7 +295,7 @@ class Foyer_Admin_Display {
 
 	/**
 	 * Outputs the Active Channel and Defaults Channel columns.
-	 * 
+	 *
 	 * @since	1.0.0
 	 * @param 	string	$column		The current column that needs output.
 	 * @param 	int 	$post_id 	The current display ID.
@@ -303,27 +303,27 @@ class Foyer_Admin_Display {
 	 */
 	function do_channel_columns( $column, $post_id ) {
 	    switch ( $column ) {
-	
+
 		    case 'active_channel' :
 
 				$display = new Foyer_Display( get_the_id() );
 				$channel = new Foyer_Channel( $display->get_active_channel() );
-				
-				?><a href="<?php echo get_edit_post_link( $channel->ID); ?>"><?php 
-					echo get_the_title( $channel->ID ); 
+
+				?><a href="<?php echo get_edit_post_link( $channel->ID); ?>"><?php
+					echo get_the_title( $channel->ID );
 				?></a><?php
-					
+
 		        break;
-		    
+
 		    case 'default_channel' :
 
 				$display = new Foyer_Display( get_the_id() );
 				$channel = new Foyer_Channel( $display->get_default_channel() );
-				
-				?><a href="<?php echo get_edit_post_link( $channel->ID); ?>"><?php 
-					echo get_the_title( $channel->ID ); 
+
+				?><a href="<?php echo get_edit_post_link( $channel->ID); ?>"><?php
+					echo get_the_title( $channel->ID );
 				?></a><?php
-					
+
 		        break;
 	    }
 	}
@@ -377,17 +377,17 @@ class Foyer_Admin_Display {
 		else {
 			delete_post_meta( $display_id, Foyer_Channel::post_type_name );
 		}
-		
+
 		/**
 		 * Save schedule for temporary channels.
-		 */		
+		 */
 		$this->save_schedule( $_POST, $post_id );
-		
+
 	}
-	
+
 	/**
 	 * Save all scheduled channels for this display.
-	 * 
+	 *
 	 * @access	private
 	 * @since	1.0.0
 	 * @param 	array	$values			All form values that were submitted from the display admin page.
@@ -397,15 +397,15 @@ class Foyer_Admin_Display {
 	private function save_schedule( $values, $display_id ) {
 
 		delete_post_meta( $display_id, 'foyer_display_schedule' );
-		
+
 		if ( !is_numeric( $values['foyer_channel_editor_scheduled_channel'] ) ) {
 			return;
 		}
-		
+
 		if ( empty( $values['foyer_channel_editor_scheduled_channel_start'] ) ) {
 			return;
 		}
-		
+
 		if ( empty( $values['foyer_channel_editor_scheduled_channel_end'] ) ) {
 			return;
 		}
@@ -413,16 +413,16 @@ class Foyer_Admin_Display {
 		/**
 		 * Store all scheduled channels.
 		 * Currently only one scheduled channel is saved.
-		 * 
+		 *
 		 * Makes sure that start and end times are stored in UTC.
 		 */
-		
+
 		$schedule = array(
 			'channel' => $values['foyer_channel_editor_scheduled_channel'],
 			'start' => 	strtotime( $values['foyer_channel_editor_scheduled_channel_start'] ) - get_option( 'gmt_offset' ) * 3600 ,
 			'end' => strtotime( $values['foyer_channel_editor_scheduled_channel_end'] ) - get_option( 'gmt_offset' ) * 3600,
 		);
-		
+
 		add_post_meta( $display_id, 'foyer_display_schedule', $schedule, false );
 	}
 }
