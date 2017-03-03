@@ -3,55 +3,45 @@
 /**
  * The display admin-specific functionality of the plugin.
  *
- * @link       http://mennoluitjes.nl
- * @since      1.0.0
- *
- * @package    Foyer
- * @subpackage Foyer/admin
- */
-
-/**
- * The display admin-specific functionality of the plugin.
- *
  * Defines the plugin name, version, and two hooks to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @package    Foyer
- * @subpackage Foyer/admin
- * @author     Menno Luitjes <menno@mennoluitjes.nl>
+ * @since		1.0.0
+ * @package		Foyer
+ * @subpackage	Foyer/admin
+ * @author		Menno Luitjes <menno@mennoluitjes.nl>
  */
 class Foyer_Admin_Display {
 
 	/**
 	 * The ID of this plugin.
 	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $plugin_name    The ID of this plugin.
+	 * @since	1.0.0
+	 * @access	private
+	 * @var		string		$plugin_name	The ID of this plugin.
 	 */
 	private $plugin_name;
 
 	/**
 	 * The version of this plugin.
 	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $version    The current version of this plugin.
+	 * @since	1.0.0
+	 * @access	private
+	 * @var		string		$version		The current version of this plugin.
 	 */
 	private $version;
 
 	/**
 	 * Initialize the class and set its properties.
 	 *
-	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of this plugin.
-	 * @param      string    $version    The version of this plugin.
+	 * @since	1.0.0
+	 * @param	string		$plugin_name	The name of this plugin.
+	 * @param	string		$version		The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
-
 	}
 
 
@@ -106,6 +96,107 @@ class Foyer_Admin_Display {
 	}
 
 	/**
+	 * Outputs the content of the channel editor meta box.
+	 *
+	 * @since	1.0.0
+	 * @param	WP_Post		$post	The post object of the current display.
+	 */
+	public function channel_editor_meta_box( $post ) {
+
+		wp_nonce_field( Foyer_Display::post_type_name, Foyer_Display::post_type_name.'_nonce' );
+
+		ob_start();
+
+		?>
+			<input type="hidden" id="foyer_channel_editor_<?php echo Foyer_Display::post_type_name; ?>"
+				name="foyer_channel_editor_<?php echo Foyer_Display::post_type_name; ?>" value="<?php echo $post->ID; ?>">
+
+			<table class="foyer_meta_box_form foyer_channel_editor_form" data-display-id="<?php echo $post->ID; ?>">
+				<tbody>
+					<?php
+
+						echo $this->get_default_channel_html( $post );
+
+					?>
+				</tbody>
+			</table>
+
+		<?php
+
+		$html = ob_get_clean();
+
+		echo $html;
+	}
+
+	/**
+	 * Outputs the content of the channel scheduler meta box.
+	 *
+	 * @since	1.0.0
+	 * @param	WP_Post		$post	The post object of the current display.
+	 */
+	public function channel_scheduler_meta_box( $post ) {
+
+		wp_nonce_field( Foyer_Display::post_type_name, Foyer_Display::post_type_name.'_nonce' );
+
+		ob_start();
+
+		?>
+			<input type="hidden" id="foyer_channel_editor_<?php echo Foyer_Display::post_type_name; ?>"
+				name="foyer_channel_editor_<?php echo Foyer_Display::post_type_name; ?>" value="<?php echo $post->ID; ?>">
+
+			<table class="foyer_meta_box_form form-table foyer_channel_editor_form" data-display-id="<?php echo $post->ID; ?>">
+				<tbody>
+					<?php
+
+						echo $this->get_scheduled_channel_html( $post );
+
+					?>
+				</tbody>
+			</table>
+
+		<?php
+
+		$html = ob_get_clean();
+
+		echo $html;
+	}
+
+	/**
+	 * Outputs the Active Channel and Defaults Channel columns.
+	 *
+	 * @since	1.0.0
+	 * @param 	string	$column		The current column that needs output.
+	 * @param 	int 	$post_id 	The current display ID.
+	 * @return	void
+	 */
+	function do_channel_columns( $column, $post_id ) {
+	    switch ( $column ) {
+
+		    case 'active_channel' :
+
+				$display = new Foyer_Display( get_the_id() );
+				$channel = new Foyer_Channel( $display->get_active_channel() );
+
+				?><a href="<?php echo get_edit_post_link( $channel->ID); ?>"><?php
+					echo get_the_title( $channel->ID );
+				?></a><?php
+
+		        break;
+
+		    case 'default_channel' :
+
+				$display = new Foyer_Display( get_the_id() );
+				$channel = new Foyer_Channel( $display->get_default_channel() );
+
+				?><a href="<?php echo get_edit_post_link( $channel->ID); ?>"><?php
+					echo get_the_title( $channel->ID );
+				?></a><?php
+
+		        break;
+	    }
+	}
+
+	/**
 	 * Gets the date/time format for the channel scheduler.
 	 *
 	 * @since	1.0.0
@@ -119,7 +210,7 @@ class Foyer_Admin_Display {
 	 * Gets the default schedule duration for the channel scheduler.
 	 *
 	 * @since	1.0.0
-	 * @return	int		The default schedule locale for the channel scheduler.
+	 * @return	int		The default schedule duration for the channel scheduler.
 	 */
 	public function get_channel_scheduler_duration() {
 		return 1 * 60 * 60; // one hour in seconds
@@ -253,107 +344,6 @@ class Foyer_Admin_Display {
 		$html = ob_get_clean();
 
 		return $html;
-	}
-
-	/**
-	 * Outputs the content of the channel editor meta box.
-	 *
-	 * @since	1.0.0
-	 * @param	WP_Post		$post	The post object of the current display.
-	 */
-	public function channel_editor_meta_box( $post ) {
-
-		wp_nonce_field( Foyer_Display::post_type_name, Foyer_Display::post_type_name.'_nonce' );
-
-		ob_start();
-
-		?>
-			<input type="hidden" id="foyer_channel_editor_<?php echo Foyer_Display::post_type_name; ?>"
-				name="foyer_channel_editor_<?php echo Foyer_Display::post_type_name; ?>" value="<?php echo $post->ID; ?>">
-
-			<table class="foyer_meta_box_form foyer_channel_editor_form" data-display-id="<?php echo $post->ID; ?>">
-				<tbody>
-					<?php
-
-						echo $this->get_default_channel_html( $post );
-
-					?>
-				</tbody>
-			</table>
-
-		<?php
-
-		$html = ob_get_clean();
-
-		echo $html;
-	}
-
-	/**
-	 * Outputs the content of the channel scheduler meta box.
-	 *
-	 * @since	1.0.0
-	 * @param	WP_Post		$post	The post object of the current display.
-	 */
-	public function channel_scheduler_meta_box( $post ) {
-
-		wp_nonce_field( Foyer_Display::post_type_name, Foyer_Display::post_type_name.'_nonce' );
-
-		ob_start();
-
-		?>
-			<input type="hidden" id="foyer_channel_editor_<?php echo Foyer_Display::post_type_name; ?>"
-				name="foyer_channel_editor_<?php echo Foyer_Display::post_type_name; ?>" value="<?php echo $post->ID; ?>">
-
-			<table class="foyer_meta_box_form form-table foyer_channel_editor_form" data-display-id="<?php echo $post->ID; ?>">
-				<tbody>
-					<?php
-
-						echo $this->get_scheduled_channel_html( $post );
-
-					?>
-				</tbody>
-			</table>
-
-		<?php
-
-		$html = ob_get_clean();
-
-		echo $html;
-	}
-
-	/**
-	 * Outputs the Active Channel and Defaults Channel columns.
-	 *
-	 * @since	1.0.0
-	 * @param 	string	$column		The current column that needs output.
-	 * @param 	int 	$post_id 	The current display ID.
-	 * @return	void
-	 */
-	function do_channel_columns( $column, $post_id ) {
-	    switch ( $column ) {
-
-		    case 'active_channel' :
-
-				$display = new Foyer_Display( get_the_id() );
-				$channel = new Foyer_Channel( $display->get_active_channel() );
-
-				?><a href="<?php echo get_edit_post_link( $channel->ID); ?>"><?php
-					echo get_the_title( $channel->ID );
-				?></a><?php
-
-		        break;
-
-		    case 'default_channel' :
-
-				$display = new Foyer_Display( get_the_id() );
-				$channel = new Foyer_Channel( $display->get_default_channel() );
-
-				?><a href="<?php echo get_edit_post_link( $channel->ID); ?>"><?php
-					echo get_the_title( $channel->ID );
-				?></a><?php
-
-		        break;
-	    }
 	}
 
 	/**

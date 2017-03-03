@@ -3,22 +3,13 @@
 /**
  * The general admin-specific functionality of the plugin.
  *
- * @link       http://mennoluitjes.nl
- * @since      1.0.0
- *
- * @package    Foyer
- * @subpackage Foyer/admin
- */
-
-/**
- * The general admin-specific functionality of the plugin.
- *
  * Defines the plugin name, version, and two hooks to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @package    Foyer
- * @subpackage Foyer/admin
- * @author     Menno Luitjes <menno@mennoluitjes.nl>
+ * @since		1.0.0
+ * @package		Foyer
+ * @subpackage	Foyer/admin
+ * @author		Menno Luitjes <menno@mennoluitjes.nl>
  */
 class Foyer_Admin {
 
@@ -43,9 +34,9 @@ class Foyer_Admin {
 	/**
 	 * Initialize the class and set its properties.
 	 *
-	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of this plugin.
-	 * @param      string    $version    The version of this plugin.
+	 * @since	1.0.0
+	 * @param	string	$plugin_name	The name of this plugin.
+	 * @param	string	$version		The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
 
@@ -59,36 +50,22 @@ class Foyer_Admin {
 	}
 
 	/**
-	 * Register the stylesheets for the admin area.
+	 * Enqueues the JavaScript for the admin area.
 	 *
-	 * @since    1.0.0
-	 */
-	public function enqueue_styles() {
-
-		/**
-		 * An instance of this class is passed to the run() function
-		 * defined in Foyer_Loader as all of the hooks are defined
-		 * in that particular class.
-		 */
-
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/foyer-admin.css', array(), $this->version, 'all' );
-
-	}
-
-	/**
-	 * Register the JavaScript for the admin area.
-	 *
-	 * @since    1.0.0
+	 * @since	1.0.0
 	 */
 	public function enqueue_scripts() {
 
-		/**
-		 * An instance of this class is passed to the run() function
-		 * defined in Foyer_Loader as all of the hooks are defined
-		 * in that particular class.
-		 */
-
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/foyer-admin-min.js', array( 'jquery', 'jquery-ui-sortable' ), $this->version, false );
+	}
 
+	/**
+	 * Enqueues the stylesheets for the admin area.
+	 *
+	 * @since	1.0.0
+	 */
+	public function enqueue_styles() {
+
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/foyer-admin.css', array(), $this->version, 'all' );
 	}
 }

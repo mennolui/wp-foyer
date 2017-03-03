@@ -3,57 +3,46 @@
 /**
  * The slide admin-specific functionality of the plugin.
  *
- * @link       http://mennoluitjes.nl
- * @since      1.0.0
- *
- * @package    Foyer
- * @subpackage Foyer/admin
- */
-
-/**
- * The slide admin-specific functionality of the plugin.
- *
  * Defines the plugin name, version, and two hooks to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @package    Foyer
- * @subpackage Foyer/admin
- * @author     Menno Luitjes <menno@mennoluitjes.nl>
+ * @since		1.0.0
+ * @package		Foyer
+ * @subpackage	Foyer/admin
+ * @author		Menno Luitjes <menno@mennoluitjes.nl>
  */
 class Foyer_Admin_Slide {
 
 	/**
 	 * The ID of this plugin.
 	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $plugin_name    The ID of this plugin.
+	 * @since	1.0.0
+	 * @access	private
+	 * @var		string		$plugin_name	The ID of this plugin.
 	 */
 	private $plugin_name;
 
 	/**
 	 * The version of this plugin.
 	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $version    The current version of this plugin.
+	 * @since	1.0.0
+	 * @access	private
+	 * @var		string		$version		The current version of this plugin.
 	 */
 	private $version;
 
 	/**
 	 * Initialize the class and set its properties.
 	 *
-	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of this plugin.
-	 * @param      string    $version    The version of this plugin.
+	 * @since	1.0.0
+	 * @param	string		$plugin_name	The name of this plugin.
+	 * @param	string		$version		The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
-
 	}
-
 	/**
 	 * Adds the channel editor meta box to the display admin page.
 	 *
@@ -102,65 +91,6 @@ class Foyer_Admin_Slide {
 		wp_localize_script( $this->plugin_name, 'foyer_slide_format_default', $slide_format_default );
 
 	}
-
-	/**
-	 * Outputs the meta box for the default slide format.
-	 *
-	 * @since	1.0.0
-	 * @param 	WP_Post	$post	The post of the slide that is being edited.
-	 * @return 	void
-	 */
-	public function slide_default_meta_box( $post ) {
-
-		wp_enqueue_media();
-
-		$slide_default_image = get_post_meta( $post->ID, 'slide_default_image', true );
-
-		?><table class="form-table">
-			<tbody>
-				<tr>
-					<th scope="row">
-						<label for="slide_default_subtitle"><?php _e('Background image', 'foyer'); ?></label>
-					</th>
-					<td>
-						<div class="slide_image_field<?php if ( empty( $slide_default_image ) ) { ?> empty<?php } ?>">
-							<div class="image-preview-wrapper">
-								<img class="slide_image_preview" src="<?php echo wp_get_attachment_url( get_post_meta( $post->ID, 'slide_default_image', true ) ); ?>" height="100">
-							</div>
-
-							<input type="button" class="button slide_image_upload_button" value="<?php _e( 'Upload image', 'foyer' ); ?>" />
-							<input type="button" class="button slide_image_delete_button" value="<?php _e( 'Remove image', 'foyer' ); ?>" />
-							<input type="hidden" name="slide_default_image" class="slide_image_value" value='<?php echo get_post_meta( $post->ID, 'slide_default_image', true ); ?>'>
-						</div>
-					</td>
-				</tr>
-			</tbody>
-		</table><?php
-	}
-
-	/**
-	 * Outputs the content of the channel editor meta box.
-	 *
-	 * @since	1.0.0
-	 * @param	WP_Post		$post	The post object of the current display.
-	 */
-	public function slide_format_meta_box( $post ) {
-
-		wp_nonce_field( Foyer_Slide::post_type_name, Foyer_Slide::post_type_name.'_nonce' );
-
-		$slide = new Foyer_Slide( $post->ID );
-
-		?><input type="hidden" id="foyer_slide_editor_<?php echo Foyer_Slide::post_type_name; ?>"
-			name="foyer_slide_editor_<?php echo Foyer_Slide::post_type_name; ?>" value="<?php echo $post->ID; ?>"><?php
-
-		foreach( Foyer_Slides::get_slide_formats() as $slide_format_key => $slide_format_data ) {
-			?><label>
-				<input type="radio" value="<?php echo $slide_format_key; ?>" name="slide_format" <?php checked( $slide->format(), $slide_format_key, true ); ?> />
-				<span><?php echo $slide_format_data['title']; ?></span>
-			</label><?php
-		}
-	}
-
 
 	/**
 	 * Removes the sample permalink from the Slide edit screen.
@@ -244,5 +174,63 @@ class Foyer_Admin_Slide {
 	function save_slide_default( $post_id ) {
 		update_post_meta( $post_id, 'slide_default_subtitle', sanitize_text_field( $_POST['slide_default_subtitle'] ) );
 		update_post_meta( $post_id, 'slide_default_image', sanitize_text_field( $_POST['slide_default_image'] ) );
+	}
+
+	/**
+	 * Outputs the meta box for the default slide format.
+	 *
+	 * @since	1.0.0
+	 * @param 	WP_Post	$post	The post of the slide that is being edited.
+	 * @return 	void
+	 */
+	public function slide_default_meta_box( $post ) {
+
+		wp_enqueue_media();
+
+		$slide_default_image = get_post_meta( $post->ID, 'slide_default_image', true );
+
+		?><table class="form-table">
+			<tbody>
+				<tr>
+					<th scope="row">
+						<label for="slide_default_subtitle"><?php _e('Background image', 'foyer'); ?></label>
+					</th>
+					<td>
+						<div class="slide_image_field<?php if ( empty( $slide_default_image ) ) { ?> empty<?php } ?>">
+							<div class="image-preview-wrapper">
+								<img class="slide_image_preview" src="<?php echo wp_get_attachment_url( get_post_meta( $post->ID, 'slide_default_image', true ) ); ?>" height="100">
+							</div>
+
+							<input type="button" class="button slide_image_upload_button" value="<?php _e( 'Upload image', 'foyer' ); ?>" />
+							<input type="button" class="button slide_image_delete_button" value="<?php _e( 'Remove image', 'foyer' ); ?>" />
+							<input type="hidden" name="slide_default_image" class="slide_image_value" value='<?php echo get_post_meta( $post->ID, 'slide_default_image', true ); ?>'>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table><?php
+	}
+
+	/**
+	 * Outputs the content of the channel editor meta box.
+	 *
+	 * @since	1.0.0
+	 * @param	WP_Post		$post	The post object of the current display.
+	 */
+	public function slide_format_meta_box( $post ) {
+
+		wp_nonce_field( Foyer_Slide::post_type_name, Foyer_Slide::post_type_name.'_nonce' );
+
+		$slide = new Foyer_Slide( $post->ID );
+
+		?><input type="hidden" id="foyer_slide_editor_<?php echo Foyer_Slide::post_type_name; ?>"
+			name="foyer_slide_editor_<?php echo Foyer_Slide::post_type_name; ?>" value="<?php echo $post->ID; ?>"><?php
+
+		foreach( Foyer_Slides::get_slide_formats() as $slide_format_key => $slide_format_data ) {
+			?><label>
+				<input type="radio" value="<?php echo $slide_format_key; ?>" name="slide_format" <?php checked( $slide->format(), $slide_format_key, true ); ?> />
+				<span><?php echo $slide_format_data['title']; ?></span>
+			</label><?php
+		}
 	}
 }
