@@ -110,7 +110,7 @@ class Foyer_Admin_Display {
 			<input type="hidden" id="foyer_channel_editor_<?php echo Foyer_Display::post_type_name; ?>"
 				name="foyer_channel_editor_<?php echo Foyer_Display::post_type_name; ?>" value="<?php echo $post->ID; ?>">
 
-			<table class="foyer_meta_box_form foyer_channel_editor_form" data-display-id="<?php echo $post->ID; ?>">
+			<table class="foyer_meta_box_form form-table foyer_channel_editor_form" data-display-id="<?php echo $post->ID; ?>">
 				<tbody>
 					<?php
 
@@ -323,7 +323,7 @@ class Foyer_Admin_Display {
 					</label>
 				</th>
 				<td>
-					<input type="text" class="regular-text" id="foyer_channel_editor_scheduled_channel_start" name="foyer_channel_editor_scheduled_channel_start" value="<?php if ( !empty( $scheduled_channel['start'] ) ) { echo date_i18n( $channel_scheduler_defaults['datetime_format'], $scheduled_channel['start'] + get_option( 'gmt_offset' ) * 3600, true ); } ?>" />
+					<input type="text" id="foyer_channel_editor_scheduled_channel_start" name="foyer_channel_editor_scheduled_channel_start" value="<?php if ( !empty( $scheduled_channel['start'] ) ) { echo date_i18n( $channel_scheduler_defaults['datetime_format'], $scheduled_channel['start'] + get_option( 'gmt_offset' ) * 3600, true ); } ?>" />
 				</td>
 			</tr>
 			<tr>
@@ -333,7 +333,7 @@ class Foyer_Admin_Display {
 					</label>
 				</th>
 				<td>
-					<input type="text" class="regular-text" id="foyer_channel_editor_scheduled_channel_end" name="foyer_channel_editor_scheduled_channel_end" value="<?php if ( !empty( $scheduled_channel['end'] ) ) { echo date_i18n( $channel_scheduler_defaults['datetime_format'], $scheduled_channel['end'] + get_option( 'gmt_offset' ) * 3600, true ); } ?>" />
+					<input type="text" id="foyer_channel_editor_scheduled_channel_end" name="foyer_channel_editor_scheduled_channel_end" value="<?php if ( !empty( $scheduled_channel['end'] ) ) { echo date_i18n( $channel_scheduler_defaults['datetime_format'], $scheduled_channel['end'] + get_option( 'gmt_offset' ) * 3600, true ); } ?>" />
 				</td>
 			</tr>
 		<?php
