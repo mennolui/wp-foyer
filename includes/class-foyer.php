@@ -217,18 +217,6 @@ class Foyer {
 	}
 
 	/**
-	 * Registers all of the hooks related to the general (not public/admin) setup functionality of the plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 */
-	private function define_general_hooks() {
-
-		$this->loader->add_action( 'init', $this->setup, 'register_post_types' );
-		$this->loader->add_filter( 'foyer/slides/formats', $this->theater, 'add_production_slide_format');
-	}
-
-	/**
 	 * Registers all of the hooks related to the public-facing functionality of the plugin.
 	 *
 	 * @since    1.0.0
@@ -241,6 +229,18 @@ class Foyer {
 		$this->loader->add_action( 'init', $this->public, 'add_image_sizes' );
 
 		$this->loader->add_action( 'template_include', 'Foyer_Templates', 'template_include' );
+	}
+
+	/**
+	 * Registers all of the hooks related to the general setup functionality of the plugin (not public/admin specific).
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
+	private function define_setup_hooks() {
+
+		$this->loader->add_action( 'init', $this->setup, 'register_post_types' );
+		$this->loader->add_filter( 'foyer/slides/formats', $this->theater, 'add_production_slide_format');
 	}
 
 	/**
