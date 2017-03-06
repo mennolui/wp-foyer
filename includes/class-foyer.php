@@ -210,6 +210,8 @@ class Foyer {
 		$this->loader->add_action( 'add_meta_boxes', $this->admin_slide, 'add_slide_editor_meta_boxes' );
 		$this->loader->add_action( 'save_post', $this->admin_slide, 'save_slide' );
 		$this->loader->add_filter( 'get_sample_permalink_html', $this->admin_slide, 'remove_sample_permalink' );
+		$this->loader->add_filter( 'manage_'.Foyer_Slide::post_type_name.'_posts_columns', $this->admin_slide, 'add_slide_format_column' );
+		$this->loader->add_action( 'manage_'.Foyer_Slide::post_type_name.'_posts_custom_column', $this->admin_slide, 'do_slide_format_column', 10, 2 );
 
 		// Admin Preview
 		$this->loader->add_action( 'wp_enqueue_scripts', $this->admin_preview, 'enqueue_scripts' );

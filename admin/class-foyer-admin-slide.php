@@ -43,6 +43,28 @@ class Foyer_Admin_Slide {
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
 	}
+
+	/**
+	 * Adds a Slide Format column to the Slides admin table, just after the title column.
+	 *
+	 * @since	1.0.0
+	 * @param 	array	$columns	The current columns.
+	 * @return	array				The new columns.
+	 */
+	function add_slide_format_column( $columns ) {
+		$new_columns = array();
+
+		foreach( $columns as $key => $title ) {
+			$new_columns[$key] = $title;
+
+			if ( 'title' == $key ) {
+				// Add slides count column after the title column
+				$new_columns['slide_format'] = __( 'Slide format', 'foyer' );
+			}
+		}
+		return $new_columns;
+	}
+
 	/**
 	 * Adds the channel editor meta box to the display admin page.
 	 *
@@ -75,6 +97,24 @@ class Foyer_Admin_Slide {
 			);
 		}
 
+	}
+
+	/**
+	 * Outputs the Slide Format column.
+	 *
+	 * @since	1.0.0
+	 * @param 	string	$column		The current column that needs output.
+	 * @param 	int 	$post_id 	The current display ID.
+	 * @return	void
+	 */
+	function do_slide_format_column( $column, $post_id ) {
+		if ( 'slide_format' == $column ) {
+
+			$slide = new Foyer_Slide( get_the_id() );
+			$format_slug = $slide->format();
+			$format = Foyer_Slides::get_slide_format_by_slug( $format_slug );
+			echo $format['title'];
+	    }
 	}
 
 	/**
