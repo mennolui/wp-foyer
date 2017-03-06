@@ -13,8 +13,7 @@ function foyer_display_setup_channel_scheduler() {
 
 	$start_datetime.foyer_datetimepicker({
 		format: foyer_channel_scheduler_defaults.datetime_format,
-		dayOfWeekStart : 1,
-		lang: 'nl',
+		dayOfWeekStart : foyer_channel_scheduler_defaults.start_of_week,
 		step: 15,
 		onChangeDateTime: function(start) {
 			if (start) {
@@ -28,7 +27,7 @@ function foyer_display_setup_channel_scheduler() {
 
 	$end_datetime.foyer_datetimepicker({
 		format: foyer_channel_scheduler_defaults.datetime_format,
-		dayOfWeekStart : 1,
+		dayOfWeekStart : foyer_channel_scheduler_defaults.start_of_week,
 		step: 15
 	});
 
