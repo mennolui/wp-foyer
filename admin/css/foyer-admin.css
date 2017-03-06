@@ -25,6 +25,9 @@
   margin-top: 0.5em;
   text-align: center;
 }
+.foyer_slides_editor_add {
+  border-top: 1px solid #eee;
+}
 .foyer_slides_editor_slides > div {
   display: inline-block;
 }

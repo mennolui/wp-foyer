@@ -349,29 +349,37 @@ class Foyer_Admin_Channel {
 			<div class="foyer_slides_editor_slides">
 				<?php
 
-					$i = 0;
-					foreach( $slides as $slide ) {
+					if ( empty( $slides ) ) {
+						?><p>
+							<?php echo __( 'No slides in this channel yet.', 'foyer' ); ?>
+						</p><?php
+					}
+					else {
 
-						$slide_url = get_permalink( $slide->ID );
-						$slide_url = add_query_arg( 'preview', 1, $slide_url );
+						$i = 0;
+						foreach( $slides as $slide ) {
 
-						?>
-							<div class="foyer_slides_editor_slides_slide"
-								data-slide-id="<?php echo $slide->ID; ?>"
-								data-slide-key="<?php echo $i; ?>"
-							>
-								<div class="foyer_slides_editor_slides_slide_iframe_container">
-									<iframe src="<?php echo $slide_url; ?>" width="1080" height="1920"></iframe>
+							$slide_url = get_permalink( $slide->ID );
+							$slide_url = add_query_arg( 'preview', 1, $slide_url );
+
+							?>
+								<div class="foyer_slides_editor_slides_slide"
+									data-slide-id="<?php echo $slide->ID; ?>"
+									data-slide-key="<?php echo $i; ?>"
+								>
+									<div class="foyer_slides_editor_slides_slide_iframe_container">
+										<iframe src="<?php echo $slide_url; ?>" width="1080" height="1920"></iframe>
+									</div>
+									<div class="foyer_slides_editor_slides_slide_caption">
+										<?php echo __( 'Slide', 'foyer' ) . ' ' . ($i + 1); ?>
+										(<a href="#" class="foyer_slides_editor_slides_slide_remove"><?php echo __( 'x', 'foyer' ); ?></a>)
+
+									</div>
 								</div>
-								<div class="foyer_slides_editor_slides_slide_caption">
-									<?php echo __( 'Slide', 'foyer' ) . ' ' . ($i + 1); ?>
-									(<a href="#" class="foyer_slides_editor_slides_slide_remove"><?php echo __( 'x', 'foyer' ); ?></a>)
+							<?php
 
-								</div>
-							</div>
-						<?php
-
-						$i++;
+							$i++;
+						}
 					}
 				?>
 			</div>
