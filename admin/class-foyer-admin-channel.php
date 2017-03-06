@@ -162,21 +162,28 @@ class Foyer_Admin_Channel {
 
 		?>
 			<div class="foyer_slides_editor_add">
-				<label for="foyer_slides_editor_add">
-					<?php echo __( 'Add slide', 'foyer' ); ?>
-				</label>
-
-				<select id="foyer_slides_editor_add" class="foyer_slides_editor_add_select">
-					<option value="">(<?php echo __( 'Select a slide', 'foyer' ); ?>)</option>
-					<?php
-						$slides = get_posts( array( 'post_type' => Foyer_Slide::post_type_name ) ); //@todo: move to class
-						foreach ( $slides as $slide ) {
-						?>
-							<option value="<?php echo $slide->ID; ?>"><?php echo $slide->post_title; ?></option>
-						<?php
-						}
-					?>
-				</select>
+				<table class="form-table">
+					<tbody>
+						<th>
+							<label for="foyer_slides_editor_add">
+								<?php echo __( 'Add slide', 'foyer' ); ?>
+							</label>
+						</th>
+						<td>
+							<select id="foyer_slides_editor_add" class="foyer_slides_editor_add_select">
+								<option value="">(<?php echo __( 'Select a slide', 'foyer' ); ?>)</option>
+								<?php
+									$slides = get_posts( array( 'post_type' => Foyer_Slide::post_type_name ) ); //@todo: move to class
+									foreach ( $slides as $slide ) {
+									?>
+										<option value="<?php echo $slide->ID; ?>"><?php echo $slide->post_title; ?></option>
+									<?php
+									}
+								?>
+							</select>
+						</td>
+					</tbody>
+				</table>
 			</div>
 		<?php
 
