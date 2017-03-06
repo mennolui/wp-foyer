@@ -44,23 +44,22 @@ class Foyer_Admin_Display {
 		$this->version = $version;
 	}
 
-
 	/**
-	 * Adds Default Channel and Active Channel columns to the Displas admin table.
+	 * Adds Default Channel and Active Channel columns to the Displays admin table.
 	 * Removed the Date column.
 	 *
 	 * @since	1.0.0
-	 * @param 	array	$columns	The current colums.
+	 * @param 	array	$columns	The current columns.
 	 * @return	array				The new columns.
 	 */
 	function add_channel_columns($columns) {
-	    unset($columns['date']);
-	    return array_merge($columns,
-	        array(
-	        	'default_channel' => __('Default channel', 'foyer'),
-	        	'active_channel' => __('Active channel', 'foyer'),
-	        )
-	    );
+		unset($columns['date']);
+		return array_merge($columns,
+			array(
+				'default_channel' => __('Default channel', 'foyer'),
+				'active_channel' => __('Active channel', 'foyer'),
+			)
+		);
 	}
 
 	/**

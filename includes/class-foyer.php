@@ -202,6 +202,8 @@ class Foyer {
 		$this->loader->add_action( 'wp_ajax_foyer_slides_editor_remove_slide', $this->admin_channel, 'remove_slide_over_ajax' );
 		$this->loader->add_action( 'wp_ajax_foyer_slides_editor_reorder_slides', $this->admin_channel, 'reorder_slides_over_ajax' );
 		$this->loader->add_filter( 'get_sample_permalink_html', $this->admin_channel, 'remove_sample_permalink' );
+		$this->loader->add_filter( 'manage_'.Foyer_Channel::post_type_name.'_posts_columns', $this->admin_channel, 'add_slides_count_column' );
+		$this->loader->add_action( 'manage_'.Foyer_Channel::post_type_name.'_posts_custom_column', $this->admin_channel, 'do_slides_count_column', 10, 2 );
 
 		// Admin Slide
 		$this->loader->add_action( 'admin_enqueue_scripts', $this->admin_slide, 'localize_scripts' );

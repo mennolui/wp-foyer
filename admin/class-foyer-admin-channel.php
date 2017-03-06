@@ -45,6 +45,27 @@ class Foyer_Admin_Channel {
 	}
 
 	/**
+	 * Adds a Slide Count column to the Channels admin table, just after the title column.
+	 *
+	 * @since	1.0.0
+	 * @param 	array	$columns	The current columns.
+	 * @return	array				The new columns.
+	 */
+	function add_slides_count_column( $columns ) {
+		$new_columns = array();
+
+		foreach( $columns as $key => $title ) {
+			$new_columns[$key] = $title;
+
+			if ( 'title' == $key ) {
+				// Add slides count column after the title column
+				$new_columns['slides_count'] = __( 'Number of slides', 'foyer' );
+			}
+		}
+		return $new_columns;
+	}
+
+	/**
 	 * Adds a slide over AJAX and outputs the updated slides list HTML.
 	 *
 	 * @since	1.0.0
@@ -109,6 +130,23 @@ class Foyer_Admin_Channel {
 			'normal',
 			'high'
 		);
+	}
+
+	/**
+	 * Outputs the Slides Count column.
+	 *
+	 * @since	1.0.0
+	 * @param 	string	$column		The current column that needs output.
+	 * @param 	int 	$post_id 	The current display ID.
+	 * @return	void
+	 */
+	function do_slides_count_column( $column, $post_id ) {
+		if ( 'slides_count' == $column ) {
+
+			$channel = new Foyer_Channel( get_the_id() );
+
+			echo count( $channel->get_slides() );
+	    }
 	}
 
 	/**
