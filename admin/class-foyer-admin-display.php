@@ -442,12 +442,22 @@ class Foyer_Admin_Display {
 		 * Currently only one scheduled channel is saved.
 		 *
 		 * Makes sure that start and end times are stored in UTC.
+		 * Makes sure end time never equals or is before the start time.
 		 */
+
+		$start = strtotime( $values['foyer_channel_editor_scheduled_channel_start'] ) - get_option( 'gmt_offset' ) * 3600;
+		$end = strtotime( $values['foyer_channel_editor_scheduled_channel_end'] ) - get_option( 'gmt_offset' ) * 3600;
+
+		if ( $end <= $start ) {
+			// End time is invalid, set based on start time and default duration
+			$channel_scheduler_defaults = $this->get_channel_scheduler_defaults();
+			$end = $start + $channel_scheduler_defaults['duration'];
+		}
 
 		$schedule = array(
 			'channel' => $values['foyer_channel_editor_scheduled_channel'],
-			'start' => 	strtotime( $values['foyer_channel_editor_scheduled_channel_start'] ) - get_option( 'gmt_offset' ) * 3600 ,
-			'end' => strtotime( $values['foyer_channel_editor_scheduled_channel_end'] ) - get_option( 'gmt_offset' ) * 3600,
+			'start' => 	$start,
+			'end' => $end,
 		);
 
 		add_post_meta( $display_id, 'foyer_display_schedule', $schedule, false );
