@@ -173,18 +173,27 @@ class Foyer {
 	}
 
 	/**
-	 * Register all of the hooks related to the admin area functionality
-	 * of the plugin.
+	 * Register all of the hooks related to the admin area functionality of the plugin.
 	 *
 	 * @since    1.0.0
 	 * @access   private
 	 */
 	private function define_admin_hooks() {
 
+		// Admin
 		$this->loader->add_action( 'admin_enqueue_scripts', $this->admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $this->admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'admin_menu', $this->admin, 'admin_menu' );
 
+		// Admin Display
+		$this->loader->add_action( 'admin_enqueue_scripts', $this->admin_display, 'localize_scripts' );
+		$this->loader->add_action( 'add_meta_boxes', $this->admin_display, 'add_channel_editor_meta_box' );
+		$this->loader->add_action( 'add_meta_boxes', $this->admin_display, 'add_channel_scheduler_meta_box' );
+		$this->loader->add_action( 'save_post', $this->admin_display, 'save_display' );
+		$this->loader->add_filter( 'manage_'.Foyer_Display::post_type_name.'_posts_columns', $this->admin_display, 'add_channel_columns' );
+		$this->loader->add_action( 'manage_'.Foyer_Display::post_type_name.'_posts_custom_column', $this->admin_display, 'do_channel_columns', 10, 2 );
+
+		// Admin Channel
 		$this->loader->add_action( 'admin_enqueue_scripts', $this->admin_channel, 'localize_scripts' );
 		$this->loader->add_action( 'add_meta_boxes', $this->admin_channel, 'add_slides_editor_meta_box', 20 );
 		$this->loader->add_action( 'add_meta_boxes', $this->admin_channel, 'add_slides_settings_meta_box', 40 );
@@ -194,31 +203,33 @@ class Foyer {
 		$this->loader->add_action( 'wp_ajax_foyer_slides_editor_reorder_slides', $this->admin_channel, 'reorder_slides_over_ajax' );
 		$this->loader->add_filter( 'get_sample_permalink_html', $this->admin_channel, 'remove_sample_permalink' );
 
-		$this->loader->add_action( 'admin_enqueue_scripts', $this->admin_display, 'localize_scripts' );
-		$this->loader->add_action( 'add_meta_boxes', $this->admin_display, 'add_channel_editor_meta_box' );
-		$this->loader->add_action( 'add_meta_boxes', $this->admin_display, 'add_channel_scheduler_meta_box' );
-		$this->loader->add_action( 'save_post', $this->admin_display, 'save_display' );
-
+		// Admin Slide
 		$this->loader->add_action( 'admin_enqueue_scripts', $this->admin_slide, 'localize_scripts' );
 		$this->loader->add_action( 'add_meta_boxes', $this->admin_slide, 'add_slide_editor_meta_boxes' );
 		$this->loader->add_action( 'save_post', $this->admin_slide, 'save_slide' );
 		$this->loader->add_filter( 'get_sample_permalink_html', $this->admin_slide, 'remove_sample_permalink' );
-		$this->loader->add_filter( 'manage_'.Foyer_Display::post_type_name.'_posts_columns', $this->admin_display, 'add_channel_columns' );
-		$this->loader->add_action( 'manage_'.Foyer_Display::post_type_name.'_posts_custom_column', $this->admin_display, 'do_channel_columns', 10, 2 );
 
-
+		// Admin Preview
 		$this->loader->add_action( 'wp_enqueue_scripts', $this->admin_preview, 'enqueue_scripts' );
 		$this->loader->add_filter( 'show_admin_bar', $this->admin_preview, 'hide_admin_bar' );
 		$this->loader->add_action( 'wp_ajax_foyer_preview_save_orientation_choice', $this->admin_preview, 'save_orientation_choice' );
 		$this->loader->add_action( 'wp_ajax_nopriv_foyer_preview_save_orientation_choice', $this->admin_preview, 'save_orientation_choice' );
-
-		$this->loader->add_filter( 'foyer/slides/formats', $this->theater, 'add_production_slide_format');
-
 	}
 
 	/**
-	 * Register all of the hooks related to the public-facing functionality
-	 * of the plugin.
+	 * Registers all of the hooks related to the general (not public/admin) setup functionality of the plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
+	private function define_general_hooks() {
+
+		$this->loader->add_action( 'init', $this->setup, 'register_post_types' );
+		$this->loader->add_filter( 'foyer/slides/formats', $this->theater, 'add_production_slide_format');
+	}
+
+	/**
+	 * Registers all of the hooks related to the public-facing functionality of the plugin.
 	 *
 	 * @since    1.0.0
 	 * @access   private
@@ -230,20 +241,6 @@ class Foyer {
 		$this->loader->add_action( 'init', $this->public, 'add_image_sizes' );
 
 		$this->loader->add_action( 'template_include', 'Foyer_Templates', 'template_include' );
-
-	}
-
-	/**
-	 * Register all of the hooks related to the general (not public/admin) setup functionality
-	 * of the plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 */
-	private function define_setup_hooks() {
-
-		$this->loader->add_action( 'init', $this->setup, 'register_post_types' );
-
 	}
 
 	/**
