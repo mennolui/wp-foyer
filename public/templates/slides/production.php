@@ -29,6 +29,6 @@ if ( empty( $slide_image_url ) ) {
 	?></figure>
 	<div class="foyer-slide-fields">
 		<h1><?php echo $production->title(); ?></h1>
-		<h2><?php echo $production->dates_html(); ?></h2>
+		<div class="date"><?php echo $production->dates_html(); ?></div>
 	</div>
 </div>
