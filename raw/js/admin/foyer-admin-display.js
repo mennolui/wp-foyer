@@ -6,10 +6,13 @@ jQuery(document).ready(function() {
 
 function foyer_display_setup_channel_scheduler() {
 
-	jQuery.foyer_datetimepicker.setLocale(foyer_channel_scheduler_defaults.locale);
-
 	$start_datetime = jQuery('#foyer_channel_editor_scheduled_channel_start');
 	$end_datetime = jQuery('#foyer_channel_editor_scheduled_channel_end');
+
+	if (jQuery($start_datetime).length || jQuery($end_datetime).length) {
+		// Only set when datetime picker fields are present
+		jQuery.foyer_datetimepicker.setLocale(foyer_channel_scheduler_defaults.locale);
+	}
 
 	$start_datetime.foyer_datetimepicker({
 		format: foyer_channel_scheduler_defaults.datetime_format,
