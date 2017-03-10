@@ -21,7 +21,7 @@ if ( empty( $slide_image_url ) ) {
 	}
 }
 
-?><div<?php $slide->class(); ?><?php $slide->data();?>>
+?><div<?php $slide->classes(); ?><?php $slide->data_attr();?>>
 	<div class="inner">
 		<figure><?php
 			if ( ! empty( $slide_image_url ) ) {

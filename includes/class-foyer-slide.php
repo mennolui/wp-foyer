@@ -50,70 +50,70 @@ class Foyer_Slide {
 
 	/**
 	 * Outputs the slide classes for use in the template.
-	 * 
+	 *
 	 * @since	1.0.0
 	 * @param 	array 	$classes
 	 * @return 	string
 	 */
-	public function class( $classes = array() ) {
+	public function classes( $classes = array() ) {
 
 		$classes[] = 'foyer-slide';
-		$classes[] = 'foyer-slide-'.$this->format();	
+		$classes[] = 'foyer-slide-'.$this->format();
 
 		if ( Foyer_Channel::post_type_name == get_post_type( get_queried_object_id() ) ) {
 			$channel = new Foyer_Channel( get_queried_object_id() );
 		}
-		
+
 		if ( Foyer_Display::post_type_name == get_post_type( get_queried_object_id() ) ) {
 			$display = new Foyer_Display( get_queried_object_id() );
 			$channel = new Foyer_Channel( $display->get_active_channel() );
 		}
-		
+
 		if (!empty ($channel) )	{
 			$slides = $channel->get_slides();
 			if ( !empty($slides) && $this->ID == $slides[0]->ID) {
 				$classes[] = 'next';
-			}			
+			}
 		}
-		
+
 		if (empty( $classes )) {
 			return;
 		}
-		
+
 		?> class="<?php echo implode(' ', $classes); ?>" <?php
-		
+
 	}
-	
+
 	/**
 	 * Outputs the slide data attributes for use in the template.
-	 * 
+	 *
 	 * @since	1.0.0
 	 * @param 	array 	$data
 	 * @return 	string
 	 */
-	public function data( $data = array() ) {
-		
+	public function data_attr( $data = array() ) {
+
 		if ( Foyer_Channel::post_type_name == get_post_type( get_queried_object_id() ) ) {
 			$channel = new Foyer_Channel( get_queried_object_id() );
 		}
-		
+
 		if ( Foyer_Display::post_type_name == get_post_type( get_queried_object_id() ) ) {
 			$display = new Foyer_Display( get_queried_object_id() );
 			$channel = new Foyer_Channel( $display->get_active_channel() );
 		}
-		
+
 		if (!empty ($channel) )	{
-			$data['foyer-slide-duration'] = $channel->get_slides_duration();					
+			$data['foyer-slide-duration'] = $channel->get_slides_duration();
 		}
-		
+
 		if (empty($data)) {
 			return;
 		}
-		
+
 		foreach ( $data as $key=>$value ) {
 			?> data-<?php echo $key; ?>="<?php echo $value; ?>"<?php
 		}
-		
+
 	}
 
 	/**
