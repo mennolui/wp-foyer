@@ -7,8 +7,10 @@
 
 $slide = new Foyer_Slide( get_the_id() );
 
-?><div class="inner">
-	<figure>
-		<img src="<?php echo $slide->image(); ?>" />
-	</figure>
+?><div<?php $slide->class(); ?><?php $slide->data();?>>
+	<div class="inner">
+		<figure>
+			<img src="<?php echo $slide->image(); ?>" />
+		</figure>
+	</div>
 </div>

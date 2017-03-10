@@ -21,13 +21,15 @@ if ( empty( $slide_image_url ) ) {
 	}
 }
 
-?><div class="inner">
-	<figure><?php
-		if ( ! empty( $slide_image_url ) ) {
-			?><img src="<?php echo $slide_image_url; ?>" /><?php
-		}
-	?></figure>
-	<div class="foyer-slide-fields">
-		<h1><?php echo $production->title(); ?></h1>
+?><div<?php $slide->class(); ?><?php $slide->data();?>>
+	<div class="inner">
+		<figure><?php
+			if ( ! empty( $slide_image_url ) ) {
+				?><img src="<?php echo $slide_image_url; ?>" /><?php
+			}
+		?></figure>
+		<div class="foyer-slide-fields">
+			<h1><?php echo $production->title(); ?></h1>
+		</div>
 	</div>
 </div>

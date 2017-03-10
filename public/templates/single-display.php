@@ -16,29 +16,15 @@ $channel = new Foyer_Channel( $display->get_active_channel() );
 	?>
 	</head>
 	<body <?php body_class(); ?>><?php
-		?><div class="foyer-display">
-			<div class="foyer-channel foyer-channel-<?php echo $channel->ID; ?> foyer-transition-<?php echo $channel->get_slides_transition(); ?>">
-				<div class="foyer-slides"><?php
+		?><div class="foyer-display"><?php
 
-					$first_slide_class = 'next';
-					foreach( $channel->get_slides() as $slide ) {
-				
-						$post = get_post( $slide->ID );
-						setup_postdata( $post );
+			$post = get_post( $channel->ID );
+			setup_postdata( $post );
 
-						?><div class="foyer-slide foyer-slide-<?php echo $slide->format(); ?> <?php echo $first_slide_class; ?>"
-								data-foyer-slide-duration="<?php echo $channel->get_slides_duration(); ?>"><?php
-
-							$first_slide_class = '';
-							Foyer_Templates::get_template('slides/'.$slide->format().'.php');
-
-						?></div><?php
-					}
-
-					wp_reset_postdata();
-				?></div>
-			</div>
-		</div><?php
+			Foyer_Templates::get_template('partials/channel.php');
+			
+			wp_reset_postdata();
+		?></div><?php
 					
 		wp_footer();
 		
