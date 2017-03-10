@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Foyer - Digital Signage for WordPress\n"
-"POT-Creation-Date: 2017-03-06 18:19+0100\n"
-"PO-Revision-Date: 2017-03-06 18:20+0100\n"
+"POT-Creation-Date: 2017-03-10 14:32+0100\n"
+"PO-Revision-Date: 2017-03-10 14:38+0100\n"
 "Last-Translator: Menno Luitjes <menno@mennoluitjes.nl>\n"
 "Language-Team: Menno Luitjes <menno@mennoluitjes.nl>\n"
 "Language: nl_NL\n"
@@ -22,51 +22,51 @@ msgstr ""
 
 #: admin/class-foyer-admin-channel.php:62
 msgid "Number of slides"
-msgstr ""
+msgstr "Aantal slides"
 
-#: admin/class-foyer-admin-channel.php:111 includes/class-foyer-setup.php:106
+#: admin/class-foyer-admin-channel.php:111
 msgid "Slides"
-msgstr ""
+msgstr "Slides"
 
 #: admin/class-foyer-admin-channel.php:127
 msgid "Slideshow settings"
-msgstr ""
+msgstr "Slideshow instellingen"
 
 #: admin/class-foyer-admin-channel.php:169
 msgid "Add slide"
-msgstr ""
+msgstr "Voeg slide toe"
 
 #: admin/class-foyer-admin-channel.php:174
 msgid "Select a slide"
-msgstr ""
+msgstr "Selecteer een slide"
 
 #: admin/class-foyer-admin-channel.php:208
 #: admin/class-foyer-admin-channel.php:265 includes/class-foyer-slides.php:92
 msgid "Default"
-msgstr ""
+msgstr "Standaard"
 
 #: admin/class-foyer-admin-channel.php:223
 msgid "Duration"
-msgstr ""
+msgstr "Duur"
 
 #: admin/class-foyer-admin-channel.php:280
 msgid "Transition"
-msgstr ""
+msgstr "Overgang"
 
 #: admin/class-foyer-admin-channel.php:319
 msgid "second"
 msgid_plural "seconds"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "seconde"
+msgstr[1] "seconden"
 
 #: admin/class-foyer-admin-channel.php:354
 msgid "No slides in this channel yet."
-msgstr ""
+msgstr "Nog geen slides in dit kanaal."
 
 #: admin/class-foyer-admin-channel.php:374
-#: admin/class-foyer-admin-channel.php:401 includes/class-foyer-setup.php:107
+#: admin/class-foyer-admin-channel.php:401
 msgid "Slide"
-msgstr ""
+msgstr "Schuiven"
 
 #: admin/class-foyer-admin-channel.php:375
 msgid "x"
@@ -74,153 +74,180 @@ msgstr ""
 
 #: admin/class-foyer-admin-channel.php:401
 msgid "Fade"
-msgstr ""
+msgstr "Vervagen"
 
 #: admin/class-foyer-admin-channel.php:421
 msgid "Are you sure you want to remove this slide from the channel?"
-msgstr ""
+msgstr "Weet u zeker dat u deze slide van het kanaal wilt verwijderen?"
 
 #: admin/class-foyer-admin-display.php:59
 #: admin/class-foyer-admin-display.php:243
 msgid "Default channel"
-msgstr ""
+msgstr "Standaard kanaal"
 
 #: admin/class-foyer-admin-display.php:60
 msgid "Active channel"
-msgstr ""
+msgstr "Actief kanaal"
 
-#: admin/class-foyer-admin-display.php:73 includes/class-foyer-setup.php:87
+#: admin/class-foyer-admin-display.php:73
 msgid "Channel"
-msgstr ""
+msgstr "Kanaal"
 
 #: admin/class-foyer-admin-display.php:89
 msgid "Schedule temporary channel"
-msgstr ""
+msgstr "Plan tijdelijk kanaal in"
 
 #: admin/class-foyer-admin-display.php:248
 #: admin/class-foyer-admin-display.php:303
 msgid "Select a channel"
-msgstr ""
+msgstr "Selecteer een kanaal"
 
 #: admin/class-foyer-admin-display.php:298
 msgid "Temporary channel"
-msgstr ""
+msgstr "Tijdelijk kanaal"
 
 #: admin/class-foyer-admin-display.php:322
 msgid "Show from"
-msgstr ""
+msgstr "Toon vanaf"
 
 #: admin/class-foyer-admin-display.php:332
 msgid "Until"
-msgstr ""
+msgstr "Tot"
 
 #: admin/class-foyer-admin-preview.php:112
 msgid "landscape"
-msgstr ""
+msgstr "liggend"
 
 #: admin/class-foyer-admin-preview.php:113
 msgid "portrait"
-msgstr ""
+msgstr "staand"
 
 #: admin/class-foyer-admin-slide.php:62 admin/class-foyer-admin-slide.php:76
 msgid "Slide format"
-msgstr ""
+msgstr "Slide soort"
 
 #: admin/class-foyer-admin-slide.php:92
 #, php-format
 msgid "Slide format: %s "
-msgstr ""
+msgstr "Slide soort: %s"
 
 #: admin/class-foyer-admin-slide.php:128
 msgid "Select an image"
-msgstr ""
+msgstr "Selecteer een afbeelding"
 
 #: admin/class-foyer-admin-slide.php:129
 msgid "Use this image"
-msgstr ""
+msgstr "Gebruik deze afbeelding"
 
 #: admin/class-foyer-admin-slide.php:236 includes/class-foyer-theater.php:93
 msgid "Background image"
-msgstr ""
+msgstr "Achtergrondafbeelding"
 
 #: admin/class-foyer-admin-slide.php:244 includes/class-foyer-theater.php:101
 msgid "Upload image"
-msgstr ""
+msgstr "Upload afbeelding"
 
 #: admin/class-foyer-admin-slide.php:245 includes/class-foyer-theater.php:102
 msgid "Remove image"
-msgstr ""
+msgstr "Verwijder afbeelding"
 
 #: admin/class-foyer-admin.php:49
 msgid "Foyer"
-msgstr ""
+msgstr "Foyer"
 
 #: includes/class-foyer-setup.php:66
+msgctxt "display cpt"
 msgid "Displays"
-msgstr ""
+msgstr "Schermen"
 
 #: includes/class-foyer-setup.php:67
+msgctxt "display cpt"
 msgid "Display"
-msgstr ""
+msgstr "Scherm"
 
 #: includes/class-foyer-setup.php:68
-msgctxt "display"
+msgctxt "display cpt"
 msgid "Add New"
-msgstr ""
+msgstr "Nieuw scherm"
 
 #: includes/class-foyer-setup.php:69
+msgctxt "display cpt"
 msgid "New display"
-msgstr ""
+msgstr "Nieuw scherm"
 
 #: includes/class-foyer-setup.php:70
+msgctxt "display cpt"
 msgid "Add new display"
-msgstr ""
+msgstr "Voeg nieuw scherm toe"
 
 #: includes/class-foyer-setup.php:71
+msgctxt "display cpt"
 msgid "Edit display"
-msgstr ""
+msgstr "Bewerk scherm"
 
 #: includes/class-foyer-setup.php:86
+msgctxt "channel cpt"
 msgid "Channels"
-msgstr ""
+msgstr "Kanalen"
+
+#: includes/class-foyer-setup.php:87
+msgctxt "channel cpt"
+msgid "Channel"
+msgstr "Kanaal"
 
 #: includes/class-foyer-setup.php:88
-msgctxt "channel"
+msgctxt "channel cpt"
 msgid "Add New"
-msgstr ""
+msgstr "Nieuw kanaal"
 
 #: includes/class-foyer-setup.php:89
+msgctxt "channel cpt"
 msgid "New channel"
-msgstr ""
+msgstr "Nieuw kanaal"
 
 #: includes/class-foyer-setup.php:90
+msgctxt "channel cpt"
 msgid "Add new channel"
-msgstr ""
+msgstr "Voeg nieuw kanaal toe"
 
 #: includes/class-foyer-setup.php:91
+msgctxt "channel cpt"
 msgid "Edit channel"
-msgstr ""
+msgstr "Bewerk kanaal"
+
+#: includes/class-foyer-setup.php:106
+msgctxt "slide cpt"
+msgid "Slides"
+msgstr "Slides"
+
+#: includes/class-foyer-setup.php:107
+msgctxt "slide cpt"
+msgid "Slide"
+msgstr "Slide"
 
 #: includes/class-foyer-setup.php:108
-msgctxt "slide"
+msgctxt "slide cpt"
 msgid "Add New"
-msgstr ""
+msgstr "Nieuwe slide"
 
 #: includes/class-foyer-setup.php:109
+msgctxt "slide cpt"
 msgid "New slide"
-msgstr ""
+msgstr "Nieuwe slide"
 
 #: includes/class-foyer-setup.php:110
+msgctxt "slide cpt"
 msgid "Add new slide"
-msgstr ""
+msgstr "Voeg nieuwe slide toe"
 
 #: includes/class-foyer-setup.php:111
+msgctxt "slide cpt"
 msgid "Edit slide"
-msgstr ""
+msgstr "Bewerk slide"
 
 #: includes/class-foyer-theater.php:41 includes/class-foyer-theater.php:79
 msgid "Production"
-msgstr ""
+msgstr "Productie"
 
 #. Plugin Name of the plugin/theme
 msgid "Foyer - Digital Signage for WordPress"
@@ -240,3 +267,24 @@ msgstr ""
 #. Author of the plugin/theme
 msgid "Menno Luitjes"
 msgstr ""
+
+#~ msgid "Displays"
+#~ msgstr "Schermen"
+
+#~ msgid "Display"
+#~ msgstr "Scherm"
+
+#~ msgctxt "display"
+#~ msgid "Add New"
+#~ msgstr "Nieuw scherm"
+
+#~ msgid "New display"
+#~ msgstr "Nieuw scherm"
+
+#~ msgctxt "channel"
+#~ msgid "Add New"
+#~ msgstr "Nieuw kanaal"
+
+#~ msgctxt "slide"
+#~ msgid "Add New"
+#~ msgstr "Nieuwe slide"
