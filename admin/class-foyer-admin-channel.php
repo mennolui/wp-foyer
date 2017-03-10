@@ -108,7 +108,7 @@ class Foyer_Admin_Channel {
 	public function add_slides_editor_meta_box() {
 		add_meta_box(
 			'foyer_slides_editor',
-			__( 'Slides' , 'foyer' ),
+			_x( 'Slides', 'slide cpt', 'foyer' ),
 			array( $this, 'slides_editor_meta_box' ),
 			Foyer_Channel::post_type_name,
 			'normal',
@@ -371,7 +371,7 @@ class Foyer_Admin_Channel {
 										<iframe src="<?php echo $slide_url; ?>" width="1080" height="1920"></iframe>
 									</div>
 									<div class="foyer_slides_editor_slides_slide_caption">
-										<?php echo __( 'Slide', 'foyer' ) . ' ' . ($i + 1); ?>
+										<?php echo _x( 'Slide', 'slide cpt', 'foyer' ) . ' ' . ($i + 1); ?>
 										(<a href="#" class="foyer_slides_editor_slides_slide_remove"><?php echo __( 'x', 'foyer' ); ?></a>)
 
 									</div>

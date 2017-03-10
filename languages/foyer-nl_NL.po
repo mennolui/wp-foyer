@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Foyer - Digital Signage for WordPress\n"
-"POT-Creation-Date: 2017-03-10 14:32+0100\n"
-"PO-Revision-Date: 2017-03-10 14:38+0100\n"
+"POT-Creation-Date: 2017-03-10 14:45+0100\n"
+"PO-Revision-Date: 2017-03-10 14:49+0100\n"
 "Last-Translator: Menno Luitjes <menno@mennoluitjes.nl>\n"
 "Language-Team: Menno Luitjes <menno@mennoluitjes.nl>\n"
 "Language: nl_NL\n"
@@ -177,73 +177,88 @@ msgstr "Nieuw scherm"
 
 #: includes/class-foyer-setup.php:70
 msgctxt "display cpt"
-msgid "Add new display"
-msgstr "Voeg nieuw scherm toe"
+msgid "View display"
+msgstr "Scherm bekijken"
 
 #: includes/class-foyer-setup.php:71
 msgctxt "display cpt"
-msgid "Edit display"
-msgstr "Bewerk scherm"
+msgid "Add new display"
+msgstr "Voeg nieuw scherm toe"
 
-#: includes/class-foyer-setup.php:86
+#: includes/class-foyer-setup.php:72
+msgctxt "display cpt"
+msgid "Edit display"
+msgstr "Scherm bewerken"
+
+#: includes/class-foyer-setup.php:87
 msgctxt "channel cpt"
 msgid "Channels"
 msgstr "Kanalen"
 
-#: includes/class-foyer-setup.php:87
+#: includes/class-foyer-setup.php:88
 msgctxt "channel cpt"
 msgid "Channel"
 msgstr "Kanaal"
 
-#: includes/class-foyer-setup.php:88
-msgctxt "channel cpt"
-msgid "Add New"
-msgstr "Nieuw kanaal"
-
 #: includes/class-foyer-setup.php:89
 msgctxt "channel cpt"
-msgid "New channel"
+msgid "Add New"
 msgstr "Nieuw kanaal"
 
 #: includes/class-foyer-setup.php:90
 msgctxt "channel cpt"
-msgid "Add new channel"
-msgstr "Voeg nieuw kanaal toe"
+msgid "New channel"
+msgstr "Nieuw kanaal"
 
 #: includes/class-foyer-setup.php:91
 msgctxt "channel cpt"
-msgid "Edit channel"
-msgstr "Bewerk kanaal"
+msgid "View channel"
+msgstr "Kanaal bekijken"
 
-#: includes/class-foyer-setup.php:106
+#: includes/class-foyer-setup.php:92
+msgctxt "channel cpt"
+msgid "Add new channel"
+msgstr "Voeg nieuw kanaal toe"
+
+#: includes/class-foyer-setup.php:93
+msgctxt "channel cpt"
+msgid "Edit channel"
+msgstr "Kanaal bewerken"
+
+#: includes/class-foyer-setup.php:108
 msgctxt "slide cpt"
 msgid "Slides"
 msgstr "Slides"
 
-#: includes/class-foyer-setup.php:107
+#: includes/class-foyer-setup.php:109
 msgctxt "slide cpt"
 msgid "Slide"
 msgstr "Slide"
 
-#: includes/class-foyer-setup.php:108
+#: includes/class-foyer-setup.php:110
 msgctxt "slide cpt"
 msgid "Add New"
 msgstr "Nieuwe slide"
 
-#: includes/class-foyer-setup.php:109
+#: includes/class-foyer-setup.php:111
 msgctxt "slide cpt"
 msgid "New slide"
 msgstr "Nieuwe slide"
 
-#: includes/class-foyer-setup.php:110
+#: includes/class-foyer-setup.php:112
+msgctxt "slide cpt"
+msgid "View slide"
+msgstr "Slide bekijken"
+
+#: includes/class-foyer-setup.php:113
 msgctxt "slide cpt"
 msgid "Add new slide"
 msgstr "Voeg nieuwe slide toe"
 
-#: includes/class-foyer-setup.php:111
+#: includes/class-foyer-setup.php:114
 msgctxt "slide cpt"
 msgid "Edit slide"
-msgstr "Bewerk slide"
+msgstr "Slide bewerken"
 
 #: includes/class-foyer-theater.php:41 includes/class-foyer-theater.php:79
 msgid "Production"
