@@ -40,6 +40,9 @@ Set up a display for each digital sign for maximum remote flexibility.
 = What hardware should I use for my digital sign? =
 Generally speaking you need a computer with a web browser and internet connection, and a display linked to that computer. A Smart TV with built in web browser might work, but maybe not as reliable.
 
+= Landscape or portrait? =
+You choose! Install your digital sign the way you prefer. Foyer will follow. Slide templates are designed to work in both landscape and portrait mode. Only the background image will be cropped differently, of course.
+
 I recommend using a (mini-)computer with the Chrome browser in kiosk mode, and a Full HD (1920 x 1080) display.
 
 When setting up multiple digital signs with their own content, each display needs its own (mini-)computer.
