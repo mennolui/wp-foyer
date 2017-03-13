@@ -1,0 +1,9 @@
+/bin					export-ignore
+/raw					export-ignore
+/tests					export-ignore
+/.travis.yml			export-ignore
+/apigen.neon			export-ignore
+/config.codekit3		export-ignore
+/phpunit.xml.dist		export-ignore
+/readme.md				export-ignore
+/LICENSE.txt			export-ignore
