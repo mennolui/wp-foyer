@@ -69,6 +69,8 @@ class Foyer_Admin_Channel {
 	 * Adds a slide over AJAX and outputs the updated slides list HTML.
 	 *
 	 * @since	1.0.0
+	 * @since	1.0.1			Validated & sanitized the user input.
+	 *
 	 * @access public
 	 * @return void
 	 */
@@ -76,10 +78,14 @@ class Foyer_Admin_Channel {
 
 		check_ajax_referer( 'foyer_slides_editor_ajax_nonce', 'nonce' , true );
 
-		$channel_id = $_POST['channel_id'];
-		$add_slide_id = $_POST['slide_id'];
+		$channel_id = intval( $_POST['channel_id'] );
+		$add_slide_id = intval( $_POST['slide_id'] );
 
-		/* Check if this post exists */
+		if ( empty( $channel_id ) || empty( $add_slide_id ) ) {
+			wp_die();
+		}
+
+		/* Check if the channel post exists */
 		if ( is_null( get_post( $channel_id  ) ) ) {
 			wp_die();
 		}
@@ -153,6 +159,8 @@ class Foyer_Admin_Channel {
 	 * Gets the HTML to add a slide in the slides editor.
 	 *
 	 * @since	1.0.0
+	 * @since	1.0.1			Escaped and sanitized the output.
+	 *
 	 * @access	public
 	 * @return	string	$html	The HTML to add a slide in the slides editor.
 	 */
@@ -166,17 +174,17 @@ class Foyer_Admin_Channel {
 					<tbody>
 						<th>
 							<label for="foyer_slides_editor_add">
-								<?php echo __( 'Add slide', 'foyer' ); ?>
+								<?php echo esc_html__( 'Add slide', 'foyer' ); ?>
 							</label>
 						</th>
 						<td>
 							<select id="foyer_slides_editor_add" class="foyer_slides_editor_add_select">
-								<option value="">(<?php echo __( 'Select a slide', 'foyer' ); ?>)</option>
+								<option value="">(<?php echo esc_html__( 'Select a slide', 'foyer' ); ?>)</option>
 								<?php
 									$slides = get_posts( array( 'post_type' => Foyer_Slide::post_type_name ) ); //@todo: move to class
 									foreach ( $slides as $slide ) {
 									?>
-										<option value="<?php echo $slide->ID; ?>"><?php echo $slide->post_title; ?></option>
+										<option value="<?php echo intval( $slide->ID ); ?>"><?php echo esc_html( $slide->post_title ); ?></option>
 									<?php
 									}
 								?>
@@ -196,6 +204,8 @@ class Foyer_Admin_Channel {
 	 * Gets the HTML to set the slides duration in the slides settings metabox.
 	 *
 	 * @since	1.0.0
+	 * @since	1.0.1			Escaped the output.
+	 *
 	 * @access	public
 	 * @param	WP_Post	$post	The post object of the current display.
 	 * @return	string	$html	The HTML to set the slides duration in the slides settings metabox.
@@ -220,12 +230,12 @@ class Foyer_Admin_Channel {
 			<tr>
 				<th>
 					<label for="foyer_slides_settings_duration">
-						<?php echo __( 'Duration', 'foyer' ); ?>
+						<?php echo esc_html__( 'Duration', 'foyer' ); ?>
 					</label>
 				</th>
 				<td>
 					<select id="foyer_slides_settings_duration" name="foyer_slides_settings_duration">
-						<option value=""><?php echo $default_option_name; ?></option>
+						<option value=""><?php echo esc_html( $default_option_name ); ?></option>
 						<?php
 							foreach ( $duration_options as $key => $name ) {
 								$selected = '';
@@ -233,8 +243,8 @@ class Foyer_Admin_Channel {
 									$selected = 'selected="selected"';
 								}
 								?>
-									<option value="<?php echo $key; ?>" <?php echo $selected; ?>>
-										<?php echo $name; ?>
+									<option value="<?php echo esc_attr( $key ); ?>" <?php echo $selected; ?>>
+										<?php echo esc_html( $name ); ?>
 									</option>
 								<?php
 							}
@@ -253,6 +263,8 @@ class Foyer_Admin_Channel {
 	 * Gets the HTML to set the slides transition in the slides settings metabox.
 	 *
 	 * @since	1.0.0
+	 * @since	1.0.1			Escaped the output.
+	 *
 	 * @access	public
 	 * @param	WP_Post	$post	The post object of the current display.
 	 * @return	string	$html	The HTML to set the slides transition in the slides settings metabox.
@@ -277,12 +289,12 @@ class Foyer_Admin_Channel {
 			<tr>
 				<th>
 					<label for="foyer_slides_settings_transition">
-						<?php echo __( 'Transition', 'foyer' ); ?>
+						<?php echo esc_html__( 'Transition', 'foyer' ); ?>
 					</label>
 				</th>
 				<td>
 					<select id="foyer_slides_settings_transition" name="foyer_slides_settings_transition">
-						<option value=""><?php echo $default_option_name; ?></option>
+						<option value=""><?php echo esc_html( $default_option_name ); ?></option>
 						<?php
 							foreach ( $transition_options as $key => $name ) {
 								$selected = '';
@@ -290,8 +302,8 @@ class Foyer_Admin_Channel {
 									$selected = 'selected="selected"';
 								}
 								?>
-									<option value="<?php echo $key; ?>" <?php echo $selected; ?>>
-										<?php echo $name; ?>
+									<option value="<?php echo esc_attr( $key ); ?>" <?php echo $selected; ?>>
+										<?php echo esc_html( $name ); ?>
 									</option>
 								<?php
 							}
@@ -334,6 +346,8 @@ class Foyer_Admin_Channel {
 	 * Gets the HTML that lists all slides in the slides editor.
 	 *
 	 * @since	1.0.0
+	 * @since	1.0.1			Escaped and sanitized the output.
+	 *
 	 * @access	public
 	 * @param	WP_Post	$post
 	 * @return	string	$html	The HTML that lists all slides in the slides editor.
@@ -351,7 +365,7 @@ class Foyer_Admin_Channel {
 
 					if ( empty( $slides ) ) {
 						?><p>
-							<?php echo __( 'No slides in this channel yet.', 'foyer' ); ?>
+							<?php echo esc_html__( 'No slides in this channel yet.', 'foyer' ); ?>
 						</p><?php
 					}
 					else {
@@ -364,15 +378,15 @@ class Foyer_Admin_Channel {
 
 							?>
 								<div class="foyer_slides_editor_slides_slide"
-									data-slide-id="<?php echo $slide->ID; ?>"
+									data-slide-id="<?php echo intval( $slide->ID ); ?>"
 									data-slide-key="<?php echo $i; ?>"
 								>
 									<div class="foyer_slides_editor_slides_slide_iframe_container">
-										<iframe src="<?php echo $slide_url; ?>" width="1080" height="1920"></iframe>
+										<iframe src="<?php echo esc_url( $slide_url ); ?>" width="1080" height="1920"></iframe>
 									</div>
 									<div class="foyer_slides_editor_slides_slide_caption">
-										<?php echo _x( 'Slide', 'slide cpt', 'foyer' ) . ' ' . ($i + 1); ?>
-										(<a href="#" class="foyer_slides_editor_slides_slide_remove"><?php echo __( 'x', 'foyer' ); ?></a>)
+										<?php echo esc_html_x( 'Slide', 'slide cpt', 'foyer' ) . ' ' . ($i + 1); ?>
+										(<a href="#" class="foyer_slides_editor_slides_slide_remove"><?php echo esc_html__( 'x', 'foyer' ); ?></a>)
 
 									</div>
 								</div>
@@ -415,10 +429,11 @@ class Foyer_Admin_Channel {
 	 * Localizes the JavaScript for the channel admin area.
 	 *
 	 * @since	1.0.0
+	 * @since	1.0.1			Escaped the output.
 	 */
 	public function localize_scripts() {
 
-		$defaults = array( 'confirm_remove_message' => __( 'Are you sure you want to remove this slide from the channel?', 'foyer' ) );
+		$defaults = array( 'confirm_remove_message' => esc_html__( 'Are you sure you want to remove this slide from the channel?', 'foyer' ) );
 		wp_localize_script( $this->plugin_name, 'foyer_slides_editor_defaults', $defaults );
 
 		$security = array( 'nonce' => wp_create_nonce( 'foyer_slides_editor_ajax_nonce' ) );
@@ -448,6 +463,8 @@ class Foyer_Admin_Channel {
 	 * Removes a slide over AJAX and outputs the updated slides list HTML.
 	 *
 	 * @since	1.0.0
+	 * @since	1.0.1			Validated & sanitized the user input.
+	 *
 	 * @access public
 	 * @return void
 	 */
@@ -455,8 +472,12 @@ class Foyer_Admin_Channel {
 
 		check_ajax_referer( 'foyer_slides_editor_ajax_nonce', 'nonce' , true );
 
-		$channel_id = $_POST['channel_id'];
-		$remove_slide_key = $_POST['slide_key'];
+		$channel_id = intval( $_POST['channel_id'] );
+		$remove_slide_key = intval( $_POST['slide_key'] );
+
+		if ( empty( $channel_id ) || empty( $remove_slide_key ) ) {
+			wp_die();
+		}
 
 		/* Check if this post exists */
 		if ( is_null( get_post( $channel_id  ) ) ) {
@@ -491,6 +512,8 @@ class Foyer_Admin_Channel {
 	 * Reorders slides over AJAX and outputs the updated slides list HTML.
 	 *
 	 * @since	1.0.0
+	 * @since	1.0.1			Validated & sanitized the user input.
+	 *
 	 * @access public
 	 * @return void
 	 */
@@ -498,8 +521,12 @@ class Foyer_Admin_Channel {
 
 		check_ajax_referer( 'foyer_slides_editor_ajax_nonce', 'nonce' , true );
 
-		$channel_id = $_POST['channel_id'];
-		$slide_ids = $_POST['slide_ids'];
+		$channel_id = intval( $_POST['channel_id'] );
+		$slide_ids = intval( $_POST['slide_ids'] );
+
+		if ( empty( $channel_id ) || empty( $slide_ids ) ) {
+			wp_die();
+		}
 
 		/* Check if this post exists */
 		if ( is_null( get_post( $channel_id  ) ) ) {
@@ -523,6 +550,8 @@ class Foyer_Admin_Channel {
 	 * Triggered when a channel is submitted from the channel admin form.
 	 *
 	 * @since 	1.0.0
+	 * @since	1.0.1			Validated & sanitized the user input.
+	 *
 	 * @param 	int		$post_id	The channel id.
 	 * @return void
 	 */
@@ -555,6 +584,7 @@ class Foyer_Admin_Channel {
 			return $post_id;
 		}
 
+		/* Check if slides settings are included (empty or not) in form */
 		if (
 			! isset( $_POST['foyer_slides_settings_duration'] ) ||
 			! isset( $_POST['foyer_slides_settings_transition'] )
@@ -562,14 +592,26 @@ class Foyer_Admin_Channel {
 			return $post_id;
 		}
 
-		update_post_meta( $post_id, Foyer_Channel::post_type_name . '_slides_duration' , $_POST['foyer_slides_settings_duration'] );
-		update_post_meta( $post_id, Foyer_Channel::post_type_name . '_slides_transition' , $_POST['foyer_slides_settings_transition'] );
+		$foyer_slides_settings_duration = intval( $_POST['foyer_slides_settings_duration'] );
+		if ( empty( $foyer_slides_settings_duration ) ) {
+			$foyer_slides_settings_duration = '';
+		}
+
+		$foyer_slides_settings_transition = intval( $_POST['foyer_slides_settings_transition'] );
+		if ( empty( $foyer_slides_settings_transition ) ) {
+			$foyer_slides_settings_transition = '';
+		}
+
+		update_post_meta( $post_id, Foyer_Channel::post_type_name . '_slides_duration' , $foyer_slides_settings_duration );
+		update_post_meta( $post_id, Foyer_Channel::post_type_name . '_slides_transition' , $foyer_slides_settings_transition );
 	}
 
 	/**
 	 * Outputs the content of the slides editor meta box.
 	 *
 	 * @since	1.0.0
+	 * @since	1.0.1			Sanitized the output.
+	 *
 	 * @param	WP_Post		$post	The post object of the current channel.
 	 */
 	public function slides_editor_meta_box( $post ) {
@@ -579,7 +621,7 @@ class Foyer_Admin_Channel {
 		ob_start();
 
 		?>
-			<div class="foyer_meta_box foyer_slides_editor" data-channel-id="<?php echo $post->ID; ?>">
+			<div class="foyer_meta_box foyer_slides_editor" data-channel-id="<?php echo intval( $post->ID ); ?>">
 
 				<?php
 					echo $this->get_slides_list_html( $post );

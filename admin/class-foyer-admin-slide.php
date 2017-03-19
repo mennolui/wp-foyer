@@ -121,12 +121,13 @@ class Foyer_Admin_Slide {
 	 * Localizes the JavaScript for the slide admin area.
 	 *
 	 * @since	1.0.0
+	 * @since	1.0.1			Escaped the output.
 	 */
 	public function localize_scripts() {
 		$slide_format_default = array(
 			'photo' => intval( get_post_meta( get_the_id(), 'slide_default_image', true ) ),
-			'text_select_photo' => __( 'Select an image', 'foyer' ),
-			'text_use_photo' => __( 'Use this image', 'foyer' ),
+			'text_select_photo' => esc_html__( 'Select an image', 'foyer' ),
+			'text_use_photo' => esc_html__( 'Use this image', 'foyer' ),
 		);
 		wp_localize_script( $this->plugin_name, 'foyer_slide_format_default', $slide_format_default );
 
@@ -208,18 +209,29 @@ class Foyer_Admin_Slide {
 	 * Saves the additional data of the default slide format.
 	 *
 	 * @since	1.0.0
+	 * @since	1.0.1				Improved validating & sanitizing of the user input.
+	 *
 	 * @param 	int		$post_id	The Post ID of the slide being saved.
 	 * @return 	void
 	 */
 	function save_slide_default( $post_id ) {
-		update_post_meta( $post_id, 'slide_default_subtitle', sanitize_text_field( $_POST['slide_default_subtitle'] ) );
-		update_post_meta( $post_id, 'slide_default_image', sanitize_text_field( $_POST['slide_default_image'] ) );
+		$slide_default_subtitle = sanitize_text_field( $_POST['slide_default_subtitle'] );
+
+		$slide_default_image = intval( $_POST['slide_default_image'] );
+		if ( empty( $slide_default_image ) ) {
+			$slide_default_image = '';
+		}
+
+		update_post_meta( $post_id, 'slide_default_subtitle', $slide_default_subtitle );
+		update_post_meta( $post_id, 'slide_default_image', $slide_default_image );
 	}
 
 	/**
 	 * Outputs the meta box for the default slide format.
 	 *
 	 * @since	1.0.0
+	 * @since	1.0.1			Escaped and sanitized the output.
+	 *
 	 * @param 	WP_Post	$post	The post of the slide that is being edited.
 	 * @return 	void
 	 */
@@ -233,17 +245,17 @@ class Foyer_Admin_Slide {
 			<tbody>
 				<tr>
 					<th scope="row">
-						<label for="slide_default_subtitle"><?php _e('Background image', 'foyer'); ?></label>
+						<label for="slide_default_subtitle"><?php esc_html_e('Background image', 'foyer'); ?></label>
 					</th>
 					<td>
 						<div class="slide_image_field<?php if ( empty( $slide_default_image ) ) { ?> empty<?php } ?>">
 							<div class="image-preview-wrapper">
-								<img class="slide_image_preview" src="<?php echo wp_get_attachment_url( get_post_meta( $post->ID, 'slide_default_image', true ) ); ?>" height="100">
+								<img class="slide_image_preview" src="<?php echo esc_url( wp_get_attachment_url( $slide_default_image ) ); ?>" height="100">
 							</div>
 
-							<input type="button" class="button slide_image_upload_button" value="<?php _e( 'Upload image', 'foyer' ); ?>" />
-							<input type="button" class="button slide_image_delete_button" value="<?php _e( 'Remove image', 'foyer' ); ?>" />
-							<input type="hidden" name="slide_default_image" class="slide_image_value" value='<?php echo get_post_meta( $post->ID, 'slide_default_image', true ); ?>'>
+							<input type="button" class="button slide_image_upload_button" value="<?php esc_html_e( 'Upload image', 'foyer' ); ?>" />
+							<input type="button" class="button slide_image_delete_button" value="<?php esc_html_e( 'Remove image', 'foyer' ); ?>" />
+							<input type="hidden" name="slide_default_image" class="slide_image_value" value='<?php echo intval( $slide_default_image ); ?>'>
 						</div>
 					</td>
 				</tr>
@@ -255,6 +267,8 @@ class Foyer_Admin_Slide {
 	 * Outputs the content of the channel editor meta box.
 	 *
 	 * @since	1.0.0
+	 * @since	1.0.1			Escaped and sanitized the output.
+	 *
 	 * @param	WP_Post		$post	The post object of the current display.
 	 */
 	public function slide_format_meta_box( $post ) {
@@ -264,12 +278,12 @@ class Foyer_Admin_Slide {
 		$slide = new Foyer_Slide( $post->ID );
 
 		?><input type="hidden" id="foyer_slide_editor_<?php echo Foyer_Slide::post_type_name; ?>"
-			name="foyer_slide_editor_<?php echo Foyer_Slide::post_type_name; ?>" value="<?php echo $post->ID; ?>"><?php
+			name="foyer_slide_editor_<?php echo Foyer_Slide::post_type_name; ?>" value="<?php echo intval( $post->ID ); ?>"><?php
 
 		foreach( Foyer_Slides::get_slide_formats() as $slide_format_key => $slide_format_data ) {
 			?><label>
-				<input type="radio" value="<?php echo $slide_format_key; ?>" name="slide_format" <?php checked( $slide->format(), $slide_format_key, true ); ?> />
-				<span><?php echo $slide_format_data['title']; ?></span>
+				<input type="radio" value="<?php echo esc_attr( $slide_format_key ); ?>" name="slide_format" <?php checked( $slide->format(), $slide_format_key, true ); ?> />
+				<span><?php echo esc_html( $slide_format_data['title'] ); ?></span>
 			</label><?php
 		}
 	}

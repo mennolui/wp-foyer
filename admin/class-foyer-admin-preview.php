@@ -147,6 +147,9 @@ class Foyer_Admin_Preview {
 	 *
 	 * Hooked to orientation button via AJAX.
 	 *
+	 * @since	1.0.0
+	 * @since	1.0.1				Improved validating & sanitizing of the user input.
+	 *
 	 * @return	void
 	 */
 	function save_orientation_choice( ) {
@@ -155,11 +158,13 @@ class Foyer_Admin_Preview {
 			return;
 		}
 
-		if (empty( $_POST[ 'orientation' ] ) ) {
+		$orientation = sanitize_title( $_POST[ 'orientation' ] );
+		if ( empty(  $orientation ) ) {
 			return;
 		}
 
-		if (empty( $_POST[ 'object_id' ] ) ) {
+		$object_id = intval( $_POST[ 'object_id' ] );
+		if ( empty(  $object_id ) ) {
 			return;
 		}
 
@@ -169,12 +174,10 @@ class Foyer_Admin_Preview {
 			$orientation_choices = array();
 		}
 
-		$orientation_choices[ intval( $_POST[ 'object_id' ] ) ] = sanitize_title( $_POST[ 'orientation' ] );
+		$orientation_choices[ $object_id ] = $orientation;
 
 		update_user_meta( get_current_user_id( ), 'foyer_preview_orientation_choices', $orientation_choices );
 
 		wp_die();
-
 	}
-
 }
