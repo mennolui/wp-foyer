@@ -66,6 +66,29 @@ class Foyer_Channel {
 	}
 
 	/**
+	 * Outputs the channel classes for use in the template.
+	 *
+	 * The output is escaped, so this method can be used in templates without further escaping.
+	 *
+	 * @since	1.0.1			Escaped the output.
+	 *
+	 * @param 	array 	$classes
+	 * @return 	string
+	 */
+	public function classes( $classes = array() ) {
+
+		$classes[] = 'foyer-channel';
+		$classes[] = 'foyer-channel-' . intval( $this->ID );
+		$classes[] = 'foyer-transition-' . $this->get_slides_transition();
+
+		if ( empty( $classes ) ) {
+			return;
+		}
+
+		?> class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" <?php
+	}
+
+	/**
 	 * Get slides for this channel.
 	 *
 	 * @since	1.0.0
@@ -156,5 +179,4 @@ class Foyer_Channel {
 
 		return $this->slides_transition;
 	}
-
 }

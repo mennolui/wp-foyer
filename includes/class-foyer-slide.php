@@ -41,6 +41,8 @@ class Foyer_Slide {
 	/**
 	 * Outputs the slide classes for use in the template.
 	 *
+	 * The output is escaped, so this method can be used in templates without further escaping.
+	 *
 	 * @since	1.0.0
 	 * @since	1.0.1			Escaped the output.
 	 *
@@ -50,7 +52,7 @@ class Foyer_Slide {
 	public function classes( $classes = array() ) {
 
 		$classes[] = 'foyer-slide';
-		$classes[] = 'foyer-slide-'.$this->format();
+		$classes[] = 'foyer-slide-'.$this->get_format();
 
 		if ( Foyer_Channel::post_type_name == get_post_type( get_queried_object_id() ) ) {
 			$channel = new Foyer_Channel( get_queried_object_id() );
@@ -77,6 +79,8 @@ class Foyer_Slide {
 
 	/**
 	 * Outputs the slide data attributes for use in the template.
+	 *
+	 * The output is escaped, so this method can be used in templates without further escaping.
 	 *
 	 * @since	1.0.0
 	 * @since	1.0.1			Escaped the output.
@@ -111,14 +115,12 @@ class Foyer_Slide {
 	/**
 	 * Gets the format of the slide.
 	 *
-	 * The return value is escaped, so it can be output in templates without further escaping.
-	 *
 	 * @since	1.0.0
-	 * @since	1.0.1			Escaped the return value.
+	 * @since	1.0.1			Renamed from format() to get_format().
 	 *
 	 * @return	string	The format key.
 	 */
-	public function format() {
+	public function get_format() {
 
 		$slide_format = get_post_meta( $this->ID, 'slide_format', true );
 
@@ -128,26 +130,36 @@ class Foyer_Slide {
 			$slide_format = $slide_format_keys[0];
 		}
 
-		return esc_attr( $slide_format );
+		return $slide_format;
 	}
 
 	/**
 	 * Gets the URL of the slide image.
 	 *
-	 * The return value is escaped, so it can be output in templates without further escaping.
-	 *
 	 * @since	1.0.0
-	 * @since	1.0.1			Escaped the return value.
+	 * @since	1.0.1			Renamed from image() to get_image_url().
 	 *
 	 * @return	string	The URL of the slide image.
 	 */
-	public function image() {
+	public function get_image_url() {
 		$attachment_id = get_post_meta( $this->ID, 'slide_default_image', true );
 		$attachment_src = wp_get_attachment_image_src( $attachment_id, 'foyer_fhd_square' );
 		if ( empty ( $attachment_src[0] ) ) {
 			return false;
 		}
 
-		return esc_url( $attachment_src[0] );
+		return $attachment_src[0];
+	}
+
+	/**
+	 * Outputs the URL of the slide image.
+	 *
+	 * The output is escaped, so this method can be used in templates without further escaping.
+	 *
+	 * @since	1.0.1
+	 * @return	void
+	 */
+	public function image_url() {
+		echo esc_url( $this->get_image_url() );
 	}
 }

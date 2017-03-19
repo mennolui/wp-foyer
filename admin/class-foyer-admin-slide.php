@@ -111,7 +111,7 @@ class Foyer_Admin_Slide {
 		if ( 'slide_format' == $column ) {
 
 			$slide = new Foyer_Slide( get_the_id() );
-			$format_slug = $slide->format();
+			$format_slug = $slide->get_format();
 			$format = Foyer_Slides::get_slide_format_by_slug( $format_slug );
 			echo $format['title'];
 	    }
@@ -282,7 +282,7 @@ class Foyer_Admin_Slide {
 
 		foreach( Foyer_Slides::get_slide_formats() as $slide_format_key => $slide_format_data ) {
 			?><label>
-				<input type="radio" value="<?php echo esc_attr( $slide_format_key ); ?>" name="slide_format" <?php checked( $slide->format(), $slide_format_key, true ); ?> />
+				<input type="radio" value="<?php echo esc_attr( $slide_format_key ); ?>" name="slide_format" <?php checked( $slide->get_format(), $slide_format_key, true ); ?> />
 				<span><?php echo esc_html( $slide_format_data['title'] ); ?></span>
 			</label><?php
 		}

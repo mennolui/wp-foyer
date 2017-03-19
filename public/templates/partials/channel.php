@@ -5,13 +5,13 @@
  * Used in the single-channel and single-display templates.
  *
  * @since	1.0.0
- * @since	1.0.1			Sanitized the output.
+ * @since	1.0.1			Switched to the new and escaped classes() method.
  */
 
 global $post;
 
 $channel = new Foyer_Channel( get_the_id() );
-?><div class="foyer-channel foyer-channel-<?php echo $channel->ID; ?> foyer-transition-<?php esc_attr( $channel->get_slides_transition() ); ?>">
+?><div<?php $channel->classes(); ?>>
 	<div class="foyer-slides"><?php
 
 		foreach( $channel->get_slides() as $slide ) {

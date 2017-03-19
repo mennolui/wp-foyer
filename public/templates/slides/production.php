@@ -9,7 +9,7 @@
 $production = new WPT_Production( get_post_meta( get_the_id(), 'slide_production_production_id', true ));
 
 $slide = new Foyer_Slide( get_the_id() );
-$slide_image_url = $slide->image();
+$slide_image_url = $slide->get_image_url();
 
 // Fallback to production image if slide image is not set or not found.
 if ( empty( $slide_image_url ) ) {
