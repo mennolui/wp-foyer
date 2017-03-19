@@ -1,6 +1,6 @@
 <?php
 /**
- * Default slide template.
+ * Default slide format template.
  *
  * @since	1.0.0
  */

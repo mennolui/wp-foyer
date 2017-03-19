@@ -27,7 +27,8 @@ class Foyer_Templates {
 		endif;
 		$template_file = self::locate_template( $template_name, $template_path, $default_path );
 		if ( ! file_exists( $template_file ) ) :
-			_doing_it_wrong( __FUNCTION__, sprintf( '<code>%s</code> does not exist.', $template_file ), '1.0.0' );
+			_doing_it_wrong( __FUNCTION__, sprintf( '<code>%s</code> does not exist.', $template_file ), '1.0.1' );
+			// @todo: use current plugin version
 			return;
 		endif;
 		include $template_file;

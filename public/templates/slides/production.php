@@ -1,8 +1,9 @@
 <?php
 /**
- * Production slide template.
+ * Production slide format template.
  *
  * @since	1.0.0
+ * @since	1.0.1			Sanitized the output.
  */
 
 $production = new WPT_Production( get_post_meta( get_the_id(), 'slide_production_production_id', true ));
@@ -25,12 +26,12 @@ if ( empty( $slide_image_url ) ) {
 	<div class="inner">
 		<figure><?php
 			if ( ! empty( $slide_image_url ) ) {
-				?><img src="<?php echo $slide_image_url; ?>" /><?php
+				?><img src="<?php echo esc_url( $slide_image_url ); ?>" /><?php
 			}
 		?></figure>
 		<div class="foyer-slide-fields">
-			<h1><?php echo $production->title(); ?></h1>
-			<div class="date"><?php echo $production->dates_html(); ?></div>
+			<h1><?php echo esc_html( $production->title() ); ?></h1>
+			<div class="date"><?php echo esc_html( $production->dates_html() ); ?></div>
 		</div>
 	</div>
 </div>
