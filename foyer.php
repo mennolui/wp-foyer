@@ -15,12 +15,12 @@
  * @wordpress-plugin
  * Plugin Name:       Foyer - Digital Signage for WordPress
  * Plugin URI:        http://mennoluitjes.nl
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Description:       Set up your channels and slideshows and show them off on any networked display.
  * Version:           1.0.0
  * Author:            Menno Luitjes
  * Author URI:        http://mennoluitjes.nl
- * License:           GPL-2.0+
- * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ * License:           GPL-3.0+
+ * License URI:       https://www.gnu.org/licenses/gpl.html
  * Text Domain:       foyer
  * Domain Path:       /languages
  */
