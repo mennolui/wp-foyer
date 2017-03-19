@@ -42,6 +42,8 @@ class Foyer_Slide {
 	 * Outputs the slide classes for use in the template.
 	 *
 	 * @since	1.0.0
+	 * @since	1.0.1			Sanitized the output.
+	 *
 	 * @param 	array 	$classes
 	 * @return 	string
 	 */
@@ -70,7 +72,7 @@ class Foyer_Slide {
 			return;
 		}
 
-		?> class="<?php echo implode(' ', $classes); ?>" <?php
+		?> class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" <?php
 
 	}
 
@@ -78,6 +80,8 @@ class Foyer_Slide {
 	 * Outputs the slide data attributes for use in the template.
 	 *
 	 * @since	1.0.0
+	 * @since	1.0.1			Sanitized the output.
+	 *
 	 * @param 	array 	$data
 	 * @return 	string
 	 */
@@ -101,7 +105,7 @@ class Foyer_Slide {
 		}
 
 		foreach ( $data as $key=>$value ) {
-			?> data-<?php echo $key; ?>="<?php echo $value; ?>"<?php
+			?> data-<?php echo sanitize_title( $key ); ?>="<?php echo esc_attr( $value ); ?>"<?php
 		}
 
 	}
@@ -109,7 +113,11 @@ class Foyer_Slide {
 	/**
 	 * Gets the format of the slide.
 	 *
+	 * The return value is sanitized for output, so it can be output in templates without further sanitizing.
+	 *
 	 * @since	1.0.0
+	 * @since	1.0.1			Sanitized the return value.
+	 *
 	 * @return	string	The format key.
 	 */
 	public function format() {
@@ -122,16 +130,17 @@ class Foyer_Slide {
 			$slide_format = $slide_format_keys[0];
 		}
 
-		return $slide_format;
-
+		return sanitize_title( $slide_format );
 	}
 
 	/**
 	 * Gets the URL of the slide image.
 	 *
-	 *
+	 * The result is sanitized for output, so it can be output in templates without further sanitizing.
 	 *
 	 * @since	1.0.0
+	 * @since	1.0.1			Sanitized the return value.
+	 *
 	 * @return	string	The URL of the slide image.
 	 */
 	public function image() {
@@ -141,6 +150,6 @@ class Foyer_Slide {
 			return false;
 		}
 
-		return $attachment_src[0];
+		return esc_url( $attachment_src[0] );
 	}
 }
