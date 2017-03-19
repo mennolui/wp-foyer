@@ -53,3 +53,6 @@ When setting up multiple digital signs with their own content, each display need
 
 = 1.0.0 =
 First public release!
+
+= 1.0.1 =
+Improved code security: Sanitized and validated all user input, and escaped and sanitized the output of the plugin.
