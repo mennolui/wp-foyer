@@ -118,6 +118,6 @@ class Foyer_Theater {
 		}
 
 		update_post_meta( $post_id, 'slide_production_production_id', $slide_production_production_id );
-		update_post_meta( $post_id, 'slide_production_image', $slide_production_image ) );
+		update_post_meta( $post_id, 'slide_production_image', $slide_production_image );
 	}
 }
