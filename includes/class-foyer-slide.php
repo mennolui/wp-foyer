@@ -42,7 +42,7 @@ class Foyer_Slide {
 	 * Outputs the slide classes for use in the template.
 	 *
 	 * @since	1.0.0
-	 * @since	1.0.1			Sanitized the output.
+	 * @since	1.0.1			Escaped the output.
 	 *
 	 * @param 	array 	$classes
 	 * @return 	string
@@ -73,14 +73,13 @@ class Foyer_Slide {
 		}
 
 		?> class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" <?php
-
 	}
 
 	/**
 	 * Outputs the slide data attributes for use in the template.
 	 *
 	 * @since	1.0.0
-	 * @since	1.0.1			Sanitized the output.
+	 * @since	1.0.1			Escaped the output.
 	 *
 	 * @param 	array 	$data
 	 * @return 	string
@@ -105,18 +104,17 @@ class Foyer_Slide {
 		}
 
 		foreach ( $data as $key=>$value ) {
-			?> data-<?php echo sanitize_title( $key ); ?>="<?php echo esc_attr( $value ); ?>"<?php
+			?> data-<?php echo esc_attr( $key ); ?>="<?php echo esc_attr( $value ); ?>"<?php
 		}
-
 	}
 
 	/**
 	 * Gets the format of the slide.
 	 *
-	 * The return value is sanitized for output, so it can be output in templates without further sanitizing.
+	 * The return value is escaped, so it can be output in templates without further escaping.
 	 *
 	 * @since	1.0.0
-	 * @since	1.0.1			Sanitized the return value.
+	 * @since	1.0.1			Escaped the return value.
 	 *
 	 * @return	string	The format key.
 	 */
@@ -130,16 +128,16 @@ class Foyer_Slide {
 			$slide_format = $slide_format_keys[0];
 		}
 
-		return sanitize_title( $slide_format );
+		return esc_attr( $slide_format );
 	}
 
 	/**
 	 * Gets the URL of the slide image.
 	 *
-	 * The result is sanitized for output, so it can be output in templates without further sanitizing.
+	 * The return value is escaped, so it can be output in templates without further escaping.
 	 *
 	 * @since	1.0.0
-	 * @since	1.0.1			Sanitized the return value.
+	 * @since	1.0.1			Escaped the return value.
 	 *
 	 * @return	string	The URL of the slide image.
 	 */

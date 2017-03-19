@@ -50,7 +50,7 @@ class Foyer_Theater {
 	 * Outputs the meta box for the Production slide format.
 	 *
 	 * @since	1.0.0
-	 * @since	1.0.1			Sanitized the output.
+	 * @since	1.0.1			Escaped & sanitized the output.
 	 *
 	 * @param	WP_Post	$post	The post of the current slide.
 	 * @return	void
@@ -101,7 +101,7 @@ class Foyer_Theater {
 	 * Saves additional data for the Production slide format.
 	 *
 	 * @since	1.0.0
-	 * @since	1.0.1			Improved validating & sanitizing user input.
+	 * @since	1.0.1			Improved validating & sanitizing of the user input.
 	 *
 	 * @param	int	$post_id
 	 * @return	void
