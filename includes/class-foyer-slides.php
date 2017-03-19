@@ -3,16 +3,6 @@
 /**
  * The class that holds all helper function for slides.
  *
- * @link       http://mennoluitjes.nl
- * @since      1.0.0
- *
- * @package    Foyer
- * @subpackage Foyer/includes
- */
-
-/**
- * The class that holds all helper function for slides.
- *
  * @package    Foyer
  * @subpackage Foyer/includes
  * @author     Menno Luitjes <menno@mennoluitjes.nl>

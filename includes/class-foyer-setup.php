@@ -3,16 +3,6 @@
 /**
  * The class that holds all general (not public/admin) setup functionality.
  *
- * @link       http://mennoluitjes.nl
- * @since      1.0.0
- *
- * @package    Foyer
- * @subpackage Foyer/includes
- */
-
-/**
- * The class that holds all general (not public/admin) setup functionality.
- *
  * @package    Foyer
  * @subpackage Foyer/includes
  * @author     Menno Luitjes <menno@mennoluitjes.nl>

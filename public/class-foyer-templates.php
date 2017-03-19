@@ -1,15 +1,4 @@
 <?php
-/**
- * The class that handles template files for slides.
- *
- * Based on: http://jeroensormani.com/how-to-add-template-files-in-your-plugin/
- *
- * @link       http://mennoluitjes.nl
- * @since      1.0.0
- *
- * @package    Foyer
- * @subpackage Foyer/public
- */
 
 /**
  * The class that handles template files for slides.
@@ -94,13 +83,13 @@ class Foyer_Templates {
 	 * @return	string				Template file that should be loaded.
 	 */
 	static function template_include( $template ) {
-		
+
 		$file = '';
 
-		if ( 
-			is_singular( array( Foyer_Slide::post_type_name, Foyer_Channel::post_type_name, Foyer_Display::post_type_name ) ) && 
-			is_user_logged_in( ) && 
-			empty( $_GET['preview'] ) 
+		if (
+			is_singular( array( Foyer_Slide::post_type_name, Foyer_Channel::post_type_name, Foyer_Display::post_type_name ) ) &&
+			is_user_logged_in( ) &&
+			empty( $_GET['preview'] )
 		) {
 			// Show inside preview iframe when logged in.
 			$file = 'preview.php';
@@ -118,6 +107,6 @@ class Foyer_Templates {
 			$template = self::locate_template( $file );
 		}
 
-		return $template;		
+		return $template;
 	}
 }
