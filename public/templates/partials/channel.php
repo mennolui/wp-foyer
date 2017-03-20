@@ -25,4 +25,4 @@ $channel = new Foyer_Channel( get_the_id() );
 		}
 
 	?></div>
-</div><?php
+</div>
