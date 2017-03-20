@@ -3,7 +3,7 @@ Contributors: mennolui, slimndap
 Tags: digital, signage, narrowcasting, displays, screens, signs, onsite, foyer, lobby, kiosk, venue, theater, cinema
 Requires at least: 4.1
 Tested up to: 4.7
-Stable tag: 1.0.0
+Stable tag: trunk
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.html
 Donate link: https://www.paypal.me/mennoluitjes
@@ -13,6 +13,19 @@ A free Digital Signage plugin for WordPress. Set up and show off your slideshows
 == Description ==
 
 Set up your slideshows and show them off on any networked display. Hardware not included :-)
+
+= Features =
+* Set up slides, channels (slideshows) and displays.
+* Choose slide duration and transition effect.
+* Set or change the channel on a display.
+* Schedule a temporary channel on a display.
+
+This plugin is in development. The amount of slide layouts and transition effects is currently limited, but will be expanded soon.
+
+= Foyer & Theater for WordPress =
+Foyer comes with build in support for the [Theater for WordPress plugin](https://wordpress.org/plugins/theatre/).
+
+With Theater & Foyer you can easily publish your events on your website, and showcase them on your onsite displays.
 
 == Installation ==
 
@@ -40,14 +53,16 @@ Set up a display for each digital sign for maximum remote flexibility.
 = What hardware should I use for my digital sign? =
 Generally speaking you need a computer with a web browser and internet connection, and a display linked to that computer. A Smart TV with built in web browser might work, but maybe not as reliable.
 
-= Landscape or portrait? =
-You choose! Install your digital sign the way you prefer. Foyer will follow. Slide templates are designed to work in both landscape and portrait mode. Only the background image will be cropped differently, of course.
-
 I recommend using a (mini-)computer with the Chrome browser in kiosk mode, and a Full HD (1920 x 1080) display.
 
 When setting up multiple digital signs with their own content, each display needs its own (mini-)computer.
 
+= Landscape or portrait? =
+You choose! Install your digital sign the way you prefer. Foyer will follow. Slide templates are designed to work in both landscape and portrait mode. Only the background image will be cropped differently, of course.
+
 == Screenshots ==
+
+Coming soon.
 
 == Changelog ==
 
@@ -56,3 +71,5 @@ First public release!
 
 = 1.0.1 =
 Improved code security: Sanitized and validated all user input, and escaped and sanitized the output of the plugin.
+
+== Upgrade Notice ==
