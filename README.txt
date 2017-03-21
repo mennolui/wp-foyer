@@ -20,12 +20,19 @@ Set up your slideshows and show them off on any networked display. Hardware not 
 * Set or change the channel on a display.
 * Schedule a temporary channel on a display.
 
-This plugin is in development. The amount of slide layouts and transition effects is currently limited, but will be expanded soon.
+This plugin is in development. The amount of slide formats and transition effects is currently limited, but will be expanded over time.
 
-= Foyer & Theater for WordPress =
-Foyer comes with build in support for the [Theater for WordPress plugin](https://wordpress.org/plugins/theatre/).
+= Features for theaters, music venues, festivals =
+Foyer comes with build in support for the [Theater for WordPress plugin](https://wordpress.org/plugins/theatre/). With Theater & Foyer you can easily publish your events on your website, and showcase them on your onsite displays.
 
-With Theater & Foyer you can easily publish your events on your website, and showcase them on your onsite displays.
+= Feature suggestions wanted! =
+Since this plugin is brand new, I'm curious..
+
+* how do you plan to use it?
+* in what environment (theater foyer, hotel lobby, private office, shop, ..)?
+* what features are you looking for and are currently missing?
+
+[Send me an email](mailto:menno@mennoluitjes.nl) to let me know!
 
 == Installation ==
 
@@ -59,6 +66,12 @@ When setting up multiple digital signs with their own content, each display need
 
 = Landscape or portrait? =
 You choose! Install your digital sign the way you prefer. Foyer will follow. Slide templates are designed to work in both landscape and portrait mode. Only the background image will be cropped differently, of course.
+
+= Can I change the looks of slides? =
+Yes, this is possible if you know how to write CSS. Just include some CSS in the theme of your website that targets the slide HTML. If you don't have access to the theme you can use a custom CSS plugin to add some CSS.
+
+= Can I change the template of a slide format? Can I add my own slide formats? =
+Yes, this is possible if you know how to write WordPress templates. Documentation for developers is coming soon.
 
 == Screenshots ==
 
