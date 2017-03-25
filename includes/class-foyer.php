@@ -131,6 +131,8 @@ class Foyer {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-theater.php';
 
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-pdf.php';
+
 		/**
 		 * Templating.
 		 */
@@ -149,6 +151,8 @@ class Foyer {
 		$this->admin_preview = new Foyer_Admin_Preview( $this->get_plugin_name(), $this->get_version() );
 
 		$this->theater = new Foyer_Theater( $this->get_plugin_name(), $this->get_version() );
+
+		$this->pdf = new Foyer_PDF( $this->get_plugin_name(), $this->get_version() );
 
 		$this->public = new Foyer_Public( $this->get_plugin_name(), $this->get_version() );
 
@@ -245,6 +249,8 @@ class Foyer {
 
 		$this->loader->add_action( 'init', $this->setup, 'register_post_types' );
 		$this->loader->add_filter( 'foyer/slides/formats', $this->theater, 'add_production_slide_format');
+
+		$this->loader->add_filter( 'wp_image_editors', $this->pdf, 'add_foyer_imagick_image_editor');
 	}
 
 	/**
