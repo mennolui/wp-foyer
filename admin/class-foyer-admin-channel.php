@@ -597,7 +597,7 @@ class Foyer_Admin_Channel {
 			$foyer_slides_settings_duration = '';
 		}
 
-		$foyer_slides_settings_transition = intval( $_POST['foyer_slides_settings_transition'] );
+		$foyer_slides_settings_transition = sanitize_title( $_POST['foyer_slides_settings_transition'] );
 		if ( empty( $foyer_slides_settings_transition ) ) {
 			$foyer_slides_settings_transition = '';
 		}
