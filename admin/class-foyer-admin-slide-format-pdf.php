@@ -29,11 +29,11 @@ class Foyer_Admin_Slide_Format_PDF {
 	}
 
 	/**
-	 * Adds PDF images to the attachment, for each page in a PDF.
+	 * Adds PDF images to an attachment, for each page in a PDF.
 	 *
 	 * @since	1.1.0
 	 *
-	 * @param	int	$attachment_id	The ID of the attachment to update.
+	 * @param	int	$attachment_id	The ID of the attachment to add PDF images to.
 	 * @return	WP_Error|void			Returns a WP error if generating of images failed, void otherwise.
 	 */
 	static function add_pdf_images_to_attachment( $attachment_id ) {
@@ -57,6 +57,32 @@ class Foyer_Admin_Slide_Format_PDF {
 		);
 
 		update_post_meta( $attachment_id, '_foyer_pdf_images', $pdf_images );
+	}
+
+	/**
+	 * Deletes generated PDF images for an attachment.
+	 *
+	 * @since	1.1.0
+	 *
+	 * @param	int	$attachment_id	The ID of the attachment to delete PDF images for.
+	 * @return	void
+	 */
+	static function delete_pdf_images_for_attachment( $attachment_id ) {
+
+		$slide_images = get_post_meta( $attachment_id, '_foyer_pdf_images', true );
+
+		if ( empty( $slide_images ) ) {
+			// No images were generated, bail
+			return;
+		}
+
+		$uploads = wp_upload_dir( null, false );
+
+		foreach ( $slide_images as $slide_image ) {
+
+			$slide_image_path = trailingslashit( $uploads['basedir'] ) . $slide_image;
+			wp_delete_file( $slide_image_path );
+		}
 	}
 
 	/**

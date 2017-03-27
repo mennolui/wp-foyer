@@ -238,7 +238,7 @@ class Foyer {
 
 		// Admin slide formats
 		$this->loader->add_filter( 'wp_image_editors', 'Foyer_Admin_Slide_Format_PDF', 'add_foyer_imagick_image_editor');
-
+		$this->loader->add_filter( 'delete_attachment', 'Foyer_Admin_Slide_Format_PDF', 'delete_pdf_images_for_attachment');
 	}
 
 	/**
