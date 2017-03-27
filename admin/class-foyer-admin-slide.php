@@ -145,7 +145,7 @@ class Foyer_Admin_Slide {
 		$screen = get_current_screen();
 
 		// Bail if not on Channel edit screen.
-		if ( Foyer_Slide::post_type_name != $screen->post_type ) {
+		if ( empty( $screen ) || Foyer_Slide::post_type_name != $screen->post_type ) {
 			return $sample_permalink;
 		}
 

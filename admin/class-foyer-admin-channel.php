@@ -452,7 +452,7 @@ class Foyer_Admin_Channel {
 		$screen = get_current_screen();
 
 		// Bail if not on Channel edit screen.
-		if ( Foyer_Channel::post_type_name != $screen->post_type ) {
+		if ( empty( $screen ) || Foyer_Channel::post_type_name != $screen->post_type ) {
 			return $sample_permalink;
 		}
 
