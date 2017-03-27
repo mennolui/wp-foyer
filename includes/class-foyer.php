@@ -75,6 +75,7 @@ class Foyer {
 	 * - Foyer_i18n. Defines internationalization functionality.
 	 * - Foyer_Admin. Defines all hooks for the admin area.
 	 * - Foyer_Public. Defines all hooks for the public side of the site.
+	 * - etc.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
@@ -84,65 +85,83 @@ class Foyer {
 	 */
 	private function load_dependencies() {
 
+		// --- includes ---
+
 		/**
-		 * The class responsible for orchestrating the actions and filters of the
-		 * core plugin.
+		 * Helper functions for handling actions and filters of the core plugin.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-loader.php';
 
 		/**
-		 * The class responsible for defining internationalization functionality
-		 * of the plugin.
+		 * Setup of internationalization.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-i18n.php';
 
 		/**
-		 * The class responsible for defining all general (not public/admin) setup actions.
+		 * General (not public/admin) setup actions.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-setup.php';
 
 		/**
-		 * The class responsible for defining all actions that occur in the admin area.
+		 * Display, channel and slide models.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-display.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-channel.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-slide.php';
+
+		/**
+		 * Slides helper functions.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-slides.php';
+
+		/**
+		 * Theater for WordPress helper functions.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-theater.php';
+
+		/**
+		 * Register slide formats.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-slide-formats.php';
+
+		// --- admin ---
+
+		/**
+		 * Setup of the admin area of the plugin.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-foyer-admin.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-foyer-admin-channel.php';
+
+		/**
+		 * Admin area functionality for display, channel and slide.
+		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-foyer-admin-display.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-foyer-admin-channel.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-foyer-admin-slide.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-foyer-admin-preview.php';
 
 		/**
-		 * The class responsible for defining all actions that occur in the public-facing
-		 * side of the site.
+		 * Admin area functionality for specific slide formats.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-foyer-admin-slide-format-production.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-foyer-admin-slide-format-pdf.php';
+
+		// --- public ---
+
+		/**
+		 * Setup of the public-facing side of the plugin.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-foyer-public.php';
-
-		/**
-		 * The classes that hold the slide, channel and display models
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-slide.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-channel.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-display.php';
-
-
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-slides.php';
-
-		/**
-		 * Theater for WordPress support.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-theater.php';
-
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-pdf.php';
 
 		/**
 		 * Templating.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-foyer-templates.php';
 
+
+		// Store a reference to some of the classes, to to enable defining hooks.
 		$this->loader = new Foyer_Loader();
 
 		$this->setup = new Foyer_Setup( $this->get_plugin_name(), $this->get_version() );
-
-		$this->slides = new Foyer_Slides( $this->get_plugin_name(), $this->get_version() );
 
 		$this->admin = new Foyer_Admin( $this->get_plugin_name(), $this->get_version() );
 		$this->admin_channel = new Foyer_Admin_Channel( $this->get_plugin_name(), $this->get_version() );
@@ -150,13 +169,7 @@ class Foyer {
 		$this->admin_slide = new Foyer_Admin_Slide( $this->get_plugin_name(), $this->get_version() );
 		$this->admin_preview = new Foyer_Admin_Preview( $this->get_plugin_name(), $this->get_version() );
 
-		$this->theater = new Foyer_Theater( $this->get_plugin_name(), $this->get_version() );
-
-		$this->pdf = new Foyer_PDF( $this->get_plugin_name(), $this->get_version() );
-
 		$this->public = new Foyer_Public( $this->get_plugin_name(), $this->get_version() );
-
-
 	}
 
 	/**
@@ -222,6 +235,10 @@ class Foyer {
 		$this->loader->add_filter( 'show_admin_bar', $this->admin_preview, 'hide_admin_bar' );
 		$this->loader->add_action( 'wp_ajax_foyer_preview_save_orientation_choice', $this->admin_preview, 'save_orientation_choice' );
 		$this->loader->add_action( 'wp_ajax_nopriv_foyer_preview_save_orientation_choice', $this->admin_preview, 'save_orientation_choice' );
+
+		// Admin slide formats
+		$this->loader->add_filter( 'wp_image_editors', 'Foyer_Admin_Slide_Formats_PDF', 'add_foyer_imagick_image_editor');
+
 	}
 
 	/**
@@ -248,9 +265,7 @@ class Foyer {
 	private function define_setup_hooks() {
 
 		$this->loader->add_action( 'init', $this->setup, 'register_post_types' );
-		$this->loader->add_filter( 'foyer/slides/formats', $this->theater, 'add_production_slide_format');
-
-		$this->loader->add_filter( 'wp_image_editors', $this->pdf, 'add_foyer_imagick_image_editor');
+		$this->loader->add_filter( 'foyer/slides/formats', 'Foyer_Slide_Formats', 'add_production_slide_format');
 	}
 
 	/**
