@@ -160,6 +160,7 @@ class Foyer_Admin_Channel {
 	 *
 	 * @since	1.0.0
 	 * @since	1.0.1			Escaped and sanitized the output.
+	 * @since	1.1.0			Fix: List of slides was limited to 5 items.
 	 *
 	 * @access	public
 	 * @return	string	$html	The HTML to add a slide in the slides editor.
@@ -181,7 +182,10 @@ class Foyer_Admin_Channel {
 							<select id="foyer_slides_editor_add" class="foyer_slides_editor_add_select">
 								<option value="">(<?php echo esc_html__( 'Select a slide', 'foyer' ); ?>)</option>
 								<?php
-									$slides = get_posts( array( 'post_type' => Foyer_Slide::post_type_name ) ); //@todo: move to class
+									$slides = get_posts( array(
+										'post_type' => Foyer_Slide::post_type_name,
+										'posts_per_page' => -1,
+									) ); //@todo: move to class
 									foreach ( $slides as $slide ) {
 									?>
 										<option value="<?php echo intval( $slide->ID ); ?>"><?php echo esc_html( $slide->post_title ); ?></option>
