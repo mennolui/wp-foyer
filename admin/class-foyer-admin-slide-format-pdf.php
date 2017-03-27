@@ -29,16 +29,38 @@ class Foyer_Admin_Slide_Format_PDF {
 	}
 
 	/**
+	 * Gets the file path relative to the uploads base.
+	 *
+	 * Eg. 2017/03/upload_file.pdf
+	 *
+	 * @since	1.1.0
+	 *
+	 * @param	string	$file_path	The full file path to get the relative path for.
+	 * @return	string				The file path relative to the uploads base.
+	 */
+	static function get_file_path_relative_to_uploads_base( $file_path ) {
+		$uploads = wp_upload_dir( null, false );
+		$relative_file_path = str_replace( trailingslashit( $uploads['basedir'] ), '', $file_path );
+
+		return $relative_file_path;
+	}
+
+	/**
 	 * Saves all pages in a PDF as seperate PNG images.
 	 *
 	 * Uses the Foyer_Image_Editor_Imagick image editor to convert PDF pages to PNG images.
 	 *
+	 * @since	1.1.0
+	 *
+	 * @param	string		The file path of the PDF file to convert.
 	 * @return	array		The file paths of all saved PNG images.
 	 */
-	static function save_pdf_pages_as_images() {
-		$png_files = array();
+	static function save_pdf_pages_as_images( $pdf_file ) {
+		if ( empty( $pdf_file ) ) {
+			return false;
+		}
 
-		$pdf_file = plugin_dir_path( dirname( __FILE__ ) ) . 'includes/test.pdf';
+		$png_files = array();
 
 		// Load our own Foyer_Image_Editor_Imagick by requesting methods that only exists in our image editor
 		$editor = wp_get_image_editor( $pdf_file, array( 'methods' => array( 'pdf_get_number_of_pages', 'pdf_prepare_page_for_load' ) ) );
@@ -78,6 +100,89 @@ class Foyer_Admin_Slide_Format_PDF {
 		}
 
 		unset( $editor );
-		var_dump( $png_files ); exit;
+
+		return $png_files;
+	}
+
+	/**
+	 * Saves additional data for the PDF slide format.
+	 *
+	 * Converts newly selected PDF file to images.
+	 *
+	 * @since	1.1.0
+	 *
+	 * @param	int		$post_id	The ID of the post being saved.
+	 * @return	void
+	 */
+	static function save_slide_pdf( $post_id ) {
+		$slide_pdf_file = intval( $_POST['slide_pdf_file'] );
+		if ( empty( $slide_pdf_file ) ) {
+			$slide_pdf_file = '';
+		}
+
+		$old_slide_pdf_file = get_post_meta( $post_id, 'slide_pdf_file', true );
+		if ( $old_slide_pdf_file == $slide_pdf_file ) {
+			// PDF file didn't change, no need for saving or converting
+			return;
+		}
+
+		// New PDF was selected, convert to images
+		$pdf_file_path = get_attached_file( $slide_pdf_file );
+		$slide_pdf_images = self::save_pdf_pages_as_images( $pdf_file_path );
+
+		if ( is_wp_error( $slide_pdf_images ) ) {
+			return $slide_pdf_images;
+		}
+
+		// Convert full paths to paths relative to uploads base, eg. 2017/03/upload_file.pdf
+		$slide_pdf_images = array_map(
+			array( __CLASS__, 'get_file_path_relative_to_uploads_base' ),
+			$slide_pdf_images
+		);
+
+		update_post_meta( $post_id, 'slide_pdf_file', $slide_pdf_file );
+		update_post_meta( $post_id, 'slide_pdf_images', $slide_pdf_images );
+	}
+
+	/**
+	 * Outputs the meta box for the Production slide format.
+	 *
+	 * @since	1.0.0
+	 * @since	1.0.1	Escaped & sanitized the output.
+	 * @since	1.1.0	Moved here from Foyer_Theater, and changed to static.
+	 *
+	 * @param	WP_Post	$post	The post of the current slide.
+	 * @return	void
+	 */
+	static function slide_pdf_meta_box( $post ) {
+
+		$slide_pdf_file_preview_url = '';
+
+		$slide_pdf_file = get_post_meta( $post->ID, 'slide_pdf_file', true );
+		$slide_pdf_file_src = wp_get_attachment_image_src( $slide_pdf_file, 'full' );
+		if ( ! empty( $slide_pdf_file_src ) ) {
+			$slide_pdf_file_preview_url = $slide_pdf_file_src[0];
+		}
+
+		?><table class="form-table">
+			<tbody>
+				<tr>
+					<th scope="row">
+						<label for="slide_pdf_file"><?php _e( 'PDF file', 'foyer' ); ?></label>
+					</th>
+					<td>
+						<div class="slide_image_field<?php if ( empty( $slide_pdf_file ) ) { ?> empty<?php } ?>">
+							<div class="image-preview-wrapper">
+								<img class="slide_image_preview" src="<?php echo esc_url( $slide_pdf_file_preview_url ); ?>" height="100">
+							</div>
+
+							<input type="button" class="button slide_image_upload_button" value="<?php _e( 'Upload PDF file', 'foyer' ); ?>" />
+							<input type="button" class="button slide_image_delete_button" value="<?php _e( 'Remove PDF file', 'foyer' ); ?>" />
+							<input type="hidden" name="slide_pdf_file" class="slide_image_value" value='<?php echo intval( $slide_pdf_file ); ?>'>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table><?php
 	}
 }

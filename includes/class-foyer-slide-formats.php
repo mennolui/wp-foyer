@@ -11,6 +11,24 @@
 class Foyer_Slide_Formats {
 
 	/**
+	 * Adds the PDF slide format.
+	 *
+	 * @since	1.1.0
+	 *
+	 * @param 	array	$slide_formats	The current slide formats.
+	 * @return	array					The slide formats with the PDF slide format added.
+	 */
+	static function add_pdf_slide_format( $slide_formats ) {
+
+		$slide_formats['pdf'] = array(
+			'title' => _x( 'PDF', 'foyer', 'slide-format' ),
+			'meta_box' => array( 'Foyer_Admin_Slide_Format_PDF', 'slide_pdf_meta_box' ),
+			'save_post' => array( 'Foyer_Admin_Slide_Format_PDF', 'save_slide_pdf' ),
+		);
+		return $slide_formats;
+	}
+
+	/**
 	 * Adds the Production slide format.
 	 *
 	 * @since	1.0.0

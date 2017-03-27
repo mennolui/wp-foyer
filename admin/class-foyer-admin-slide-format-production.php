@@ -12,6 +12,31 @@
 class Foyer_Admin_Slide_Format_Production {
 
 	/**
+	 * Saves additional data for the Production slide format.
+	 *
+	 * @since	1.0.0
+	 * @since	1.0.1	Improved validating & sanitizing of the user input.
+	 * @since	1.1.0	Moved here from Foyer_Theater, and changed to static.
+	 *
+	 * @param	int		$post_id	The ID of the post being saved.
+	 * @return	void
+	 */
+	static function save_slide_production( $post_id ) {
+		$slide_production_production_id = intval( $_POST['slide_production_production_id'] );
+		if ( empty( $slide_production_production_id ) ) {
+			$slide_production_production_id = '';
+		}
+
+		$slide_production_image = intval( $_POST['slide_production_image'] );
+		if ( empty( $slide_production_image ) ) {
+			$slide_production_image = '';
+		}
+
+		update_post_meta( $post_id, 'slide_production_production_id', $slide_production_production_id );
+		update_post_meta( $post_id, 'slide_production_image', $slide_production_image );
+	}
+
+	/**
 	 * Outputs the meta box for the Production slide format.
 	 *
 	 * @since	1.0.0
@@ -61,30 +86,5 @@ class Foyer_Admin_Slide_Format_Production {
 				</tr>
 			</tbody>
 		</table><?php
-	}
-
-	/**
-	 * Saves additional data for the Production slide format.
-	 *
-	 * @since	1.0.0
-	 * @since	1.0.1	Improved validating & sanitizing of the user input.
-	 * @since	1.1.0	Moved here from Foyer_Theater, and changed to static.
-	 *
-	 * @param	int		$post_id
-	 * @return	void
-	 */
-	static function save_slide_production( $post_id ) {
-		$slide_production_production_id = intval( $_POST['slide_production_production_id'] );
-		if ( empty( $slide_production_production_id ) ) {
-			$slide_production_production_id = '';
-		}
-
-		$slide_production_image = intval( $_POST['slide_production_image'] );
-		if ( empty( $slide_production_image ) ) {
-			$slide_production_image = '';
-		}
-
-		update_post_meta( $post_id, 'slide_production_production_id', $slide_production_production_id );
-		update_post_meta( $post_id, 'slide_production_image', $slide_production_image );
 	}
 }
