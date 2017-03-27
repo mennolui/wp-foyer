@@ -1,50 +1,14 @@
 <?php
+
 /**
- * Adds PDF slide functionality.
+ * Adds admin functionality for the PDF slide format.
  *
- * @since      1.1.0
- * @package    Foyer
- * @subpackage Foyer/includes
- * @author     Menno Luitjes <menno@mennoluitjes.nl>
+ * @since		1.1.0
+ * @package		Foyer
+ * @subpackage	Foyer/includes
+ * @author		Menno Luitjes <menno@mennoluitjes.nl>
  */
-class Foyer_PDF {
-
-	static function xconvert_pdf() {
-		$start = microtime( true );
-
-		wp_raise_memory_limit( 'image' );
-
-		$pdf_file = plugin_dir_path( dirname( __FILE__ ) ) . 'includes/test.pdf';
-
-		$imagick = new Imagick( $pdf_file );
-		$number_of_pages = $imagick->getNumberImages();
-
-		$imagick->clear();
-		$imagick->destroy();
-		$imagick = null;
-
-		for ( $p = 0; $p < $number_of_pages; $p++ ) {
-
-			$imagick = new Imagick( $pdf_file . '[' . $p . ']' );
-			$imagick->setImageFormat( 'png' );
-
-			$dirname = dirname( $pdf_file ) . '/';
-			$ext = '.' . pathinfo( $pdf_file, PATHINFO_EXTENSION );
-			$png_file = $dirname . wp_unique_filename( $dirname, wp_basename( $pdf_file, $ext ) . '-p' . ( $p + 1 ) . '-pdfself.png' );
-
-			file_put_contents( $png_file, $imagick );
-
-			$imagick->clear();
-			$imagick->destroy();
-			$imagick = null;
-
-		}
-
-		echo (microtime( true ) - $start);
-		exit;
-
-	}
-
+class Foyer_Admin_Slide_Format_PDF {
 
 	/**
 	 * Adds our own Foyer_Image_Editor_Imagick image editor to the list of available image editors.
@@ -64,9 +28,10 @@ class Foyer_PDF {
 		return $editors;
 	}
 
-
 	/**
 	 * Saves all pages in a PDF as seperate PNG images.
+	 *
+	 * Uses the Foyer_Image_Editor_Imagick image editor to convert PDF pages to PNG images.
 	 *
 	 * @return	array		The file paths of all saved PNG images.
 	 */

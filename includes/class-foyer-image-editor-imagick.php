@@ -2,10 +2,10 @@
 /**
  * Extends the WP_Image_Editor_Imagick class to allow processing of individual pages in PDF files.
  *
- * @since      1.1.0
- * @package    Foyer
- * @subpackage Foyer/includes
- * @author     Menno Luitjes <menno@mennoluitjes.nl>
+ * @since		1.1.0
+ * @package		Foyer
+ * @subpackage	Foyer/includes
+ * @author		Menno Luitjes <menno@mennoluitjes.nl>
  */
 class Foyer_Image_Editor_Imagick extends WP_Image_Editor_Imagick {
 
