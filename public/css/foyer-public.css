@@ -1,8 +1,12 @@
 body.single-foyer_display.admin-bar,
 body.single-foyer_channel.admin-bar,
 body.single-foyer_slide.admin-bar {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   height: auto;
   background-color: #555;
 }
@@ -11,6 +15,7 @@ body.single-foyer_slide.admin-bar {
   margin: 0 auto;
   display: block;
   border: none;
+  -webkit-transition: .5s all ease;
   transition: .5s all ease;
   margin-top: -45px;
 }
@@ -192,7 +197,8 @@ html {
 .foyer-slide figure img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .foyer-slide .foyer-slide-fields {
   position: absolute;
@@ -208,4 +214,7 @@ html {
 .foyer-slide .foyer-slide-fields h1 {
   font-size: 3rem;
 }
-/*# sourceMappingURL=foyer-public.css.map */
+.foyer-slide.foyer-slide-pdf figure img {
+  -o-object-fit: contain;
+     object-fit: contain;
+}
