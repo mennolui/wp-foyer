@@ -50,4 +50,22 @@ class Foyer_Slide_Formats {
 		}
 		return $slide_formats;
 	}
+
+	/**
+	 * Adds the Video slide format.
+	 *
+	 * @since	1.2.0
+	 *
+	 * @param 	array	$slide_formats	The current slide formats.
+	 * @return	array					The slide formats with the Video slide format added.
+	 */
+	static function add_video_slide_format( $slide_formats ) {
+
+		$slide_formats['video'] = array(
+			'title' => _x( 'Video', 'foyer', 'slide-format' ),
+			'meta_box' => array( 'Foyer_Admin_Slide_Format_Video', 'slide_video_meta_box' ),
+			'save_post' => array( 'Foyer_Admin_Slide_Format_Video', 'save_slide_video' ),
+		);
+		return $slide_formats;
+	}
 }
