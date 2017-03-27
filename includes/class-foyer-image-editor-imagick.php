@@ -10,25 +10,6 @@
 class Foyer_Image_Editor_Imagick extends WP_Image_Editor_Imagick {
 
 	/**
-	 * Get the width and height of the PDF or page.
-	 *
-	 * @since	1.1.0
-	 *
-	 * @return	array|WP_Error		Width and height or WP_Error on failure.
-	 */
-	public function pdf_get_image_size() {
-
-		try {
-			$size = $this->image->getImageGeometry();
-		}
-		catch ( Exception $e ) {
-			return new WP_Error( 'invalid_image', __( 'Could not read image size.' ), $this->file );
-		}
-
-		return $size;
-	}
-
-	/**
 	 * Get the number of pages in the pdf file.
 	 *
 	 * @since	1.1.0

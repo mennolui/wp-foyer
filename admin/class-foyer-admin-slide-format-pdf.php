@@ -66,15 +66,19 @@ class Foyer_Admin_Slide_Format_PDF {
 	 *
 	 * @since	1.1.0
 	 *
-	 * @param	string		The file path of the PDF file to generate images for.
-	 * @return	array		The file paths of all generated images.
+	 * @param	string				The file path of the PDF file to generate images for.
+	 * @return	array|WP_Error		The file paths of all generated images, or WP_Error if an error occured.
 	 */
 	static function generate_images_for_pdf_pages( $pdf_file ) {
 		if ( empty( $pdf_file ) ) {
+			// Not an error, just don't generate anything
 			return false;
 		}
 
-		// @todo check if PDF file
+		$file_extension = strtolower( pathinfo( $pdf_file, PATHINFO_EXTENSION ) );
+		if ( 'pdf' != $file_extension ) {
+			return new WP_Error( 'invalid_image', __( 'Not a PDF file.' ), $pdf_file );
+		}
 
 		$png_files = array();
 
