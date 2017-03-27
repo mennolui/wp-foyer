@@ -1,11 +1,12 @@
 <?php
 
 /**
- * The class that holds all helper function for slides.
+ * The class that holds all helper functions for slides.
  *
- * @package    Foyer
- * @subpackage Foyer/includes
- * @author     Menno Luitjes <menno@mennoluitjes.nl>
+ * @since		1.0.0
+ * @package		Foyer
+ * @subpackage	Foyer/includes
+ * @author		Menno Luitjes <menno@mennoluitjes.nl>
  */
 class Foyer_Slides {
 

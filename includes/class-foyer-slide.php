@@ -1,11 +1,11 @@
 <?php
 
 /**
- * The class that holds all slide functionality.
+ * The class that holds all shared slide functionality.
  *
- * @package    Foyer
- * @subpackage Foyer/includes
- * @author     Menno Luitjes <menno@mennoluitjes.nl>
+ * @package		Foyer
+ * @subpackage	Foyer/includes
+ * @author		Menno Luitjes <menno@mennoluitjes.nl>
  */
 class Foyer_Slide {
 
