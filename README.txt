@@ -3,16 +3,16 @@ Contributors: mennolui, slimndap
 Tags: digital, signage, narrowcasting, displays, screens, signs, onsite, foyer, lobby, kiosk, venue, theater, cinema
 Requires at least: 4.1
 Tested up to: 4.7
-Stable tag: trunk
+Stable tag: 1.1.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.html
 Donate link: https://www.paypal.me/mennoluitjes
 
-A free Digital Signage plugin for WordPress. Set up and show off your slideshows on any networked display.
+A free Digital Signage plugin for WordPress. Create and show off slideshows on your networked displays.
 
 == Description ==
 
-Set up your slideshows and show them off on any networked display. Hardware not included :-)
+Create slideshows and show them off on any networked display. Hardware not included :-)
 
 = Features =
 * Set up slides, channels (slideshows) and displays.
@@ -20,16 +20,21 @@ Set up your slideshows and show them off on any networked display. Hardware not 
 * Set or change the channel on a display.
 * Schedule a temporary channel on a display.
 
-This plugin is in development. The amount of slide formats and transition effects is currently limited, but will be expanded over time.
-
 = Features for theaters, music venues, festivals =
 Foyer comes with build in support for the [Theater for WordPress plugin](https://wordpress.org/plugins/theatre/). With Theater & Foyer you can easily publish your events on your website, and showcase them on your onsite displays.
+
+= Slide formats =
+* Image: Displays an image, covering the entire slide.
+* PDF: Creates a slide for each page in an uploaded PDF, displaying that page contained within the slide.
+* Production: Displays the image, title and event details of a selected production (requires Theater for WordPress).
+
+More features and slide formats are coming soon.
 
 = Feature suggestions wanted! =
 Since this plugin is brand new, I'm curious..
 
 * how do you plan to use it?
-* in what environment (theater foyer, hotel lobby, private office, shop, ..)?
+* in what environment (theater foyer, school canteen, hotel lobby, private office, shop window, ..)?
 * what features are you looking for and are currently missing?
 
 [Send me an email](mailto:menno@mennoluitjes.nl) to let me know!
@@ -84,5 +89,8 @@ First public release!
 
 = 1.0.1 =
 Improved code security: Sanitized and validated all user input, and escaped and sanitized the output of the plugin.
+
+= 1.1.0 =
+Added a PDF slide format. Creates a slide for each page in an uploaded PDF.
 
 == Upgrade Notice ==
