@@ -85,12 +85,13 @@ Coming soon.
 == Changelog ==
 
 = 1.0.0 =
-First public release!
+* First public release!
 
 = 1.0.1 =
-Improved code security: Sanitized and validated all user input, and escaped and sanitized the output of the plugin.
+* Improved code security: Sanitized and validated all user input, and escaped and sanitized the output of the plugin.
 
 = 1.1.0 =
-Added a PDF slide format. Creates a slide for each page in an uploaded PDF.
+* Added a PDF slide format. Creates a slide for each page in an uploaded PDF.
+* Fix: When adding slides to a channel, the list of possible slides was limited to 5 items.
 
 == Upgrade Notice ==
