@@ -142,8 +142,8 @@ class Foyer {
 		/**
 		 * Admin area functionality for specific slide formats.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-foyer-admin-slide-format-production.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-foyer-admin-slide-format-pdf.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-foyer-admin-slide-format-production.php';
 
 		// --- public ---
 
@@ -237,8 +237,8 @@ class Foyer {
 		$this->loader->add_action( 'wp_ajax_nopriv_foyer_preview_save_orientation_choice', $this->admin_preview, 'save_orientation_choice' );
 
 		// Admin slide formats
-		$this->loader->add_filter( 'wp_image_editors', 'Foyer_Admin_Slide_Format_PDF', 'add_foyer_imagick_image_editor');
-		$this->loader->add_filter( 'delete_attachment', 'Foyer_Admin_Slide_Format_PDF', 'delete_pdf_images_for_attachment');
+		$this->loader->add_filter( 'wp_image_editors', 'Foyer_Admin_Slide_Format_PDF', 'add_foyer_imagick_image_editor' );
+		$this->loader->add_filter( 'delete_attachment', 'Foyer_Admin_Slide_Format_PDF', 'delete_pdf_images_for_attachment' );
 	}
 
 	/**
@@ -265,8 +265,8 @@ class Foyer {
 	private function define_setup_hooks() {
 
 		$this->loader->add_action( 'init', $this->setup, 'register_post_types' );
-		$this->loader->add_filter( 'foyer/slides/formats', 'Foyer_Slide_Formats', 'add_production_slide_format');
 		$this->loader->add_filter( 'foyer/slides/formats', 'Foyer_Slide_Formats', 'add_pdf_slide_format');
+		$this->loader->add_filter( 'foyer/slides/formats', 'Foyer_Slide_Formats', 'add_production_slide_format');
 	}
 
 	/**
