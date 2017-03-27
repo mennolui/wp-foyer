@@ -29,36 +29,52 @@ class Foyer_Admin_Slide_Format_PDF {
 	}
 
 	/**
-	 * Gets the file path relative to the uploads base.
-	 *
-	 * Eg. 2017/03/upload_file.pdf
+	 * Adds PDF images to the attachment, for each page in a PDF.
 	 *
 	 * @since	1.1.0
 	 *
-	 * @param	string	$file_path	The full file path to get the relative path for.
-	 * @return	string				The file path relative to the uploads base.
+	 * @param	int	$attachment_id	The ID of the attachment to update.
+	 * @return	WP_Error|void			Returns a WP error if generating of images failed, void otherwise.
 	 */
-	static function get_file_path_relative_to_uploads_base( $file_path ) {
-		$uploads = wp_upload_dir( null, false );
-		$relative_file_path = str_replace( trailingslashit( $uploads['basedir'] ), '', $file_path );
+	static function add_pdf_images_to_attachment( $attachment_id ) {
 
-		return $relative_file_path;
+		if ( ! empty( get_post_meta( $attachment_id, '_foyer_pdf_images', true ) ) ) {
+			// Images already added, no need to generate them
+			return;
+		}
+
+		$pdf_file_path = get_attached_file( $attachment_id );
+		$pdf_images = self::generate_images_for_pdf_pages( $pdf_file_path );
+
+		if ( is_wp_error( $pdf_images ) ) {
+			return $pdf_images;
+		}
+
+		// Convert full paths to paths relative to uploads base, eg. 2017/03/upload_file.pdf
+		$pdf_images = array_map(
+			array( __CLASS__, 'get_file_path_relative_to_uploads_base' ),
+			$pdf_images
+		);
+
+		update_post_meta( $attachment_id, '_foyer_pdf_images', $pdf_images );
 	}
 
 	/**
-	 * Saves all pages in a PDF as seperate PNG images.
+	 * Generates an image for each page in a PDF file.
 	 *
 	 * Uses the Foyer_Image_Editor_Imagick image editor to convert PDF pages to PNG images.
 	 *
 	 * @since	1.1.0
 	 *
-	 * @param	string		The file path of the PDF file to convert.
-	 * @return	array		The file paths of all saved PNG images.
+	 * @param	string		The file path of the PDF file to generate images for.
+	 * @return	array		The file paths of all generated images.
 	 */
-	static function save_pdf_pages_as_images( $pdf_file ) {
+	static function generate_images_for_pdf_pages( $pdf_file ) {
 		if ( empty( $pdf_file ) ) {
 			return false;
 		}
+
+		// @todo check if PDF file
 
 		$png_files = array();
 
@@ -105,6 +121,23 @@ class Foyer_Admin_Slide_Format_PDF {
 	}
 
 	/**
+	 * Gets the file path relative to the uploads base.
+	 *
+	 * Eg. 2017/03/upload_file.pdf
+	 *
+	 * @since	1.1.0
+	 *
+	 * @param	string	$file_path	The full file path to get the relative path for.
+	 * @return	string				The file path relative to the uploads base.
+	 */
+	static function get_file_path_relative_to_uploads_base( $file_path ) {
+		$uploads = wp_upload_dir( null, false );
+		$relative_file_path = str_replace( trailingslashit( $uploads['basedir'] ), '', $file_path );
+
+		return $relative_file_path;
+	}
+
+	/**
 	 * Saves additional data for the PDF slide format.
 	 *
 	 * Converts newly selected PDF file to images.
@@ -120,28 +153,18 @@ class Foyer_Admin_Slide_Format_PDF {
 			$slide_pdf_file = '';
 		}
 
-		$old_slide_pdf_file = get_post_meta( $post_id, 'slide_pdf_file', true );
-		if ( $old_slide_pdf_file == $slide_pdf_file ) {
-			// PDF file didn't change, no need for saving or converting
-			return;
+		if ( empty( $slide_pdf_file ) ) {
+			delete_post_meta( $post_id, 'slide_pdf_file' );
 		}
+		else {
 
-		// New PDF was selected, convert to images
-		$pdf_file_path = get_attached_file( $slide_pdf_file );
-		$slide_pdf_images = self::save_pdf_pages_as_images( $pdf_file_path );
+			$added = self::add_pdf_images_to_attachment( $slide_pdf_file );
+			if ( is_wp_error( $added ) ) {
+				return $added;
+			}
 
-		if ( is_wp_error( $slide_pdf_images ) ) {
-			return $slide_pdf_images;
+			update_post_meta( $post_id, 'slide_pdf_file', $slide_pdf_file );
 		}
-
-		// Convert full paths to paths relative to uploads base, eg. 2017/03/upload_file.pdf
-		$slide_pdf_images = array_map(
-			array( __CLASS__, 'get_file_path_relative_to_uploads_base' ),
-			$slide_pdf_images
-		);
-
-		update_post_meta( $post_id, 'slide_pdf_file', $slide_pdf_file );
-		update_post_meta( $post_id, 'slide_pdf_images', $slide_pdf_images );
 	}
 
 	/**
@@ -155,7 +178,6 @@ class Foyer_Admin_Slide_Format_PDF {
 	 * @return	void
 	 */
 	static function slide_pdf_meta_box( $post ) {
-
 		$slide_pdf_file_preview_url = '';
 
 		$slide_pdf_file = get_post_meta( $post->ID, 'slide_pdf_file', true );
