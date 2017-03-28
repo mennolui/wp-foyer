@@ -2,6 +2,9 @@ var foyer_ticker_shutdown_status = false;
 var foyer_ticker_shutdown_callback;
 var foyer_ticker_shutdown_callback_options;
 
+var foyer_ticker_css_transition_duration = 1.5 * 1000; // (2 seconds in milliseconds)
+var foyer_ticker_css_transition_duration_safe = foyer_ticker_css_transition_duration + (.5 * 1000); // (add 0.5 seconds in milliseconds)
+
 jQuery(document).ready(function() {
 
 	if (jQuery(foyer_slides_selector).length) {
@@ -13,13 +16,15 @@ jQuery(document).ready(function() {
 
 
 function foyer_ticker_setup() {
+	// become,became / leave/left
+	// entering,entered / leaving,left
 	foyer_ticker_set_slide_active_next_classes();
 	foyer_ticker_set_active_slide_timeout();
 }
 
 function foyer_ticker_set_slide_active_next_classes() {
-	jQuery(foyer_slide_selector).first().removeClass('next').addClass('active');
-	jQuery(foyer_slide_selector).first().next().addClass('next');
+	jQuery(foyer_slide_selector).first().trigger('slide:remove-next').removeClass('next').trigger('slide:add-active').addClass('active');
+	jQuery(foyer_slide_selector).first().next().trigger('slide:add-next').addClass('next');
 }
 
 function foyer_ticker_set_active_slide_timeout() {
@@ -48,7 +53,7 @@ function foyer_ticker_next_slide() {
 		new_next_index = 0;
 	}
 
-	$active_slide.removeClass('active');
+	$active_slide.trigger('slide:remove-active').removeClass('active');
 
 	if (foyer_ticker_shutdown_status) {
 		foyer_ticker_shutdown_status = false;
@@ -56,11 +61,12 @@ function foyer_ticker_next_slide() {
 		// Trigger callback, but only after some time has passed to finish all CSS transitions
 		setTimeout(function() {
 			foyer_ticker_shutdown_callback(foyer_ticker_shutdown_callback_options);
-		}, 2 * 1000); // (2 seconds in milliseconds)
+		}, foyer_ticker_css_transition_duration_safe);
 	}
 	else {
-		jQuery(foyer_slide_selector).eq(new_active_index).removeClass('next').addClass('active');
-		jQuery(foyer_slide_selector).eq(new_next_index).addClass('next');
+
+		jQuery(foyer_slide_selector).eq(new_active_index).trigger('slide:remove-next').removeClass('next').trigger('slide:add-active').addClass('active');
+		jQuery(foyer_slide_selector).eq(new_next_index).trigger('slide:add-next').addClass('next');
 		foyer_ticker_set_active_slide_timeout();
 	}
 }
