@@ -3,7 +3,7 @@ Contributors: mennolui, slimndap
 Tags: digital, signage, narrowcasting, displays, screens, signs, onsite, foyer, lobby, kiosk, venue, theater, cinema
 Requires at least: 4.1
 Tested up to: 4.7
-Stable tag: 1.1.0
+Stable tag: trunk
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.html
 Donate link: https://www.paypal.me/mennoluitjes
