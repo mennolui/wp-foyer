@@ -78,7 +78,14 @@ jQuery( function() {
 				attachment = file_frame.state().get('selection').first().toJSON();
 
 				// Do something with attachment.id and/or attachment.url here
-				slide_image_field.find('.slide_image_preview').attr('src', attachment.sizes.full.url).css('width', 'auto');
+				var image_preview_url;
+				if (typeof(attachment.sizes.full.url) !== 'undefined') {
+					image_preview_url = attachment.sizes.full.url;
+				}
+				else {
+					image_preview_url = attachment.url;
+				}
+				slide_image_field.find('.slide_image_preview').attr('src', image_preview_url).css('width', 'auto');
 				slide_image_field.find('.slide_image_value').val(attachment.id);
 
 				// Restore the main post ID
