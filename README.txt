@@ -84,14 +84,32 @@ Coming soon.
 
 == Changelog ==
 
-= 1.0.0 =
-* First public release!
+= 1.1 =
+Release Date: March 28, 2017
 
-= 1.0.1 =
-* Improved code security: Sanitized and validated all user input, and escaped and sanitized the output of the plugin.
+Added a PDF slide format. Creates a slide for each page in an uploaded PDF.
 
-= 1.1.0 =
-* Added a PDF slide format. Creates a slide for each page in an uploaded PDF.
-* Fix: When adding slides to a channel, the list of possible slides was limited to 5 items.
+Bug fixes:
+* When adding slides to a channel, the list of possible slides was limited to 5 items (1.1.0).
+* Fatal error on install/upgrade on older PHP versions (< 5.5): Can't use function return value in write context (1.1.1).
+
+= 1.0 =
+Release Date: March 20, 2017
+
+First public release!
+
+Bug fixes:
+* Improved code security: Sanitized and validated all user input, and escaped and sanitized the output of the plugin (1.0.1).
+
 
 == Upgrade Notice ==
+
+= 1.1.1 =
+Fixes a fatal error on install/upgrade on older PHP versions (< 5.5).
+
+= 1.1.0 =
+Added a PDF slide format. Creates a slide for each page in an uploaded PDF.
+
+= 1.0.1 =
+Improved code security: Sanitized and validated all user input, and escaped and sanitized the output of the plugin.
+
