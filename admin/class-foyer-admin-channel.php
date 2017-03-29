@@ -526,7 +526,7 @@ class Foyer_Admin_Channel {
 		check_ajax_referer( 'foyer_slides_editor_ajax_nonce', 'nonce' , true );
 
 		$channel_id = intval( $_POST['channel_id'] );
-		$slide_ids = intval( $_POST['slide_ids'] );
+		$slide_ids = array_map( 'intval', $_POST['slide_ids'] );
 
 		if ( empty( $channel_id ) || empty( $slide_ids ) ) {
 			wp_die();
