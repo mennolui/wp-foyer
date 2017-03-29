@@ -38,9 +38,9 @@ class Foyer_Admin_Slide_Format_PDF {
 	 */
 	static function add_pdf_images_to_attachment( $attachment_id ) {
 
-		$current_pdf_images = get_post_meta( $attachment_id, '_foyer_pdf_images', true ) )
+		$current_pdf_images = get_post_meta( $attachment_id, '_foyer_pdf_images', true );
 
-		if ( ! empty( $current_pdf_images ) {
+		if ( ! empty( $current_pdf_images ) ) {
 			// Images already added, no need to generate them
 			return;
 		}
