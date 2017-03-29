@@ -33,10 +33,13 @@ $slide = new Foyer_Slide( get_the_id() );
 						'loop': 1,
 						'modestbranding': 1,
 						'rel': 0,
-						'showinfo': 0
+						'showinfo': 0,
+						'start': 3,
+						'end': 5
 					},
 					events: {
 						'onReady': onPlayerReady,
+						'onPlayerStateChange': onPlayerStateChange
 					}
 				});
 			}
@@ -44,6 +47,7 @@ $slide = new Foyer_Slide( get_the_id() );
 			// 4. The API will call this function when the video player is ready.
 			function onPlayerReady(yt_event) {
 				// trigger buffering so video is ready to play when needed
+				yt_event.target.mute();
 				yt_event.target.playVideo();
 				yt_event.target.pauseVideo();
 
@@ -55,6 +59,12 @@ $slide = new Foyer_Slide( get_the_id() );
 						yt_event.target.pauseVideo();
 					}, foyer_ticker_css_transition_duration);
 				});
+			}
+
+			function onPlayerStateChange(yt_event) {
+				if (yt_event.data == YT.PlayerState.ENDED) {
+					yt_event.target.playVideo();
+				}
 			}
 		</script>
 	</div>

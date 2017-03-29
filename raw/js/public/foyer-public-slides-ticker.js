@@ -18,6 +18,7 @@ jQuery(document).ready(function() {
 function foyer_ticker_setup() {
 	// become,became / leave/left
 	// entering,entered / leaving,left
+	// before/after
 	foyer_ticker_set_slide_active_next_classes();
 	foyer_ticker_set_active_slide_timeout();
 }
