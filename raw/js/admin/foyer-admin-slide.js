@@ -28,19 +28,21 @@ jQuery( function() {
 
 /**
  * Handle file uploads for slide image fields
+ *
  * @since	1.0.0
+ * @since	1.1.3	Fixed an issue where adding an image to a slide was only possible when
+ *					the image was already in the media library.
  *
  * Based on: http://jeroensormani.com/how-to-include-the-wordpress-media-selector-in-your-plugin/
  */
 jQuery( function() {
 
 	// Uploading files
-	var set_to_post_id
 	var wp_media_post_id;
 
 	if (wp.media) {
 		wp_media_post_id = wp.media.model.settings.post.id;
-		set_to_post_id = foyer_slide_format_default.photo;
+
 		jQuery('.slide_image_upload_button').on('click', function(event) {
 			var slide_image_field;
 			var file_frame;
@@ -50,15 +52,9 @@ jQuery( function() {
 			// If the media frame already exists, reopen it.
 			if (file_frame) {
 
-				// Set the post ID to what we want
-				file_frame.uploader.uploader.param('post_id', set_to_post_id);
-
 				// Open frame
 				file_frame.open();
 				return;
-			} else {
-				// Set the wp.media post id so the uploader grabs the ID we want when initialised
-				wp.media.model.settings.post.id = set_to_post_id;
 			}
 
 			// Create the media frame.

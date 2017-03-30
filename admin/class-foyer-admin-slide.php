@@ -122,10 +122,12 @@ class Foyer_Admin_Slide {
 	 *
 	 * @since	1.0.0
 	 * @since	1.0.1			Escaped the output.
+	 * @since	1.1.3			Fixed a Javascript issue where adding an image to a slide was only possible when
+	 *							the image was already in the media library. Removed 'photo' default as it is no
+	 *							longer needed by our Javascript.
 	 */
 	public function localize_scripts() {
 		$slide_format_default = array(
-			'photo' => intval( get_post_meta( get_the_id(), 'slide_default_image', true ) ),
 			'text_select_photo' => esc_html__( 'Select an image', 'foyer' ),
 			'text_use_photo' => esc_html__( 'Use this image', 'foyer' ),
 		);

@@ -94,6 +94,7 @@ Bug fixes:
 * Fatal error on install/upgrade on older PHP versions (< 5.5): Can't use function return value in write context (1.1.1).
 * All slide of a channel were removed after re-ordering the slides (1.1.2).
 * Javascript error occured when a slide’s freshly selected image didn't have a generated preview image (eg. PDFs on hosting not capable of converting PDFs) (1.1.2).
+* Adding an image to a slide was only possible when the image was already in the media library (1.1.3).
 
 = 1.0 =
 Release Date: March 20, 2017
@@ -105,6 +106,9 @@ Bug fixes:
 
 
 == Upgrade Notice ==
+
+= 1.1.3 =
+Fixes an issue where adding an image to a slide was only possible when the image was already in the media library.
 
 = 1.1.2 =
 Fixes two bugs. Fixes an issue where all slides of a channel were removed after re-ordering the slides. Fixes a Javascript error that occured when a slide’s freshly selected image didn't have a generated preview image (eg. PDFs on hosting not capable of converting PDFs).
