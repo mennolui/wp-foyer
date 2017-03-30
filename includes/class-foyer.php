@@ -56,7 +56,7 @@ class Foyer {
 	public function __construct() {
 
 		$this->plugin_name = 'foyer';
-		$this->version = '1.1.0';
+		$this->version = '1.1.3';
 
 		$this->load_dependencies();
 		$this->set_locale();
