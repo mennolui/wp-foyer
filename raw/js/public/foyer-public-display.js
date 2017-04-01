@@ -95,7 +95,7 @@ function foyer_display_replace_channel($new_channel_html) {
 	foyer_display_setup_slide_group_classes();
 
 	// Use timeout to allow browser to detect class changing from next to active
-	setTimeout(foyer_ticker_setup, 0.1 * 1000); // (0.1 seconds in milliseconds)
+	setTimeout(foyer_ticker_init, 0.1 * 1000); // (0.1 seconds in milliseconds)
 }
 
 function foyer_display_reload_window() {
