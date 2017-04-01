@@ -18,7 +18,7 @@ function foyer_ticker_bind_events() {
 	// Allow others to bind events before us, so they can prevent ours
 	jQuery(foyer_slides_selector).trigger('slides:before-binding-events');
 
-	jQuery(foyer_slides_selector).on('slides:next-slide', function( event ) {
+	jQuery('body').on('slides:next-slide', foyer_slides_selector, function( event ) {
 		var $active_slide = jQuery(foyer_slide_selector + '.active');
 		var slide_count = jQuery(foyer_slide_selector).length;
 
@@ -50,13 +50,13 @@ function foyer_ticker_bind_events() {
 		}
 	});
 
-	jQuery(foyer_slide_selector).on('slide:becoming-next', function( event ) {
+	jQuery('body').on('slide:becoming-next', foyer_slide_selector, function( event ) {
 		jQuery(this).addClass('next').trigger('slide:became-next');
 	});
-	jQuery(foyer_slide_selector).on('slide:becoming-active', function( event ) {
+	jQuery('body').on('slide:becoming-active', foyer_slide_selector, function( event ) {
 		jQuery(this).removeClass('next').addClass('active').trigger('slide:became-active');
 	});
-	jQuery(foyer_slide_selector).on('slide:leaving-active', function( event ) {
+	jQuery('body').on('slide:leaving-active', foyer_slide_selector, function( event ) {
 		jQuery(this).removeClass('active').trigger('slide:left-active');
 	});
 
