@@ -4,11 +4,54 @@ var foyer_yt_players = {};
 jQuery(document).ready(function() {
 
 	if (jQuery(foyer_slides_selector).length) {
-		// Our view includes video slides, bind events
+		// Our view includes video slides, load YouTube API and bind events
+		foyer_slide_video_load_youtube_api();
 		foyer_slide_video_bind_events();
 	}
 
 });
+
+function foyer_slide_video_load_youtube_api() {
+	// Load YouTube IFrame Player API code asynchronously
+	(function() { // Closure, to not leak to the scope
+		var tag = document.createElement('script');
+		tag.src = "https://www.youtube.com/iframe_api";
+		var firstScriptTag = document.getElementsByTagName('script')[0];
+		firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+	})();
+}
+
+// Loop over all video slides whenever the YouTube IFrame Player API is ready
+function onYouTubeIframeAPIReady() {
+	jQuery(foyer_slide_video_selector).each(function() {
+
+		// Set container
+		var container = jQuery(this).find('.youtube-video-container');
+
+		var player_id = container.attr('id');
+		var video_id = container.data('foyer-video-id');
+
+		if (player_id && video_id) {
+			// Set up player and store its reference
+			window.foyer_yt_players[player_id] = new YT.Player(player_id, {
+				width: '1920',
+				height: '1080',
+				videoId: video_id,
+				playerVars: {
+					'controls': 0,
+					'loop': 1,
+					'modestbranding': 1,
+					'rel': 0,
+					'showinfo': 0,
+				},
+				events: {
+					'onReady': foyer_slide_video_youtube_player_ready(player_id),
+				}
+			});
+		}
+	});
+	console.log(window.foyer_yt_players);
+}
 
 function foyer_slide_video_bind_events() {
 
@@ -25,11 +68,11 @@ function foyer_slide_video_bind_events() {
 			// Set container
 			var container = jQuery(foyer_slide_video_selector).filter('.active').find('.youtube-video-container');
 
-			if (1 == container.data('foyer-video-wait-for-end')) {
-				// We should wait for the end of the video before proceeding to the next slide
+			// Set player reference
+			var player = window.foyer_yt_players[container.attr('id')]
 
-				// Set player reference
-				var player = window.foyer_yt_players[container.attr('id')]
+			if (1 == container.data('foyer-video-wait-for-end') && player) {
+				// We should wait for the end of the video before proceeding to the next slide
 
 				var end = container.data('foyer-video-end');
 				var duration = player.getDuration();
@@ -48,7 +91,6 @@ function foyer_slide_video_bind_events() {
 					// Not ended yet, prevent next slide
 					console.log('prevented next');
 					event.stopImmediatePropagation();
-					event.preventDefault();
 
 					// Try again in 0.5 seconds
 					setTimeout(function() {
@@ -76,9 +118,6 @@ function foyer_slide_video_bind_events() {
 			// Seek to start
 			player.playVideo();
 		}
-
-		// Make sure the event is only triggered once
-		event.stopImmediatePropagation();
 	});
 
 	jQuery('body').on('slide:left-active', foyer_slide_video_selector, function( event ) {
@@ -101,9 +140,6 @@ function foyer_slide_video_bind_events() {
 				player.pauseVideo();
 			}, foyer_ticker_css_transition_duration * 1000);
 		}
-
-		// Make sure the event is only triggered once
-		event.stopImmediatePropagation();
 	});
 }
 
