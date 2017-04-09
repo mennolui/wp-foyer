@@ -3,7 +3,7 @@ var foyer_yt_players = {};
 
 jQuery(document).ready(function() {
 
-	if (jQuery(foyer_slides_selector).length) {
+	if (jQuery(foyer_slide_video_selector).length) {
 		// Our view includes video slides, load YouTube API and bind events
 		foyer_slide_video_load_youtube_api();
 		foyer_slide_video_bind_events();
