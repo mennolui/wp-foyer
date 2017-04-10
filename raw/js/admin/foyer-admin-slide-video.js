@@ -87,7 +87,7 @@ function foyer_admin_slide_video_validate_youtube_video_url() {
 		foyer_admin_slide_video_update_youtube_video_preview();
 	}
 	else {
-		jQuery('#slide_video_video_url_description').text('Not a valid YouTube URL.');
+		jQuery('#slide_video_video_url_description').text('Not a valid YouTube video URL.');
 	}
 }
 

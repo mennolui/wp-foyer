@@ -70,7 +70,7 @@ function foyer_slide_video_bind_events() {
 			// Set player reference
 			var player = window.foyer_yt_players[container.attr('id')]
 
-			if (1 == container.data('foyer-video-wait-for-end') && player) {
+			if (1 == container.data('foyer-hold-slide') && player) {
 				// We should wait for the end of the video before proceeding to the next slide
 
 				var end = container.data('foyer-video-end');

@@ -32,15 +32,15 @@ class Foyer_Admin_Slide_Format_Video {
 			$slide_video_video_end = '';
 		}
 
-		$slide_video_video_wait_for_end = intval( $_POST['slide_video_video_wait_for_end'] );
-		if ( empty( $slide_video_video_wait_for_end ) ) {
-			$slide_video_video_wait_for_end = '';
+		$slide_video_hold_slide = intval( $_POST['slide_video_hold_slide'] );
+		if ( empty( $slide_video_hold_slide ) ) {
+			$slide_video_hold_slide = '';
 		}
 
 		update_post_meta( $post_id, 'slide_video_video_url', $slide_video_video_url );
 		update_post_meta( $post_id, 'slide_video_video_start', $slide_video_video_start );
 		update_post_meta( $post_id, 'slide_video_video_end', $slide_video_video_end );
-		update_post_meta( $post_id, 'slide_video_video_wait_for_end', $slide_video_video_wait_for_end );
+		update_post_meta( $post_id, 'slide_video_hold_slide', $slide_video_hold_slide );
 	}
 
 	/**
@@ -55,7 +55,7 @@ class Foyer_Admin_Slide_Format_Video {
 		$slide_video_video_url = get_post_meta( $post->ID, 'slide_video_video_url', true );
 		$slide_video_video_start = get_post_meta( $post->ID, 'slide_video_video_start', true );
 		$slide_video_video_end = get_post_meta( $post->ID, 'slide_video_video_end', true );
-		$slide_video_video_wait_for_end = get_post_meta( $post->ID, 'slide_video_video_wait_for_end', true );
+		$slide_video_hold_slide = get_post_meta( $post->ID, 'slide_video_hold_slide', true );
 
 		?><table class="form-table">
 			<tbody>
@@ -81,7 +81,7 @@ class Foyer_Admin_Slide_Format_Video {
 				</tr>
 				<tr>
 					<th scope="row">
-						<label for="slide_video_video_end"><?php _e('Stop at (seconds)', 'foyer'); ?></label>
+						<label for="slide_video_video_end"><?php _e('End at (seconds)', 'foyer'); ?></label>
 					</th>
 					<td>
 						<input type="text" name="slide_video_video_end" id="slide_video_video_end"
@@ -90,12 +90,12 @@ class Foyer_Admin_Slide_Format_Video {
 				</tr>
 				<tr>
 					<th scope="row">
-						<label for="slide_video_video_wait_for_end"><?php _e('Wait for end?', 'foyer'); ?></label>
+						<label for="slide_video_hold_slide"><?php _e('Hold slide until end?', 'foyer'); ?></label>
 					</th>
 					<td>
-						<input type="checkbox" name="slide_video_video_wait_for_end" id="slide_video_video_wait_for_end"
-							value="1" <?php checked( $slide_video_video_wait_for_end, 1 ); ?> />
-						<span><?php _e('Yes, wait for end of video, then continue to next slide', 'foyer'); ?></span>
+						<input type="checkbox" name="slide_video_hold_slide" id="slide_video_hold_slide"
+							value="1" <?php checked( $slide_video_hold_slide, 1 ); ?> />
+						<span><?php _e('Yes, hold the slide until the end of the video.', 'foyer'); ?></span>
 					</td>
 				</tr>
 				<tr>
