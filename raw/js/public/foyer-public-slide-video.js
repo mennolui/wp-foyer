@@ -39,7 +39,6 @@ function onYouTubeIframeAPIReady() {
 				videoId: video_id,
 				playerVars: {
 					'controls': 0,
-					'loop': 1,
 					'modestbranding': 1,
 					'rel': 0,
 					'showinfo': 0,

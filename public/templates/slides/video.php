@@ -7,10 +7,12 @@
 
 $slide = new Foyer_Slide( get_the_id() );
 
-$video_id = get_post_meta( get_the_id(), 'slide_video_video_id', true );
+$video_url = get_post_meta( get_the_id(), 'slide_video_video_url', true );
 $video_start = get_post_meta( get_the_id(), 'slide_video_video_start', true );
 $video_end = get_post_meta( get_the_id(), 'slide_video_video_end', true );
 $video_wait_for_end = get_post_meta( get_the_id(), 'slide_video_video_wait_for_end', true );
+
+$video_id = substr( $video_url, strrpos( $video_url, '/' ) );
 
 ?><div<?php $slide->classes(); ?><?php $slide->data_attr();?>>
 	<div class="inner">
