@@ -67,13 +67,16 @@ function foyer_display_load_data() {
 				) {
 					// Only one slide currently & one slide new slide
 					// Replace current slide with new slide from loaded HTML
-					jQuery(foyer_slides_selector).html($new_slides);
+					jQuery(foyer_slides_selector).html($new_slides)
+						.trigger('slides:loaded-new-slide-group')
+						.trigger('slides:removed-old-slide-group');
 					foyer_ticker_set_slide_active_next_classes();
 				}
 				else {
 					// More than one slide currently, or one slide currently but more new slides
 					// Add new slides from loaded HTML to next slide group
 					jQuery(foyer_slides_selector).children().last().after($new_slides);
+					jQuery(foyer_slides_selector).trigger('slides:loaded-new-slide-group');
 
 					jQuery(foyer_slides_selector).find('.'+next_slide_group_class).first().attrChange(function(attr_name) {
 						// Ticker has advanced into the next group, first slide has changed to active
@@ -81,6 +84,7 @@ function foyer_display_load_data() {
 							// First slide has changed from active to not active
 							// Empty the current (now previous) group to allow loading of fresh content
 							jQuery(foyer_slides_selector).find('.'+current_slide_group_class).remove();
+							jQuery(foyer_slides_selector).trigger('slides:removed-old-slide-group');
 						});
 					});
 				}
