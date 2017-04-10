@@ -15,6 +15,17 @@ jQuery(document).ready(function() {
 
 function foyer_slide_video_bind_events() {
 
+	jQuery('body').on('channel:replaced-channel', foyer_channel_selector, function ( event ) {
+		console.log('almost-channel-init');
+		if (foyer_yt_api_ready) {
+			foyer_slide_video_init_video_placeholders();
+			foyer_slide_video_cleanup_youtube_players();
+		}
+		else {
+			foyer_slide_video_load_youtube_api();
+		}
+	});
+
 	jQuery('body').on('slides:loaded-new-slide-group', foyer_slides_selector, function ( event ) {
 		console.log('almost-init');
 		if (foyer_yt_api_ready) {
@@ -49,7 +60,7 @@ function foyer_slide_video_bind_events() {
 			if (1 == container.data('foyer-hold-slide')) {
 				// We should wait for the end of the video before proceeding to the next slide
 
-				if (player && player.playVideo === 'function') {
+				if (player && typeof player.playVideo === 'function') {
 					// Player exists and is ready
 					var end = container.data('foyer-video-end');
 					var duration = player.getDuration();

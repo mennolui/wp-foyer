@@ -78,14 +78,12 @@ function foyer_display_load_data() {
 					jQuery(foyer_slides_selector).children().last().after($new_slides);
 					jQuery(foyer_slides_selector).trigger('slides:loaded-new-slide-group');
 
-					jQuery(foyer_slides_selector).find('.'+next_slide_group_class).first().attrChange(function(attr_name) {
-						// Ticker has advanced into the next group, first slide has changed to active
-						jQuery(foyer_slides_selector).find('.'+next_slide_group_class).first().attrChange(function(attr_name) {
-							// First slide has changed from active to not active
-							// Empty the current (now previous) group to allow loading of fresh content
-							jQuery(foyer_slides_selector).find('.'+current_slide_group_class).remove();
-							jQuery(foyer_slides_selector).trigger('slides:removed-old-slide-group');
-						});
+					jQuery('body').one('slide:left-active', '.'+next_slide_group_class, function( event ) {
+						// Ticker has advanced into the next group, and one of its slides (the first) has left active
+						// Empty the current (now previous) group to allow loading of fresh content
+						jQuery(foyer_slides_selector).find('.'+current_slide_group_class).remove();
+						jQuery(foyer_slides_selector).trigger('slides:removed-old-slide-group');
+						return true;
 					});
 				}
 
@@ -96,6 +94,7 @@ function foyer_display_load_data() {
 
 function foyer_display_replace_channel($new_channel_html) {
 	jQuery(foyer_channel_selector).replaceWith($new_channel_html);
+	jQuery(foyer_channel_selector).trigger('channel:replaced-channel');
 	foyer_display_setup_slide_group_classes();
 
 	// Use timeout to allow browser to detect class changing from next to active
@@ -105,29 +104,3 @@ function foyer_display_replace_channel($new_channel_html) {
 function foyer_display_reload_window() {
 	window.location.reload();
 }
-
-jQuery(function() {
-	(function(jQuery) {
-	    var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
-
-	    jQuery.fn.attrChange = function(callback) {
-	        if (MutationObserver) {
-	            var options = {
-	                subtree: false,
-	                attributes: true
-	            };
-
-	            var observer = new MutationObserver(function(mutations) {
-	                mutations.forEach(function(e) {
-						observer.disconnect(); // detect only first change
-	                    callback.call(e.target, e.attributeName);
-	                });
-	            });
-
-	            return this.each(function() {
-	                observer.observe(this, options);
-	            });
-	        }
-	    }
-	})(jQuery);
-});

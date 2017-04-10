@@ -9,6 +9,7 @@ jQuery(document).ready(function() {
 
 	if (jQuery(foyer_slides_selector).length) {
 		// Our view includes slides, initialize ticker
+		foyer_ticker_bind_events();
 		foyer_ticker_init();
 	}
 
@@ -19,20 +20,23 @@ function foyer_ticker_bind_events() {
 	jQuery(foyer_slides_selector).trigger('slides:before-binding-events');
 
 	jQuery('body').on('slides:next-slide', foyer_slides_selector, function( event ) {
+		// Store a reference to the active slide before it is removed
 		var $active_slide = jQuery(foyer_slide_selector + '.active');
-		var slide_count = jQuery(foyer_slide_selector).length;
 
-		var new_active_index = jQuery(foyer_slide_selector).index($active_slide) + 1;
-		if (new_active_index >= slide_count) {
-			new_active_index = 0;
-		}
-
-		var new_next_index = new_active_index + 1;
-		if (new_next_index >= slide_count) {
-			new_next_index = 0;
-		}
-
+		// This potentially removes a complete slide group, so determine new active and next slide afterwards
 		$active_slide.trigger('slide:leaving-active');
+
+		var $new_active_slide = $active_slide.next();
+		if (!$new_active_slide.length) {
+			// No next sibling, use first
+			$new_active_slide = jQuery(foyer_slide_selector).first();
+		}
+
+		var $new_next_slide = $new_active_slide.next();
+		if (!$new_next_slide.length) {
+			// No next sibling, use first
+			$new_next_slide = jQuery(foyer_slide_selector).first();
+		}
 
 		if (foyer_ticker_shutdown_status) {
 			foyer_ticker_shutdown_status = false;
@@ -43,9 +47,8 @@ function foyer_ticker_bind_events() {
 			}, foyer_ticker_css_transition_duration_safe * 1000);
 		}
 		else {
-
-			jQuery(foyer_slide_selector).eq(new_active_index).trigger('slide:becoming-active');
-			jQuery(foyer_slide_selector).eq(new_next_index).trigger('slide:becoming-next');
+			$new_active_slide.trigger('slide:becoming-active');
+			$new_next_slide.trigger('slide:becoming-next');
 			foyer_ticker_set_active_slide_timeout();
 		}
 	});
@@ -65,7 +68,6 @@ function foyer_ticker_bind_events() {
 
 
 function foyer_ticker_init() {
-	foyer_ticker_bind_events();
 	foyer_ticker_set_slide_active_next_classes();
 	foyer_ticker_set_active_slide_timeout();
 }
