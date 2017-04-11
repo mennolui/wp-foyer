@@ -119,7 +119,7 @@ function foyer_slide_video_bind_events() {
 		// Set player reference
 		var player = window.foyer_yt_players[container.attr('id')]
 
-		if (player) {
+		if (player && typeof player.playVideo === 'function') {
 			// Player exists
 			console.log('pause');
 
@@ -201,10 +201,13 @@ function foyer_slide_video_youtube_player_ready(player_id) {
 		// Trigger buffering so video is ready to play when needed
 		player.seekTo(container.data('foyer-video-start'));
 
-		if (! jQuery('#' + player_id).parents(foyer_slide_video_selector).hasClass('active')) {
-			// When this video slide is not active at this very moment, pause,
-			// so it can start playing whenever it becomes active
-			player.pauseVideo();
+		if (
+			! jQuery(foyer_slides_selector).length &&
+			! jQuery('#' + player_id).parents(foyer_slide_video_selector).hasClass('active')
+		) {
+			// When this video slide (viewed on a channel or display) is not active at this very moment,
+			// pause, so it can start playing whenever it becomes active
+		//	player.pauseVideo();
 		}
 	}
 }
