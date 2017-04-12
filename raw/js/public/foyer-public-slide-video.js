@@ -202,7 +202,7 @@ function foyer_slide_video_youtube_player_ready(player_id) {
 		player.seekTo(container.data('foyer-video-start'));
 
 		if (
-			! jQuery(foyer_slides_selector).length &&
+			jQuery(foyer_slides_selector).length &&
 			! jQuery('#' + player_id).parents(foyer_slide_video_selector).hasClass('active')
 		) {
 			// When this video slide (viewed on a channel or display) is not active at this very moment,
