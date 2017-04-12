@@ -26,6 +26,7 @@ Foyer comes with build in support for the [Theater for WordPress plugin](https:/
 = Slide formats =
 * Image: Displays an image, covering the entire slide.
 * PDF: Creates a slide for each page in an uploaded PDF, displaying that page contained within the slide.
+* Video: Displays the specified fragment of a YouTube video.
 * Production: Displays the image, title and event details of a selected production (requires Theater for WordPress).
 
 More features and slide formats are coming soon.
@@ -84,12 +85,18 @@ Coming soon.
 
 == Changelog ==
 
+= 1.2 =
+Release Date: April 12, 2017
+
+Introduces the Video slide format. Displays the specified fragment of a YouTube video.
+
 = 1.1 =
 Release Date: March 28, 2017
 
 Added a PDF slide format. Creates a slide for each page in an uploaded PDF.
 
 Bug fixes:
+
 * When adding slides to a channel, the list of possible slides was limited to 5 items (1.1.0).
 * Fatal error on install/upgrade on older PHP versions (< 5.5): Can't use function return value in write context (1.1.1).
 * All slide of a channel were removed after re-ordering the slides (1.1.2).
@@ -102,10 +109,14 @@ Release Date: March 20, 2017
 First public release!
 
 Bug fixes:
+
 * Improved code security: Sanitized and validated all user input, and escaped and sanitized the output of the plugin (1.0.1).
 
 
 == Upgrade Notice ==
+
+= 1.2 =
+Introduces the Video slide format. Displays the specified fragment of a YouTube video.
 
 = 1.1.3 =
 Fixes an issue where adding an image to a slide was only possible when the image was already in the media library.
@@ -116,7 +127,7 @@ Fixes two bugs. Fixes an issue where all slides of a channel were removed after 
 = 1.1.1 =
 Fixes a fatal error on install/upgrade on older PHP versions (< 5.5).
 
-= 1.1.0 =
+= 1.1 =
 Added a PDF slide format. Creates a slide for each page in an uploaded PDF.
 
 = 1.0.1 =
