@@ -16,7 +16,6 @@ jQuery(document).ready(function() {
 function foyer_slide_video_bind_events() {
 
 	jQuery('body').on('channel:replaced-channel', foyer_channel_selector, function ( event ) {
-		console.log('almost-channel-init');
 		if (foyer_yt_api_ready) {
 			foyer_slide_video_init_video_placeholders();
 			foyer_slide_video_cleanup_youtube_players();
@@ -27,7 +26,6 @@ function foyer_slide_video_bind_events() {
 	});
 
 	jQuery('body').on('slides:loaded-new-slide-group', foyer_slides_selector, function ( event ) {
-		console.log('almost-init');
 		if (foyer_yt_api_ready) {
 			foyer_slide_video_init_video_placeholders();
 		}
@@ -37,19 +35,16 @@ function foyer_slide_video_bind_events() {
 	});
 
 	jQuery('body').on('slides:removed-old-slide-group', foyer_slides_selector, function ( event ) {
-		console.log('almost-cleanup');
 		foyer_slide_video_cleanup_youtube_players();
 	});
 
 	jQuery('body').on('slides:before-binding-events', foyer_slides_selector, function ( event ) {
 		// The slides ticker is about to set up binding events
 		// Bind the slides:next-slide event early so we can prevent its default action if we need to
-		console.log('binding');
 
 		jQuery('body').on('slides:next-slide', foyer_slides_selector, function( event ) {
 			// The next slide event is triggered
 			// Determine if we should prevent its default action or not
-			console.log('trying next');
 
 			// Set container
 			var container = jQuery(foyer_slide_video_selector).filter('.active').find('.youtube-video-container');
@@ -70,14 +65,11 @@ function foyer_slide_video_bind_events() {
 						end = duration;
 					}
 
-					console.log(current_time);
-
 					if ( current_time >= end - foyer_ticker_css_transition_duration ) {
 						// Video almost ended, do not prevent next slide
 					}
 					else {
 						// Not ended yet, prevent next slide
-						console.log('prevented next');
 						event.stopImmediatePropagation();
 
 						// Try again in 0.5 seconds
@@ -92,7 +84,6 @@ function foyer_slide_video_bind_events() {
 
 	jQuery('body').on('slide:became-active', foyer_slide_video_selector, function( event ) {
 		// A video slide became active
-		console.log('became');
 
 		// Set container
 		var container = jQuery(this).find('.youtube-video-container');
@@ -102,7 +93,6 @@ function foyer_slide_video_bind_events() {
 
 		if (player && typeof player.playVideo === 'function') {
 			// Player exists and is ready
-			console.log('play');
 
 			// Seek to start
 			player.playVideo();
@@ -111,7 +101,6 @@ function foyer_slide_video_bind_events() {
 
 	jQuery('body').on('slide:left-active', foyer_slide_video_selector, function( event ) {
 		// A video slide left the active state
-		console.log('left');
 
 		// Set container
 		var container = jQuery(this).find('.youtube-video-container');
@@ -121,7 +110,6 @@ function foyer_slide_video_bind_events() {
 
 		if (player && typeof player.playVideo === 'function') {
 			// Player exists
-			console.log('pause');
 
 			// Stop video whenever CSS transitions are over
 			setTimeout(function() {
@@ -133,14 +121,12 @@ function foyer_slide_video_bind_events() {
 }
 
 function foyer_slide_video_cleanup_youtube_players() {
-	console.log('cleanup');
 	for (var player_id in window.foyer_yt_players) {
 		if (!jQuery('#' + player_id).length) {
 			// Video is no longer present in the document, remove its player reference
 			delete window.foyer_yt_players[player_id];
 		}
 	}
-	console.log(window.foyer_yt_players);
 }
 
 function foyer_slide_video_init_video_placeholders() {
@@ -171,7 +157,6 @@ function foyer_slide_video_init_video_placeholders() {
 			});
 		}
 	});
-	console.log(window.foyer_yt_players);
 }
 
 function foyer_slide_video_load_youtube_api() {
