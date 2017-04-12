@@ -28,7 +28,7 @@ function foyer_display_setup() {
 	major_refresh_timeout = setTimeout(foyer_display_reload_window, 8 * 60 * 60 * 1000); // (8 hours in milliseconds)
 
 	// Load fresh display content every 5 minutes
-	foyer_loader_intervalObject = window.setInterval(foyer_display_load_data, 30 * 1000) // (@todo: 5 minutes in milliseconds)
+	foyer_loader_intervalObject = window.setInterval(foyer_display_load_data, 5 * 60 * 1000) // (5 minutes in milliseconds)
 }
 
 function foyer_display_load_data() {
