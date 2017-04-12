@@ -207,7 +207,7 @@ function foyer_slide_video_youtube_player_ready(player_id) {
 		) {
 			// When this video slide (viewed on a channel or display) is not active at this very moment,
 			// pause, so it can start playing whenever it becomes active
-		//	player.pauseVideo();
+			player.pauseVideo();
 		}
 	}
 }

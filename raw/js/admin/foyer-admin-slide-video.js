@@ -82,12 +82,12 @@ function foyer_admin_slide_video_validate_youtube_video_url() {
 		jQuery('#slide_video_video_url').val('https://youtu.be/' + video_metadata.id)
 		jQuery('#slide_video_video_id').val(video_metadata.id)
 
-		jQuery('#slide_video_video_url_description').empty();
+		jQuery('#slide_video_video_url_notification').addClass('hidden');
 
 		foyer_admin_slide_video_update_youtube_video_preview();
 	}
 	else {
-		jQuery('#slide_video_video_url_description').text('Not a valid YouTube video URL.');
+		jQuery('#slide_video_video_url_notification').removeClass('hidden');
 	}
 }
 

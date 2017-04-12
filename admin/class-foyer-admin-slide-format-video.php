@@ -65,27 +65,31 @@ class Foyer_Admin_Slide_Format_Video {
 					</th>
 					<td>
 						<input type="hidden" name="slide_video_video_id" id="slide_video_video_id" value="" />
-						<input type="text" name="slide_video_video_url" id="slide_video_video_url"
+						<input type="text" name="slide_video_video_url" id="slide_video_video_url" class="all-options"
 							value="<?php echo $slide_video_video_url; ?>" />
-						<p class="description" id="slide_video_video_url_description"></p>
+						<p class="wp-ui-text-notification hidden" id="slide_video_video_url_notification">
+							<?php _e( 'Not a valid YouTube video URL, eg. https://youtu.be/MlQunle406U', 'foyer'); ?>
+						</p>
 					</td>
 				</tr>
 				<tr>
 					<th scope="row">
-						<label for="slide_video_video_start"><?php _e('Start at (seconds)', 'foyer'); ?></label>
+						<label for="slide_video_video_start"><?php _e('Start at', 'foyer'); ?></label>
 					</th>
 					<td>
-						<input type="text" name="slide_video_video_start" id="slide_video_video_start"
+						<input type="text" name="slide_video_video_start" id="slide_video_video_start" class="small-text"
 							value="<?php echo $slide_video_video_start; ?>" />
+						<span><?php _e( 'seconds', 'foyer' ); ?></span>
 					</td>
 				</tr>
 				<tr>
 					<th scope="row">
-						<label for="slide_video_video_end"><?php _e('End at (seconds)', 'foyer'); ?></label>
+						<label for="slide_video_video_end"><?php _e('End at', 'foyer'); ?></label>
 					</th>
 					<td>
-						<input type="text" name="slide_video_video_end" id="slide_video_video_end"
+						<input type="text" name="slide_video_video_end" id="slide_video_video_end" class="small-text"
 							value="<?php echo $slide_video_video_end; ?>" />
+						<span><?php _e( 'seconds', 'foyer' ); ?></span>
 					</td>
 				</tr>
 				<tr>
