@@ -90,6 +90,13 @@ Release Date: April 12, 2017
 
 Introduces the Video slide format. Displays a specified fragment of a YouTube video.
 
+Bug fixes:
+
+* The video start time was off during the very first loop through video slides (1.2.1).
+* Fresh channel content was loaded every 30 seconds when viewing a display, changed this to every 5 minutes as intended (1.2.1).
+* Removed all JS console logging that was used during development (1.2.1).
+* The ‘Not a valid YouTube video URL’ notification was visible when starting a new video slide (1.2.1).
+
 = 1.1 =
 Release Date: March 28, 2017
 
@@ -114,6 +121,9 @@ Bug fixes:
 
 
 == Upgrade Notice ==
+
+= 1.2.1 =
+Fixes some issues with the video slide and its admin screen.
 
 = 1.2 =
 Introduces the Video slide format. Displays a specified fragment of a YouTube video.
