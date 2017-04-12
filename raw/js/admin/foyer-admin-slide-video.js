@@ -2,10 +2,6 @@ var foyer_yt_player;
 
 jQuery( function() {
 
-	if (jQuery('#slide_video_video_id').length) {
-		foyer_admin_slide_video_validate_youtube_video_url();
-	}
-
 	// Validate and rewrite YouTube video URL, load preview.
 	jQuery('#slide_video_video_url').on('change', function() {
 		foyer_admin_slide_video_validate_youtube_video_url();
