@@ -15,7 +15,7 @@
  * @wordpress-plugin
  * Plugin Name:       Foyer - Digital Signage for WordPress
  * Plugin URI:        http://mennoluitjes.nl
- * Description:       Create slideshows and show them off on your networked display.
+ * Description:       Create slideshows and show them off on your networked displays.
  * Version:           1.2.1
  * Author:            Menno Luitjes
  * Author URI:        http://mennoluitjes.nl
