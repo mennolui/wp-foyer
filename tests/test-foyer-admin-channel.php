@@ -1,38 +1,7 @@
 <?php
 
 
-class Foyer_Test_Slides_Editor extends WP_UnitTestCase {
-
-
-	function setUp() {
-		parent::setUp();
-
-		$slide_args = array(
-			'post_type' => Foyer_Slide::post_type_name,
-		);
-		$channel_args = array(
-			'post_type' => Foyer_Channel::post_type_name,
-		);
-
-		/* Create slides */
-		$this->slide1 = $this->factory->post->create( $slide_args );
-		$this->slide2 = $this->factory->post->create( $slide_args );
-		$this->slide3 = $this->factory->post->create( $slide_args );
-
-		/* Create channel with two slides */
-		$this->channel1 = $this->factory->post->create( $channel_args );
-		add_post_meta( $this->channel1, Foyer_Slide::post_type_name, array( $this->slide1, $this->slide2 ) );
-
-		/* Create channel with one slide */
-		$this->channel2 = $this->factory->post->create( $channel_args );
-		add_post_meta( $this->channel2, Foyer_Slide::post_type_name, array( $this->slide1 ) );
-	}
-
-	function assume_role( $role = 'author' ) {
-		$user = new WP_User( $this->factory->user->create( array( 'role' => $role ) ) );
-		wp_set_current_user( $user->ID );
-		return $user;
-	}
+class Test_Foyer_Admin_Channel extends Foyer_UnitTestCase {
 
 	function get_meta_boxes_for_channel( $channel_id ) {
 		$this->assume_role( 'author' );
@@ -44,6 +13,14 @@ class Foyer_Test_Slides_Editor extends WP_UnitTestCase {
 		$meta_boxes = ob_get_clean();
 
 		return $meta_boxes;
+	}
+
+	function test_does_channel_have_slides() {
+
+		$channel = new Foyer_Channel( $this->channel1 );
+		$slides = $channel->get_slides();
+
+		$this->assertCount( 2, $slides );
 	}
 
 	function test_slides_editor_is_displayed_on_channel_admin_page() {
@@ -82,7 +59,7 @@ class Foyer_Test_Slides_Editor extends WP_UnitTestCase {
  *
  * @group ajax
  */
-class Foyer_Test_Slides_Editor_Ajax extends WP_Ajax_UnitTestCase {
+class Test_Foyer_Admin_Channel_Ajax extends WP_Ajax_UnitTestCase {
 
 	function test_event_is_removed_with_ajax_on_production_page() {
 	}
