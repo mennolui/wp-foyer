@@ -96,6 +96,9 @@ Bug fixes:
 * Fresh channel content was loaded every 30 seconds when viewing a display, changed this to every 5 minutes as intended (1.2.1).
 * Removed all JS console logging that was used during development (1.2.1).
 * The ‘Not a valid YouTube video URL’ notification was visible when starting a new video slide (1.2.1).
+* The video preview in the admin would not work when editing an existing video slide (1.2.2).
+* Improved handling of changed start and end fields in the video slide admin when no valid video URL is entered (1.2.2).
+* Improved the video preview in the video slide admin by pausing the preview when the video URL field is changed and not valid (1.2.2).
 
 = 1.1 =
 Release Date: March 28, 2017
@@ -121,6 +124,9 @@ Bug fixes:
 
 
 == Upgrade Notice ==
+
+= 1.2.2 =
+Fixes an issue with the video slide admin screen and introduces some minor improvements of the video slide admin screen.
 
 = 1.2.1 =
 Fixes some issues with the video slide and its admin screen.
