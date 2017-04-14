@@ -15,6 +15,7 @@ class Foyer_Admin_Slide_Format_Video {
 	 * Saves additional data for the Video slide format.
 	 *
 	 * @since	1.2.0
+	 * @since	1.2.3	Fixed an Undefined index PHP Notice.
 	 *
 	 * @param	int		$post_id	The ID of the post being saved.
 	 * @return	void
@@ -32,9 +33,12 @@ class Foyer_Admin_Slide_Format_Video {
 			$slide_video_video_end = '';
 		}
 
-		$slide_video_hold_slide = intval( $_POST['slide_video_hold_slide'] );
-		if ( empty( $slide_video_hold_slide ) ) {
-			$slide_video_hold_slide = '';
+		$slide_video_hold_slide = '';
+		if ( isset( $_POST['slide_video_hold_slide'] ) ) {
+			$slide_video_hold_slide = intval( $_POST['slide_video_hold_slide'] );
+			if ( empty( $slide_video_hold_slide ) ) {
+				$slide_video_hold_slide = '';
+			}
 		}
 
 		update_post_meta( $post_id, 'slide_video_video_url', $slide_video_video_url );
