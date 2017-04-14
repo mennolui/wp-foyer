@@ -2,18 +2,28 @@ var foyer_slide_video_selector = '.foyer-slide-video';
 var foyer_yt_players = {};
 var foyer_yt_api_ready = false;
 
+/**
+ * Sets up the Video slide format public functionality.
+ *
+ * @since	1.2.0
+ */
 jQuery(document).ready(function() {
 
 	if (jQuery(foyer_slide_video_selector).length) {
 		// Our view includes video slides, load YouTube API and bind events
 		foyer_slide_video_load_youtube_api();
-		foyer_slide_video_bind_events();
+		foyer_slide_video_bind_display_loading_events();
+		foyer_slide_video_bind_ticker_events();
 	}
 
 });
 
-
-function foyer_slide_video_bind_events() {
+/**
+ * Binds events to be able to set up video players in newly loaded slide groups and replaced channels.
+ *
+ * @since	1.2.0
+ */
+function foyer_slide_video_bind_display_loading_events() {
 
 	jQuery('body').on('channel:replaced-channel', foyer_channel_selector, function ( event ) {
 		if (foyer_yt_api_ready) {
@@ -37,6 +47,14 @@ function foyer_slide_video_bind_events() {
 	jQuery('body').on('slides:removed-old-slide-group', foyer_slides_selector, function ( event ) {
 		foyer_slide_video_cleanup_youtube_players();
 	});
+}
+
+/**
+ * Binds events to be able to start and stop video playback at the right time, and prevent advancing to the next slide.
+ *
+ * @since	1.2.0
+ */
+function foyer_slide_video_bind_ticker_events() {
 
 	jQuery('body').on('slides:before-binding-events', foyer_slides_selector, function ( event ) {
 		// The slides ticker is about to set up binding events
@@ -120,6 +138,13 @@ function foyer_slide_video_bind_events() {
 	});
 }
 
+/**
+ * Cleans up unused YouTube player references.
+ *
+ * Used after newly loaded slide groups and replaced channels.
+ *
+ * @since	1.2.0
+ */
 function foyer_slide_video_cleanup_youtube_players() {
 	for (var player_id in window.foyer_yt_players) {
 		if (!jQuery('#' + player_id).length) {
@@ -129,6 +154,11 @@ function foyer_slide_video_cleanup_youtube_players() {
 	}
 }
 
+/**
+ * Inits all new video placeholders, storing player references for later use.
+ *
+ * @since	1.2.0
+ */
 function foyer_slide_video_init_video_placeholders() {
 	// Loop over any video placeholders that are not yet replaced by an iframe
 	jQuery('div.youtube-video-container').each(function() {
@@ -152,25 +182,35 @@ function foyer_slide_video_init_video_placeholders() {
 					'showinfo': 0,
 				},
 				events: {
-					'onReady': foyer_slide_video_youtube_player_ready(player_id),
+					'onReady': foyer_slide_video_prepare_player_for_playback(player_id),
 				}
 			});
 		}
 	});
 }
 
+/**
+ * Loads the YouTube IFrame Player API to be used in the Video format slide admin.
+ *
+ * @since	1.2.0
+ */
 function foyer_slide_video_load_youtube_api() {
 	// Load YouTube IFrame Player API code asynchronously
-	(function() { // Closure, to not leak to the scope
-		var tag = document.createElement('script');
-		tag.src = "https://www.youtube.com/iframe_api";
-		var firstScriptTag = document.getElementsByTagName('script')[0];
-		firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-	})();
+	var tag = document.createElement('script');
+	tag.src = "https://www.youtube.com/iframe_api";
+	var firstScriptTag = document.getElementsByTagName('script')[0];
+	firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 }
 
-// This function is called by the YouTube IFrame Player API whenever a player is ready
-function foyer_slide_video_youtube_player_ready(player_id) {
+/**
+ * Prepares the video so it is ready for playback.
+ *
+ * Invoked whenever the player is ready.
+ *
+ * @since	1.2.0
+ * @param	string	player_id	The ID of the player
+ */
+function foyer_slide_video_prepare_player_for_playback(player_id) {
 
 	return function(event) {
 
@@ -197,7 +237,13 @@ function foyer_slide_video_youtube_player_ready(player_id) {
 	}
 }
 
-// Invoked whenever the YouTube IFrame Player API is ready
+/**
+ * Marks the YouTube API as ready and inits placeholders.
+ *
+ * Invoked whenever the YouTube IFrame Player API is ready.
+ *
+ * @since	1.2.0
+ */
 function onYouTubeIframeAPIReady() {
 	foyer_yt_api_ready = true;
 	foyer_slide_video_init_video_placeholders()

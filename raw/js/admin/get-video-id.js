@@ -1,6 +1,15 @@
-// Source: https://github.com/radiovisual/get-video-id
-// adapted to work without require
-
+/**
+ * Gets the video ID and service based on a video URL.
+ *
+ * Source: https://github.com/radiovisual/get-video-id
+ *
+ * Adapted to work without require.
+ *
+ * @since	1.2.0
+ *
+ * @param	string	str		The URL of the video to get the ID for.
+ * @return	object			The ID and service of the video, if the URL matched a service.
+ */
 function foyer_get_video_id(str) {
 	if (typeof str !== 'string') {
 		throw new TypeError('get-video-id expects a string');
