@@ -7,7 +7,7 @@ var foyer_yt_player;
  */
 jQuery( function() {
 
-	if (jQuery('#slide_video_video_url').val() && jQuery('#slide_video_video_url').val().length) {
+	if (jQuery('#slide_video_video_url').val().length) {
 		// YouTube video URL is set on load, validate it and load preview
 		foyer_admin_slide_video_validate_youtube_video_url();
 	}
@@ -63,7 +63,7 @@ function foyer_admin_slide_video_prepare_player_for_playback() {
  * @since	1.2.0
  */
 function foyer_admin_slide_video_update_youtube_video_preview() {
-	if (jQuery('#slide_video_video_id').val() && jQuery('#slide_video_video_id').val().length) {
+	if (jQuery('#slide_video_video_id').val().length) {
 		// Video ID is set, update preview
 		if (window.foyer_yt_player) {
 			var player = window.foyer_yt_player;
