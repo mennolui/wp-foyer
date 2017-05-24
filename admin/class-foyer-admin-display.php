@@ -232,6 +232,7 @@ class Foyer_Admin_Display {
 	 *
 	 * @since	1.0.0
 	 * @since	1.0.1			Escaped and sanitized the output.
+	 * @since	1.2.3			Changed the list of available channels from limited to unlimited.
 	 *
 	 * @access	public
 	 * @param	WP_Post	$post
@@ -286,6 +287,7 @@ class Foyer_Admin_Display {
 	 *
 	 * @since	1.0.0
 	 * @since	1.0.1			Escaped and sanitized the output.
+	 * @since	1.2.3			Changed the list of available channels from limited to unlimited.
 	 *
 	 * @access	public
 	 * @param	WP_Post	$post

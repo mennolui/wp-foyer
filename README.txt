@@ -99,6 +99,8 @@ Bug fixes:
 * The video preview in the admin would not work when editing an existing video slide (1.2.2).
 * Improved handling of changed start and end fields in the video slide admin when no valid video URL is entered (1.2.2).
 * Improved the video preview in the video slide admin by pausing the preview when the video URL field is changed and not valid (1.2.2).
+* Some WordPress JavaScript admin functionality was prevented from working correctly, eg. the Media modal / image selector lightbox (1.2.3).
+* The list of available channels was limited to only 5 when editing a display (1.2.3).
 
 = 1.1 =
 Release Date: March 28, 2017
@@ -124,6 +126,9 @@ Bug fixes:
 
 
 == Upgrade Notice ==
+
+= 1.2.3 =
+Fixes an issue that prevented some WordPress JavaScript admin functionality from working correctly, eg. the Media modal / image selector lightbox. Fixes an issue where the list of available channels was limited to only 5 when editing a display.
 
 = 1.2.2 =
 Fixes an issue with the video slide admin screen and introduces some minor improvements of the video slide admin screen.
