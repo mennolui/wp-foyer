@@ -1,0 +1,14 @@
+.foyer-transition-none {
+	.foyer-slides {
+		position: relative;
+		overflow: hidden;
+		width: 100%;
+		z-index: 1;
+		.foyer-slide {
+			display: none;
+			&.active {
+				display: block;
+			}
+		}
+	}
+}

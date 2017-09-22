@@ -330,8 +330,18 @@ class Foyer_Admin_Channel {
 	 */
 	public function get_slides_duration_options() {
 
-		$slides_duration_options = array();
 		for ( $sec = 2; $sec <= 20; $sec++ ) {
+			$secs[] = $sec;
+		}
+		for ( $sec = 25; $sec <= 60; $sec += 5 ) {
+			$secs[] = $sec;
+		}
+		for ( $sec = 90; $sec <= 120; $sec += 30 ) {
+			$secs[] = $sec;
+		}
+
+		$slides_duration_options = array();
+		foreach ( $secs as $sec ) {
 			$slides_duration_options[ $sec ] = $sec . ' ' . _n( 'second', 'seconds', $sec, 'foyer' );
 		}
 
@@ -416,7 +426,11 @@ class Foyer_Admin_Channel {
 	 */
 	public function get_slides_transition_options() {
 
-		$slides_transition_options = array( 'fade' => __( 'Fade', 'foyer' ), 'slide' => __( 'Slide', 'foyer' ) );
+		$slides_transition_options = array(
+			'fade' => __( 'Fade', 'foyer' ),
+			'slide' => __( 'Slide', 'foyer' ),
+			'none' => __( 'No transition', 'foyer' ),
+		);
 
 		/**
 		 * Filter available slides transition options.

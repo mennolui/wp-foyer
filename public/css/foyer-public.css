@@ -67,7 +67,8 @@ body.single-foyer_slide.admin-bar {
   height: 44px;
   margin: 0;
   padding: 4px 8px;
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
   border-bottom: 4px solid transparent;
   -webkit-transition: 0.15s color ease-in-out, 0.15s background-color ease-in-out, 0.15s border-color ease-in-out;
   transition: 0.15s color ease-in-out, 0.15s background-color ease-in-out, 0.15s border-color ease-in-out;
@@ -105,12 +106,14 @@ body.single-foyer_slide {
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 body.single-foyer_display *,
 body.single-foyer_channel *,
 body.single-foyer_slide * {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .foyer-display,
 .foyer-channel,
@@ -180,6 +183,18 @@ body.single-foyer_slide * {
   z-index: 2;
   -webkit-transition: left 0s ease, opacity 0s ease;
   transition: left 0s ease, opacity 0s ease;
+}
+.foyer-transition-none .foyer-slides {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  z-index: 1;
+}
+.foyer-transition-none .foyer-slides .foyer-slide {
+  display: none;
+}
+.foyer-transition-none .foyer-slides .foyer-slide.active {
+  display: block;
 }
 html {
   font-size: 100% !important;
