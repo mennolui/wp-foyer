@@ -14,6 +14,9 @@ A free Digital Signage plugin for WordPress. Create and show off slideshows on y
 
 Create slideshows and show them off on any networked display. Hardware not included :-)
 
+**Check out this demo sign:**
+[http://demo.foyer.tv](http://demo.foyer.tv)
+
 = Features =
 * Set up slides, channels (slideshows) and displays.
 * Choose slide duration and transition effect.
@@ -28,9 +31,6 @@ Foyer comes with build in support for the [Theater for WordPress plugin](https:/
 * PDF: Creates a slide for each page in an uploaded PDF, displaying that page contained within the slide.
 * Video: Displays a specified fragment of a YouTube video.
 * Production: Displays the image, title and event details of a selected production (requires Theater for WordPress).
-
-**Check out this demo sign:**
-http://demo.foyer.tv
 
 More features and slide formats are coming soon.
 
@@ -86,8 +86,6 @@ Yes, this is possible if you know how to write CSS. Just include some CSS in the
 
 = Can I change the template of a slide format? Can I add my own slide formats? =
 Yes, this is possible if you know how to write WordPress templates. Documentation for developers is coming soon.
-
-== Troubleshooting ==
 
 = My changes are not directly visible on my displays, what's happening? =
 Changes to displays, channels and slides are never instantly visible on your digital signs. Each digital sign tries to contact your website every 5 minutes to see if you made any changes. If so and you changed the channel for a display, the new channel will be shown right after the slide that is currently being displayed. For any other changes, like adding slides, the new slides will be shown right after a full cycle of the slides that are currently being displayed.
