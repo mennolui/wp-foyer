@@ -326,6 +326,8 @@ class Foyer_Admin_Channel {
 	 * Gets the slides duration options.
 	 *
 	 * @since	1.0.0
+	 * @since	1.2.4		Added longer slide durations, up to 120 seconds.
+	 *
 	 * @return	array		The slides duration options.
 	 */
 	public function get_slides_duration_options() {
@@ -422,6 +424,8 @@ class Foyer_Admin_Channel {
 	 * Gets the slides transition options.
 	 *
 	 * @since	1.0.0
+	 * @since	1.2.4		Added a ‘No transition’ option.
+	 *
 	 * @return	array		The slides transition options.
 	 */
 	public function get_slides_transition_options() {
@@ -482,7 +486,7 @@ class Foyer_Admin_Channel {
 	 *
 	 * @since	1.0.0
 	 * @since	1.0.1			Validated & sanitized the user input.
-	 * @since	1.2.4			Fixed issue #1, where the first slide (slide_key 0) of a channel could not be removed.
+	 * @since	1.2.4			You can now remove the first slide (slide_key 0) of a channel. Fixes #1.
 	 *
 	 * @return	void
 	 */
