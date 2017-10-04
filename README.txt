@@ -1,8 +1,8 @@
-=== Plugin Name ===
+=== Foyer - Digital Signage for WordPress ===
 Contributors: mennolui, slimndap
 Tags: digital, signage, narrowcasting, displays, screens, signs, onsite, foyer, lobby, kiosk, venue, theater, cinema
 Requires at least: 4.1
-Tested up to: 4.7
+Tested up to: 4.8
 Stable tag: trunk
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.html
@@ -28,6 +28,9 @@ Foyer comes with build in support for the [Theater for WordPress plugin](https:/
 * PDF: Creates a slide for each page in an uploaded PDF, displaying that page contained within the slide.
 * Video: Displays a specified fragment of a YouTube video.
 * Production: Displays the image, title and event details of a selected production (requires Theater for WordPress).
+
+**Check out this demo sign:**
+http://demo.foyer.tv
 
 More features and slide formats are coming soon.
 
@@ -55,9 +58,9 @@ There are currently no settings. Just go ahead and add slides, channels and disp
 
 = How do I set up my slideshow on my digital sign? =
 1. In WordPress go to _Slides_ and add some.
-1. Go to _Channels_, add one, and add some of you slides.
+1. Go to _Channels_, add one, and add some of your slides.
 1. Go to _Displays_, add one, and subscribe it to your channel.
-1. Preview the display, note the URL (something like http://your.site/foyer/display-number-one), and load this page in the web browser of your digital sign.
+1. Preview the display, note the URL (something like http://your.site/foyer/name-of-your-display), and load this page in the web browser of your digital sign.
 
 Your digital sign will now display the channel it is subscribed to. If you change the channel for this display in WordPress, the digital sign will change with it. You can even schedule channels on displays.
 
@@ -70,6 +73,11 @@ I recommend using a (mini-)computer with the Chrome browser in kiosk mode, and a
 
 When setting up multiple digital signs with their own content, each display needs its own (mini-)computer.
 
+= Can I use a Raspberry Pi mini-computer for my digital sign? =
+Absolutely! Be aware that transitions and video playback on the Pi will be very choppy though, if they work at all. Use the 'No transition' setting for channels, don't add videos, and your Raspberry Pi digital sign will be fine.
+
+I can recommend installing the paid version of [Raspberry Digital Signage](http://www.binaryemotions.com/digital-signage/raspberry-digital-signage/) as operating system on the SD card of a Raspberry Pi 3 Model B. Just power up your Pi, enter the URL of your Foyer display when asked, and you'll have an instant digital sign each time you power up.
+
 = Landscape or portrait? =
 You choose! Install your digital sign the way you prefer. Foyer will follow. Slide templates are designed to work in both landscape and portrait mode. Only the background image will be cropped differently, of course.
 
@@ -78,6 +86,12 @@ Yes, this is possible if you know how to write CSS. Just include some CSS in the
 
 = Can I change the template of a slide format? Can I add my own slide formats? =
 Yes, this is possible if you know how to write WordPress templates. Documentation for developers is coming soon.
+
+== Troubleshooting ==
+
+= My changes are not directly visible on my displays, what's happening? =
+Changes to displays, channels and slides are never instantly visible on your digital signs. Each digital sign tries to contact your website every 5 minutes to see if you made any changes. If so and you changed the channel for a display, the new channel will be shown right after the slide that is currently being displayed. For any other changes, like adding slides, the new slides will be shown right after a full cycle of the slides that are currently being displayed.
+
 
 == Screenshots ==
 
@@ -89,6 +103,11 @@ Coming soon.
 Release Date: April 12, 2017
 
 Introduces the Video slide format. Displays a specified fragment of a YouTube video.
+
+Enhancements:
+
+* Added a ‘No transition’ option to channels, eg. for displaying on Raspberry Pi mini-computers (1.2.4).
+* Added longer slide durations, up to 120 seconds (1.2.4).
 
 Bug fixes:
 
@@ -102,6 +121,7 @@ Bug fixes:
 * Some WordPress JavaScript admin functionality was prevented from working correctly, eg. the Media modal / image selector lightbox (1.2.3).
 * The list of available channels was limited to only 5 when editing a display (1.2.3).
 * PHP logged an Undefined index PHP Notice (1.2.3).
+* The first slide of a channel could not be removed (1.2.4).
 
 = 1.1 =
 Release Date: March 28, 2017
@@ -127,6 +147,9 @@ Bug fixes:
 
 
 == Upgrade Notice ==
+
+= 1.2.4 =
+Fixes an issue where the first slide of a channel could not be removed. Added a ‘No transition’ option to channels. Added longer slide durations, up to 120 seconds.
 
 = 1.2.3 =
 Fixes an issue that prevented some WordPress JavaScript admin functionality from working correctly, eg. the Media modal / image selector lightbox. Fixes an issue where the list of available channels was limited to only 5 when editing a display. Fixes an Undefined index PHP Notice.
