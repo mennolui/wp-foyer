@@ -482,9 +482,9 @@ class Foyer_Admin_Channel {
 	 *
 	 * @since	1.0.0
 	 * @since	1.0.1			Validated & sanitized the user input.
+	 * @since	1.2.4			Fixed issue #1, where the first slide (slide_key 0) of a channel could not be removed.
 	 *
-	 * @access public
-	 * @return void
+	 * @return	void
 	 */
 	public function remove_slide_over_ajax() {
 
@@ -493,7 +493,7 @@ class Foyer_Admin_Channel {
 		$channel_id = intval( $_POST['channel_id'] );
 		$remove_slide_key = intval( $_POST['slide_key'] );
 
-		if ( empty( $channel_id ) || empty( $remove_slide_key ) ) {
+		if ( empty( $channel_id ) ) {
 			wp_die();
 		}
 
