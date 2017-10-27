@@ -62,6 +62,7 @@ class Foyer_Public {
 	 * Register the stylesheets for the public-facing side of the site.
 	 *
 	 * @since	1.0.0
+	 * @since	1.2.5	Added a 'foyer/public/enqueue_styles' action.
 	 *
 	 * @return	void
 	 */
@@ -73,6 +74,13 @@ class Foyer_Public {
 			is_singular( Foyer_Slide::post_type_name )
 		) {
 			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/foyer-public.css', array(), $this->version, 'all' );
+
+			/*
+			 * Runs after the Foyer public styles are enqueued.
+			 *
+			 * @since	1.2.5
+			*/
+			do_action( 'foyer/public/enqueue_styles' );
 		}
 	}
 
@@ -80,6 +88,7 @@ class Foyer_Public {
 	 * Register the JavaScript for the public-facing side of the site.
 	 *
 	 * @since	1.0.0
+	 * @since	1.2.5	Added a 'foyer/public/enqueue_scripts' action.
 	 *
 	 * @return	void
 	 */
@@ -91,6 +100,13 @@ class Foyer_Public {
 			is_singular( Foyer_Slide::post_type_name )
 		) {
 			wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/foyer-public-min.js', array( 'jquery' ), $this->version, false );
+
+			/*
+			 * Runs after the Foyer public scripts are enqueued.
+			 *
+			 * @since	1.2.5
+			*/
+			do_action( 'foyer/public/enqueue_scripts' );
 		}
 	}
 
