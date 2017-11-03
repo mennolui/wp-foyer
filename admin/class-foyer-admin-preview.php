@@ -48,35 +48,34 @@ class Foyer_Admin_Preview {
 	 * Enqueues the admin javascript when previewing a slide.
 	 *
 	 * @since	1.0.0
-	 * @since	1.?		Register scripts before they are enqueued.
+	 * @since	1.2.5	Register scripts before they are enqueued.
 	 *					Makes it possible to enqueue foyer scripts outside of the foyer plugin.
 	 *
 	 * return	void
 	 */
 	function enqueue_scripts() {
 
-		wp_register_script( $this->plugin_name.'-admin', plugin_dir_url( __FILE__ ) . 'js/foyer-admin-min.js', array( 'jquery', 'jquery-ui-sortable' ), $this->version, false );
+		wp_register_script( $this->plugin_name . '-admin', plugin_dir_url( __FILE__ ) . 'js/foyer-admin-min.js', array( 'jquery', 'jquery-ui-sortable' ), $this->version, false );
 
-		wp_localize_script( $this->plugin_name.'-admin', 'foyer_preview', array(
+		wp_localize_script( $this->plugin_name . '-admin', 'foyer_preview', array(
 			'ajax_url' => admin_url( 'admin-ajax.php' ),
 			'object_id' => get_the_id(),
 			'orientations' => self::get_orientations(),
 		) );
 
-		if ( !is_user_logged_in(  ) ) {
+		if ( ! is_user_logged_in() ) {
 			return;
 		}
 
-		if ( !empty( $_GET['preview'] ) ) {
+		if ( ! empty( $_GET['preview'] ) ) {
 			return;
 		}
 
-		if (!is_singular( array( Foyer_Display::post_type_name, Foyer_Channel::post_type_name, Foyer_Slide::post_type_name) ) ) {
+		if ( ! is_singular( array( Foyer_Display::post_type_name, Foyer_Channel::post_type_name, Foyer_Slide::post_type_name) ) ) {
 			return;
 		}
 
-		wp_enqueue_script( $this->plugin_name.'-admin' );
-
+		wp_enqueue_script( $this->plugin_name . '-admin' );
 	}
 
 	/**
