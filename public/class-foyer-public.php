@@ -62,25 +62,21 @@ class Foyer_Public {
 	 * Register the stylesheets for the public-facing side of the site.
 	 *
 	 * @since	1.0.0
-	 * @since	1.2.5	Added a 'foyer/public/enqueue_styles' action.
+	 * @since	1.?		Register styles before they are enqueued.
+	 *					Makes it possible to enqueue foyer styles outside of the foyer plugin.
 	 *
 	 * @return	void
 	 */
 	public function enqueue_styles() {
 
+		wp_register_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/foyer-public.css', array(), $this->version, 'all' );
+		
 		if (
 			is_singular( Foyer_Display::post_type_name ) ||
 			is_singular( Foyer_Channel::post_type_name ) ||
 			is_singular( Foyer_Slide::post_type_name )
 		) {
-			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/foyer-public.css', array(), $this->version, 'all' );
-
-			/*
-			 * Runs after the Foyer public styles are enqueued.
-			 *
-			 * @since	1.2.5
-			*/
-			do_action( 'foyer/public/enqueue_styles' );
+			wp_enqueue_style( $this->plugin_name );
 		}
 	}
 
@@ -88,25 +84,20 @@ class Foyer_Public {
 	 * Register the JavaScript for the public-facing side of the site.
 	 *
 	 * @since	1.0.0
-	 * @since	1.2.5	Added a 'foyer/public/enqueue_scripts' action.
+	 * @since	1.?		Register scripts before they are enqueued.
+	 *					Makes it possible to enqueue foyer scripts outside of the foyer plugin.
 	 *
 	 * @return	void
 	 */
 	public function enqueue_scripts() {
 
+		wp_register_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/foyer-public-min.js', array( 'jquery' ), $this->version, false );
 		if (
 			is_singular( Foyer_Display::post_type_name ) ||
 			is_singular( Foyer_Channel::post_type_name ) ||
 			is_singular( Foyer_Slide::post_type_name )
 		) {
-			wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/foyer-public-min.js', array( 'jquery' ), $this->version, false );
-
-			/*
-			 * Runs after the Foyer public scripts are enqueued.
-			 *
-			 * @since	1.2.5
-			*/
-			do_action( 'foyer/public/enqueue_scripts' );
+			wp_enqueue_script( $this->plugin_name );
 		}
 	}
 

@@ -48,9 +48,20 @@ class Foyer_Admin_Preview {
 	 * Enqueues the admin javascript when previewing a slide.
 	 *
 	 * @since	1.0.0
+	 * @since	1.?		Register scripts before they are enqueued.
+	 *					Makes it possible to enqueue foyer scripts outside of the foyer plugin.
+	 *
 	 * return	void
 	 */
 	function enqueue_scripts() {
+
+		wp_register_script( $this->plugin_name.'-admin', plugin_dir_url( __FILE__ ) . 'js/foyer-admin-min.js', array( 'jquery', 'jquery-ui-sortable' ), $this->version, false );
+
+		wp_localize_script( $this->plugin_name.'-admin', 'foyer_preview', array(
+			'ajax_url' => admin_url( 'admin-ajax.php' ),
+			'object_id' => get_the_id(),
+			'orientations' => self::get_orientations(),
+		) );
 
 		if ( !is_user_logged_in(  ) ) {
 			return;
@@ -64,13 +75,7 @@ class Foyer_Admin_Preview {
 			return;
 		}
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/foyer-admin-min.js', array( 'jquery', 'jquery-ui-sortable' ), $this->version, false );
-
-		wp_localize_script( $this->plugin_name, 'foyer_preview', array(
-			'ajax_url' => admin_url( 'admin-ajax.php' ),
-			'object_id' => get_the_id(),
-			'orientations' => self::get_orientations(),
-		) );
+		wp_enqueue_script( $this->plugin_name.'-admin' );
 
 	}
 
