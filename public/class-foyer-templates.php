@@ -90,7 +90,7 @@ class Foyer_Templates {
 		if (
 			is_singular( array( Foyer_Slide::post_type_name, Foyer_Channel::post_type_name, Foyer_Display::post_type_name ) ) &&
 			is_user_logged_in( ) &&
-			empty( $_GET['preview'] )
+			empty( $_GET['foyer-preview'] )
 		) {
 			// Show inside preview iframe when logged in.
 			$file = 'preview.php';

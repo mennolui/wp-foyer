@@ -67,7 +67,7 @@ class Foyer_Admin_Preview {
 			return;
 		}
 
-		if ( ! empty( $_GET['preview'] ) ) {
+		if ( ! empty( $_GET['foyer-preview'] ) ) {
 			return;
 		}
 
@@ -134,7 +134,7 @@ class Foyer_Admin_Preview {
 		}
 
 		// Don't hide if not inside preview iframe.
-		if ( empty( $_GET['preview'] ) ) {
+		if ( empty( $_GET['foyer-preview'] ) ) {
 			return true;
 		}
 
