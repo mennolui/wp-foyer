@@ -13,7 +13,7 @@
 	<body <?php body_class(); ?>><?php
 
 		$preview_url = get_permalink( get_the_id() );
-		$preview_url = add_query_arg( 'preview', 1, $preview_url );
+		$preview_url = add_query_arg( 'foyer-preview', 1, $preview_url );
 
 		$orientations = Foyer_Admin_Preview::get_orientations();
 		$orientation_choice = Foyer_Admin_Preview::get_orientation_choice( get_the_id() );
