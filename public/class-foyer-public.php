@@ -62,6 +62,7 @@ class Foyer_Public {
 	 * Register the stylesheets for the public-facing side of the site.
 	 *
 	 * @since	1.0.0
+	 * @since	1.2.5	Added a 'foyer/public/enqueue_styles' action.
 	 * @since	1.2.5	Register styles before they are enqueued.
 	 *					Makes it possible to enqueue foyer styles outside of the foyer plugin.
 	 *
@@ -76,12 +77,20 @@ class Foyer_Public {
 		}
 
 		wp_enqueue_style( $this->plugin_name );
+
+		/*
+		 * Runs after the Foyer public styles are enqueued.
+		 *
+		 * @since	1.2.5
+		*/
+		do_action( 'foyer/public/enqueue_styles' );
 	}
 
 	/**
 	 * Register the JavaScript for the public-facing side of the site.
 	 *
 	 * @since	1.0.0
+	 * @since	1.2.5	Added a 'foyer/public/enqueue_scripts' action.
 	 * @since	1.2.5	Register scripts before they are enqueued.
 	 *					Makes it possible to enqueue foyer scripts outside of the foyer plugin.
 	 *
@@ -96,7 +105,12 @@ class Foyer_Public {
 		}
 
 		wp_enqueue_script( $this->plugin_name );
+
+		/*
+		 * Runs after the Foyer public scripts are enqueued.
+		 *
+		 * @since	1.2.5
+		*/
+		do_action( 'foyer/public/enqueue_scripts' );
 	}
-
-
 }
