@@ -53,7 +53,7 @@ class Foyer_Admin {
 	 * Enqueues the JavaScript for the admin area.
 	 *
 	 * @since	1.0.0
-	 * @since	1.?		Register scripts before they are enqueued.
+	 * @since	1.2.5	Register scripts before they are enqueued.
 	 *					Makes it possible to enqueue foyer scripts outside of the foyer plugin.
 	 */
 	public function enqueue_scripts() {

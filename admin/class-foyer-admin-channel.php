@@ -451,7 +451,8 @@ class Foyer_Admin_Channel {
 	 * Localizes the JavaScript for the channel admin area.
 	 *
 	 * @since	1.0.0
-	 * @since	1.0.1			Escaped the output.
+	 * @since	1.0.1	Escaped the output.
+	 * @since	1.2.6	Changed handle of script to {plugin_name}_admin.		
 	 */
 	public function localize_scripts() {
 
