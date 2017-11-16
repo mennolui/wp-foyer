@@ -456,10 +456,10 @@ class Foyer_Admin_Channel {
 	public function localize_scripts() {
 
 		$defaults = array( 'confirm_remove_message' => esc_html__( 'Are you sure you want to remove this slide from the channel?', 'foyer' ) );
-		wp_localize_script( $this->plugin_name, 'foyer_slides_editor_defaults', $defaults );
+		wp_localize_script( $this->plugin_name.'_admin', 'foyer_slides_editor_defaults', $defaults );
 
 		$security = array( 'nonce' => wp_create_nonce( 'foyer_slides_editor_ajax_nonce' ) );
-		wp_localize_script( $this->plugin_name, 'foyer_slides_editor_security', $security );
+		wp_localize_script( $this->plugin_name.'_admin', 'foyer_slides_editor_security', $security );
 	}
 
 	/**
