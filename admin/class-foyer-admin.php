@@ -54,6 +54,7 @@ class Foyer_Admin {
 	 * @since	1.0.0
 	 * @since	1.2.5	Register scripts before they are enqueued.
 	 *					Makes it possible to enqueue foyer scripts outside of the foyer plugin.
+	 *					Changed handle of script to {plugin_name}_admin.
 	 */
 	public function enqueue_scripts() {
 
