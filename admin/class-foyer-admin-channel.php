@@ -390,7 +390,7 @@ class Foyer_Admin_Channel {
 						foreach( $slides as $slide ) {
 
 							$slide_url = get_permalink( $slide->ID );
-							$slide_url = add_query_arg( 'preview', 1, $slide_url );
+							$slide_url = add_query_arg( 'foyer-preview', 1, $slide_url );
 
 							?>
 								<div class="foyer_slides_editor_slides_slide"
@@ -457,10 +457,10 @@ class Foyer_Admin_Channel {
 	public function localize_scripts() {
 
 		$defaults = array( 'confirm_remove_message' => esc_html__( 'Are you sure you want to remove this slide from the channel?', 'foyer' ) );
-		wp_localize_script( $this->plugin_name.'_admin', 'foyer_slides_editor_defaults', $defaults );
+		wp_localize_script( $this->plugin_name.'-admin', 'foyer_slides_editor_defaults', $defaults );
 
 		$security = array( 'nonce' => wp_create_nonce( 'foyer_slides_editor_ajax_nonce' ) );
-		wp_localize_script( $this->plugin_name.'_admin', 'foyer_slides_editor_security', $security );
+		wp_localize_script( $this->plugin_name.'-admin', 'foyer_slides_editor_security', $security );
 	}
 
 	/**
