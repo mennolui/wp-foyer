@@ -106,6 +106,8 @@ Enhancements:
 
 * Added a ‘No transition’ option to channels, eg. for displaying on Raspberry Pi mini-computers (1.2.4).
 * Added longer slide durations, up to 120 seconds (1.2.4).
+* Added a foyer/public/enqueue_styles and a foyer/public/enqueue_scripts action, for theme developers (1.2.5).
+* Made it possible to enqueue Foyer scripts outside of the Foyer plugin (1.2.6).
 
 Bug fixes:
 
@@ -120,8 +122,6 @@ Bug fixes:
 * The list of available channels was limited to only 5 when editing a display (1.2.3).
 * PHP logged an Undefined index PHP Notice (1.2.3).
 * The first slide of a channel could not be removed (1.2.4).
-* Added a foyer/public/enqueue_styles and a foyer/public/enqueue_scripts action, for theme developers (1.2.5).
-* Made it possible to enqueue Foyer scripts outside of the Foyer plugin (1.2.6).
 * Fixed an issue where some HTML code was visible on Production slides (1.2.6).
 * Changed the name of the Production slide format to Event, same terminology as in Theater for WordPress (1.2.6).
 
