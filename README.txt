@@ -2,7 +2,7 @@
 Contributors: mennolui, slimndap
 Tags: digital, signage, narrowcasting, displays, screens, signs, onsite, foyer, lobby, kiosk, venue, theater, cinema
 Requires at least: 4.1
-Tested up to: 4.8
+Tested up to: 4.9
 Stable tag: trunk
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.html
@@ -30,7 +30,7 @@ Foyer comes with build in support for the [Theater for WordPress plugin](https:/
 * Image: Displays an image, covering the entire slide.
 * PDF: Creates a slide for each page in an uploaded PDF, displaying that page contained within the slide.
 * Video: Displays a specified fragment of a YouTube video.
-* Production: Displays the image, title and event details of a selected production (requires Theater for WordPress).
+* Event: Displays the image, title and details of a selected event (requires Theater for WordPress).
 
 More features and slide formats are coming soon.
 
@@ -120,6 +120,10 @@ Bug fixes:
 * The list of available channels was limited to only 5 when editing a display (1.2.3).
 * PHP logged an Undefined index PHP Notice (1.2.3).
 * The first slide of a channel could not be removed (1.2.4).
+* Added a foyer/public/enqueue_styles and a foyer/public/enqueue_scripts action, for theme developers (1.2.5).
+* Made it possible to enqueue Foyer scripts and/or styles outside of the Foyer plugin (1.2.6).
+* Fixed an issue where some HTML code was visible on Production slides (1.2.6).
+* Changed the name of the Production slide format to Event, same terminology as in Theater for WordPress (1.2.6).
 
 = 1.1 =
 Release Date: March 28, 2017
@@ -145,6 +149,12 @@ Bug fixes:
 
 
 == Upgrade Notice ==
+
+= 1.2.6 =
+Fixes an issue where some HTML code was visible on Production slides. Changed the name of the Production slide format to Event, same terminology as in Theater for WordPress. Made it possible to enqueue Foyer scripts and/or styles outside of the Foyer plugin.
+
+= 1.2.5 =
+Added a foyer/public/enqueue_styles and a foyer/public/enqueue_scripts action, for theme developers.
 
 = 1.2.4 =
 Fixes an issue where the first slide of a channel could not be removed. Added a ‘No transition’ option to channels. Added longer slide durations, up to 120 seconds.
