@@ -33,6 +33,7 @@ class Foyer_Slide_Formats {
 	 *
 	 * @since	1.0.0
 	 * @since	1.1.0	Moved here from Foyer_Theater, and changed to static.
+	 * @since	1.2.6	Changed the displayed name from Production to Event, same terminology as in Theater for WordPress.
 	 *
 	 * @param 	array	$slide_formats	The current slide formats.
 	 * @return	array					The slide formats with the Production slide format added.
@@ -42,7 +43,7 @@ class Foyer_Slide_Formats {
 		if ( Foyer_Theater::is_theater_activated() ) {
 
 			$slide_formats['production'] = array(
-				'title' => __( 'Production', 'wp_theatre' ),
+				'title' => __( 'Event', 'theatre' ),
 				'meta_box' => array( 'Foyer_Admin_Slide_Format_Production', 'slide_production_meta_box' ),
 				'save_post' => array( 'Foyer_Admin_Slide_Format_Production', 'save_slide_production' ),
 			);
