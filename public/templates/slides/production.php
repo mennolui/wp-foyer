@@ -31,7 +31,7 @@ if ( empty( $slide_image_url ) ) {
 		?></figure>
 		<div class="foyer-slide-fields">
 			<h1><?php echo esc_html( $production->title() ); ?></h1>
-			<div class="date"><?php echo esc_html( $production->dates_html() ); ?></div>
+			<div class="date"><?php echo $production->dates_html(); ?></div>
 		</div>
 	</div>
 </div>
