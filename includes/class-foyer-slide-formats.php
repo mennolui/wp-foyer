@@ -21,7 +21,7 @@ class Foyer_Slide_Formats {
 	static function add_iframe_slide_format( $slide_formats ) {
 
 		$slide_formats['iframe'] = array(
-			'title' => _x( 'External web page', 'foyer', 'slide-format' ),
+			'title' => _x( 'External web page', 'slide-format', 'foyer' ),
 			'meta_box' => array( 'Foyer_Admin_Slide_Format_Iframe', 'slide_meta_box' ),
 			'save_post' => array( 'Foyer_Admin_Slide_Format_Iframe', 'save_slide' ),
 		);
@@ -39,7 +39,7 @@ class Foyer_Slide_Formats {
 	static function add_pdf_slide_format( $slide_formats ) {
 
 		$slide_formats['pdf'] = array(
-			'title' => _x( 'PDF', 'foyer', 'slide-format' ),
+			'title' => _x( 'PDF', 'slide-format', 'foyer' ),
 			'meta_box' => array( 'Foyer_Admin_Slide_Format_PDF', 'slide_pdf_meta_box' ),
 			'save_post' => array( 'Foyer_Admin_Slide_Format_PDF', 'save_slide_pdf' ),
 		);
@@ -61,7 +61,7 @@ class Foyer_Slide_Formats {
 		if ( Foyer_Theater::is_theater_activated() ) {
 
 			$slide_formats['production'] = array(
-				'title' => __( 'Event', 'theatre' ),
+				'title' => _x( 'Event', 'slide-format', 'foyer' ),
 				'meta_box' => array( 'Foyer_Admin_Slide_Format_Production', 'slide_production_meta_box' ),
 				'save_post' => array( 'Foyer_Admin_Slide_Format_Production', 'save_slide_production' ),
 			);

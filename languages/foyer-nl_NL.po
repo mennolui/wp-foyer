@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Foyer - Digital Signage for WordPress\n"
-"POT-Creation-Date: 2017-09-22 10:16+0200\n"
-"PO-Revision-Date: 2017-09-22 10:23+0200\n"
+"POT-Creation-Date: 2017-11-25 13:37+0100\n"
+"PO-Revision-Date: 2017-11-25 13:37+0100\n"
 "Last-Translator: Menno Luitjes <menno@mennoluitjes.nl>\n"
 "Language-Team: Menno Luitjes <menno@mennoluitjes.nl>\n"
 "Language: nl_NL\n"
@@ -54,38 +54,38 @@ msgstr "Duur"
 msgid "Transition"
 msgstr "Overgang"
 
-#: admin/class-foyer-admin-channel.php:345
+#: admin/class-foyer-admin-channel.php:347
 msgid "second"
 msgid_plural "seconds"
 msgstr[0] "seconde"
 msgstr[1] "seconden"
 
-#: admin/class-foyer-admin-channel.php:382
+#: admin/class-foyer-admin-channel.php:384
 msgid "No slides in this channel yet."
 msgstr "Nog geen slides in dit kanaal."
 
-#: admin/class-foyer-admin-channel.php:402 includes/class-foyer-setup.php:99
+#: admin/class-foyer-admin-channel.php:404 includes/class-foyer-setup.php:99
 msgctxt "slide cpt"
 msgid "Slide"
 msgstr "Slide"
 
-#: admin/class-foyer-admin-channel.php:403
+#: admin/class-foyer-admin-channel.php:405
 msgid "x"
 msgstr ""
 
-#: admin/class-foyer-admin-channel.php:430
+#: admin/class-foyer-admin-channel.php:434
 msgid "Fade"
 msgstr "Vervagen"
 
-#: admin/class-foyer-admin-channel.php:431
+#: admin/class-foyer-admin-channel.php:435
 msgid "Slide"
 msgstr "Schuiven"
 
-#: admin/class-foyer-admin-channel.php:432
+#: admin/class-foyer-admin-channel.php:436
 msgid "No transition"
 msgstr "Geen overgang"
 
-#: admin/class-foyer-admin-channel.php:454
+#: admin/class-foyer-admin-channel.php:459
 msgid "Are you sure you want to remove this slide from the channel?"
 msgstr "Weet u zeker dat u deze slide van het kanaal wilt verwijderen?"
 
@@ -123,13 +123,25 @@ msgstr "Toon vanaf"
 msgid "Until"
 msgstr "Tot"
 
-#: admin/class-foyer-admin-preview.php:112
+#: admin/class-foyer-admin-preview.php:116
 msgid "landscape"
 msgstr "liggend"
 
-#: admin/class-foyer-admin-preview.php:113
+#: admin/class-foyer-admin-preview.php:117
 msgid "portrait"
 msgstr "staand"
+
+#: admin/class-foyer-admin-slide-format-iframe.php:39
+msgid "https://..."
+msgstr ""
+
+#: admin/class-foyer-admin-slide-format-iframe.php:45
+msgid "Web page URL"
+msgstr "Webpagina URL"
+
+#: admin/class-foyer-admin-slide-format-iframe.php:51
+msgid "Be sure to use an https URL"
+msgstr "Gebruik een https URL"
 
 #: admin/class-foyer-admin-slide-format-pdf.php:108
 msgid "Not a PDF file."
@@ -147,22 +159,23 @@ msgstr "Upload PDF bestand"
 msgid "Remove PDF file"
 msgstr "Verwijder PDF bestand"
 
-#: admin/class-foyer-admin-slide-format-production.php:59
-#: includes/class-foyer-slide-formats.php:45
-msgid "Production"
-msgstr "Productie"
+#: admin/class-foyer-admin-slide-format-production.php:60
+#: includes/class-foyer-slide-formats.php:64
+msgctxt "slide-format"
+msgid "Event"
+msgstr "Voorstelling"
 
-#: admin/class-foyer-admin-slide-format-production.php:73
+#: admin/class-foyer-admin-slide-format-production.php:74
 #: admin/class-foyer-admin-slide.php:250
 msgid "Background image"
 msgstr "Achtergrondafbeelding"
 
-#: admin/class-foyer-admin-slide-format-production.php:81
+#: admin/class-foyer-admin-slide-format-production.php:82
 #: admin/class-foyer-admin-slide.php:258
 msgid "Upload image"
 msgstr "Upload afbeelding"
 
-#: admin/class-foyer-admin-slide-format-production.php:82
+#: admin/class-foyer-admin-slide-format-production.php:83
 #: admin/class-foyer-admin-slide.php:259
 msgid "Remove image"
 msgstr "Verwijder afbeelding"
@@ -217,7 +230,7 @@ msgstr "Selecteer een afbeelding"
 msgid "Use this image"
 msgstr "Gebruik deze afbeelding"
 
-#: admin/class-foyer-admin.php:49
+#: admin/class-foyer-admin.php:48
 msgid "Foyer"
 msgstr "Foyer"
 
@@ -321,14 +334,19 @@ msgid "Edit slide"
 msgstr "Slide bewerken"
 
 #: includes/class-foyer-slide-formats.php:24
-msgctxt "foyer"
-msgid "PDF"
-msgstr ""
+msgctxt "slide-format"
+msgid "External web page"
+msgstr "Externe webpagina"
 
-#: includes/class-foyer-slide-formats.php:65
+#: includes/class-foyer-slide-formats.php:42
+msgctxt "slide-format"
+msgid "PDF"
+msgstr "PDF"
+
+#: includes/class-foyer-slide-formats.php:84
 msgctxt "foyer"
 msgid "Video"
-msgstr ""
+msgstr "Video"
 
 #. Plugin Name of the plugin/theme
 msgid "Foyer - Digital Signage for WordPress"
@@ -346,6 +364,12 @@ msgstr ""
 #. Author of the plugin/theme
 msgid "Menno Luitjes"
 msgstr ""
+
+#~ msgid "Event"
+#~ msgstr "Voorstelling"
+
+#~ msgid "Production"
+#~ msgstr "Productie"
 
 #~ msgid "Slides"
 #~ msgstr "Slides"

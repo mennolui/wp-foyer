@@ -57,7 +57,7 @@ class Foyer_Admin_Slide_Format_Production {
 			<tbody>
 				<tr>
 					<th scope="row">
-						<label for="slide_default_subtitle"><?php _e( 'Event', 'theatre' ); ?></label>
+						<label for="slide_default_subtitle"><?php _ex( 'Event', 'slide-format', 'foyer' ); ?></label>
 					</th>
 					<td>
 						<select name="slide_production_production_id">
