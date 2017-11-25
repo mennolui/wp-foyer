@@ -29,7 +29,8 @@ Foyer comes with build in support for the [Theater for WordPress plugin](https:/
 = Slide formats =
 * Image: Displays an image, covering the entire slide.
 * PDF: Creates a slide for each page in an uploaded PDF, displaying that page contained within the slide.
-* Video: Displays a specified fragment of a YouTube video.
+* Video: Displays a YouTube video, or a specified fragment.
+* External web page: Displays a web page to your liking.
 * Event: Displays the image, title and details of a selected event (requires Theater for WordPress).
 
 More features and slide formats are coming soon.
@@ -97,6 +98,11 @@ Coming soon.
 
 == Changelog ==
 
+= 1.3 =
+Release Date: November 25, 2017
+
+Introduces the External web page slide format. Displays a web page to your liking. This could be anything! A dashboard, a social media wall, a live feed, teletext, .. anything that has its own URL.
+
 = 1.2 =
 Release Date: April 12, 2017
 
@@ -149,6 +155,9 @@ Bug fixes:
 
 
 == Upgrade Notice ==
+
+= 1.3 =
+Introduces the External web page slide format. Displays a web page to your liking. This could be anything! A dashboard, a social media wall, a live feed, teletext, .. anything that has its own URL.
 
 = 1.2.6 =
 Fixes an issue where some HTML code was visible on Production slides. Changed the name of the Production slide format to Event, same terminology as in Theater for WordPress. Made it possible to enqueue Foyer scripts outside of the Foyer plugin.
