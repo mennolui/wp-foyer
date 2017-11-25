@@ -229,6 +229,10 @@ html {
 .foyer-slide .foyer-slide-fields h1 {
   font-size: 3rem;
 }
+.foyer-slide.foyer-slide-iframe iframe {
+  width: 100%;
+  height: 100%;
+}
 .foyer-slide.foyer-slide-pdf figure img {
   -o-object-fit: contain;
      object-fit: contain;

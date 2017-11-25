@@ -11,6 +11,24 @@
 class Foyer_Slide_Formats {
 
 	/**
+	 * Adds the Iframe slide format.
+	 *
+	 * @since	1.3.0
+	 *
+	 * @param 	array	$slide_formats	The current slide formats.
+	 * @return	array					The slide formats with the Iframe slide format added.
+	 */
+	static function add_iframe_slide_format( $slide_formats ) {
+
+		$slide_formats['iframe'] = array(
+			'title' => _x( 'External web page', 'foyer', 'slide-format' ),
+			'meta_box' => array( 'Foyer_Admin_Slide_Format_Iframe', 'slide_meta_box' ),
+			'save_post' => array( 'Foyer_Admin_Slide_Format_Iframe', 'save_slide' ),
+		);
+		return $slide_formats;
+	}
+
+	/**
 	 * Adds the PDF slide format.
 	 *
 	 * @since	1.1.0

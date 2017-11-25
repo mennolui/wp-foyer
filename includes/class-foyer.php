@@ -142,6 +142,7 @@ class Foyer {
 		/**
 		 * Admin area functionality for specific slide formats.
 		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-foyer-admin-slide-format-iframe.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-foyer-admin-slide-format-pdf.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-foyer-admin-slide-format-production.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-foyer-admin-slide-format-video.php';
@@ -268,6 +269,7 @@ class Foyer {
 		$this->loader->add_action( 'init', $this->setup, 'register_post_types' );
 		$this->loader->add_filter( 'foyer/slides/formats', 'Foyer_Slide_Formats', 'add_pdf_slide_format');
 		$this->loader->add_filter( 'foyer/slides/formats', 'Foyer_Slide_Formats', 'add_video_slide_format');
+		$this->loader->add_filter( 'foyer/slides/formats', 'Foyer_Slide_Formats', 'add_iframe_slide_format');
 		$this->loader->add_filter( 'foyer/slides/formats', 'Foyer_Slide_Formats', 'add_production_slide_format');
 	}
 
