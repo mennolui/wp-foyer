@@ -57,13 +57,14 @@ class Foyer_Image_Editor_Imagick extends WP_Image_Editor_Imagick {
 	/**
 	 * Sets up Imagick for PDF processing.
 	 *
-	 * Overrides WP_Image_Editor_Imagick default PDF setup, to allow for loading of individual pages in PDF files.
+	 * Overrides WP_Image_Editor_Imagick default PDF setup, since WP 4.7, to allow for loading of individual pages in PDF files.
 	 *
 	 * @since	1.1.0
+	 * @since	1.3.1	Changed access to public, to allow invoking PDF setup on WP < 4.7.
 	 *
 	 * @return	string|WP_Error		File to load or WP_Error on failure.
 	 */
-	protected function pdf_setup() {
+	public function pdf_setup() {
 
 		try {
 			// By default, PDFs are rendered in 72 DPI.
