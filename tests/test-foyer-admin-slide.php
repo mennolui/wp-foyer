@@ -14,7 +14,7 @@ class Test_Foyer_Admin_Slide extends Foyer_UnitTestCase {
 		return $meta_boxes;
 	}
 
-	function test_slide_format_metabox_is_displayed_on_slide_admin_page() {
+	function test_slide_format_meta_box_is_displayed_on_slide_admin_page() {
 
 		$meta_boxes = $this->get_meta_boxes_for_slide( $this->slide1 );
 
@@ -31,7 +31,7 @@ class Test_Foyer_Admin_Slide extends Foyer_UnitTestCase {
 		}
 	}
 
-	function test_all_slide_format_metaboxes_are_displayed_on_slide_admin_page() {
+	function test_all_slide_format_meta_boxes_are_displayed_on_slide_admin_page() {
 
 		$meta_boxes = $this->get_meta_boxes_for_slide( $this->slide1 );
 

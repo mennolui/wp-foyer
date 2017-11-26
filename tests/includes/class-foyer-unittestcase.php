@@ -11,6 +11,9 @@ class Foyer_UnitTestCase extends WP_UnitTestCase {
 		$channel_args = array(
 			'post_type' => Foyer_Channel::post_type_name,
 		);
+		$display_args = array(
+			'post_type' => Foyer_Display::post_type_name,
+		);
 
 		/* Create slides */
 		$this->slide1 = $this->factory->post->create( $slide_args );
@@ -24,6 +27,11 @@ class Foyer_UnitTestCase extends WP_UnitTestCase {
 		/* Create channel with one slide */
 		$this->channel2 = $this->factory->post->create( $channel_args );
 		add_post_meta( $this->channel2, Foyer_Slide::post_type_name, array( $this->slide1 ) );
+
+		/* Create display with a default channel */
+		$this->display1 = $this->factory->post->create( $display_args );
+		add_post_meta( $this->display1, Foyer_Channel::post_type_name, array( $this->channel1 ) );
+
 	}
 
 	function assume_role( $role = 'author' ) {
