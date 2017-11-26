@@ -142,6 +142,7 @@ class Foyer {
 		/**
 		 * Admin area functionality for specific slide formats.
 		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-foyer-admin-slide-format-default.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-foyer-admin-slide-format-iframe.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-foyer-admin-slide-format-pdf.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-foyer-admin-slide-format-production.php';

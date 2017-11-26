@@ -69,6 +69,7 @@ class Foyer_Admin_Slide {
 	 * Adds the channel editor meta box to the display admin page.
 	 *
 	 * @since	1.0.0
+	 * @since	1.3.1	Updated the slide_default_meta_box callback, after method was moved to Foyer_Admin_Slide_Format_Default.
 	 */
 	public function add_slide_editor_meta_boxes() {
 		add_meta_box(
@@ -83,7 +84,7 @@ class Foyer_Admin_Slide {
 		foreach( Foyer_Slides::get_slide_formats() as $slide_format_key => $slide_format_data ) {
 
 			if ( empty( $slide_format_data['meta_box'] ) ) {
-				$meta_box_callback = array( $this, 'slide_default_meta_box');
+				$meta_box_callback = array( 'Foyer_Admin_Slide_Format_Default', 'slide_default_meta_box');
 			} else {
 				$meta_box_callback = $slide_format_data['meta_box'];
 			}
@@ -96,7 +97,6 @@ class Foyer_Admin_Slide {
 				'low'
 			);
 		}
-
 	}
 
 	/**
@@ -159,7 +159,9 @@ class Foyer_Admin_Slide {
 	 *
 	 * Triggered when a display is submitted from the display admin form.
 	 *
-	 * @since 	1.0.0
+	 * @since	1.0.0
+	 * @since	1.3.1	Updated the save_slide_default call, after method was moved to Foyer_Admin_Slide_Format_Default.
+	 *
 	 * @param 	int		$post_id	The channel id.
 	 * @return void
 	 */
@@ -200,69 +202,11 @@ class Foyer_Admin_Slide {
 		}
 
 		if (empty( $slide_format['save_post'] ) ) {
-			$this->save_slide_default( $post_id );
+			Foyer_Admin_Slide_Format_Default::save_slide_default( $post_id );
 		} else {
 			call_user_func_array( $slide_format['save_post'], array( $post_id ) );
 		}
 
-	}
-
-	/**
-	 * Saves the additional data of the default slide format.
-	 *
-	 * @since	1.0.0
-	 * @since	1.0.1				Improved validating & sanitizing of the user input.
-	 *
-	 * @param 	int		$post_id	The Post ID of the slide being saved.
-	 * @return 	void
-	 */
-	function save_slide_default( $post_id ) {
-		$slide_default_subtitle = sanitize_text_field( $_POST['slide_default_subtitle'] );
-
-		$slide_default_image = intval( $_POST['slide_default_image'] );
-		if ( empty( $slide_default_image ) ) {
-			$slide_default_image = '';
-		}
-
-		update_post_meta( $post_id, 'slide_default_subtitle', $slide_default_subtitle );
-		update_post_meta( $post_id, 'slide_default_image', $slide_default_image );
-	}
-
-	/**
-	 * Outputs the meta box for the default slide format.
-	 *
-	 * @since	1.0.0
-	 * @since	1.0.1			Escaped and sanitized the output.
-	 *
-	 * @param 	WP_Post	$post	The post of the slide that is being edited.
-	 * @return 	void
-	 */
-	public function slide_default_meta_box( $post ) {
-
-		wp_enqueue_media();
-
-		$slide_default_image = get_post_meta( $post->ID, 'slide_default_image', true );
-
-		?><table class="form-table">
-			<tbody>
-				<tr>
-					<th scope="row">
-						<label for="slide_default_subtitle"><?php esc_html_e('Background image', 'foyer'); ?></label>
-					</th>
-					<td>
-						<div class="slide_image_field<?php if ( empty( $slide_default_image ) ) { ?> empty<?php } ?>">
-							<div class="image-preview-wrapper">
-								<img class="slide_image_preview" src="<?php echo esc_url( wp_get_attachment_url( $slide_default_image ) ); ?>" height="100">
-							</div>
-
-							<input type="button" class="button slide_image_upload_button" value="<?php esc_html_e( 'Upload image', 'foyer' ); ?>" />
-							<input type="button" class="button slide_image_delete_button" value="<?php esc_html_e( 'Remove image', 'foyer' ); ?>" />
-							<input type="hidden" name="slide_default_image" class="slide_image_value" value='<?php echo intval( $slide_default_image ); ?>'>
-						</div>
-					</td>
-				</tr>
-			</tbody>
-		</table><?php
 	}
 
 	/**
