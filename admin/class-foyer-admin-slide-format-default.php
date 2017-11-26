@@ -17,6 +17,7 @@ class Foyer_Admin_Slide_Format_Default {
 	 * @since	1.0.0
 	 * @since	1.0.1				Improved validating & sanitizing of the user input.
 	 * @since	1.3.1				Moved to its own class, Foyer_Admin_Slide_Format_Default.
+	 * @since	1.3.1				Removed saving of the slide_default_subtitle field, that was never implemented.
 	 *
 	 * @param 	int		$post_id	The Post ID of the slide being saved.
 	 * @return 	void
@@ -36,6 +37,7 @@ class Foyer_Admin_Slide_Format_Default {
 	 * @since	1.0.0
 	 * @since	1.0.1			Escaped and sanitized the output.
 	 * @since	1.3.1			Moved to its own class, Foyer_Admin_Slide_Format_Default.
+	 * @since	1.3.1			Fixed a label that pointed to a non-existent field slide_default_subtitle, via for.
 	 *
 	 * @param 	WP_Post	$post	The post of the slide that is being edited.
 	 * @return 	void

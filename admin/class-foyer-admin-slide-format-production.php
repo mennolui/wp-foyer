@@ -43,6 +43,7 @@ class Foyer_Admin_Slide_Format_Production {
 	 * @since	1.0.1	Escaped & sanitized the output.
 	 * @since	1.1.0	Moved here from Foyer_Theater, and changed to static.
 	 * @since	1.2.6	Changed the displayed name from Production to Event, same terminology as in Theater for WordPress.
+	 * @since	1.3.1	Fixed two labels that pointed to a non-existent field slide_default_subtitle, via for.
 	 *
 	 * @param	WP_Post	$post	The post of the current slide.
 	 * @return	void
