@@ -93,6 +93,8 @@ class Foyer_Admin_Slide_Format_PDF {
 	 * Uses the Foyer_Image_Editor_Imagick image editor to convert PDF pages to PNG images.
 	 *
 	 * @since	1.1.0
+	 * @since	1.3.1	Now invokes Foyer_Image_Editor_Imagick::pdf_setup() for WP < 4.7,
+	 *					to make PDF processing work on WP < 4.7.
 	 *
 	 * @param	string				The file path of the PDF file to generate images for.
 	 * @return	array|WP_Error		The file paths of all generated images, or WP_Error if an error occured.
@@ -120,6 +122,12 @@ class Foyer_Admin_Slide_Format_PDF {
 		$number_of_pages = $editor->pdf_get_number_of_pages();
 		if ( is_wp_error( $number_of_pages ) ) {
 			return $number_of_pages;
+		}
+
+		// Check if WordPress install has WP_Image_Editor_Imagick PDF support
+		if ( ! self::has_wp_image_editor_pdf_support() ) {
+			// WP < 4.7, call PDF setup ourselves to make it work
+			$editor->pdf_setup();
 		}
 
 		// Loop over all pages
@@ -170,6 +178,46 @@ class Foyer_Admin_Slide_Format_PDF {
 	}
 
 	/**
+	 * Tests if this server has Imagick PDF support.
+	 *
+	 * Inspired by https://developer.wordpress.org/reference/classes/wp_image_editor_imagick/test/
+	 *
+	 * @since	1.3.1
+	 *
+	 * @return	bool	True if server has Imagick PDF support, false otherwise.
+	 */
+	static function has_imagick_pdf_support() {
+
+		// First, test Imagick's extension and classes.
+		if ( ! extension_loaded( 'imagick' ) || ! class_exists( 'Imagick', false ) || ! class_exists( 'ImagickPixel', false ) ) {
+			return false;
+		}
+
+		if ( version_compare( phpversion( 'imagick' ), '2.2.0', '<' ) ) {
+			return false;
+		}
+
+		return ( ! empty( Imagick::queryFormats('PDF') ) );
+	}
+
+	/**
+	 * Tests if this WordPress install has WP_Image_Editor_Imagick PDF support.
+	 *
+	 * @since	1.3.1
+	 *
+	 * @return	bool	True if WordPress has WP_Image_Editor_Imagick PDF support, false otherwise.
+	 */
+	static function has_wp_image_editor_pdf_support() {
+
+		// First, test if WP_Image_Editor_Imagick is available and loaded
+		if ( ! class_exists( 'WP_Image_Editor_Imagick', false ) ) {
+			return false;
+		}
+
+		return ( method_exists( 'WP_Image_Editor_Imagick', 'pdf_setup' ) );
+	}
+
+	/**
 	 * Saves additional data for the PDF slide format.
 	 *
 	 * Converts newly selected PDF file to images.
@@ -205,6 +253,8 @@ class Foyer_Admin_Slide_Format_PDF {
 	 * @since	1.0.0
 	 * @since	1.0.1	Escaped & sanitized the output.
 	 * @since	1.1.0	Moved here from Foyer_Theater, and changed to static.
+	 * @since	1.3.1	Added notifications when PDF processing is not supported (no Imagick/Ghostscript installed),
+	 *					and when PDF file previews don’t work (PHP < 4.7).
 	 *
 	 * @param	WP_Post	$post	The post of the current slide.
 	 * @return	void
@@ -233,6 +283,17 @@ class Foyer_Admin_Slide_Format_PDF {
 							<input type="button" class="button slide_image_upload_button" value="<?php _e( 'Upload PDF file', 'foyer' ); ?>" />
 							<input type="button" class="button slide_image_delete_button" value="<?php _e( 'Remove PDF file', 'foyer' ); ?>" />
 							<input type="hidden" name="slide_pdf_file" class="slide_image_value" value='<?php echo intval( $slide_pdf_file ); ?>'>
+							<?php if ( ! self::has_wp_image_editor_pdf_support() || ! self::has_imagick_pdf_support() ) { ?>
+								<p class="wp-ui-text-notification" id="slide_pdf_pdf_support_notification">
+									<?php _e( 'This may not work as intended.', 'foyer'); ?><br />
+									<?php if ( ! self::has_wp_image_editor_pdf_support() ) { ?>
+										<?php _e( 'PDF file preview only works with WordPress 4.7 or higher.', 'foyer'); ?><br />
+									<?php } ?>
+									<?php if ( ! self::has_imagick_pdf_support() ) { ?>
+										<?php _e( 'PDF slides require Imagick and Ghostscript be installed on your server, please check your webhosting.', 'foyer'); ?>
+									<?php } ?>
+								</p>
+							<?php } ?>
 						</div>
 					</td>
 				</tr>
