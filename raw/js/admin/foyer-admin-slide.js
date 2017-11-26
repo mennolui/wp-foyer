@@ -75,7 +75,8 @@ jQuery( function() {
 
 				// Do something with attachment.id and/or attachment.url here
 				var image_preview_url;
-				if (typeof(attachment.sizes.full.url) !== 'undefined') {
+
+				if (typeof(attachment.sizes) !== 'undefined' && typeof(attachment.sizes.full.url) !== 'undefined') {
 					image_preview_url = attachment.sizes.full.url;
 				}
 				else {
