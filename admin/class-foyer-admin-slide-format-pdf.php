@@ -180,7 +180,11 @@ class Foyer_Admin_Slide_Format_PDF {
 	/**
 	 * Tests if this server has Imagick PDF support.
 	 *
-	 * Inspired by https://developer.wordpress.org/reference/classes/wp_image_editor_imagick/test/
+	 * Inspired by
+	 * https://developer.wordpress.org/reference/classes/wp_image_editor_imagick/test/
+	 *
+	 * Uses @-silencing to prevent E_STRICT notice on PHP 5.4, inspired by
+	 * https://core.trac.wordpress.org/changeset/24568
 	 *
 	 * @since	1.3.1
 	 *
@@ -197,7 +201,7 @@ class Foyer_Admin_Slide_Format_PDF {
 			return false;
 		}
 
-		return ( ! empty( Imagick::queryFormats('PDF') ) );
+		return ( ! empty( @Imagick::queryFormats('PDF') ) );
 	}
 
 	/**
