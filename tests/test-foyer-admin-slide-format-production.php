@@ -4,8 +4,8 @@ class Test_Foyer_Admin_Slide_Format_Production extends Foyer_UnitTestCase {
 
 	function test_are_all_production_slide_properties_saved() {
 
-		// Load Theater plugin
-		require dirname( dirname( __FILE__ ) ) . '/../../plugins/theatre/theater.php';
+		// Load Theater plugin (if not loaded already)
+		require_once dirname( dirname( __FILE__ ) ) . '/../../plugins/theatre/theater.php';
 
 		$this->assume_role( 'administrator' );
 
