@@ -57,7 +57,7 @@ class Foyer_Admin_Slide_Format_Production {
 			<tbody>
 				<tr>
 					<th scope="row">
-						<label for="slide_default_subtitle"><?php _ex( 'Event', 'slide-format', 'foyer' ); ?></label>
+						<label for="slide_production_production_id"><?php _ex( 'Event', 'slide-format', 'foyer' ); ?></label>
 					</th>
 					<td>
 						<select name="slide_production_production_id">
@@ -71,7 +71,7 @@ class Foyer_Admin_Slide_Format_Production {
 				</tr>
 				<tr>
 					<th scope="row">
-						<label for="slide_default_subtitle"><?php _e( 'Background image', 'foyer' ); ?></label>
+						<label for="slide_production_image"><?php _e( 'Background image', 'foyer' ); ?></label>
 					</th>
 					<td>
 						<div class="slide_image_field<?php if ( empty( $slide_production_image ) ) { ?> empty<?php } ?>">

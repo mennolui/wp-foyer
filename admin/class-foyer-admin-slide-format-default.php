@@ -22,14 +22,11 @@ class Foyer_Admin_Slide_Format_Default {
 	 * @return 	void
 	 */
 	static function save_slide_default( $post_id ) {
-		$slide_default_subtitle = sanitize_text_field( $_POST['slide_default_subtitle'] );
-
 		$slide_default_image = intval( $_POST['slide_default_image'] );
 		if ( empty( $slide_default_image ) ) {
 			$slide_default_image = '';
 		}
 
-		update_post_meta( $post_id, 'slide_default_subtitle', $slide_default_subtitle );
 		update_post_meta( $post_id, 'slide_default_image', $slide_default_image );
 	}
 
@@ -53,7 +50,7 @@ class Foyer_Admin_Slide_Format_Default {
 			<tbody>
 				<tr>
 					<th scope="row">
-						<label for="slide_default_subtitle"><?php esc_html_e('Background image', 'foyer'); ?></label>
+						<label for="slide_default_image"><?php esc_html_e('Background image', 'foyer'); ?></label>
 					</th>
 					<td>
 						<div class="slide_image_field<?php if ( empty( $slide_default_image ) ) { ?> empty<?php } ?>">
