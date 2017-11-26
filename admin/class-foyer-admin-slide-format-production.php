@@ -43,6 +43,7 @@ class Foyer_Admin_Slide_Format_Production {
 	 * @since	1.0.1	Escaped & sanitized the output.
 	 * @since	1.1.0	Moved here from Foyer_Theater, and changed to static.
 	 * @since	1.2.6	Changed the displayed name from Production to Event, same terminology as in Theater for WordPress.
+	 * @since	1.3.1	Fixed two labels that pointed to a non-existent field slide_default_subtitle, via for.
 	 *
 	 * @param	WP_Post	$post	The post of the current slide.
 	 * @return	void
@@ -57,7 +58,7 @@ class Foyer_Admin_Slide_Format_Production {
 			<tbody>
 				<tr>
 					<th scope="row">
-						<label for="slide_default_subtitle"><?php _ex( 'Event', 'slide-format', 'foyer' ); ?></label>
+						<label for="slide_production_production_id"><?php _ex( 'Event', 'slide-format', 'foyer' ); ?></label>
 					</th>
 					<td>
 						<select name="slide_production_production_id">
@@ -71,7 +72,7 @@ class Foyer_Admin_Slide_Format_Production {
 				</tr>
 				<tr>
 					<th scope="row">
-						<label for="slide_default_subtitle"><?php _e( 'Background image', 'foyer' ); ?></label>
+						<label for="slide_production_image"><?php _e( 'Background image', 'foyer' ); ?></label>
 					</th>
 					<td>
 						<div class="slide_image_field<?php if ( empty( $slide_production_image ) ) { ?> empty<?php } ?>">

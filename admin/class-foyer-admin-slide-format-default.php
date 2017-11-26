@@ -17,19 +17,17 @@ class Foyer_Admin_Slide_Format_Default {
 	 * @since	1.0.0
 	 * @since	1.0.1				Improved validating & sanitizing of the user input.
 	 * @since	1.3.1				Moved to its own class, Foyer_Admin_Slide_Format_Default.
+	 * @since	1.3.1				Removed saving of the slide_default_subtitle field, that was never implemented.
 	 *
 	 * @param 	int		$post_id	The Post ID of the slide being saved.
 	 * @return 	void
 	 */
 	static function save_slide_default( $post_id ) {
-		$slide_default_subtitle = sanitize_text_field( $_POST['slide_default_subtitle'] );
-
 		$slide_default_image = intval( $_POST['slide_default_image'] );
 		if ( empty( $slide_default_image ) ) {
 			$slide_default_image = '';
 		}
 
-		update_post_meta( $post_id, 'slide_default_subtitle', $slide_default_subtitle );
 		update_post_meta( $post_id, 'slide_default_image', $slide_default_image );
 	}
 
@@ -39,6 +37,7 @@ class Foyer_Admin_Slide_Format_Default {
 	 * @since	1.0.0
 	 * @since	1.0.1			Escaped and sanitized the output.
 	 * @since	1.3.1			Moved to its own class, Foyer_Admin_Slide_Format_Default.
+	 * @since	1.3.1			Fixed a label that pointed to a non-existent field slide_default_subtitle, via for.
 	 *
 	 * @param 	WP_Post	$post	The post of the slide that is being edited.
 	 * @return 	void
@@ -53,7 +52,7 @@ class Foyer_Admin_Slide_Format_Default {
 			<tbody>
 				<tr>
 					<th scope="row">
-						<label for="slide_default_subtitle"><?php esc_html_e('Background image', 'foyer'); ?></label>
+						<label for="slide_default_image"><?php esc_html_e('Background image', 'foyer'); ?></label>
 					</th>
 					<td>
 						<div class="slide_image_field<?php if ( empty( $slide_default_image ) ) { ?> empty<?php } ?>">
