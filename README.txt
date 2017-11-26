@@ -101,7 +101,18 @@ Coming soon.
 = 1.3 =
 Release Date: November 25, 2017
 
-Introduces the External web page slide format. Displays a web page to your liking. This could be anything! A dashboard, a social media wall, a live feed, teletext, .. anything that has its own URL.
+Introduces the External web page slide format. Displays a web page to your liking. This could be anything! A dashboard, a social media wall, a live feed, teletext!, .. anything that has its own URL.
+
+Enhancements:
+
+* Made the PDF slide format processing work for WordPress < 4.7 (1.3.1).
+* Added notifications to the PDF slide format admin screen, displayed when PDF processing is not supported (no Imagick/Ghostscript installed), and when PDF file previews won’t work (WordPress < 4.7) (1.3.1).
+
+Bug fixes:
+
+* Fixed an issue where the uploaded image on an event slide was never displayed (1.3.1).
+* Fixed an issue introduced in 1.2.6 where the scheduled channel date time pickers no longer worked (1.3.1).
+* Fixed an issue introduced in 1.2.6 where the media library lightbox texts were no longer set (1.3.1).
 
 = 1.2 =
 Release Date: April 12, 2017
@@ -156,8 +167,11 @@ Bug fixes:
 
 == Upgrade Notice ==
 
+= 1.3.1 =
+Fixes an issue introduced in 1.2.6 where the scheduled channel date time pickers no longer worked. Fixes an issue introduced in 1.2.6 where the media library lightbox texts were no longer set. Fixes an issue where the uploaded image on an event slide was never displayed. Made the PDF slide format processing work for WordPress < 4.7. Added notifications to the PDF slide format admin screen, displayed when PDF processing is not supported (no Imagick/Ghostscript installed), and when PDF file previews won’t work (WordPress < 4.7).
+
 = 1.3 =
-Introduces the External web page slide format. Displays a web page to your liking. This could be anything! A dashboard, a social media wall, a live feed, teletext, .. anything that has its own URL.
+Introduces the External web page slide format. Displays a web page to your liking. This could be anything! A dashboard, a social media wall, a live feed, teletext!, .. anything that has its own URL.
 
 = 1.2.6 =
 Fixes an issue where some HTML code was visible on Production slides. Changed the name of the Production slide format to Event, same terminology as in Theater for WordPress. Made it possible to enqueue Foyer scripts outside of the Foyer plugin.
