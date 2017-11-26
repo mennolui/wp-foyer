@@ -45,29 +45,37 @@ class Test_Foyer_Admin_Slide extends Foyer_UnitTestCase {
 
 		$this->assume_role( 'administrator' );
 
+		$slide_format = 'default';
+
 		$_POST[ Foyer_Slide::post_type_name.'_nonce' ] = wp_create_nonce( Foyer_Slide::post_type_name );
-		$_POST['slide_format'] = 'default';
+		$_POST['slide_format'] = $slide_format;
 		$_POST['slide_default_image'] = '';
 
 		$admin_slide = new Foyer_Admin_Slide( 'foyer', '9.9.9' );
 		$admin_slide->save_slide( $this->slide1 );
 
-		$actual = get_post_meta( $this->slide1, 'slide_format', true );
-		$this->assertEquals( 'default', $actual );
+		$updated_slide = new Foyer_Slide( $this->slide1 );
+
+		$actual = $updated_slide->get_format();
+		$this->assertEquals( $slide_format, $actual );
 	}
 
 	function test_is_slide_format_pdf_saved() {
 
 		$this->assume_role( 'administrator' );
 
+		$slide_format = 'pdf';
+
 		$_POST[ Foyer_Slide::post_type_name.'_nonce' ] = wp_create_nonce( Foyer_Slide::post_type_name );
-		$_POST['slide_format'] = 'pdf';
+		$_POST['slide_format'] = $slide_format;
 		$_POST['slide_pdf_file'] = '';
 
 		$admin_slide = new Foyer_Admin_Slide( 'foyer', '9.9.9' );
 		$admin_slide->save_slide( $this->slide1 );
 
-		$actual = get_post_meta( $this->slide1, 'slide_format', true );
-		$this->assertEquals( 'pdf', $actual );
+		$updated_slide = new Foyer_Slide( $this->slide1 );
+
+		$actual = $updated_slide->get_format();
+		$this->assertEquals( $slide_format, $actual );
 	}
 }

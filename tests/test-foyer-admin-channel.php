@@ -49,6 +49,29 @@ class Test_Foyer_Admin_Channel extends Foyer_UnitTestCase {
 
 		$this->assertContains( $slides_list_html, $meta_boxes );
 	}
+
+	function test_are_slideshow_settings_saved() {
+
+		$this->assume_role( 'administrator' );
+
+		$duration = '3';
+		$transition = 'none';
+
+		$_POST[ Foyer_Channel::post_type_name.'_nonce' ] = wp_create_nonce( Foyer_Channel::post_type_name );
+		$_POST['foyer_slides_settings_duration'] = $duration;
+		$_POST['foyer_slides_settings_transition'] = $transition;
+
+		$admin_slide = new Foyer_Admin_Channel( 'foyer', '9.9.9' );
+		$admin_slide->save_channel( $this->channel1 );
+
+		$updated_channel = new Foyer_Channel( $this->channel1 );
+
+		$actual = $updated_channel->get_slides_duration();
+		$this->assertEquals( $duration, $actual );
+
+		$actual = $updated_channel->get_slides_transition();
+		$this->assertEquals( $transition, $actual );
+	}
 }
 
 /**
