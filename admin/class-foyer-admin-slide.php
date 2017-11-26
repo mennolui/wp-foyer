@@ -125,13 +125,14 @@ class Foyer_Admin_Slide {
 	 * @since	1.1.3			Fixed a Javascript issue where adding an image to a slide was only possible when
 	 *							the image was already in the media library. Removed 'photo' default as it is no
 	 *							longer needed by our Javascript.
+	 * @since	1.3.1			Changed handle of script to {plugin_name}-admin.
 	 */
 	public function localize_scripts() {
 		$slide_format_default = array(
 			'text_select_photo' => esc_html__( 'Select an image', 'foyer' ),
 			'text_use_photo' => esc_html__( 'Use this image', 'foyer' ),
 		);
-		wp_localize_script( $this->plugin_name, 'foyer_slide_format_default', $slide_format_default );
+		wp_localize_script( $this->plugin_name . '-admin', 'foyer_slide_format_default', $slide_format_default );
 
 	}
 
