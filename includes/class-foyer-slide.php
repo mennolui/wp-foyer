@@ -138,11 +138,15 @@ class Foyer_Slide {
 	 *
 	 * @since	1.0.0
 	 * @since	1.0.1			Renamed from image() to get_image_url().
+	 * @since	1.3.1			Now returns the image uploaded on the production slide, for production slides.
 	 *
 	 * @return	string	The URL of the slide image.
 	 */
 	public function get_image_url() {
 		$attachment_id = get_post_meta( $this->ID, 'slide_default_image', true );
+		if ( 'production' == $this->get_format() ) {
+			$attachment_id = get_post_meta( $this->ID, 'slide_production_image', true );
+		}
 		$attachment_src = wp_get_attachment_image_src( $attachment_id, 'foyer_fhd_square' );
 		if ( empty ( $attachment_src[0] ) ) {
 			return false;
