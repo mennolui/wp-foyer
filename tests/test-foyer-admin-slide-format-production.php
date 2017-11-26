@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @group theater
+ */
 class Test_Foyer_Admin_Slide_Format_Production extends Foyer_UnitTestCase {
 
 	function test_are_all_production_slide_properties_saved() {
