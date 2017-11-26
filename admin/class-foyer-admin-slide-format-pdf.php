@@ -203,9 +203,11 @@ class Foyer_Admin_Slide_Format_PDF {
 	/**
 	 * Tests if this WordPress install has WP_Image_Editor_Imagick PDF support.
 	 *
+	 * Also returns false when no Imagick support.
+	 *
 	 * @since	1.3.1
 	 *
-	 * @return	bool	True if WordPress has WP_Image_Editor_Imagick PDF support, false otherwise.
+	 * @return	bool	True if WordPress has WP_Image_Editor_Imagick PDF support (WP 4.7 and up), false otherwise.
 	 */
 	static function has_wp_image_editor_pdf_support() {
 
@@ -286,11 +288,12 @@ class Foyer_Admin_Slide_Format_PDF {
 							<?php if ( ! self::has_wp_image_editor_pdf_support() || ! self::has_imagick_pdf_support() ) { ?>
 								<p class="wp-ui-text-notification" id="slide_pdf_pdf_support_notification">
 									<?php _e( 'This may not work as intended.', 'foyer'); ?><br />
-									<?php if ( ! self::has_wp_image_editor_pdf_support() ) { ?>
-										<?php _e( 'PDF file preview only works with WordPress 4.7 or higher.', 'foyer'); ?><br />
-									<?php } ?>
 									<?php if ( ! self::has_imagick_pdf_support() ) { ?>
-										<?php _e( 'PDF slides require Imagick and Ghostscript be installed on your server, please check your webhosting.', 'foyer'); ?>
+										<?php _e( 'PDF slides require Imagick and Ghostscript be installed on your server, please check your webhosting.', 'foyer'); ?><br />
+									<?php } else { ?>
+										<?php if ( ! self::has_wp_image_editor_pdf_support() ) { ?>
+											<?php _e( 'PDF file preview only works with WordPress 4.7 or higher.', 'foyer'); ?><br />
+										<?php } ?>
 									<?php } ?>
 								</p>
 							<?php } ?>
