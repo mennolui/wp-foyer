@@ -205,14 +205,14 @@ class Foyer_Admin_Channel {
 	}
 
 	/**
-	 * Gets the HTML to set the slides duration in the slides settings metabox.
+	 * Gets the HTML to set the slides duration in the slides settings meta box.
 	 *
 	 * @since	1.0.0
 	 * @since	1.0.1			Escaped the output.
 	 *
 	 * @access	public
 	 * @param	WP_Post	$post	The post object of the current display.
-	 * @return	string	$html	The HTML to set the slides duration in the slides settings metabox.
+	 * @return	string	$html	The HTML to set the slides duration in the slides settings meta box.
 	 */
 	public function get_set_duration_html( $post ) {
 
@@ -264,14 +264,14 @@ class Foyer_Admin_Channel {
 	}
 
 	/**
-	 * Gets the HTML to set the slides transition in the slides settings metabox.
+	 * Gets the HTML to set the slides transition in the slides settings meta box.
 	 *
 	 * @since	1.0.0
 	 * @since	1.0.1			Escaped the output.
 	 *
 	 * @access	public
 	 * @param	WP_Post	$post	The post object of the current display.
-	 * @return	string	$html	The HTML to set the slides transition in the slides settings metabox.
+	 * @return	string	$html	The HTML to set the slides transition in the slides settings meta box.
 	 */
 	public function get_set_transition_html( $post ) {
 
@@ -452,7 +452,7 @@ class Foyer_Admin_Channel {
 	 *
 	 * @since	1.0.0
 	 * @since	1.0.1	Escaped the output.
-	 * @since	1.2.6	Changed handle of script to {plugin_name}_admin.		
+	 * @since	1.2.6	Changed handle of script to {plugin_name}-admin.
 	 */
 	public function localize_scripts() {
 

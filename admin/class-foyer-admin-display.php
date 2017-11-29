@@ -365,11 +365,12 @@ class Foyer_Admin_Display {
 	 * Localizes the JavaScript for the display admin area.
 	 *
 	 * @since	1.0.0
+	 * @since	1.3.1	Changed handle of script to {plugin_name}-admin.
 	 */
 	public function localize_scripts() {
 
 		$channel_scheduler_defaults = $this->get_channel_scheduler_defaults();
-		wp_localize_script( $this->plugin_name, 'foyer_channel_scheduler_defaults', $channel_scheduler_defaults );
+		wp_localize_script( $this->plugin_name . '-admin', 'foyer_channel_scheduler_defaults', $channel_scheduler_defaults );
 	}
 
 	/**
