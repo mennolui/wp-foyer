@@ -92,38 +92,38 @@ class Foyer {
 		 */
 
 		/* Display, channel and slide models. */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-display.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-channel.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-slide.php';
+		require_once FOYER_PLUGIN_PATH . 'includes/class-foyer-display.php';
+		require_once FOYER_PLUGIN_PATH . 'includes/class-foyer-channel.php';
+		require_once FOYER_PLUGIN_PATH . 'includes/class-foyer-slide.php';
 
 		/* Setup of internationalization. */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-i18n.php';
+		require_once FOYER_PLUGIN_PATH . 'includes/class-foyer-i18n.php';
 
 		/* General (not public/admin) setup actions. */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-setup.php';
+		require_once FOYER_PLUGIN_PATH . 'includes/class-foyer-setup.php';
 
 		/* Slides helper functions. */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-slides.php';
+		require_once FOYER_PLUGIN_PATH . 'includes/class-foyer-slides.php';
 
 		/* Slide formats. */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-slide-formats.php';
+		require_once FOYER_PLUGIN_PATH . 'includes/class-foyer-slide-formats.php';
 
 		/* Theater for WordPress helper functions. */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-theater.php';
+		require_once FOYER_PLUGIN_PATH . 'includes/class-foyer-theater.php';
 
 
 		/**
 		 * ------ Admin ------
 		 */
 
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-foyer-admin.php';
+		require_once FOYER_PLUGIN_PATH . 'admin/class-foyer-admin.php';
 		Foyer_Admin::init();
 
 		/**
 		 * ------ Public ------
 		 */
 
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-foyer-public.php';
+		require_once FOYER_PLUGIN_PATH . 'public/class-foyer-public.php';
 		Foyer_Public::init();
 	}
 }
