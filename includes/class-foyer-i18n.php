@@ -6,10 +6,12 @@
  * Loads and defines the internationalization files for this plugin
  * so that it is ready for translation.
  *
- * @since      1.0.0
- * @package    Foyer
- * @subpackage Foyer/includes
- * @author     Menno Luitjes <menno@mennoluitjes.nl>
+ * @since		1.0.0
+ * @since		1.4.0	Refactored class from object to static methods.
+ *
+ * @package		Foyer
+ * @subpackage	Foyer/includes
+ * @author		Menno Luitjes <menno@mennoluitjes.nl>
  */
 class Foyer_i18n {
 
