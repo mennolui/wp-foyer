@@ -4,6 +4,7 @@
  * The class that holds all shared slide format functionality.
  *
  * @since		1.1.0
+ *
  * @package		Foyer
  * @subpackage	Foyer/includes
  * @author		Menno Luitjes <menno@mennoluitjes.nl>

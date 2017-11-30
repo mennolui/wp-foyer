@@ -1,7 +1,9 @@
 <?php
 
 /**
- * The class that holds all shared slide functionality.
+ * The slide object model.
+ *
+ * @since		1.0.0
  *
  * @package		Foyer
  * @subpackage	Foyer/includes

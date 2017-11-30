@@ -1,11 +1,13 @@
 <?php
 
 /**
- * The class that holds all display functionality.
+ * The display object model.
  *
- * @package    Foyer
- * @subpackage Foyer/includes
- * @author     Menno Luitjes <menno@mennoluitjes.nl>
+ * @since		1.0.0
+ *
+ * @package		Foyer
+ * @subpackage	Foyer/includes
+ * @author		Menno Luitjes <menno@mennoluitjes.nl>
  */
 class Foyer_Display {
 

@@ -5,10 +5,10 @@
  *
  * This class defines all code necessary to run during the plugin's activation.
  *
- * @since      1.0.0
- * @package    Foyer
- * @subpackage Foyer/includes
- * @author     Menno Luitjes <menno@mennoluitjes.nl>
+ * @since		1.0.0
+ * @package		Foyer
+ * @subpackage	Foyer/includes
+ * @author		Menno Luitjes <menno@mennoluitjes.nl>
  */
 class Foyer_Activator {
 

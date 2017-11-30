@@ -4,6 +4,7 @@
  * The class that holds all helper functions for slides.
  *
  * @since		1.0.0
+ *
  * @package		Foyer
  * @subpackage	Foyer/includes
  * @author		Menno Luitjes <menno@mennoluitjes.nl>

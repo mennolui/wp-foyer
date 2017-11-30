@@ -17,7 +17,7 @@ class Foyer_Theater {
 	 * Checks if the Theater for Wordpress plugin is activated.
 	 *
 	 * @since	1.0.0
-	 * @since	1.1.0			Changed to static.
+	 * @since	1.1.0			Changed method to static.
 	 *
 	 * @return	bool
 	 */
