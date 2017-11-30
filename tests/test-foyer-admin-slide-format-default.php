@@ -15,8 +15,7 @@ class Test_Foyer_Admin_Slide_Format_Default extends Foyer_UnitTestCase {
 
 		$_POST['slide_default_image'] = $image_attachment_id;
 
-		$admin_slide = new Foyer_Admin_Slide( 'foyer', '9.9.9' );
-		$admin_slide->save_slide( $this->slide1 );
+		Foyer_Admin_Slide::save_slide( $this->slide1 );
 
 		$actual = get_post_meta( $this->slide1, 'slide_default_image', true );
 		$this->assertEquals( $image_attachment_id, $actual );

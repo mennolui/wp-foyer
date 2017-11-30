@@ -41,8 +41,7 @@ class Test_Foyer_Admin_Display extends Foyer_UnitTestCase {
 		$_POST['foyer_channel_editor_scheduled_channel_start'] = '';
 		$_POST['foyer_channel_editor_scheduled_channel_end'] = '';
 
-		$admin_display = new Foyer_Admin_Display( 'foyer', '9.9.9' );
-		$admin_display->save_display( $this->display1 );
+		Foyer_Admin_Display::save_display( $this->display1 );
 
 		$updated_display = new Foyer_Display( $this->display1 );
 
@@ -67,8 +66,7 @@ class Test_Foyer_Admin_Display extends Foyer_UnitTestCase {
 		$_POST['foyer_channel_editor_scheduled_channel_start'] = $schedule_start;
 		$_POST['foyer_channel_editor_scheduled_channel_end'] = $schedule_end;
 
-		$admin_display = new Foyer_Admin_Display( 'foyer', '9.9.9' );
-		$admin_display->save_display( $this->display1 );
+		Foyer_Admin_Display::save_display( $this->display1 );
 
 		$updated_display = new Foyer_Display( $this->display1 );
 

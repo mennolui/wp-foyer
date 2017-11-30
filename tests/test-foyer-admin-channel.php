@@ -32,8 +32,7 @@ class Test_Foyer_Admin_Channel extends Foyer_UnitTestCase {
 
 	function test_add_slide_html_is_displayed_on_channel_admin_page() {
 
-		$foyer_admin_channel = new Foyer_Admin_Channel( 1, 1 ); //@todo
-		$add_slide_html = $foyer_admin_channel->get_add_slide_html();
+		$add_slide_html = Foyer_Admin_Channel::get_add_slide_html();
 
 		$meta_boxes = $this->get_meta_boxes_for_channel( $this->channel1 );
 
@@ -42,8 +41,7 @@ class Test_Foyer_Admin_Channel extends Foyer_UnitTestCase {
 
 	function test_slides_list_html_is_displayed_on_channel_admin_page() {
 
-		$foyer_admin_channel = new Foyer_Admin_Channel( 1, 1 ); //@todo
-		$slides_list_html = $foyer_admin_channel->get_slides_list_html( get_post( $this->channel1 ) );
+		$slides_list_html = Foyer_Admin_Channel::get_slides_list_html( get_post( $this->channel1 ) );
 
 		$meta_boxes = $this->get_meta_boxes_for_channel( $this->channel1 );
 
@@ -61,8 +59,7 @@ class Test_Foyer_Admin_Channel extends Foyer_UnitTestCase {
 		$_POST['foyer_slides_settings_duration'] = $duration;
 		$_POST['foyer_slides_settings_transition'] = $transition;
 
-		$admin_slide = new Foyer_Admin_Channel( 'foyer', '9.9.9' );
-		$admin_slide->save_channel( $this->channel1 );
+		Foyer_Admin_Channel::save_channel( $this->channel1 );
 
 		$updated_channel = new Foyer_Channel( $this->channel1 );
 

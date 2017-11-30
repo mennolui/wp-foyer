@@ -51,8 +51,7 @@ class Test_Foyer_Admin_Slide extends Foyer_UnitTestCase {
 		$_POST['slide_format'] = $slide_format;
 		$_POST['slide_default_image'] = '';
 
-		$admin_slide = new Foyer_Admin_Slide( 'foyer', '9.9.9' );
-		$admin_slide->save_slide( $this->slide1 );
+		Foyer_Admin_Slide::save_slide( $this->slide1 );
 
 		$updated_slide = new Foyer_Slide( $this->slide1 );
 
@@ -70,8 +69,7 @@ class Test_Foyer_Admin_Slide extends Foyer_UnitTestCase {
 		$_POST['slide_format'] = $slide_format;
 		$_POST['slide_pdf_file'] = '';
 
-		$admin_slide = new Foyer_Admin_Slide( 'foyer', '9.9.9' );
-		$admin_slide->save_slide( $this->slide1 );
+		Foyer_Admin_Slide::save_slide( $this->slide1 );
 
 		$updated_slide = new Foyer_Slide( $this->slide1 );
 

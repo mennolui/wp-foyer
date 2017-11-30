@@ -15,8 +15,7 @@ class Test_Foyer_Admin_Slide_Format_PDF extends Foyer_UnitTestCase {
 
 		$_POST['slide_pdf_file'] = $pdf_attachment_id;
 
-		$admin_slide = new Foyer_Admin_Slide( 'foyer', '9.9.9' );
-		$admin_slide->save_slide( $this->slide1 );
+		Foyer_Admin_Slide::save_slide( $this->slide1 );
 
 		$actual = get_post_meta( $this->slide1, 'slide_pdf_file', true );
 		$this->assertEquals( $pdf_attachment_id, $actual );
