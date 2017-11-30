@@ -8,7 +8,7 @@
  *
  * @since		1.0.0
  * @since		1.4.0	Refactored class from object to static methods.
- *						Switched from using a central Foyer_Loader class to adding actions and filters directly
+ *						Switched from using a central Foyer_Loader class to registering hooks directly
  *						on init of Foyer, Foyer_Admin and Foyer_Public.
  *
  * @package		Foyer

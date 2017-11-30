@@ -3,19 +3,19 @@
 /**
  * The core plugin class.
  *
- * This is used to define internationalization, admin-specific hooks, and
- * public-facing site hooks.
+ * This is used to define internationalization, general hooks, admin-specific hooks, and
+ * public-facing hooks.
  *
  * Also maintains the unique identifier of this plugin as well as the current
  * version of the plugin.
  *
  * @since		1.0.0
  * @since		1.4.0	Refactored class from object to static methods.
- *						Switched from using a central Foyer_Loader class to adding actions and filters directly
+ *						Switched from using a central Foyer_Loader class to registering hooks directly
  *						on init of Foyer, Foyer_Admin and Foyer_Public.
  *
  * @package		Foyer
- * @subpackage	Foyer/admin
+ * @subpackage	Foyer/includes
  * @author		Menno Luitjes <menno@mennoluitjes.nl>
  */
 class Foyer {
@@ -31,11 +31,11 @@ class Foyer {
 	protected $loader;
 
 	/**
-	 * Define the core functionality of the plugin.
+	 * Initializes the plugin.
 	 *
-	 * Load the dependencies and define the locale.
+	 * Loads the dependencies, defines the locale and registers all of the hooks related to the
+	 * general functionality of the plugin (not public/admin specific).
 	 *
-	 * @since	1.0.0
 	 * @since	1.4.0	Changed method to static.
 	 */
 	static function init() {
@@ -43,9 +43,16 @@ class Foyer {
 		self::load_dependencies();
 		self::set_locale();
 
-		$this->define_setup_hooks();
-		$this->define_admin_hooks();
 		$this->define_public_hooks();
+
+		/* Foyer_Setup */
+		add_action( 'init', array( 'Foyer_Setup', 'register_post_types' ) );
+
+		/* Foyer_Slide_Formats */
+		add_filter( 'foyer/slides/formats', array( 'Foyer_Slide_Formats', 'add_pdf_slide_format' ) );
+		add_filter( 'foyer/slides/formats', array( 'Foyer_Slide_Formats', 'add_video_slide_format' ) );
+		add_filter( 'foyer/slides/formats', array( 'Foyer_Slide_Formats', 'add_iframe_slide_format' ) );
+		add_filter( 'foyer/slides/formats', array( 'Foyer_Slide_Formats', 'add_production_slide_format' ) );
 	}
 
 	/**
@@ -125,14 +132,6 @@ class Foyer {
 		// Store a reference to some of the classes, to to enable defining hooks.
 		$this->loader = new Foyer_Loader();
 
-		$this->setup = new Foyer_Setup( self::get_plugin_name(), self::get_version() );
-
-		$this->admin = new Foyer_Admin( self::get_plugin_name(), self::get_version() );
-		$this->admin_channel = new Foyer_Admin_Channel( self::get_plugin_name(), self::get_version() );
-		$this->admin_display = new Foyer_Admin_Display( self::get_plugin_name(), self::get_version() );
-		$this->admin_slide = new Foyer_Admin_Slide( self::get_plugin_name(), self::get_version() );
-		$this->admin_preview = new Foyer_Admin_Preview( self::get_plugin_name(), self::get_version() );
-
 		$this->public = new Foyer_Public( self::get_plugin_name(), self::get_version() );
 	}
 
@@ -153,16 +152,6 @@ class Foyer {
 	}
 
 	/**
-	 * Register all of the hooks related to the admin area functionality of the plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 */
-	private function define_admin_hooks() {
-
-	}
-
-	/**
 	 * Registers all of the hooks related to the public-facing functionality of the plugin.
 	 *
 	 * @since    1.0.0
@@ -175,21 +164,6 @@ class Foyer {
 		$this->loader->add_action( 'init', $this->public, 'add_image_sizes' );
 
 		$this->loader->add_action( 'template_include', 'Foyer_Templates', 'template_include' );
-	}
-
-	/**
-	 * Registers all of the hooks related to the general setup functionality of the plugin (not public/admin specific).
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 */
-	private function define_setup_hooks() {
-
-		$this->loader->add_action( 'init', $this->setup, 'register_post_types' );
-		$this->loader->add_filter( 'foyer/slides/formats', 'Foyer_Slide_Formats', 'add_pdf_slide_format');
-		$this->loader->add_filter( 'foyer/slides/formats', 'Foyer_Slide_Formats', 'add_video_slide_format');
-		$this->loader->add_filter( 'foyer/slides/formats', 'Foyer_Slide_Formats', 'add_iframe_slide_format');
-		$this->loader->add_filter( 'foyer/slides/formats', 'Foyer_Slide_Formats', 'add_production_slide_format');
 	}
 
 	/**
