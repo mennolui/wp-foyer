@@ -3,10 +3,9 @@
 /**
  * The channel admin-specific functionality of the plugin.
  *
- * Defines the plugin name, version, and two hooks to
- * enqueue the admin-specific stylesheet and JavaScript.
- *
  * @since		1.0.0
+ * @since		1.4.0	Refactored class from object to static methods.
+ *
  * @package		Foyer
  * @subpackage	Foyer/admin
  * @author		Menno Luitjes <menno@mennoluitjes.nl>
@@ -14,44 +13,15 @@
 class Foyer_Admin_Channel {
 
 	/**
-	 * The ID of this plugin.
-	 *
-	 * @since	1.0.0
-	 * @access	private
-	 * @var		string		$plugin_name	The ID of this plugin.
-	 */
-	private $plugin_name;
-
-	/**
-	 * The version of this plugin.
-	 *
-	 * @since	1.0.0
-	 * @access	private
-	 * @var		string		$version		The current version of this plugin.
-	 */
-	private $version;
-
-	/**
-	 * Initialize the class and set its properties.
-	 *
-	 * @since	1.0.0
-	 * @param	string		$plugin_name	The name of this plugin.
-	 * @param	string		$version		The version of this plugin.
-	 */
-	public function __construct( $plugin_name, $version ) {
-
-		$this->plugin_name = $plugin_name;
-		$this->version = $version;
-	}
-
-	/**
 	 * Adds a Slide Count column to the Channels admin table, just after the title column.
 	 *
 	 * @since	1.0.0
+	 * @since	1.4.0	Changed method to static.
+	 *
 	 * @param 	array	$columns	The current columns.
 	 * @return	array				The new columns.
 	 */
-	function add_slides_count_column( $columns ) {
+	static function add_slides_count_column( $columns ) {
 		$new_columns = array();
 
 		foreach( $columns as $key => $title ) {
@@ -69,12 +39,12 @@ class Foyer_Admin_Channel {
 	 * Adds a slide over AJAX and outputs the updated slides list HTML.
 	 *
 	 * @since	1.0.0
-	 * @since	1.0.1			Validated & sanitized the user input.
+	 * @since	1.0.1	Validated & sanitized the user input.
+	 * @since	1.4.0	Changed method to static.
 	 *
-	 * @access public
 	 * @return void
 	 */
-	public function add_slide_over_ajax() {
+	static function add_slide_over_ajax() {
 
 		check_ajax_referer( 'foyer_slides_editor_ajax_nonce', 'nonce' , true );
 
@@ -102,7 +72,7 @@ class Foyer_Admin_Channel {
 
 		update_post_meta( $channel_id, Foyer_Slide::post_type_name, $new_slides );
 
-		echo $this->get_slides_list_html( get_post( $channel_id ) );
+		echo self::get_slides_list_html( get_post( $channel_id ) );
 		wp_die();
 	}
 
@@ -110,12 +80,13 @@ class Foyer_Admin_Channel {
 	 * Adds the slides editor meta box to the channel admin page.
 	 *
 	 * @since	1.0.0
+	 * @since	1.4.0	Changed method to static.
 	 */
-	public function add_slides_editor_meta_box() {
+	static function add_slides_editor_meta_box() {
 		add_meta_box(
 			'foyer_slides_editor',
 			_x( 'Slides', 'slide cpt', 'foyer' ),
-			array( $this, 'slides_editor_meta_box' ),
+			array( __CLASS__, 'slides_editor_meta_box' ),
 			Foyer_Channel::post_type_name,
 			'normal',
 			'high'
@@ -126,12 +97,13 @@ class Foyer_Admin_Channel {
 	 * Adds the settings meta box to the channel admin page.
 	 *
 	 * @since	1.0.0
+	 * @since	1.4.0	Changed method to static.
 	 */
-	public function add_slides_settings_meta_box() {
+	static function add_slides_settings_meta_box() {
 		add_meta_box(
 			'foyer_slides_settings',
 			__( 'Slideshow settings' , 'foyer' ),
-			array( $this, 'slides_settings_meta_box' ),
+			array( __CLASS__, 'slides_settings_meta_box' ),
 			Foyer_Channel::post_type_name,
 			'normal',
 			'high'
@@ -142,11 +114,13 @@ class Foyer_Admin_Channel {
 	 * Outputs the Slides Count column.
 	 *
 	 * @since	1.0.0
+	 * @since	1.4.0	Changed method to static.
+	 *
 	 * @param 	string	$column		The current column that needs output.
 	 * @param 	int 	$post_id 	The current display ID.
 	 * @return	void
 	 */
-	function do_slides_count_column( $column, $post_id ) {
+	static function do_slides_count_column( $column, $post_id ) {
 		if ( 'slides_count' == $column ) {
 
 			$channel = new Foyer_Channel( get_the_id() );
@@ -161,11 +135,11 @@ class Foyer_Admin_Channel {
 	 * @since	1.0.0
 	 * @since	1.0.1			Escaped and sanitized the output.
 	 * @since	1.1.0			Fix: List of slides was limited to 5 items.
+	 * @since	1.4.0	Changed method to static.
 	 *
-	 * @access	public
 	 * @return	string	$html	The HTML to add a slide in the slides editor.
 	 */
-	public function get_add_slide_html() {
+	static function get_add_slide_html() {
 
 		ob_start();
 
@@ -208,15 +182,15 @@ class Foyer_Admin_Channel {
 	 * Gets the HTML to set the slides duration in the slides settings meta box.
 	 *
 	 * @since	1.0.0
-	 * @since	1.0.1			Escaped the output.
+	 * @since	1.0.1	Escaped the output.
+	 * @since	1.4.0	Changed method to static.
 	 *
-	 * @access	public
 	 * @param	WP_Post	$post	The post object of the current display.
 	 * @return	string	$html	The HTML to set the slides duration in the slides settings meta box.
 	 */
-	public function get_set_duration_html( $post ) {
+	static function get_set_duration_html( $post ) {
 
-		$duration_options = $this->get_slides_duration_options();
+		$duration_options = self::get_slides_duration_options();
 		$default_duration = Foyer_Slides::get_default_slides_duration();
 
 		$default_option_name = '(' . __( 'Default', 'foyer' );
@@ -267,15 +241,15 @@ class Foyer_Admin_Channel {
 	 * Gets the HTML to set the slides transition in the slides settings meta box.
 	 *
 	 * @since	1.0.0
-	 * @since	1.0.1			Escaped the output.
+	 * @since	1.0.1	Escaped the output.
+	 * @since	1.4.0	Changed method to static.
 	 *
-	 * @access	public
 	 * @param	WP_Post	$post	The post object of the current display.
 	 * @return	string	$html	The HTML to set the slides transition in the slides settings meta box.
 	 */
-	public function get_set_transition_html( $post ) {
+	static function get_set_transition_html( $post ) {
 
-		$transition_options = $this->get_slides_transition_options();
+		$transition_options = self::get_slides_transition_options();
 		$default_transition = Foyer_Slides::get_default_slides_transition();
 
 		$default_option_name = '(' . __( 'Default', 'foyer' );
@@ -326,11 +300,12 @@ class Foyer_Admin_Channel {
 	 * Gets the slides duration options.
 	 *
 	 * @since	1.0.0
-	 * @since	1.2.4		Added longer slide durations, up to 120 seconds.
+	 * @since	1.2.4	Added longer slide durations, up to 120 seconds.
+	 * @since	1.4.0	Changed method to static.
 	 *
-	 * @return	array		The slides duration options.
+	 * @return	array	The slides duration options.
 	 */
-	public function get_slides_duration_options() {
+	static function get_slides_duration_options() {
 
 		for ( $sec = 2; $sec <= 20; $sec++ ) {
 			$secs[] = $sec;
@@ -362,13 +337,13 @@ class Foyer_Admin_Channel {
 	 * Gets the HTML that lists all slides in the slides editor.
 	 *
 	 * @since	1.0.0
-	 * @since	1.0.1			Escaped and sanitized the output.
+	 * @since	1.0.1	Escaped and sanitized the output.
+	 * @since	1.4.0	Changed method to static.
 	 *
-	 * @access	public
 	 * @param	WP_Post	$post
 	 * @return	string	$html	The HTML that lists all slides in the slides editor.
 	 */
-	public function get_slides_list_html( $post ) {
+	static function get_slides_list_html( $post ) {
 
 		$channel = new Foyer_Channel( $post );
 		$slides = $channel->get_slides();
@@ -424,11 +399,12 @@ class Foyer_Admin_Channel {
 	 * Gets the slides transition options.
 	 *
 	 * @since	1.0.0
-	 * @since	1.2.4		Added a ‘No transition’ option.
+	 * @since	1.2.4	Added a ‘No transition’ option.
+	 * @since	1.4.0	Changed method to static.
 	 *
-	 * @return	array		The slides transition options.
+	 * @return	array	The slides transition options.
 	 */
-	public function get_slides_transition_options() {
+	static function get_slides_transition_options() {
 
 		$slides_transition_options = array(
 			'fade' => __( 'Fade', 'foyer' ),
@@ -453,24 +429,27 @@ class Foyer_Admin_Channel {
 	 * @since	1.0.0
 	 * @since	1.0.1	Escaped the output.
 	 * @since	1.2.6	Changed handle of script to {plugin_name}-admin.
+	 * @since	1.4.0	Changed method to static.
 	 */
-	public function localize_scripts() {
+	static function localize_scripts() {
 
 		$defaults = array( 'confirm_remove_message' => esc_html__( 'Are you sure you want to remove this slide from the channel?', 'foyer' ) );
-		wp_localize_script( $this->plugin_name.'-admin', 'foyer_slides_editor_defaults', $defaults );
+		wp_localize_script( Foyer::get_plugin_name() . '-admin', 'foyer_slides_editor_defaults', $defaults );
 
 		$security = array( 'nonce' => wp_create_nonce( 'foyer_slides_editor_ajax_nonce' ) );
-		wp_localize_script( $this->plugin_name.'-admin', 'foyer_slides_editor_security', $security );
+		wp_localize_script( Foyer::get_plugin_name() . '-admin', 'foyer_slides_editor_security', $security );
 	}
 
 	/**
 	 * Removes the sample permalink from the Channel edit screen.
 	 *
 	 * @since	1.0.0
+	 * @since	1.4.0	Changed method to static.
+	 *
 	 * @param 	string	$sample_permalink
 	 * @return 	string
 	 */
-	public function remove_sample_permalink( $sample_permalink ) {
+	static function remove_sample_permalink( $sample_permalink ) {
 
 		$screen = get_current_screen();
 
@@ -486,12 +465,13 @@ class Foyer_Admin_Channel {
 	 * Removes a slide over AJAX and outputs the updated slides list HTML.
 	 *
 	 * @since	1.0.0
-	 * @since	1.0.1			Validated & sanitized the user input.
-	 * @since	1.2.4			You can now remove the first slide (slide_key 0) of a channel. Fixes #1.
+	 * @since	1.0.1	Validated & sanitized the user input.
+	 * @since	1.2.4	You can now remove the first slide (slide_key 0) of a channel. Fixes #1.
+	 * @since	1.4.0	Changed method to static.
 	 *
 	 * @return	void
 	 */
-	public function remove_slide_over_ajax() {
+	static function remove_slide_over_ajax() {
 
 		check_ajax_referer( 'foyer_slides_editor_ajax_nonce', 'nonce' , true );
 
@@ -527,7 +507,7 @@ class Foyer_Admin_Channel {
 		unset( $new_slides[$remove_slide_key] );
 		update_post_meta( $channel_id, Foyer_Slide::post_type_name, $new_slides );
 
-		echo $this->get_slides_list_html( get_post( $channel_id ) );
+		echo self::get_slides_list_html( get_post( $channel_id ) );
 		wp_die();
 	}
 
@@ -535,12 +515,12 @@ class Foyer_Admin_Channel {
 	 * Reorders slides over AJAX and outputs the updated slides list HTML.
 	 *
 	 * @since	1.0.0
-	 * @since	1.0.1			Validated & sanitized the user input.
+	 * @since	1.0.1	Validated & sanitized the user input.
+	 * @since	1.4.0	Changed method to static.
 	 *
-	 * @access public
 	 * @return void
 	 */
-	public function reorder_slides_over_ajax() {
+	static function reorder_slides_over_ajax() {
 
 		check_ajax_referer( 'foyer_slides_editor_ajax_nonce', 'nonce' , true );
 
@@ -563,7 +543,7 @@ class Foyer_Admin_Channel {
 
 		update_post_meta( $channel_id, Foyer_Slide::post_type_name, $new_slides );
 
-		echo $this->get_slides_list_html( get_post( $channel_id ) );
+		echo self::get_slides_list_html( get_post( $channel_id ) );
 		wp_die();
 	}
 
@@ -573,12 +553,13 @@ class Foyer_Admin_Channel {
 	 * Triggered when a channel is submitted from the channel admin form.
 	 *
 	 * @since 	1.0.0
-	 * @since	1.0.1			Validated & sanitized the user input.
+	 * @since	1.0.1	Validated & sanitized the user input.
+	 * @since	1.4.0	Changed method to static.
 	 *
 	 * @param 	int		$post_id	The channel id.
 	 * @return void
 	 */
-	public function save_channel( $post_id ) {
+	static function save_channel( $post_id ) {
 
 		/*
 		 * We need to verify this came from our screen and with proper authorization,
@@ -633,11 +614,12 @@ class Foyer_Admin_Channel {
 	 * Outputs the content of the slides editor meta box.
 	 *
 	 * @since	1.0.0
-	 * @since	1.0.1			Sanitized the output.
+	 * @since	1.0.1	Sanitized the output.
+	 * @since	1.4.0	Changed method to static.
 	 *
 	 * @param	WP_Post		$post	The post object of the current channel.
 	 */
-	public function slides_editor_meta_box( $post ) {
+	static function slides_editor_meta_box( $post ) {
 
 		wp_nonce_field( Foyer_Channel::post_type_name, Foyer_Channel::post_type_name.'_nonce' );
 
@@ -647,8 +629,8 @@ class Foyer_Admin_Channel {
 			<div class="foyer_meta_box foyer_slides_editor" data-channel-id="<?php echo intval( $post->ID ); ?>">
 
 				<?php
-					echo $this->get_slides_list_html( $post );
-					echo $this->get_add_slide_html();
+					echo self::get_slides_list_html( $post );
+					echo self::get_add_slide_html();
 				?>
 
 			</div>
@@ -663,9 +645,11 @@ class Foyer_Admin_Channel {
 	 * Outputs the content of the slides settings meta box.
 	 *
 	 * @since	1.0.0
+	 * @since	1.4.0	Changed method to static.
+	 *
 	 * @param	WP_Post		$post	The post object of the current channel.
 	 */
-	public function slides_settings_meta_box( $post ) {
+	static function slides_settings_meta_box( $post ) {
 
 		wp_nonce_field( Foyer_Channel::post_type_name, Foyer_Channel::post_type_name.'_nonce' );
 
@@ -676,8 +660,8 @@ class Foyer_Admin_Channel {
 				<tbody>
 					<?php
 
-						echo $this->get_set_duration_html( $post );
-						echo $this->get_set_transition_html( $post );
+						echo self::get_set_duration_html( $post );
+						echo self::get_set_transition_html( $post );
 
 					?>
 				</tbody>

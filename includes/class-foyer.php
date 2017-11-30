@@ -10,6 +10,10 @@
  * version of the plugin.
  *
  * @since		1.0.0
+ * @since		1.4.0	Refactored class from object to static methods.
+ *						Switched from using a central Foyer_Loader class to adding actions and filters directly
+ *						on init of Foyer, Foyer_Admin and Foyer_Public.
+ *
  * @package		Foyer
  * @subpackage	Foyer/admin
  * @author		Menno Luitjes <menno@mennoluitjes.nl>
@@ -105,24 +109,6 @@ class Foyer {
 		 * Setup of the admin area of the plugin.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-foyer-admin.php';
-
-		/**
-		 * Admin area functionality for display, channel and slide.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-foyer-admin-display.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-foyer-admin-channel.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-foyer-admin-slide.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-foyer-admin-preview.php';
-
-		/**
-		 * Admin area functionality for specific slide formats.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-foyer-admin-slide-format-default.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-foyer-admin-slide-format-iframe.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-foyer-admin-slide-format-pdf.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-foyer-admin-slide-format-production.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-foyer-admin-slide-format-video.php';
-
 		// --- public ---
 
 		/**
@@ -174,48 +160,6 @@ class Foyer {
 	 */
 	private function define_admin_hooks() {
 
-		// Admin
-		$this->loader->add_action( 'admin_enqueue_scripts', $this->admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $this->admin, 'enqueue_scripts' );
-		$this->loader->add_action( 'admin_menu', $this->admin, 'admin_menu' );
-
-		// Admin Display
-		$this->loader->add_action( 'admin_enqueue_scripts', $this->admin_display, 'localize_scripts' );
-		$this->loader->add_action( 'add_meta_boxes', $this->admin_display, 'add_channel_editor_meta_box' );
-		$this->loader->add_action( 'add_meta_boxes', $this->admin_display, 'add_channel_scheduler_meta_box' );
-		$this->loader->add_action( 'save_post', $this->admin_display, 'save_display' );
-		$this->loader->add_filter( 'manage_'.Foyer_Display::post_type_name.'_posts_columns', $this->admin_display, 'add_channel_columns' );
-		$this->loader->add_action( 'manage_'.Foyer_Display::post_type_name.'_posts_custom_column', $this->admin_display, 'do_channel_columns', 10, 2 );
-
-		// Admin Channel
-		$this->loader->add_action( 'admin_enqueue_scripts', $this->admin_channel, 'localize_scripts' );
-		$this->loader->add_action( 'add_meta_boxes', $this->admin_channel, 'add_slides_editor_meta_box', 20 );
-		$this->loader->add_action( 'add_meta_boxes', $this->admin_channel, 'add_slides_settings_meta_box', 40 );
-		$this->loader->add_action( 'save_post', $this->admin_channel, 'save_channel' );
-		$this->loader->add_action( 'wp_ajax_foyer_slides_editor_add_slide', $this->admin_channel, 'add_slide_over_ajax' );
-		$this->loader->add_action( 'wp_ajax_foyer_slides_editor_remove_slide', $this->admin_channel, 'remove_slide_over_ajax' );
-		$this->loader->add_action( 'wp_ajax_foyer_slides_editor_reorder_slides', $this->admin_channel, 'reorder_slides_over_ajax' );
-		$this->loader->add_filter( 'get_sample_permalink_html', $this->admin_channel, 'remove_sample_permalink' );
-		$this->loader->add_filter( 'manage_'.Foyer_Channel::post_type_name.'_posts_columns', $this->admin_channel, 'add_slides_count_column' );
-		$this->loader->add_action( 'manage_'.Foyer_Channel::post_type_name.'_posts_custom_column', $this->admin_channel, 'do_slides_count_column', 10, 2 );
-
-		// Admin Slide
-		$this->loader->add_action( 'admin_enqueue_scripts', $this->admin_slide, 'localize_scripts' );
-		$this->loader->add_action( 'add_meta_boxes', $this->admin_slide, 'add_slide_editor_meta_boxes' );
-		$this->loader->add_action( 'save_post', $this->admin_slide, 'save_slide' );
-		$this->loader->add_filter( 'get_sample_permalink_html', $this->admin_slide, 'remove_sample_permalink' );
-		$this->loader->add_filter( 'manage_'.Foyer_Slide::post_type_name.'_posts_columns', $this->admin_slide, 'add_slide_format_column' );
-		$this->loader->add_action( 'manage_'.Foyer_Slide::post_type_name.'_posts_custom_column', $this->admin_slide, 'do_slide_format_column', 10, 2 );
-
-		// Admin Preview
-		$this->loader->add_action( 'wp_enqueue_scripts', $this->admin_preview, 'enqueue_scripts' );
-		$this->loader->add_filter( 'show_admin_bar', $this->admin_preview, 'hide_admin_bar' );
-		$this->loader->add_action( 'wp_ajax_foyer_preview_save_orientation_choice', $this->admin_preview, 'save_orientation_choice' );
-		$this->loader->add_action( 'wp_ajax_nopriv_foyer_preview_save_orientation_choice', $this->admin_preview, 'save_orientation_choice' );
-
-		// Admin slide formats
-		$this->loader->add_filter( 'wp_image_editors', 'Foyer_Admin_Slide_Format_PDF', 'add_foyer_imagick_image_editor' );
-		$this->loader->add_filter( 'delete_attachment', 'Foyer_Admin_Slide_Format_PDF', 'delete_pdf_images_for_attachment' );
 	}
 
 	/**

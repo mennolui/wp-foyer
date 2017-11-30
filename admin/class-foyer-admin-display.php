@@ -3,10 +3,9 @@
 /**
  * The display admin-specific functionality of the plugin.
  *
- * Defines the plugin name, version, and two hooks to
- * enqueue the admin-specific stylesheet and JavaScript.
- *
  * @since		1.0.0
+ * @since		1.4.0	Refactored class from object to static methods.
+ *
  * @package		Foyer
  * @subpackage	Foyer/admin
  * @author		Menno Luitjes <menno@mennoluitjes.nl>
@@ -14,45 +13,17 @@
 class Foyer_Admin_Display {
 
 	/**
-	 * The ID of this plugin.
-	 *
-	 * @since	1.0.0
-	 * @access	private
-	 * @var		string		$plugin_name	The ID of this plugin.
-	 */
-	private $plugin_name;
-
-	/**
-	 * The version of this plugin.
-	 *
-	 * @since	1.0.0
-	 * @access	private
-	 * @var		string		$version		The current version of this plugin.
-	 */
-	private $version;
-
-	/**
-	 * Initialize the class and set its properties.
-	 *
-	 * @since	1.0.0
-	 * @param	string		$plugin_name	The name of this plugin.
-	 * @param	string		$version		The version of this plugin.
-	 */
-	public function __construct( $plugin_name, $version ) {
-
-		$this->plugin_name = $plugin_name;
-		$this->version = $version;
-	}
-
-	/**
 	 * Adds Default Channel and Active Channel columns to the Displays admin table.
-	 * Removed the Date column.
+	 *
+	 * Also removes the Date column.
 	 *
 	 * @since	1.0.0
+	 * @since	1.4.0	Changed method to static.
+	 *
 	 * @param 	array	$columns	The current columns.
 	 * @return	array				The new columns.
 	 */
-	function add_channel_columns($columns) {
+	static function add_channel_columns($columns) {
 		unset($columns['date']);
 		return array_merge($columns,
 			array(
@@ -66,12 +37,13 @@ class Foyer_Admin_Display {
 	 * Adds the channel editor meta box to the display admin page.
 	 *
 	 * @since	1.0.0
+	 * @since	1.4.0	Changed method to static.
 	 */
-	public function add_channel_editor_meta_box() {
+	static function add_channel_editor_meta_box() {
 		add_meta_box(
 			'foyer_channel_editor',
 			__( 'Channel' , 'foyer' ),
-			array( $this, 'channel_editor_meta_box' ),
+			array( __CLASS__, 'channel_editor_meta_box' ),
 			Foyer_Display::post_type_name,
 			'normal',
 			'high'
@@ -82,12 +54,13 @@ class Foyer_Admin_Display {
 	 * Adds the channel scheduler meta box to the display admin page.
 	 *
 	 * @since	1.0.0
+	 * @since	1.4.0	Changed method to static.
 	 */
-	public function add_channel_scheduler_meta_box() {
+	static function add_channel_scheduler_meta_box() {
 		add_meta_box(
 			'foyer_channel_scheduler',
 			__( 'Schedule temporary channel' , 'foyer' ),
-			array( $this, 'channel_scheduler_meta_box' ),
+			array( __CLASS__, 'channel_scheduler_meta_box' ),
 			Foyer_Display::post_type_name,
 			'normal',
 			'high'
@@ -98,11 +71,12 @@ class Foyer_Admin_Display {
 	 * Outputs the content of the channel editor meta box.
 	 *
 	 * @since	1.0.0
-	 * @since	1.0.1				Sanitized the output.
+	 * @since	1.0.1	Sanitized the output.
+	 * @since	1.4.0	Changed method to static.
 	 *
 	 * @param	WP_Post		$post	The post object of the current display.
 	 */
-	public function channel_editor_meta_box( $post ) {
+	static function channel_editor_meta_box( $post ) {
 
 		wp_nonce_field( Foyer_Display::post_type_name, Foyer_Display::post_type_name.'_nonce' );
 
@@ -116,7 +90,7 @@ class Foyer_Admin_Display {
 				<tbody>
 					<?php
 
-						echo $this->get_default_channel_html( $post );
+						echo self::get_default_channel_html( $post );
 
 					?>
 				</tbody>
@@ -133,11 +107,12 @@ class Foyer_Admin_Display {
 	 * Outputs the content of the channel scheduler meta box.
 	 *
 	 * @since	1.0.0
-	 * @since	1.0.1				Sanitized the output.
+	 * @since	1.0.1	Sanitized the output.
+	 * @since	1.4.0	Changed method to static.
 	 *
 	 * @param	WP_Post		$post	The post object of the current display.
 	 */
-	public function channel_scheduler_meta_box( $post ) {
+	static function channel_scheduler_meta_box( $post ) {
 
 		wp_nonce_field( Foyer_Display::post_type_name, Foyer_Display::post_type_name.'_nonce' );
 
@@ -151,7 +126,7 @@ class Foyer_Admin_Display {
 				<tbody>
 					<?php
 
-						echo $this->get_scheduled_channel_html( $post );
+						echo self::get_scheduled_channel_html( $post );
 
 					?>
 				</tbody>
@@ -168,13 +143,14 @@ class Foyer_Admin_Display {
 	 * Outputs the Active Channel and Defaults Channel columns.
 	 *
 	 * @since	1.0.0
-	 * @since	1.0.1				Escaped the output.
+	 * @since	1.0.1	Escaped the output.
+	 * @since	1.4.0	Changed method to static.
 	 *
 	 * @param 	string	$column		The current column that needs output.
 	 * @param 	int 	$post_id 	The current display ID.
 	 * @return	void
 	 */
-	function do_channel_columns( $column, $post_id ) {
+	static function do_channel_columns( $column, $post_id ) {
 	    switch ( $column ) {
 
 		    case 'active_channel' :
@@ -205,9 +181,11 @@ class Foyer_Admin_Display {
 	 * Gets the defaults to be used in the channel scheduler.
 	 *
 	 * @since	1.0.0
+	 * @since	1.4.0	Changed method to static.
+	 *
 	 * @return	string	The defaults to be used in the channel scheduler.
 	 */
-	public function get_channel_scheduler_defaults() {
+	static function get_channel_scheduler_defaults() {
 		$language_parts = explode( '-', get_bloginfo( 'language' ) );
 
 		$defaults = array(
@@ -231,14 +209,14 @@ class Foyer_Admin_Display {
 	 * Gets the HTML that lists the default channel in the channel editor.
 	 *
 	 * @since	1.0.0
-	 * @since	1.0.1			Escaped and sanitized the output.
-	 * @since	1.2.3			Changed the list of available channels from limited to unlimited.
+	 * @since	1.0.1	Escaped and sanitized the output.
+	 * @since	1.2.3	Changed the list of available channels from limited to unlimited.
+	 * @since	1.4.0	Changed method to static.
 	 *
-	 * @access	public
 	 * @param	WP_Post	$post
 	 * @return	string	$html	The HTML that lists the default channel in the channel editor.
 	 */
-	public function get_default_channel_html( $post ) {
+	static function get_default_channel_html( $post ) {
 
 		$display = new Foyer_Display( $post );
 		$default_channel = $display->get_default_channel();
@@ -286,14 +264,14 @@ class Foyer_Admin_Display {
 	 * Currently limited to only one scheduled channel.
 	 *
 	 * @since	1.0.0
-	 * @since	1.0.1			Escaped and sanitized the output.
-	 * @since	1.2.3			Changed the list of available channels from limited to unlimited.
+	 * @since	1.0.1	Escaped and sanitized the output.
+	 * @since	1.2.3	Changed the list of available channels from limited to unlimited.
+	 * @since	1.4.0	Changed method to static.
 	 *
-	 * @access	public
 	 * @param	WP_Post	$post
 	 * @return	string	$html	The HTML that lists the scheduled channels in the channel scheduler.
 	 */
-	public function get_scheduled_channel_html( $post ) {
+	static function get_scheduled_channel_html( $post ) {
 
 		$display = new Foyer_Display( $post );
 		$schedule = $display->get_schedule();
@@ -302,7 +280,7 @@ class Foyer_Admin_Display {
 			$scheduled_channel = $schedule[0];
 		}
 
-		$channel_scheduler_defaults = $this->get_channel_scheduler_defaults();
+		$channel_scheduler_defaults = self::get_channel_scheduler_defaults();
 
 		ob_start();
 
@@ -366,11 +344,12 @@ class Foyer_Admin_Display {
 	 *
 	 * @since	1.0.0
 	 * @since	1.3.1	Changed handle of script to {plugin_name}-admin.
+	 * @since	1.4.0	Changed method to static.
 	 */
-	public function localize_scripts() {
+	static function localize_scripts() {
 
-		$channel_scheduler_defaults = $this->get_channel_scheduler_defaults();
-		wp_localize_script( $this->plugin_name . '-admin', 'foyer_channel_scheduler_defaults', $channel_scheduler_defaults );
+		$channel_scheduler_defaults = self::get_channel_scheduler_defaults();
+		wp_localize_script( Foyer::get_plugin_name() . '-admin', 'foyer_channel_scheduler_defaults', $channel_scheduler_defaults );
 	}
 
 	/**
@@ -379,12 +358,13 @@ class Foyer_Admin_Display {
 	 * Triggered when a display is submitted from the display admin form.
 	 *
 	 * @since 	1.0.0
-	 * @since	1.0.1				Improved validating & sanitizing of the user input.
+	 * @since	1.0.1	Improved validating & sanitizing of the user input.
+	 * @since	1.4.0	Changed method to static.
 	 *
 	 * @param 	int		$post_id	The channel id.
 	 * @return void
 	 */
-	public function save_display( $post_id ) {
+	static function save_display( $post_id ) {
 
 		/*
 		 * We need to verify this came from our screen and with proper authorization,
@@ -432,24 +412,25 @@ class Foyer_Admin_Display {
 		/**
 		 * Save schedule for temporary channels.
 		 */
-		$this->save_schedule( $post_id );
+		self::save_schedule( $post_id );
 
 	}
 
 	/**
 	 * Save all scheduled channels for this display.
 	 *
-	 * @access	private
 	 * @since	1.0.0
-	 * @since	1.0.1					Improved validating & sanitizing of the user input.
-	 * @since	1.0.1					Removed the $values param that contained $_POST, to always be aware
-	 * 									we're working with $_POST data.
+	 * @since	1.0.1	Improved validating & sanitizing of the user input.
+	 * @since	1.0.1	Removed the $values param that contained $_POST, to always be aware
+	 * 					we're working with $_POST data.
+	 * @since	1.4.0	Changed method to static.
 	 *
+	 * @access	private
 	 * @param 	array	$values			All form values that were submitted from the display admin page.
 	 * @param 	int		$display_id		The ID of the display that is being saved.
 	 * @return 	void
 	 */
-	private function save_schedule( $display_id ) {
+	private static function save_schedule( $display_id ) {
 
 		delete_post_meta( $display_id, 'foyer_display_schedule' );
 
@@ -481,7 +462,7 @@ class Foyer_Admin_Display {
 
 		if ( $end <= $start ) {
 			// End time is invalid, set based on start time and default duration
-			$channel_scheduler_defaults = $this->get_channel_scheduler_defaults();
+			$channel_scheduler_defaults = self::get_channel_scheduler_defaults();
 			$end = $start + $channel_scheduler_defaults['duration'];
 		}
 

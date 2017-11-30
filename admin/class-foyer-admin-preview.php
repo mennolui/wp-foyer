@@ -3,10 +3,9 @@
 /**
  * The preview functionality for Displays, Channels and Slides.
  *
- * Defines the plugin name, version, and two hooks to
- * hie the admin bar and enqueue the admin-specific JavaScript.
- *
  * @since		1.0.0
+ * @since		1.4.0	Refactored class from object to static methods.
+ *
  * @package		Foyer
  * @subpackage	Foyer/admin
  * @author		Menno Luitjes <menno@mennoluitjes.nl>
@@ -14,50 +13,20 @@
 class Foyer_Admin_Preview {
 
 	/**
-	 * The ID of this plugin.
-	 *
-	 * @since	1.0.0
-	 * @access	private
-	 * @var		string		$plugin_name	The ID of this plugin.
-	 */
-	private $plugin_name;
-
-	/**
-	 * The version of this plugin.
-	 *
-	 * @since	1.0.0
-	 * @access	private
-	 * @var		string		$version		The current version of this plugin.
-	 */
-	private $version;
-
-	/**
-	 * Initialize the class and set its properties.
-	 *
-	 * @since	1.0.0
-	 * @param	string		$plugin_name	The name of this plugin.
-	 * @param	string		$version		The version of this plugin.
-	 */
-	public function __construct( $plugin_name, $version ) {
-
-		$this->plugin_name = $plugin_name;
-		$this->version = $version;
-	}
-
-	/**
 	 * Enqueues the admin javascript when previewing a slide.
 	 *
 	 * @since	1.0.0
 	 * @since	1.2.5	Register scripts before they are enqueued.
 	 *					Makes it possible to enqueue foyer scripts outside of the foyer plugin.
+	 * @since	1.4.0	Changed method to static.
 	 *
 	 * return	void
 	 */
-	function enqueue_scripts() {
+	static function enqueue_scripts() {
 
-		wp_register_script( $this->plugin_name . '-admin', plugin_dir_url( __FILE__ ) . 'js/foyer-admin-min.js', array( 'jquery', 'jquery-ui-sortable' ), $this->version, false );
+		wp_register_script( Foyer::get_plugin_name() . '-admin', plugin_dir_url( __FILE__ ) . 'js/foyer-admin-min.js', array( 'jquery', 'jquery-ui-sortable' ), Foyer::get_version(), false );
 
-		wp_localize_script( $this->plugin_name . '-admin', 'foyer_preview', array(
+		wp_localize_script( Foyer::get_plugin_name() . '-admin', 'foyer_preview', array(
 			'ajax_url' => admin_url( 'admin-ajax.php' ),
 			'object_id' => get_the_id(),
 			'orientations' => self::get_orientations(),
@@ -75,14 +44,13 @@ class Foyer_Admin_Preview {
 			return;
 		}
 
-		wp_enqueue_script( $this->plugin_name . '-admin' );
+		wp_enqueue_script( Foyer::get_plugin_name() . '-admin' );
 	}
 
 	/**
 	 * Get the current user's orientation choice for a Display, Channel or Slide.
 	 *
 	 * @since	1.0.0
-	 * @static
 	 * @param 	int	$object_id
 	 * @return	string
 	 */
@@ -107,7 +75,6 @@ class Foyer_Admin_Preview {
 	 * Gets all available preview orientations.
 	 *
 	 * @since	1.0.0
-	 * @static
 	 * @return	array
 	 */
 	static function get_orientations() {
@@ -152,11 +119,12 @@ class Foyer_Admin_Preview {
 	 * Hooked to orientation button via AJAX.
 	 *
 	 * @since	1.0.0
-	 * @since	1.0.1				Improved validating & sanitizing of the user input.
+	 * @since	1.0.1	Improved validating & sanitizing of the user input.
+	 * @since	1.4.0	Changed method to static.
 	 *
 	 * @return	void
 	 */
-	function save_orientation_choice( ) {
+	static function save_orientation_choice( ) {
 
 		if ( !is_user_logged_in( ) ) {
 			return;
