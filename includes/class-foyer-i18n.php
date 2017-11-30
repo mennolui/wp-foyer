@@ -13,22 +13,18 @@
  */
 class Foyer_i18n {
 
-
 	/**
 	 * Load the plugin text domain for translation.
 	 *
-	 * @since    1.0.0
+	 * @since	1.0.0
+	 * @since	1.4.0	Changed method to static.
 	 */
-	public function load_plugin_textdomain() {
+	static function load_plugin_textdomain() {
 
 		load_plugin_textdomain(
 			'foyer',
 			false,
 			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
 		);
-
 	}
-
-
-
 }

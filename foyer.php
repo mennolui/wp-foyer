@@ -16,7 +16,7 @@
  * Plugin Name:       Foyer - Digital Signage for WordPress
  * Plugin URI:        http://mennoluitjes.nl
  * Description:       Create slideshows and show them off on your networked displays.
- * Version:           1.3.1
+ * Version:           1.4.0
  * Author:            Menno Luitjes
  * Author URI:        http://mennoluitjes.nl
  * License:           GPL-3.0+
@@ -60,16 +60,18 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-foyer.php';
 /**
  * Begins execution of the plugin.
  *
- * Since everything within the plugin is registered via hooks,
- * then kicking off the plugin from this point in the file does
- * not affect the page life cycle.
- *
- * @since    1.0.0
+ * @since	1.0.0
+ * @since	1.4.0	Defined some named constants to be used throughout the plugin.
  */
 function run_foyer() {
 
-	$plugin = new Foyer();
-	$plugin->run();
+	define( 'FOYER_PLUGIN_VERSION', '1.4.0' );
+	define( 'FOYER_PLUGIN_NAME', 'foyer' );
+	define( 'FOYER_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
+	define( 'FOYER_PLUGIN_URL', plugins_url( '', __FILE__ ) );
+	define( 'FOYER_PLUGIN_FILE', __FILE__ );
 
+	Foyer::init();
 }
+
 run_foyer();

@@ -27,43 +27,21 @@ class Foyer {
 	protected $loader;
 
 	/**
-	 * The unique identifier of this plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   protected
-	 * @var      string    $plugin_name    The string used to uniquely identify this plugin.
-	 */
-	protected $plugin_name;
-
-	/**
-	 * The current version of the plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   protected
-	 * @var      string    $version    The current version of the plugin.
-	 */
-	protected $version;
-
-	/**
 	 * Define the core functionality of the plugin.
 	 *
-	 * Set the plugin name and the plugin version that can be used throughout the plugin.
-	 * Load the dependencies, define the locale, and set the hooks for the admin area and
-	 * the public-facing side of the site.
+	 * Load the dependencies and define the locale.
 	 *
-	 * @since    1.0.0
+	 * @since	1.0.0
+	 * @since	1.4.0	Changed method to static.
 	 */
-	public function __construct() {
+	static function init() {
 
-		$this->plugin_name = 'foyer';
-		$this->version = '1.3.1';
+		self::load_dependencies();
+		self::set_locale();
 
-		$this->load_dependencies();
-		$this->set_locale();
 		$this->define_setup_hooks();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
-
 	}
 
 	/**
@@ -71,19 +49,16 @@ class Foyer {
 	 *
 	 * Include the following files that make up the plugin:
 	 *
-	 * - Foyer_Loader. Orchestrates the hooks of the plugin.
 	 * - Foyer_i18n. Defines internationalization functionality.
 	 * - Foyer_Admin. Defines all hooks for the admin area.
 	 * - Foyer_Public. Defines all hooks for the public side of the site.
 	 * - etc.
 	 *
-	 * Create an instance of the loader which will be used to register the hooks
-	 * with WordPress.
-	 *
-	 * @since    1.0.0
-	 * @access   private
+	 * @since	1.0.0
+	 * @since	1.4.0	Changed method to static.
+	 * @access	private
 	 */
-	private function load_dependencies() {
+	private static function load_dependencies() {
 
 		// --- includes ---
 
@@ -164,15 +139,15 @@ class Foyer {
 		// Store a reference to some of the classes, to to enable defining hooks.
 		$this->loader = new Foyer_Loader();
 
-		$this->setup = new Foyer_Setup( $this->get_plugin_name(), $this->get_version() );
+		$this->setup = new Foyer_Setup( self::get_plugin_name(), self::get_version() );
 
-		$this->admin = new Foyer_Admin( $this->get_plugin_name(), $this->get_version() );
-		$this->admin_channel = new Foyer_Admin_Channel( $this->get_plugin_name(), $this->get_version() );
-		$this->admin_display = new Foyer_Admin_Display( $this->get_plugin_name(), $this->get_version() );
-		$this->admin_slide = new Foyer_Admin_Slide( $this->get_plugin_name(), $this->get_version() );
-		$this->admin_preview = new Foyer_Admin_Preview( $this->get_plugin_name(), $this->get_version() );
+		$this->admin = new Foyer_Admin( self::get_plugin_name(), self::get_version() );
+		$this->admin_channel = new Foyer_Admin_Channel( self::get_plugin_name(), self::get_version() );
+		$this->admin_display = new Foyer_Admin_Display( self::get_plugin_name(), self::get_version() );
+		$this->admin_slide = new Foyer_Admin_Slide( self::get_plugin_name(), self::get_version() );
+		$this->admin_preview = new Foyer_Admin_Preview( self::get_plugin_name(), self::get_version() );
 
-		$this->public = new Foyer_Public( $this->get_plugin_name(), $this->get_version() );
+		$this->public = new Foyer_Public( self::get_plugin_name(), self::get_version() );
 	}
 
 	/**
@@ -181,15 +156,14 @@ class Foyer {
 	 * Uses the Foyer_i18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
-	 * @since    1.0.0
-	 * @access   private
+	 * @since	1.0.0
+	 * @since	1.4.0	Changed method to static.
+	 *					Switched from using a Foyer_Loader class to defining hooks directly.
+	 *
+	 * @access	private
 	 */
-	private function set_locale() {
-
-		$plugin_i18n = new Foyer_i18n();
-
-		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
-
+	private static function set_locale() {
+		add_action( 'plugins_loaded', array( 'Foyer_i18n', 'load_plugin_textdomain' ) );
 	}
 
 	/**
@@ -275,43 +249,30 @@ class Foyer {
 	}
 
 	/**
-	 * Run the loader to execute all of the hooks with WordPress.
-	 *
-	 * @since    1.0.0
-	 */
-	public function run() {
-		$this->loader->run();
-	}
-
-	/**
 	 * The name of the plugin used to uniquely identify it within the context of
 	 * WordPress and to define internationalization functionality.
 	 *
-	 * @since     1.0.0
-	 * @return    string    The name of the plugin.
-	 */
-	public function get_plugin_name() {
-		return $this->plugin_name;
-	}
-
-	/**
-	 * The reference to the class that orchestrates the hooks with the plugin.
+	 * @since	1.0.0
+	 * @since	1.4.0	Changed method to static.
+	 *					Now uses a named constant.
 	 *
-	 * @since     1.0.0
-	 * @return    Foyer_Loader    Orchestrates the hooks of the plugin.
+	 * @return	string	The name of the plugin.
 	 */
-	public function get_loader() {
-		return $this->loader;
+	static function get_plugin_name() {
+		return FOYER_PLUGIN_NAME;
 	}
 
 	/**
 	 * Retrieve the version number of the plugin.
 	 *
-	 * @since     1.0.0
-	 * @return    string    The version number of the plugin.
+	 * @since	1.0.0
+	 * @since	1.4.0	Changed method to static.
+	 * 					Now uses a named constant.
+	 *
+	 * @return	string	The version of the plugin.
 	 */
-	public function get_version() {
-		return $this->version;
+	static function get_version() {
+		return FOYER_PLUGIN_VERSION;
 	}
 
 }
