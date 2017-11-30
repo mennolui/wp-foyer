@@ -20,7 +20,7 @@ class Foyer_Public {
 	 * @since	1.4.0
 	 */
 	static function init() {
-		self:load_dependencies();
+		self::load_dependencies();
 
 		/* Foyer_Public */
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_styles' ) );
@@ -60,13 +60,13 @@ class Foyer_Public {
 	 */
 	static function enqueue_styles() {
 
-		wp_register_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/foyer-public.css', array(), $this->version, 'all' );
+		wp_register_style( Foyer::get_plugin_name(), plugin_dir_url( __FILE__ ) . 'css/foyer-public.css', array(), Foyer::get_version(), 'all' );
 
 		if ( ! is_singular( array( Foyer_Display::post_type_name, Foyer_Channel::post_type_name, Foyer_Slide::post_type_name) ) ) {
 			return;
 		}
 
-		wp_enqueue_style( $this->plugin_name );
+		wp_enqueue_style( Foyer::get_plugin_name() );
 
 		/*
 		 * Runs after the Foyer public styles are enqueued.
@@ -89,13 +89,13 @@ class Foyer_Public {
 	 */
 	static function enqueue_scripts() {
 
-		wp_register_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/foyer-public-min.js', array( 'jquery' ), $this->version, false );
+		wp_register_script( Foyer::get_plugin_name(), plugin_dir_url( __FILE__ ) . 'js/foyer-public-min.js', array( 'jquery' ), Foyer::get_version(), false );
 
 		if ( ! is_singular( array( Foyer_Display::post_type_name, Foyer_Channel::post_type_name, Foyer_Slide::post_type_name) ) ) {
 			return;
 		}
 
-		wp_enqueue_script( $this->plugin_name );
+		wp_enqueue_script( Foyer::get_plugin_name() );
 
 		/*
 		 * Runs after the Foyer public scripts are enqueued.

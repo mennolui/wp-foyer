@@ -20,7 +20,7 @@ class Foyer_Admin {
 	 * @since	1.4.0
 	 */
 	static function init() {
-		self:load_dependencies();
+		self::load_dependencies();
 
 		/* Foyer_Admin */
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_styles' ) );
@@ -33,18 +33,18 @@ class Foyer_Admin {
 		add_action( 'add_meta_boxes', array( 'Foyer_Admin_Display', 'add_channel_scheduler_meta_box' ) );
 		add_action( 'save_post', array( 'Foyer_Admin_Display', 'save_display' ) );
 		add_filter( 'manage_'.Foyer_Display::post_type_name.'_posts_columns', array( 'Foyer_Admin_Display', 'add_channel_columns' ) );
-		add_action( 'manage_'.Foyer_Display::post_type_name.'_posts_custom_column', array( 'Foyer_Admin_Display', 'do_channel_columns', 10, 2 ) );
+		add_action( 'manage_'.Foyer_Display::post_type_name.'_posts_custom_column', array( 'Foyer_Admin_Display', 'do_channel_columns' ), 10, 2 );
 		/* Foyer_Admin_Channel */
 		add_action( 'admin_enqueue_scripts', array( 'Foyer_Admin_Channel', 'localize_scripts' ) );
-		add_action( 'add_meta_boxes', array( 'Foyer_Admin_Channel', 'add_slides_editor_meta_box', 20 ) );
-		add_action( 'add_meta_boxes', array( 'Foyer_Admin_Channel', 'add_slides_settings_meta_box', 40 ) );
+		add_action( 'add_meta_boxes', array( 'Foyer_Admin_Channel', 'add_slides_editor_meta_box' ), 20 );
+		add_action( 'add_meta_boxes', array( 'Foyer_Admin_Channel', 'add_slides_settings_meta_box' ), 40 );
 		add_action( 'save_post', array( 'Foyer_Admin_Channel', 'save_channel' ) );
 		add_action( 'wp_ajax_foyer_slides_editor_add_slide', array( 'Foyer_Admin_Channel', 'add_slide_over_ajax' ) );
 		add_action( 'wp_ajax_foyer_slides_editor_remove_slide', array( 'Foyer_Admin_Channel', 'remove_slide_over_ajax' ) );
 		add_action( 'wp_ajax_foyer_slides_editor_reorder_slides', array( 'Foyer_Admin_Channel', 'reorder_slides_over_ajax' ) );
 		add_filter( 'get_sample_permalink_html', array( 'Foyer_Admin_Channel', 'remove_sample_permalink' ) );
 		add_filter( 'manage_'.Foyer_Channel::post_type_name.'_posts_columns', array( 'Foyer_Admin_Channel', 'add_slides_count_column' ) );
-		add_action( 'manage_'.Foyer_Channel::post_type_name.'_posts_custom_column', array( 'Foyer_Admin_Channel', 'do_slides_count_column', 10, 2 ) );
+		add_action( 'manage_'.Foyer_Channel::post_type_name.'_posts_custom_column', array( 'Foyer_Admin_Channel', 'do_slides_count_column' ), 10, 2 );
 
 		/* Foyer_Admin_Slide */
 		add_action( 'admin_enqueue_scripts', array( 'Foyer_Admin_Slide', 'localize_scripts' ) );
@@ -52,7 +52,7 @@ class Foyer_Admin {
 		add_action( 'save_post', array( 'Foyer_Admin_Slide', 'save_slide' ) );
 		add_filter( 'get_sample_permalink_html', array( 'Foyer_Admin_Slide', 'remove_sample_permalink' ) );
 		add_filter( 'manage_'.Foyer_Slide::post_type_name.'_posts_columns', array( 'Foyer_Admin_Slide', 'add_slide_format_column' ) );
-		add_action( 'manage_'.Foyer_Slide::post_type_name.'_posts_custom_column', array( 'Foyer_Admin_Slide', 'do_slide_format_column', 10, 2 ) );
+		add_action( 'manage_'.Foyer_Slide::post_type_name.'_posts_custom_column', array( 'Foyer_Admin_Slide', 'do_slide_format_column' ), 10, 2 );
 
 		/* Foyer_Admin_Preview */
 		add_action( 'wp_enqueue_scripts', array( 'Foyer_Admin_Preview', 'enqueue_scripts' ) );
@@ -95,8 +95,8 @@ class Foyer_Admin {
 	 */
 	static function enqueue_scripts() {
 
-		wp_register_script( Foyer::get_plugin_name . '-admin', plugin_dir_url( __FILE__ ) . 'js/foyer-admin-min.js', array( 'jquery', 'jquery-ui-sortable' ), Foyer::get_version, false );
-		wp_enqueue_script( Foyer::get_plugin_name . '-admin' );
+		wp_register_script( Foyer::get_plugin_name() . '-admin', plugin_dir_url( __FILE__ ) . 'js/foyer-admin-min.js', array( 'jquery', 'jquery-ui-sortable' ), Foyer::get_version(), false );
+		wp_enqueue_script( Foyer::get_plugin_name() . '-admin' );
 	}
 
 	/**
@@ -107,7 +107,7 @@ class Foyer_Admin {
 	 */
 	static function enqueue_styles() {
 
-		wp_enqueue_style( Foyer::get_plugin_name, plugin_dir_url( __FILE__ ) . 'css/foyer-admin.css', array(), Foyer::get_version, 'all' );
+		wp_enqueue_style( Foyer::get_plugin_name(), plugin_dir_url( __FILE__ ) . 'css/foyer-admin.css', array(), Foyer::get_version(), 'all' );
 	}
 
 	/**
