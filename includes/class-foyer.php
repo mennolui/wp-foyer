@@ -21,19 +21,9 @@
 class Foyer {
 
 	/**
-	 * The loader that's responsible for maintaining and registering all hooks that power
-	 * the plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   protected
-	 * @var      Foyer_Loader    $loader    Maintains and registers all hooks for the plugin.
-	 */
-	protected $loader;
-
-	/**
 	 * Initializes the plugin.
 	 *
-	 * Loads the dependencies, defines the locale and registers all of the hooks related to the
+	 * Loads dependencies, defines the locale and registers all of the hooks related to the
 	 * general functionality of the plugin (not public/admin specific).
 	 *
 	 * @since	1.4.0	Changed method to static.
@@ -41,9 +31,9 @@ class Foyer {
 	static function init() {
 
 		self::load_dependencies();
-		self::set_locale();
 
-		$this->define_public_hooks();
+		/* Foyer_i18n */
+		add_action( 'plugins_loaded', array( 'Foyer_i18n', 'load_plugin_textdomain' ) );
 
 		/* Foyer_Setup */
 		add_action( 'init', array( 'Foyer_Setup', 'register_post_types' ) );
@@ -53,117 +43,6 @@ class Foyer {
 		add_filter( 'foyer/slides/formats', array( 'Foyer_Slide_Formats', 'add_video_slide_format' ) );
 		add_filter( 'foyer/slides/formats', array( 'Foyer_Slide_Formats', 'add_iframe_slide_format' ) );
 		add_filter( 'foyer/slides/formats', array( 'Foyer_Slide_Formats', 'add_production_slide_format' ) );
-	}
-
-	/**
-	 * Load the required dependencies for this plugin.
-	 *
-	 * Include the following files that make up the plugin:
-	 *
-	 * - Foyer_i18n. Defines internationalization functionality.
-	 * - Foyer_Admin. Defines all hooks for the admin area.
-	 * - Foyer_Public. Defines all hooks for the public side of the site.
-	 * - etc.
-	 *
-	 * @since	1.0.0
-	 * @since	1.4.0	Changed method to static.
-	 * @access	private
-	 */
-	private static function load_dependencies() {
-
-		// --- includes ---
-
-		/**
-		 * Helper functions for handling actions and filters of the core plugin.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-loader.php';
-
-		/**
-		 * Setup of internationalization.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-i18n.php';
-
-		/**
-		 * General (not public/admin) setup actions.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-setup.php';
-
-		/**
-		 * Display, channel and slide models.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-display.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-channel.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-slide.php';
-
-		/**
-		 * Slides helper functions.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-slides.php';
-
-		/**
-		 * Theater for WordPress helper functions.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-theater.php';
-
-		/**
-		 * Register slide formats.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-slide-formats.php';
-
-		// --- admin ---
-
-		/**
-		 * Setup of the admin area of the plugin.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-foyer-admin.php';
-		// --- public ---
-
-		/**
-		 * Setup of the public-facing side of the plugin.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-foyer-public.php';
-
-		/**
-		 * Templating.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-foyer-templates.php';
-
-
-		// Store a reference to some of the classes, to to enable defining hooks.
-		$this->loader = new Foyer_Loader();
-
-		$this->public = new Foyer_Public( self::get_plugin_name(), self::get_version() );
-	}
-
-	/**
-	 * Define the locale for this plugin for internationalization.
-	 *
-	 * Uses the Foyer_i18n class in order to set the domain and to register the hook
-	 * with WordPress.
-	 *
-	 * @since	1.0.0
-	 * @since	1.4.0	Changed method to static.
-	 *					Switched from using a Foyer_Loader class to defining hooks directly.
-	 *
-	 * @access	private
-	 */
-	private static function set_locale() {
-		add_action( 'plugins_loaded', array( 'Foyer_i18n', 'load_plugin_textdomain' ) );
-	}
-
-	/**
-	 * Registers all of the hooks related to the public-facing functionality of the plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 */
-	private function define_public_hooks() {
-
-		$this->loader->add_action( 'wp_enqueue_scripts', $this->public, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $this->public, 'enqueue_scripts' );
-		$this->loader->add_action( 'init', $this->public, 'add_image_sizes' );
-
-		$this->loader->add_action( 'template_include', 'Foyer_Templates', 'template_include' );
 	}
 
 	/**
@@ -193,4 +72,58 @@ class Foyer {
 		return FOYER_PLUGIN_VERSION;
 	}
 
+	/**
+	 * Load the required dependencies for this plugin.
+	 *
+	 * Includes the following files that make up the plugin:
+	 *
+	 * - All general (not public/admin) classes.
+	 * - Foyer_Admin: Defines all functionality for the admin area and registers its hooks.
+	 * - Foyer_Public: Defines all functionality for the public side of the site and registers its hooks.
+	 *
+	 * @since	1.0.0
+	 * @since	1.4.0	Changed method to static.
+	 * @access	private
+	 */
+	private static function load_dependencies() {
+
+		/**
+		 * ------ General (not public/admin) ------
+		 */
+
+		/* Display, channel and slide models. */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-display.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-channel.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-slide.php';
+
+		/* Setup of internationalization. */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-i18n.php';
+
+		/* General (not public/admin) setup actions. */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-setup.php';
+
+		/* Slides helper functions. */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-slides.php';
+
+		/* Slide formats. */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-slide-formats.php';
+
+		/* Theater for WordPress helper functions. */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-foyer-theater.php';
+
+
+		/**
+		 * ------ Admin ------
+		 */
+
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-foyer-admin.php';
+		Foyer_Admin::init();
+
+		/**
+		 * ------ Public ------
+		 */
+
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-foyer-public.php';
+		Foyer_Public::init();
+	}
 }

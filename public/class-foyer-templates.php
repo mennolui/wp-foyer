@@ -3,9 +3,11 @@
 /**
  * The class that handles template files for slides.
  *
- * @package    Foyer
- * @subpackage Foyer/public
- * @author     Menno Luitjes <menno@mennoluitjes.nl>
+ * @since		1.0.0
+ *
+ * @package		Foyer
+ * @subpackage	Foyer/public
+ * @author		Menno Luitjes <menno@mennoluitjes.nl>
  */
 class Foyer_Templates {
 
@@ -14,7 +16,7 @@ class Foyer_Templates {
 	 *
 	 * Search for the template and include the file.
 	 *
-	 * @since 1.0.0
+	 * @since	1.0.0
 	 *
 	 * @param string 	$template_name			Template to load.
 	 * @param array 	$args					Args passed for the template file.
@@ -43,7 +45,7 @@ class Foyer_Templates {
 	 * 2. /themes/theme/$template_name
 	 * 3. /plugins/wp-foyer/public/templates/$template_name.
 	 *
-	 * @since 1.0.0
+	 * @since	1.0.0
 	 *
 	 * @param 	string 	$template_name		Template to load.
 	 * @param 	string 	$template_path		Path to templates.
@@ -74,11 +76,10 @@ class Foyer_Templates {
 	/**
 	 * Template loader.
 	 *
-	 * The template loader will check if WP is loading a template
-	 * for a specific Post Type and will try to load the template
-	 * from out 'templates' directory.
+	 * The template loader will check if WP is loading a template for a Foyer post type
+	 * and will try to load the template from our 'templates' directory.
 	 *
-	 * @since 1.0.0
+	 * @since	1.0.0
 	 *
 	 * @param	string	$template	Template file that is being loaded.
 	 * @return	string				Template file that should be loaded.

@@ -1,10 +1,7 @@
 <?php
 
 /**
- * The general admin-specific functionality of the plugin.
- *
- * Defines the plugin name, version, and two hooks to
- * enqueue the admin-specific stylesheet and JavaScript.
+ * Defines the admin-specific functionality of the plugin.
  *
  * @since		1.0.0
  * @since		1.4.0	Refactored class from object to static methods.
@@ -18,7 +15,7 @@
 class Foyer_Admin {
 
 	/**
-	 * Initializes the class and loads dependencies.
+	 * Loads dependencies and registers hooks for the admin-facing side of the plugin.
 	 *
 	 * @since	1.4.0
 	 */
@@ -114,7 +111,7 @@ class Foyer_Admin {
 	}
 
 	/**
-	 * Loads the required dependencies for the admin facing side of the plugin.
+	 * Loads the required dependencies for the admin-facing side of the plugin.
 	 *
 	 * @since	1.4.0
 	 * @access	private
