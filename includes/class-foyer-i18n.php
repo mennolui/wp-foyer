@@ -7,7 +7,7 @@
  * so that it is ready for translation.
  *
  * @since		1.0.0
- * @since		1.4.0	Refactored class from object to static methods.
+ * @since		1.3.2	Refactored class from object to static methods.
  *
  * @package		Foyer
  * @subpackage	Foyer/includes
@@ -19,7 +19,7 @@ class Foyer_i18n {
 	 * Load the plugin text domain for translation.
 	 *
 	 * @since	1.0.0
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 */
 	static function load_plugin_textdomain() {
 

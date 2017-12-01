@@ -4,7 +4,7 @@
  * The display admin-specific functionality of the plugin.
  *
  * @since		1.0.0
- * @since		1.4.0	Refactored class from object to static methods.
+ * @since		1.3.2	Refactored class from object to static methods.
  *
  * @package		Foyer
  * @subpackage	Foyer/admin
@@ -18,7 +18,7 @@ class Foyer_Admin_Display {
 	 * Also removes the Date column.
 	 *
 	 * @since	1.0.0
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 *
 	 * @param 	array	$columns	The current columns.
 	 * @return	array				The new columns.
@@ -37,7 +37,7 @@ class Foyer_Admin_Display {
 	 * Adds the channel editor meta box to the display admin page.
 	 *
 	 * @since	1.0.0
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 */
 	static function add_channel_editor_meta_box() {
 		add_meta_box(
@@ -54,7 +54,7 @@ class Foyer_Admin_Display {
 	 * Adds the channel scheduler meta box to the display admin page.
 	 *
 	 * @since	1.0.0
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 */
 	static function add_channel_scheduler_meta_box() {
 		add_meta_box(
@@ -72,7 +72,7 @@ class Foyer_Admin_Display {
 	 *
 	 * @since	1.0.0
 	 * @since	1.0.1	Sanitized the output.
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 *
 	 * @param	WP_Post		$post	The post object of the current display.
 	 */
@@ -108,7 +108,7 @@ class Foyer_Admin_Display {
 	 *
 	 * @since	1.0.0
 	 * @since	1.0.1	Sanitized the output.
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 *
 	 * @param	WP_Post		$post	The post object of the current display.
 	 */
@@ -144,7 +144,7 @@ class Foyer_Admin_Display {
 	 *
 	 * @since	1.0.0
 	 * @since	1.0.1	Escaped the output.
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 *
 	 * @param 	string	$column		The current column that needs output.
 	 * @param 	int 	$post_id 	The current display ID.
@@ -181,7 +181,7 @@ class Foyer_Admin_Display {
 	 * Gets the defaults to be used in the channel scheduler.
 	 *
 	 * @since	1.0.0
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 *
 	 * @return	string	The defaults to be used in the channel scheduler.
 	 */
@@ -211,7 +211,7 @@ class Foyer_Admin_Display {
 	 * @since	1.0.0
 	 * @since	1.0.1	Escaped and sanitized the output.
 	 * @since	1.2.3	Changed the list of available channels from limited to unlimited.
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 *
 	 * @param	WP_Post	$post
 	 * @return	string	$html	The HTML that lists the default channel in the channel editor.
@@ -266,7 +266,7 @@ class Foyer_Admin_Display {
 	 * @since	1.0.0
 	 * @since	1.0.1	Escaped and sanitized the output.
 	 * @since	1.2.3	Changed the list of available channels from limited to unlimited.
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 *
 	 * @param	WP_Post	$post
 	 * @return	string	$html	The HTML that lists the scheduled channels in the channel scheduler.
@@ -344,7 +344,7 @@ class Foyer_Admin_Display {
 	 *
 	 * @since	1.0.0
 	 * @since	1.3.1	Changed handle of script to {plugin_name}-admin.
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 */
 	static function localize_scripts() {
 
@@ -359,7 +359,7 @@ class Foyer_Admin_Display {
 	 *
 	 * @since 	1.0.0
 	 * @since	1.0.1	Improved validating & sanitizing of the user input.
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 *
 	 * @param 	int		$post_id	The channel id.
 	 * @return void
@@ -423,7 +423,7 @@ class Foyer_Admin_Display {
 	 * @since	1.0.1	Improved validating & sanitizing of the user input.
 	 * @since	1.0.1	Removed the $values param that contained $_POST, to always be aware
 	 * 					we're working with $_POST data.
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 *
 	 * @access	private
 	 * @param 	array	$values			All form values that were submitted from the display admin page.

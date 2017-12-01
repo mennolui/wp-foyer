@@ -4,7 +4,7 @@
  * Defines the admin-specific functionality of the plugin.
  *
  * @since		1.0.0
- * @since		1.4.0	Refactored class from object to static methods.
+ * @since		1.3.2	Refactored class from object to static methods.
  *						Switched from using a central Foyer_Loader class to registering hooks directly
  *						on init of Foyer, Foyer_Admin and Foyer_Public.
  *
@@ -17,7 +17,7 @@ class Foyer_Admin {
 	/**
 	 * Loads dependencies and registers hooks for the admin-facing side of the plugin.
 	 *
-	 * @since	1.4.0
+	 * @since	1.3.2
 	 */
 	static function init() {
 		self::load_dependencies();
@@ -69,7 +69,7 @@ class Foyer_Admin {
 	 * Adds the top-level Foyer admin menu item.
 	 *
 	 * @since	1.0.0
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 *					Added context for translations.
 	 */
 	static function admin_menu() {
@@ -91,7 +91,7 @@ class Foyer_Admin {
 	 * @since	1.2.5	Register scripts before they are enqueued.
 	 *					Makes it possible to enqueue Foyer scripts outside of the Foyer plugin.
 	 *					Changed handle of script to {plugin_name}-admin.
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 */
 	static function enqueue_scripts() {
 
@@ -103,7 +103,7 @@ class Foyer_Admin {
 	 * Enqueues the stylesheets for the admin area.
 	 *
 	 * @since	1.0.0
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 */
 	static function enqueue_styles() {
 
@@ -113,7 +113,7 @@ class Foyer_Admin {
 	/**
 	 * Loads the required dependencies for the admin-facing side of the plugin.
 	 *
-	 * @since	1.4.0
+	 * @since	1.3.2
 	 * @access	private
 	 */
 	private static function load_dependencies() {

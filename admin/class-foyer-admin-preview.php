@@ -4,7 +4,7 @@
  * The preview functionality for Displays, Channels and Slides.
  *
  * @since		1.0.0
- * @since		1.4.0	Refactored class from object to static methods.
+ * @since		1.3.2	Refactored class from object to static methods.
  *
  * @package		Foyer
  * @subpackage	Foyer/admin
@@ -18,7 +18,7 @@ class Foyer_Admin_Preview {
 	 * @since	1.0.0
 	 * @since	1.2.5	Register scripts before they are enqueued.
 	 *					Makes it possible to enqueue foyer scripts outside of the foyer plugin.
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 *
 	 * return	void
 	 */
@@ -120,7 +120,7 @@ class Foyer_Admin_Preview {
 	 *
 	 * @since	1.0.0
 	 * @since	1.0.1	Improved validating & sanitizing of the user input.
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 *
 	 * @return	void
 	 */

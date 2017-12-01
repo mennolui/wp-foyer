@@ -10,7 +10,7 @@
  * version of the plugin.
  *
  * @since		1.0.0
- * @since		1.4.0	Refactored class from object to static methods.
+ * @since		1.3.2	Refactored class from object to static methods.
  *						Switched from using a central Foyer_Loader class to registering hooks directly
  *						on init of Foyer, Foyer_Admin and Foyer_Public.
  *
@@ -26,7 +26,7 @@ class Foyer {
 	 * Loads dependencies, defines the locale and registers all of the hooks related to the
 	 * general functionality of the plugin (not public/admin specific).
 	 *
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 */
 	static function init() {
 
@@ -50,7 +50,7 @@ class Foyer {
 	 * WordPress and to define internationalization functionality.
 	 *
 	 * @since	1.0.0
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 *					Now uses a named constant.
 	 *
 	 * @return	string	The name of the plugin.
@@ -63,7 +63,7 @@ class Foyer {
 	 * Retrieve the version number of the plugin.
 	 *
 	 * @since	1.0.0
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 * 					Now uses a named constant.
 	 *
 	 * @return	string	The version of the plugin.
@@ -82,7 +82,7 @@ class Foyer {
 	 * - Foyer_Public: Defines all functionality for the public side of the site and registers its hooks.
 	 *
 	 * @since	1.0.0
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 * @access	private
 	 */
 	private static function load_dependencies() {

@@ -4,7 +4,7 @@
  * The slide admin-specific functionality of the plugin.
  *
  * @since		1.0.0
- * @since		1.4.0	Refactored class from object to static methods.
+ * @since		1.3.2	Refactored class from object to static methods.
  *
  * @package		Foyer
  * @subpackage	Foyer/admin
@@ -16,7 +16,7 @@ class Foyer_Admin_Slide {
 	 * Adds a Slide Format column to the Slides admin table, just after the title column.
 	 *
 	 * @since	1.0.0
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 *
 	 * @param 	array	$columns	The current columns.
 	 * @return	array				The new columns.
@@ -40,7 +40,7 @@ class Foyer_Admin_Slide {
 	 *
 	 * @since	1.0.0
 	 * @since	1.3.1	Updated the slide_default_meta_box callback, after method was moved to Foyer_Admin_Slide_Format_Default.
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 */
 	static function add_slide_editor_meta_boxes() {
 		add_meta_box(
@@ -74,7 +74,7 @@ class Foyer_Admin_Slide {
 	 * Outputs the Slide Format column.
 	 *
 	 * @since	1.0.0
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 *
 	 * @param 	string	$column		The current column that needs output.
 	 * @param 	int 	$post_id 	The current display ID.
@@ -99,7 +99,7 @@ class Foyer_Admin_Slide {
 	 *							the image was already in the media library. Removed 'photo' default as it is no
 	 *							longer needed by our Javascript.
 	 * @since	1.3.1			Changed handle of script to {plugin_name}-admin.
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 *
 	 */
 	static function localize_scripts() {
@@ -115,7 +115,7 @@ class Foyer_Admin_Slide {
 	 * Removes the sample permalink from the Slide edit screen.
 	 *
 	 * @since	1.0.0
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 *
 	 * @param 	string	$sample_permalink
 	 * @return 	string
@@ -139,7 +139,7 @@ class Foyer_Admin_Slide {
 	 *
 	 * @since	1.0.0
 	 * @since	1.3.1	Updated the save_slide_default call, after method was moved to Foyer_Admin_Slide_Format_Default.
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 *
 	 * @param 	int		$post_id	The channel id.
 	 * @return void
@@ -192,7 +192,7 @@ class Foyer_Admin_Slide {
 	 *
 	 * @since	1.0.0
 	 * @since	1.0.1			Escaped and sanitized the output.
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 *
 	 * @param	WP_Post		$post	The post object of the current display.
 	 */

@@ -4,7 +4,7 @@
  * The channel admin-specific functionality of the plugin.
  *
  * @since		1.0.0
- * @since		1.4.0	Refactored class from object to static methods.
+ * @since		1.3.2	Refactored class from object to static methods.
  *
  * @package		Foyer
  * @subpackage	Foyer/admin
@@ -16,7 +16,7 @@ class Foyer_Admin_Channel {
 	 * Adds a Slide Count column to the Channels admin table, just after the title column.
 	 *
 	 * @since	1.0.0
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 *
 	 * @param 	array	$columns	The current columns.
 	 * @return	array				The new columns.
@@ -40,7 +40,7 @@ class Foyer_Admin_Channel {
 	 *
 	 * @since	1.0.0
 	 * @since	1.0.1	Validated & sanitized the user input.
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 *
 	 * @return void
 	 */
@@ -80,7 +80,7 @@ class Foyer_Admin_Channel {
 	 * Adds the slides editor meta box to the channel admin page.
 	 *
 	 * @since	1.0.0
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 */
 	static function add_slides_editor_meta_box() {
 		add_meta_box(
@@ -97,7 +97,7 @@ class Foyer_Admin_Channel {
 	 * Adds the settings meta box to the channel admin page.
 	 *
 	 * @since	1.0.0
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 */
 	static function add_slides_settings_meta_box() {
 		add_meta_box(
@@ -114,7 +114,7 @@ class Foyer_Admin_Channel {
 	 * Outputs the Slides Count column.
 	 *
 	 * @since	1.0.0
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 *
 	 * @param 	string	$column		The current column that needs output.
 	 * @param 	int 	$post_id 	The current display ID.
@@ -135,7 +135,7 @@ class Foyer_Admin_Channel {
 	 * @since	1.0.0
 	 * @since	1.0.1			Escaped and sanitized the output.
 	 * @since	1.1.0			Fix: List of slides was limited to 5 items.
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 *
 	 * @return	string	$html	The HTML to add a slide in the slides editor.
 	 */
@@ -183,7 +183,7 @@ class Foyer_Admin_Channel {
 	 *
 	 * @since	1.0.0
 	 * @since	1.0.1	Escaped the output.
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 *
 	 * @param	WP_Post	$post	The post object of the current display.
 	 * @return	string	$html	The HTML to set the slides duration in the slides settings meta box.
@@ -242,7 +242,7 @@ class Foyer_Admin_Channel {
 	 *
 	 * @since	1.0.0
 	 * @since	1.0.1	Escaped the output.
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 *
 	 * @param	WP_Post	$post	The post object of the current display.
 	 * @return	string	$html	The HTML to set the slides transition in the slides settings meta box.
@@ -301,7 +301,7 @@ class Foyer_Admin_Channel {
 	 *
 	 * @since	1.0.0
 	 * @since	1.2.4	Added longer slide durations, up to 120 seconds.
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 *
 	 * @return	array	The slides duration options.
 	 */
@@ -338,7 +338,7 @@ class Foyer_Admin_Channel {
 	 *
 	 * @since	1.0.0
 	 * @since	1.0.1	Escaped and sanitized the output.
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 *
 	 * @param	WP_Post	$post
 	 * @return	string	$html	The HTML that lists all slides in the slides editor.
@@ -400,7 +400,7 @@ class Foyer_Admin_Channel {
 	 *
 	 * @since	1.0.0
 	 * @since	1.2.4	Added a ‘No transition’ option.
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 *
 	 * @return	array	The slides transition options.
 	 */
@@ -429,7 +429,7 @@ class Foyer_Admin_Channel {
 	 * @since	1.0.0
 	 * @since	1.0.1	Escaped the output.
 	 * @since	1.2.6	Changed handle of script to {plugin_name}-admin.
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 */
 	static function localize_scripts() {
 
@@ -444,7 +444,7 @@ class Foyer_Admin_Channel {
 	 * Removes the sample permalink from the Channel edit screen.
 	 *
 	 * @since	1.0.0
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 *
 	 * @param 	string	$sample_permalink
 	 * @return 	string
@@ -467,7 +467,7 @@ class Foyer_Admin_Channel {
 	 * @since	1.0.0
 	 * @since	1.0.1	Validated & sanitized the user input.
 	 * @since	1.2.4	You can now remove the first slide (slide_key 0) of a channel. Fixes #1.
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 *
 	 * @return	void
 	 */
@@ -516,7 +516,7 @@ class Foyer_Admin_Channel {
 	 *
 	 * @since	1.0.0
 	 * @since	1.0.1	Validated & sanitized the user input.
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 *
 	 * @return void
 	 */
@@ -554,7 +554,7 @@ class Foyer_Admin_Channel {
 	 *
 	 * @since 	1.0.0
 	 * @since	1.0.1	Validated & sanitized the user input.
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 *
 	 * @param 	int		$post_id	The channel id.
 	 * @return void
@@ -615,7 +615,7 @@ class Foyer_Admin_Channel {
 	 *
 	 * @since	1.0.0
 	 * @since	1.0.1	Sanitized the output.
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 *
 	 * @param	WP_Post		$post	The post object of the current channel.
 	 */
@@ -645,7 +645,7 @@ class Foyer_Admin_Channel {
 	 * Outputs the content of the slides settings meta box.
 	 *
 	 * @since	1.0.0
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 *
 	 * @param	WP_Post		$post	The post object of the current channel.
 	 */

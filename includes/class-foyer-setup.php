@@ -4,7 +4,7 @@
  * The class that holds all general (not public/admin) setup functionality.
  *
  * @since		1.0.0
- * @since		1.4.0	Refactored class from object to static methods.
+ * @since		1.3.2	Refactored class from object to static methods.
  *
  * @package		Foyer
  * @subpackage	Foyer/includes
@@ -16,7 +16,7 @@ class Foyer_Setup {
 	 * Registers the custom post type for slides and channels.
 	 *
 	 * @since 	1.0.0
-	 * @since	1.4.0	Changed method to static.
+	 * @since	1.3.2	Changed method to static.
 	 *
 	 * @return void
 	 */
