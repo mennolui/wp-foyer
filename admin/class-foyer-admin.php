@@ -62,7 +62,8 @@ class Foyer_Admin {
 
 		/* Foyer_Admin_Slide_Format_PDF */
 		add_filter( 'wp_image_editors', array( 'Foyer_Admin_Slide_Format_PDF', 'add_foyer_imagick_image_editor' ) );
-		add_filter( 'delete_attachment', array( 'Foyer_Admin_Slide_Format_PDF', 'delete_pdf_images_for_attachment' ) );
+		add_action( 'delete_attachment', array( 'Foyer_Admin_Slide_Format_PDF', 'delete_pdf_images_for_attachment' ) );
+		add_action( 'admin_notices', array( 'Foyer_Admin_Slide_Format_PDF', 'display_admin_notice' ) );
 	}
 
 	/**

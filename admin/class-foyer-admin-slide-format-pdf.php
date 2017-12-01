@@ -87,6 +87,28 @@ class Foyer_Admin_Slide_Format_PDF {
 		}
 	}
 
+	static function display_admin_notice() {
+
+		$screen = get_current_screen();
+
+		// Bail if not on Slide edit screen.
+		if ( empty( $screen ) || Foyer_Slide::post_type_name != $screen->post_type ) {
+			return;
+		}
+		
+		if ( $error = get_transient( 'foyer_save_slide_pdf_notice_' . get_the_ID() . '_' . get_current_user_id() ) ) { ?>
+			<div class="notice notice-error">
+				<p><?php _e( 'Processing PDF pages failed.', 'foyer' ); ?></p>
+				<p>
+					<?php _e( 'Make sure you are on WordPress 4.7 or higher, and your webhosting has Imagick and Ghostscript installed.', 'foyer' ); ?><br />
+					<?php _e( 'Error message:', 'foyer' ); ?> <?php echo $error->get_error_message(); ?>
+				</p>
+			</div><?php
+			
+			delete_transient( 'foyer_save_slide_pdf_notice_' . get_the_ID() . '_' . get_current_user_id() );
+		}		
+	}
+
 	/**
 	 * Generates an image for each page in a PDF file.
 	 *
@@ -107,7 +129,7 @@ class Foyer_Admin_Slide_Format_PDF {
 
 		$file_extension = strtolower( pathinfo( $pdf_file, PATHINFO_EXTENSION ) );
 		if ( 'pdf' != $file_extension ) {
-			return new WP_Error( 'invalid_image', __( 'Not a PDF file.' ), $pdf_file );
+			return new WP_Error( 'invalid_image', __( 'Not a PDF file.', 'foyer' ), $pdf_file );
 		}
 
 		$png_files = array();
@@ -118,16 +140,19 @@ class Foyer_Admin_Slide_Format_PDF {
 			return $editor;
 		}
 
+		// Check if WordPress install has WP_Image_Editor_Imagick PDF setup support (WP 4.7 and up)
+		if ( ! method_exists( 'WP_Image_Editor_Imagick', 'pdf_setup' ) ) {
+			return new WP_Error( 
+				'wp_image_editor_imagick_pdf_setup', 
+				__( 'Your WordPress version lacks support for PDF processing.', 'foyer' ),
+				$editor
+			);			
+		}
+
 		// Get the number of pages in the PDF
 		$number_of_pages = $editor->pdf_get_number_of_pages();
 		if ( is_wp_error( $number_of_pages ) ) {
 			return $number_of_pages;
-		}
-
-		// Check if WordPress install has WP_Image_Editor_Imagick PDF support
-		if ( ! self::has_wp_image_editor_pdf_support() ) {
-			// WP < 4.7, call PDF setup ourselves to make it work
-			$editor->pdf_setup();
 		}
 
 		// Loop over all pages
@@ -246,6 +271,10 @@ class Foyer_Admin_Slide_Format_PDF {
 
 			$added = self::add_pdf_images_to_attachment( $slide_pdf_file );
 			if ( is_wp_error( $added ) ) {
+
+				// Store our error in a transient so it can be displayed to the user in the admin
+				set_transient( 'foyer_save_slide_pdf_notice_' . $post_id . '_' . get_current_user_id(), $added, 45 );
+
 				return $added;
 			}
 
