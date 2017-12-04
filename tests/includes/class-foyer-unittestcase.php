@@ -30,7 +30,7 @@ class Foyer_UnitTestCase extends WP_UnitTestCase {
 
 		/* Create display with a default channel */
 		$this->display1 = $this->factory->post->create( $display_args );
-		add_post_meta( $this->display1, Foyer_Channel::post_type_name, array( $this->channel1 ) );
+		add_post_meta( $this->display1, Foyer_Channel::post_type_name, $this->channel1 );
 
 	}
 

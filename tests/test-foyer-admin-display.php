@@ -78,4 +78,98 @@ class Test_Foyer_Admin_Display extends Foyer_UnitTestCase {
 		$actual = $actual[0]['start'];
 		$this->assertEquals( $schedule_start_timestamp, $actual );
 	}
+
+	function test_is_default_channel_column_empty_when_no_default_channel() {
+
+		$this->assume_role( 'administrator' );
+
+		/* Create display without a default channel */
+		$display_args = array(
+			'post_type' => Foyer_Display::post_type_name,
+		);
+
+		$display_id = $this->factory->post->create( $display_args );
+
+		ob_start();
+		Foyer_Admin_Display::do_channel_columns( 'default_channel', $display_id );
+		$actual = ob_get_clean();
+
+		$this->assertEquals( 'None', $actual );
+	}
+
+	function test_is_active_channel_column_empty_when_no_default_channel() {
+
+		$this->assume_role( 'administrator' );
+
+		/* Create display without a default channel */
+		$display_args = array(
+			'post_type' => Foyer_Display::post_type_name,
+		);
+
+		$display_id = $this->factory->post->create( $display_args );
+
+		ob_start();
+		Foyer_Admin_Display::do_channel_columns( 'active_channel', $display_id );
+		$actual = ob_get_clean();
+
+		$this->assertEquals( 'None', $actual );
+	}
+
+	function test_default_channel_column_contains_link_to_default_channel() {
+
+		$this->assume_role( 'administrator' );
+
+		$channel_title = 'Plain default channel';
+
+		/* Create channel */
+		$channel_args = array(
+			'post_type' => Foyer_Channel::post_type_name,
+			'post_title' => $channel_title,
+		);
+
+		$channel_id = $this->factory->post->create( $channel_args );
+
+		/* Create display with our channel as default */
+		$display_args = array(
+			'post_type' => Foyer_Display::post_type_name,
+		);
+
+		$display_id = $this->factory->post->create( $display_args );
+		add_post_meta( $display_id, Foyer_Channel::post_type_name, $channel_id );
+
+		ob_start();
+		Foyer_Admin_Display::do_channel_columns( 'default_channel', $display_id );
+		$actual = ob_get_clean();
+
+		$this->assertEquals( '<a href="' . esc_url( get_edit_post_link( $channel_id ) ) . '">' . $channel_title . '</a>', $actual );
+	}
+
+	function test_active_channel_column_contains_link_to_active_channel() {
+
+		$this->assume_role( 'administrator' );
+
+		$channel_title = 'Plain default channel';
+
+		/* Create channel */
+		$channel_args = array(
+			'post_type' => Foyer_Channel::post_type_name,
+			'post_title' => $channel_title,
+		);
+
+		$channel_id = $this->factory->post->create( $channel_args );
+
+		/* Create display with our channel as default */
+		$display_args = array(
+			'post_type' => Foyer_Display::post_type_name,
+		);
+
+		$display_id = $this->factory->post->create( $display_args );
+		add_post_meta( $display_id, Foyer_Channel::post_type_name, $channel_id );
+
+		ob_start();
+		Foyer_Admin_Display::do_channel_columns( 'active_channel', $display_id );
+		$actual = ob_get_clean();
+
+		$this->assertEquals( '<a href="' . esc_url( get_edit_post_link( $channel_id ) ) . '">' . $channel_title . '</a>', $actual );
+	}
 }

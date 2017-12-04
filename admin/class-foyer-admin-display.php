@@ -145,18 +145,27 @@ class Foyer_Admin_Display {
 	 * @since	1.0.0
 	 * @since	1.0.1	Escaped the output.
 	 * @since	1.3.2	Changed method to static.
+	 *					Used post_id param instead of get_the_id() to allow for testing.
+	 *					Outputs 'None' if no channel is set. Fixes #10.
 	 *
 	 * @param 	string	$column		The current column that needs output.
 	 * @param 	int 	$post_id 	The current display ID.
 	 * @return	void
 	 */
 	static function do_channel_columns( $column, $post_id ) {
+
 	    switch ( $column ) {
 
 		    case 'active_channel' :
 
-				$display = new Foyer_Display( get_the_id() );
-				$channel = new Foyer_Channel( $display->get_active_channel() );
+				$display = new Foyer_Display( $post_id );
+
+				if ( ! $active_channel_id = $display->get_active_channel() ) {
+					_e( 'None', 'foyer' );
+					break;
+				}
+
+				$channel = new Foyer_Channel( $active_channel_id );
 
 				?><a href="<?php echo esc_url( get_edit_post_link( $channel->ID ) ); ?>"><?php
 					echo esc_html( get_the_title( $channel->ID ) );
@@ -166,8 +175,14 @@ class Foyer_Admin_Display {
 
 		    case 'default_channel' :
 
-				$display = new Foyer_Display( get_the_id() );
-				$channel = new Foyer_Channel( $display->get_default_channel() );
+				$display = new Foyer_Display( $post_id );
+
+				if ( ! $default_channel_id = $display->get_default_channel() ) {
+					_e( 'None', 'foyer' );
+					break;
+				}
+
+				$channel = new Foyer_Channel( $default_channel_id );
 
 				?><a href="<?php echo esc_url( get_edit_post_link( $channel->ID ) ); ?>"><?php
 					echo esc_html( get_the_title( $channel->ID ) );
