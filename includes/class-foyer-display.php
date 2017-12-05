@@ -62,8 +62,9 @@ class Foyer_Display {
 	/**
 	 * Get the currently active channel for this display.
 	 *
-	 *
 	 * @since	1.0.0
+	 * @since	1.3.2	Only uses a schedule if the schedule's channel is set and published.
+	 *
 	 * @access	public
 	 * @return	Foyer_Channel	The currently active channel for this display.
 	 */
@@ -85,7 +86,7 @@ class Foyer_Display {
 				return $this->active_channel;
 			}
 
-			// Return the first scheduled channel that matches the current time.
+			// Return the first scheduled channel that matches the current time, has a channel set, and channel is published.
 			foreach ( $schedule as $scheduled_channel ) {
 
 				if ( $scheduled_channel['start'] > time() ) {
@@ -93,6 +94,15 @@ class Foyer_Display {
 				}
 
 				if ( $scheduled_channel['end'] < time() ) {
+					continue;
+				}
+
+				if ( empty( $scheduled_channel['channel'] ) ) {
+					continue;
+				}
+
+				// Only use channel with post status 'publish'
+				if ( 'publish' != get_post_status( $scheduled_channel['channel'] ) ) {
 					continue;
 				}
 
@@ -109,6 +119,8 @@ class Foyer_Display {
 	 * Get the default channel for this display.
 	 *
 	 * @since	1.0.0
+	 * @since	1.3.2	Only returns a channel if it is published.
+	 *
 	 * @access	public
 	 * @return	Foyer_Channel	The default channel for this display.
 	 */
@@ -118,7 +130,13 @@ class Foyer_Display {
 
 			$default_channel = get_post_meta( $this->ID, Foyer_Channel::post_type_name, true );
 
-			$this->default_channel = $default_channel;
+			// Only use channel with post status 'publish'
+			if ( 'publish' != get_post_status( $default_channel ) ) {
+				$this->default_channel = false;
+			}
+			else {
+				$this->default_channel = $default_channel;
+			}
 		}
 
 		return $this->default_channel;

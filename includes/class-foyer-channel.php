@@ -94,6 +94,8 @@ class Foyer_Channel {
 	 * Get slides for this channel.
 	 *
 	 * @since	1.0.0
+	 * @since	1.3.2	Only includes slides that are published.
+	 *
 	 * @access	public
 	 * @return	array of Foyer_Slide	The slides for this channel.
 	 */
@@ -105,8 +107,14 @@ class Foyer_Channel {
 
 			$posts = get_post_meta( $this->ID, Foyer_Slide::post_type_name, true );
 
-			if (!empty($posts)) {
+			if ( ! empty( $posts ) ) {
 				foreach ( $posts as $post ) {
+
+					// Only include slides with post status 'publish'
+					if ( 'publish' != get_post_status( $post ) ) {
+						continue;
+					}
+
 					$slide = new Foyer_Slide( $post );
 					$slides[] = $slide;
 				}
