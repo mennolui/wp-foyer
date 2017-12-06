@@ -36,13 +36,21 @@ Foyer comes with build in support for the [Theater for WordPress plugin](https:/
 More features and slide formats are coming soon.
 
 = Feature suggestions wanted! =
-Since this plugin is brand new, I'm curious..
+Since this plugin is quite new, I'm curious..
 
 * how do you plan to use it?
 * in what environment (theater foyer, school canteen, hotel lobby, private office, shop window, ..)?
 * what features are you looking for and are currently missing?
 
 [Send me an email](mailto:menno@mennoluitjes.nl) to let me know!
+
+== Donations ==
+
+Donations are very welcome and help me dedicate more time to developing this plugin.
+
+* Send some Bitcoin to 1LWZ4RRjpA34GqS5dVAw1fbrFweW97WZVG or..
+* Send ETH (or tokens) to 0xfd8ab9b18960ffc72ad2ef110c50afd2985cca7d or..
+* [Donate through PayPal](https://www.paypal.me/mennoluitjes).
 
 == Installation ==
 
