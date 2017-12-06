@@ -85,8 +85,11 @@ You choose! Install your digital sign the way you prefer. Foyer will follow. Sli
 = Can I change the looks of slides? =
 Yes, this is possible if you know how to write CSS. Just include some CSS in the theme of your website that targets the slide HTML. If you don't have access to the theme you can use a custom CSS plugin to add some CSS.
 
-= Can I change the template of a slide format? Can I add my own slide formats? =
-Yes, this is possible if you know how to write WordPress templates. Documentation for developers is coming soon.
+= Can I change the template of a slide format? =
+Yes, this is possible if you know how to write WordPress templates. Create a foyer/slides/ directory in your theme. Next locate the template of the slide format you want to change in the public/templates/slides/ directory in the Foyer plugin directory. Copy the template file to your foyer/slides/ directory, without changing the filename. You should find the template in your theme now overrules the template included with the plugin. Note that this plugin is still in its early stages of development. You might have to copy the latest version of the template file and reapply your changes when major changes to the plugin are released.
+
+= Can I add my own slide formats? =
+Yes, this is possible if you know how to write WordPress templates, and how to register PHP functions to WordPress plugin hooks. Have a look at how the plugin adds slide formats itself, in includes/class-foyer.php. More documentation for developers is coming soon.
 
 = My changes are not directly visible on my displays, what's happening? =
 Changes to displays, channels and slides are never instantly visible on your digital signs. Each digital sign tries to contact your website every 5 minutes to see if you made any changes. If so and you changed the channel for a display, the new channel will be shown right after the slide that is currently being displayed. For any other changes, like adding slides, the new slides will be shown right after a full cycle of the slides that are currently being displayed.
