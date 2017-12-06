@@ -37,6 +37,6 @@ Since this plugin is quite new, I'm curious..
 
 Donations are very welcome and help me dedicate more time to developing this plugin.
 
-* Send some BTC to 1LWZ4RRjpA34GqS5dVAw1fbrFweW97WZVG or..
-* Send ETH (or ERC20 tokens) to 0xfd8ab9b18960ffc72ad2ef110c50afd2985cca7d or..
+* Send some Bitcoin to 1LWZ4RRjpA34GqS5dVAw1fbrFweW97WZVG or..
+* Send ETH (or tokens) to 0xfd8ab9b18960ffc72ad2ef110c50afd2985cca7d or..
 * [Donate through PayPal](https://www.paypal.me/mennoluitjes).
