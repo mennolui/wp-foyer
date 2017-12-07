@@ -80,8 +80,8 @@ class Foyer_Admin_Preview {
 	static function get_orientations() {
 
 		$orientations = array(
-			'16-9' => __('landscape', 'foyer'),
-			'9-16' => __('portrait', 'foyer'),
+			'16-9' => __( 'Landscape', 'foyer' ),
+			'9-16' => __( 'Portrait', 'foyer' ),
 		);
 
 		return $orientations;
