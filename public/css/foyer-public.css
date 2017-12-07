@@ -234,6 +234,7 @@ html {
 .foyer-slide.foyer-slide-iframe iframe {
   width: 100%;
   height: 100%;
+  border: none;
 }
 .foyer-slide.foyer-slide-pdf figure img {
   -o-object-fit: contain;
