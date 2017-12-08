@@ -115,12 +115,18 @@ Enhancements:
 
 * Made the PDF slide format processing work for WordPress < 4.7 (1.3.1).
 * Added notifications to the PDF slide format admin screen, displayed when PDF processing is not supported (no Imagick/Ghostscript installed), and when PDF file previews won’t work (WordPress < 4.7) (1.3.1).
+* Removed the PDF slide format admin screen notifications added in 1.3.1, below the Upload PDF File button, as they proved to be unreliable. Instead added an admin notification, displayed only when PDF processing actually fails after saving a PDF slide (1.3.2).
+* Displays now only use channels that are published, and channels now only use slides that are published (so no draft or private or trashed slides) (1.3.2).
+* The Channel columns in the Display admin table now contain 'None' if no channel is set (1.3.2).
+* Major internal changes that no one should notice: Refactored all non-object classes to use static methods, and switched from using a central Foyer_Loader class to registering actions and filters directly from Foyer, Foyer_Admin and Foyer_Public classes (1.3.2).
 
 Bug fixes:
 
 * Fixed an issue where the uploaded image on an event slide was never displayed (1.3.1).
 * Fixed an issue introduced in 1.2.6 where the scheduled channel date time pickers no longer worked (1.3.1).
 * Fixed an issue introduced in 1.2.6 where the media library lightbox texts were no longer set (1.3.1).
+* Fixed an issue where the 'External web page' slide format displayed a border around the web page, depending on the theme and browser used (1.3.2).
+* Fixed an issue where the Landscape / Portrait buttons were not styled correctly, depending on the theme used (1.3.2).
 
 = 1.2 =
 Release Date: April 12, 2017
@@ -174,6 +180,9 @@ Bug fixes:
 
 
 == Upgrade Notice ==
+
+= 1.3.2 =
+Fixes some issues and brings some minor enhancements. Check the changelog for all details.
 
 = 1.3.1 =
 Fixes an issue introduced in 1.2.6 where the scheduled channel date time pickers no longer worked. Fixes an issue introduced in 1.2.6 where the media library lightbox texts were no longer set. Fixes an issue where the uploaded image on an event slide was never displayed. Made the PDF slide format processing work for WordPress < 4.7. Added notifications to the PDF slide format admin screen, displayed when PDF processing is not supported (no Imagick/Ghostscript installed), and when PDF file previews won’t work (WordPress < 4.7).
