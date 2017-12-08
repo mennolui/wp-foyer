@@ -54,8 +54,8 @@ class Test_Foyer_Admin_Display extends Foyer_UnitTestCase {
 		$this->assume_role( 'administrator' );
 
 		$scheduled_channel = $this->channel1;
-		$schedule_start = date_i18n( 'Y-m-d H:i', strtotime( '-10 minutes' ) );
-		$schedule_end = date_i18n( 'Y-m-d H:i', strtotime( '+10 minutes' ) );
+		$schedule_start = date( 'Y-m-d H:i', strtotime( '-10 minutes' ) );
+		$schedule_end = date( 'Y-m-d H:i', strtotime( '+10 minutes' ) );
 		$schedule_start_timestamp = strtotime( $schedule_start );
 		$schedule_end_timestamp = strtotime( $schedule_end );
 
