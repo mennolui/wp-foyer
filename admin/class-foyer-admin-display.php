@@ -334,7 +334,7 @@ class Foyer_Admin_Display {
 					</label>
 				</th>
 				<td>
-					<input type="text" id="foyer_channel_editor_scheduled_channel_start" name="foyer_channel_editor_scheduled_channel_start" value="<?php if ( ! empty( $scheduled_channel['start'] ) ) { echo esc_html( date_i18n( $channel_scheduler_defaults['datetime_format'], $scheduled_channel['start'] + get_option( 'gmt_offset' ) * 3600, true ) ); } ?>" />
+					<input type="text" id="foyer_channel_editor_scheduled_channel_start" name="foyer_channel_editor_scheduled_channel_start" value="<?php if ( ! empty( $scheduled_channel['start'] ) ) { echo esc_html( date_i18n( $channel_scheduler_defaults['datetime_format'], $scheduled_channel['start'] + get_option( 'gmt_offset' ) * HOUR_IN_SECONDS, true ) ); } ?>" />
 				</td>
 			</tr>
 			<tr>
@@ -344,7 +344,7 @@ class Foyer_Admin_Display {
 					</label>
 				</th>
 				<td>
-					<input type="text" id="foyer_channel_editor_scheduled_channel_end" name="foyer_channel_editor_scheduled_channel_end" value="<?php if ( ! empty( $scheduled_channel['end'] ) ) { echo esc_html( date_i18n( $channel_scheduler_defaults['datetime_format'], $scheduled_channel['end'] + get_option( 'gmt_offset' ) * 3600, true ) ); } ?>" />
+					<input type="text" id="foyer_channel_editor_scheduled_channel_end" name="foyer_channel_editor_scheduled_channel_end" value="<?php if ( ! empty( $scheduled_channel['end'] ) ) { echo esc_html( date_i18n( $channel_scheduler_defaults['datetime_format'], $scheduled_channel['end'] + get_option( 'gmt_offset' ) * HOUR_IN_SECONDS, true ) ); } ?>" />
 				</td>
 			</tr>
 		<?php
@@ -472,8 +472,8 @@ class Foyer_Admin_Display {
 		 * Makes sure end time never equals or is before the start time.
 		 */
 
-		$start = strtotime( $foyer_channel_editor_scheduled_channel_start ) - get_option( 'gmt_offset' ) * 3600;
-		$end = strtotime( $foyer_channel_editor_scheduled_channel_end ) - get_option( 'gmt_offset' ) * 3600;
+		$start = strtotime( $foyer_channel_editor_scheduled_channel_start ) - get_option( 'gmt_offset' ) * HOUR_IN_SECONDS;
+		$end = strtotime( $foyer_channel_editor_scheduled_channel_end ) - get_option( 'gmt_offset' ) * HOUR_IN_SECONDS;
 
 		if ( $end <= $start ) {
 			// End time is invalid, set based on start time and default duration

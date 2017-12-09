@@ -1,6 +1,9 @@
 .foyer_slides_editor_slides {
   margin-bottom: 2em;
 }
+.foyer_slides_editor_slides > div {
+  display: inline-block;
+}
 .foyer_slides_editor_slides .foyer_slides_editor_slides_slide {
   display: inline-block;
   margin: 1em;
@@ -28,12 +31,6 @@
 .foyer_slides_editor_add {
   border-top: 1px solid #eee;
 }
-.foyer_slides_editor_slides > div {
-  display: inline-block;
-}
-.foyer_slides_editor_slides .foyer_slides_editor_slides_slide_caption {
-  text-align: center;
-}
 div[id^=foyer_slide_format_] {
   display: none;
 }
@@ -48,7 +45,8 @@ div[id^=foyer_slide_format_] {
   display: inline;
 }
 .xdsoft_datetimepicker {
-  box-shadow: 0 5px 15px -5px rgba(0, 0, 0, 0.506);
+  -webkit-box-shadow: 0 5px 15px -5px rgba(0, 0, 0, 0.506);
+          box-shadow: 0 5px 15px -5px rgba(0, 0, 0, 0.506);
   background: #fff;
   border-bottom: 1px solid #bbb;
   border-left: 1px solid #ccc;
@@ -61,7 +59,8 @@ div[id^=foyer_slide_format_] {
   padding-top: 2px;
   position: absolute;
   z-index: 9999;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   display: none;
 }
 .xdsoft_datetimepicker.xdsoft_rtl {
@@ -100,10 +99,12 @@ div[id^=foyer_slide_format_] {
 .xdsoft_datetimepicker.xdsoft_inline {
   display: inline-block;
   position: static;
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 .xdsoft_datetimepicker * {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   padding: 0;
   margin: 0;
 }
@@ -290,7 +291,8 @@ div[id^=foyer_slide_format_] {
 }
 .xdsoft_datetimepicker .xdsoft_label > .xdsoft_select > div > .xdsoft_option.xdsoft_current {
   background: #33aaff;
-  box-shadow: #178fe5 0 1px 3px 0 inset;
+  -webkit-box-shadow: #178fe5 0 1px 3px 0 inset;
+          box-shadow: #178fe5 0 1px 3px 0 inset;
   color: #fff;
   font-weight: 700;
 }
@@ -341,19 +343,22 @@ div[id^=foyer_slide_format_] {
 }
 .xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_highlighted_default {
   background: #ffe9d2;
-  box-shadow: #ffb871 0 1px 4px 0 inset;
+  -webkit-box-shadow: #ffb871 0 1px 4px 0 inset;
+          box-shadow: #ffb871 0 1px 4px 0 inset;
   color: #000;
 }
 .xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_highlighted_mint {
   background: #c1ffc9;
-  box-shadow: #00dd1c 0 1px 4px 0 inset;
+  -webkit-box-shadow: #00dd1c 0 1px 4px 0 inset;
+          box-shadow: #00dd1c 0 1px 4px 0 inset;
   color: #000;
 }
 .xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_default,
 .xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_current,
 .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box > div > div.xdsoft_current {
   background: #33aaff;
-  box-shadow: #178fe5 0 1px 3px 0 inset;
+  -webkit-box-shadow: #178fe5 0 1px 3px 0 inset;
+          box-shadow: #178fe5 0 1px 3px 0 inset;
   color: #fff;
   font-weight: 700;
 }
@@ -372,19 +377,22 @@ div[id^=foyer_slide_format_] {
 .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box > div > div:hover {
   color: #fff !important;
   background: #ff8000 !important;
-  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
 }
 .xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_current.xdsoft_disabled:hover,
 .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box > div > div.xdsoft_current.xdsoft_disabled:hover {
   background: #33aaff !important;
-  box-shadow: #178fe5 0 1px 3px 0 inset !important;
+  -webkit-box-shadow: #178fe5 0 1px 3px 0 inset !important;
+          box-shadow: #178fe5 0 1px 3px 0 inset !important;
   color: #fff !important;
 }
 .xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_disabled:hover,
 .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box > div > div.xdsoft_disabled:hover {
   color: inherit	!important;
   background: inherit !important;
-  box-shadow: inherit !important;
+  -webkit-box-shadow: inherit !important;
+          box-shadow: inherit !important;
 }
 .xdsoft_datetimepicker .xdsoft_calendar th {
   font-weight: 700;
@@ -430,7 +438,8 @@ div[id^=foyer_slide_format_] {
   position: relative;
 }
 .xdsoft_datetimepicker.xdsoft_dark {
-  box-shadow: 0 5px 15px -5px rgba(255, 255, 255, 0.506);
+  -webkit-box-shadow: 0 5px 15px -5px rgba(255, 255, 255, 0.506);
+          box-shadow: 0 5px 15px -5px rgba(255, 255, 255, 0.506);
   background: #000;
   border-bottom: 1px solid #444;
   border-left: 1px solid #333;
@@ -459,7 +468,8 @@ div[id^=foyer_slide_format_] {
 }
 .xdsoft_datetimepicker.xdsoft_dark .xdsoft_label > .xdsoft_select > div > .xdsoft_option.xdsoft_current {
   background: #cc5500;
-  box-shadow: #b03e00 0 1px 3px 0 inset;
+  -webkit-box-shadow: #b03e00 0 1px 3px 0 inset;
+          box-shadow: #b03e00 0 1px 3px 0 inset;
   color: #000;
 }
 .xdsoft_datetimepicker.xdsoft_dark .xdsoft_label i,
@@ -482,19 +492,22 @@ div[id^=foyer_slide_format_] {
 }
 .xdsoft_datetimepicker.xdsoft_dark .xdsoft_calendar td.xdsoft_highlighted_default {
   background: #ffe9d2;
-  box-shadow: #ffb871 0 1px 4px 0 inset;
+  -webkit-box-shadow: #ffb871 0 1px 4px 0 inset;
+          box-shadow: #ffb871 0 1px 4px 0 inset;
   color: #000;
 }
 .xdsoft_datetimepicker.xdsoft_dark .xdsoft_calendar td.xdsoft_highlighted_mint {
   background: #c1ffc9;
-  box-shadow: #00dd1c 0 1px 4px 0 inset;
+  -webkit-box-shadow: #00dd1c 0 1px 4px 0 inset;
+          box-shadow: #00dd1c 0 1px 4px 0 inset;
   color: #000;
 }
 .xdsoft_datetimepicker.xdsoft_dark .xdsoft_calendar td.xdsoft_default,
 .xdsoft_datetimepicker.xdsoft_dark .xdsoft_calendar td.xdsoft_current,
 .xdsoft_datetimepicker.xdsoft_dark .xdsoft_timepicker .xdsoft_time_box > div > div.xdsoft_current {
   background: #cc5500;
-  box-shadow: #b03e00 0 1px 3px 0 inset;
+  -webkit-box-shadow: #b03e00 0 1px 3px 0 inset;
+          box-shadow: #b03e00 0 1px 3px 0 inset;
   color: #000;
 }
 .xdsoft_datetimepicker.xdsoft_dark .xdsoft_calendar td:hover,
@@ -538,12 +551,11 @@ div[id^=foyer_slide_format_] {
   padding: 4px 17px 4px 33px;
   border: 1px solid #d7d8da;
   /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fff), color-stop(73%, #f4f8fa));
   /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #fff 0%, #f4f8fa 73%);
   /* Chrome10+,Safari5.1+ */
   /* Opera 11.10+ */
   /* IE10+ */
+  background: -webkit-gradient(linear, left top, left bottom, from(#fff), color-stop(73%, #f4f8fa));
   background: linear-gradient(to bottom, #fff 0%, #f4f8fa 73%);
   /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff', endColorstr='#f4f8fa', GradientType=0);
@@ -555,12 +567,11 @@ div[id^=foyer_slide_format_] {
 .xdsoft_datetimepicker .blue-gradient-button:focus span {
   color: #454551;
   /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f4f8fa), color-stop(73%, #FFF));
   /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #f4f8fa 0%, #FFF 73%);
   /* Chrome10+,Safari5.1+ */
   /* Opera 11.10+ */
   /* IE10+ */
+  background: -webkit-gradient(linear, left top, left bottom, from(#f4f8fa), color-stop(73%, #FFF));
   background: linear-gradient(to bottom, #f4f8fa 0%, #FFF 73%);
   /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f4f8fa', endColorstr='#FFF', GradientType=0);

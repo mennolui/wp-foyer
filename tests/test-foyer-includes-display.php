@@ -27,7 +27,6 @@ class Test_Foyer_Display extends Foyer_UnitTestCase {
 			'start' => 	strtotime( '-1 day' ),
 			'end' => strtotime( '+1 day' ),
 		);
-
 		add_post_meta( $display_id, 'foyer_display_schedule', $schedule, false );
 
 		$display = new Foyer_Display( $display_id );
@@ -67,7 +66,6 @@ class Test_Foyer_Display extends Foyer_UnitTestCase {
 			'start' => 	strtotime( '-1 day' ),
 			'end' => strtotime( '+1 day' ),
 		);
-
 		add_post_meta( $display_id, 'foyer_display_schedule', $schedule, false );
 
 		$display = new Foyer_Display( $display_id );
@@ -100,7 +98,6 @@ class Test_Foyer_Display extends Foyer_UnitTestCase {
 			'start' => 	strtotime( '-1 day' ),
 			'end' => strtotime( '+1 day' ),
 		);
-
 		add_post_meta( $display_id, 'foyer_display_schedule', $schedule, false );
 
 		$display = new Foyer_Display( $display_id );
@@ -157,5 +154,169 @@ class Test_Foyer_Display extends Foyer_UnitTestCase {
 		$actual = $display->get_active_channel();
 
 		$this->assertEquals( $channel_id, $actual );
+	}
+
+	function test_is_scheduled_channel_used_when_schedule_is_now() {
+
+		$this->assume_role( 'administrator' );
+
+		/* Create channels */
+		$channel_args = array(
+			'post_type' => Foyer_Channel::post_type_name,
+		);
+
+		$channel_1_id = $this->factory->post->create( $channel_args );
+		$channel_2_id = $this->factory->post->create( $channel_args );
+
+		/* Create display */
+		$display_args = array(
+			'post_type' => Foyer_Display::post_type_name,
+		);
+
+		$display_id = $this->factory->post->create( $display_args );
+
+		$default_channel = $channel_1_id;
+		$scheduled_channel = $channel_2_id;
+		$schedule_start = date( 'Y-m-d H:i', strtotime( '-10 minutes' ) ); // Convert to UTC
+		$schedule_end = date( 'Y-m-d H:i', strtotime( '+10 minutes' ) ); // Convert to UTC
+
+		$_POST[ Foyer_Display::post_type_name.'_nonce' ] = wp_create_nonce( Foyer_Display::post_type_name );
+		$_POST['foyer_channel_editor_' . Foyer_Display::post_type_name] = $display_id;
+		$_POST['foyer_channel_editor_default_channel'] = $default_channel;
+		$_POST['foyer_channel_editor_scheduled_channel'] = $scheduled_channel;
+		$_POST['foyer_channel_editor_scheduled_channel_start'] = $schedule_start;
+		$_POST['foyer_channel_editor_scheduled_channel_end'] = $schedule_end;
+
+		Foyer_Admin_Display::save_display( $display_id );
+
+		$display = new Foyer_Display( $display_id );
+
+		$actual = $display->get_active_channel();
+
+		$this->assertEquals( $scheduled_channel, $actual );
+	}
+
+	function test_is_default_channel_used_when_schedule_is_not_now() {
+
+		$this->assume_role( 'administrator' );
+
+		/* Create channels */
+		$channel_args = array(
+			'post_type' => Foyer_Channel::post_type_name,
+		);
+
+		$channel_1_id = $this->factory->post->create( $channel_args );
+		$channel_2_id = $this->factory->post->create( $channel_args );
+
+		/* Create display */
+		$display_args = array(
+			'post_type' => Foyer_Display::post_type_name,
+		);
+
+		$display_id = $this->factory->post->create( $display_args );
+
+		$default_channel = $channel_1_id;
+		$scheduled_channel = $channel_2_id;
+		$schedule_start = date( 'Y-m-d H:i', strtotime( '+10 minutes' ) ); // Convert to UTC
+		$schedule_end = date( 'Y-m-d H:i', strtotime( '+20 minutes' ) ); // Convert to UTC
+
+		$_POST[ Foyer_Display::post_type_name.'_nonce' ] = wp_create_nonce( Foyer_Display::post_type_name );
+		$_POST['foyer_channel_editor_' . Foyer_Display::post_type_name] = $display_id;
+		$_POST['foyer_channel_editor_default_channel'] = $default_channel;
+		$_POST['foyer_channel_editor_scheduled_channel'] = $scheduled_channel;
+		$_POST['foyer_channel_editor_scheduled_channel_start'] = $schedule_start;
+		$_POST['foyer_channel_editor_scheduled_channel_end'] = $schedule_end;
+
+		Foyer_Admin_Display::save_display( $display_id );
+
+		$display = new Foyer_Display( $display_id );
+
+		$actual = $display->get_active_channel();
+
+		$this->assertEquals( $default_channel, $actual );
+	}
+
+	function test_is_scheduled_channel_used_when_schedule_is_now_and_timezone_set() {
+		$timezone_offset = 5;
+		update_option( 'gmt_offset', $timezone_offset );
+
+		$this->assume_role( 'administrator' );
+
+		/* Create channels */
+		$channel_args = array(
+			'post_type' => Foyer_Channel::post_type_name,
+		);
+
+		$channel_1_id = $this->factory->post->create( $channel_args );
+		$channel_2_id = $this->factory->post->create( $channel_args );
+
+		/* Create display */
+		$display_args = array(
+			'post_type' => Foyer_Display::post_type_name,
+		);
+
+		$display_id = $this->factory->post->create( $display_args );
+
+		$default_channel = $channel_1_id;
+		$scheduled_channel = $channel_2_id;
+		$schedule_start = date( 'Y-m-d H:i', strtotime( '-10 minutes' ) + $timezone_offset * HOUR_IN_SECONDS ); // Convert to UTC
+		$schedule_end = date( 'Y-m-d H:i', strtotime( '+10 minutes' ) + $timezone_offset * HOUR_IN_SECONDS ); // Convert to UTC
+
+		$_POST[ Foyer_Display::post_type_name.'_nonce' ] = wp_create_nonce( Foyer_Display::post_type_name );
+		$_POST['foyer_channel_editor_' . Foyer_Display::post_type_name] = $display_id;
+		$_POST['foyer_channel_editor_default_channel'] = $default_channel;
+		$_POST['foyer_channel_editor_scheduled_channel'] = $scheduled_channel;
+		$_POST['foyer_channel_editor_scheduled_channel_start'] = $schedule_start;
+		$_POST['foyer_channel_editor_scheduled_channel_end'] = $schedule_end;
+
+		Foyer_Admin_Display::save_display( $display_id );
+
+		$display = new Foyer_Display( $display_id );
+
+		$actual = $display->get_active_channel();
+
+		$this->assertEquals( $scheduled_channel, $actual );
+	}
+
+	function test_is_default_channel_used_when_schedule_is_not_now_and_timezone_set() {
+		$timezone_offset = 5;
+		update_option( 'gmt_offset', $timezone_offset );
+
+		$this->assume_role( 'administrator' );
+
+		/* Create channels */
+		$channel_args = array(
+			'post_type' => Foyer_Channel::post_type_name,
+		);
+
+		$channel_1_id = $this->factory->post->create( $channel_args );
+		$channel_2_id = $this->factory->post->create( $channel_args );
+
+		/* Create display */
+		$display_args = array(
+			'post_type' => Foyer_Display::post_type_name,
+		);
+
+		$display_id = $this->factory->post->create( $display_args );
+
+		$default_channel = $channel_1_id;
+		$scheduled_channel = $channel_2_id;
+		$schedule_start = date( 'Y-m-d H:i', strtotime( '+10 minutes' ) + $timezone_offset * HOUR_IN_SECONDS ); // Convert to UTC
+		$schedule_end = date( 'Y-m-d H:i', strtotime( '+20 minutes' ) + $timezone_offset * HOUR_IN_SECONDS ); // Convert to UTC
+
+		$_POST[ Foyer_Display::post_type_name.'_nonce' ] = wp_create_nonce( Foyer_Display::post_type_name );
+		$_POST['foyer_channel_editor_' . Foyer_Display::post_type_name] = $display_id;
+		$_POST['foyer_channel_editor_default_channel'] = $default_channel;
+		$_POST['foyer_channel_editor_scheduled_channel'] = $scheduled_channel;
+		$_POST['foyer_channel_editor_scheduled_channel_start'] = $schedule_start;
+		$_POST['foyer_channel_editor_scheduled_channel_end'] = $schedule_end;
+
+		Foyer_Admin_Display::save_display( $display_id );
+
+		$display = new Foyer_Display( $display_id );
+
+		$actual = $display->get_active_channel();
+
+		$this->assertEquals( $default_channel, $actual );
 	}
 }

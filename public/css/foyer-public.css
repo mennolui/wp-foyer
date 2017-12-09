@@ -47,6 +47,7 @@ body.single-foyer_slide.admin-bar {
 }
 .foyer-preview-actions {
   position: fixed;
+  z-index: 999;
   bottom: 0;
   height: 45px;
   border-top: 1px solid #ddd;
@@ -61,7 +62,8 @@ body.single-foyer_slide.admin-bar {
   -moz-osx-font-smoothing: auto;
   text-align: center;
 }
-.foyer-preview-actions button {
+.foyer-preview-actions div {
+  display: inline-block;
   cursor: pointer;
   border: none;
   height: 44px;
@@ -76,18 +78,18 @@ body.single-foyer_slide.admin-bar {
   color: #656a6f;
   outline: none;
 }
-.foyer-preview-actions button:hover {
+.foyer-preview-actions div:hover {
   background-color: #fff;
   color: #0073aa;
 }
-.foyer-preview-actions button:hover.active {
+.foyer-preview-actions div:hover.active {
   border-color: #0073aa;
 }
-.foyer-preview-actions button.active {
+.foyer-preview-actions div.active {
   border-color: #191e23;
   color: #191e23;
 }
-.foyer-preview-actions button.active:hover {
+.foyer-preview-actions div.active:hover {
   color: #0073aa;
   border-color: #0073aa;
 }
@@ -232,6 +234,7 @@ html {
 .foyer-slide.foyer-slide-iframe iframe {
   width: 100%;
   height: 100%;
+  border: none;
 }
 .foyer-slide.foyer-slide-pdf figure img {
   -o-object-fit: contain;

@@ -21,9 +21,9 @@
 		?><iframe src="<?php echo esc_url( $preview_url ); ?>" class="foyer-preview foyer-preview-<?php echo esc_attr( $orientation_choice ) ?>"></iframe>
 		<div class="foyer-preview-actions"><?php
 			foreach ( $orientations as $orientation_key => $orientation_name ) {
-				?><button value="orientation-<?php echo esc_attr( $orientation_key ); ?>"<?php if ( $orientation_key == $orientation_choice ) { ?> class="active"<?php } ?> data-orientation="<?php echo esc_attr( $orientation_key ); ?>"><?php
+				?><div class="foyer-orientation-button<?php if ( $orientation_key == $orientation_choice ) { ?> active<?php } ?>" data-orientation="<?php echo esc_attr( $orientation_key ); ?>"><?php
 					echo esc_html( $orientation_name );
-				?></button><?php
+				?></div><?php
 			}
 		?></div><?php
 		wp_footer();

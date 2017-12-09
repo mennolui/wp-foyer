@@ -46,10 +46,11 @@ body.single-foyer_slide {
 
 .foyer-preview-actions {
 	position: fixed;
+	z-index: 999; // Above Twenty Sixteen border
     bottom: 0;
     height: 45px;
     border-top: 1px solid #ddd;
-    background: #eee;	
+    background: #eee;
 	width: 100%;
 	color: #ccc;
 	font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
@@ -58,7 +59,8 @@ body.single-foyer_slide {
     line-height: 32px;
     -webkit-font-smoothing:subpixel-antialiased;-moz-osx-font-smoothing:auto;
     text-align: center;
-	button {
+	div {
+		display: inline-block;
 		cursor: pointer;
 	    border: none;
 	    height: 44px;
@@ -84,7 +86,7 @@ body.single-foyer_slide {
 			&:hover {
 				color: #0073aa;
 				border-color: #0073aa;
-				
+
 			}
 		}
 	}

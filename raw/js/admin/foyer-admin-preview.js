@@ -17,7 +17,7 @@
 	 */
 	function setup_preview_actions() {
 
-		var $preview_actions = $('.foyer-preview-actions button');
+		var $preview_actions = $('.foyer-preview-actions .foyer-orientation-button');
 		var $preview = $('.foyer-preview');
 
 		$preview_actions.on( 'click', function() {
