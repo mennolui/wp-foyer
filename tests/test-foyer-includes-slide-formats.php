@@ -36,4 +36,23 @@ class Test_Foyer_Slide_Formats extends Foyer_UnitTestCase {
 		$slide_format = Foyer_Slides::get_slide_format_by_slug( 'iframe' );
 		$this->assertNotEmpty( $slide_format );
 	}
+
+	function test_is_default_slide_format_registered() {
+		$slide_format = Foyer_Slides::get_slide_format_by_slug( 'default' );
+		$this->assertNotEmpty( $slide_format );
+	}
+
+	function test_are_backgrounds_for_default_slide_format_registered() {
+		$expected = array( 'default', 'image' );
+		$actual = array_keys( Foyer_Slides::get_slide_format_backgrounds_by_slug( 'default' ) );
+
+		$this->assertEquals( $expected, $actual );
+	}
+
+	function test_are_backgrounds_for_production_slide_format_registered() {
+		$expected = array( 'default', 'image' );
+		$actual = array_keys( Foyer_Slides::get_slide_format_backgrounds_by_slug( 'default' ) );
+
+		$this->assertEquals( $expected, $actual );
+	}
 }

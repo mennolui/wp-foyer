@@ -30,7 +30,7 @@ class Foyer_Slide_Formats {
 		 * @since	1.4.0
 		 * @param	array	$slide_format_backgrounds	The currently available slide backgrounds for this slide format.
 		 */
-		$slide_format_backgrounds = apply_filters( 'foyer/slides/format_default/backgrounds', $slide_format_backgrounds );
+		$slide_format_backgrounds = apply_filters( 'foyer/slides/backgrounds/format=default', $slide_format_backgrounds );
 
 		$slide_formats['default'] = array(
 			'title' => _x( 'Default', 'slide-format', 'foyer' ),
@@ -100,7 +100,7 @@ class Foyer_Slide_Formats {
 			 * @since	1.4.0
 			 * @param	array	$slide_format_backgrounds	The currently available slide backgrounds for this slide format.
 			 */
-			$slide_format_backgrounds = apply_filters( 'foyer/slides/format_default/backgrounds', $slide_format_backgrounds );
+			$slide_format_backgrounds = apply_filters( 'foyer/slides/backgrounds/format=production', $slide_format_backgrounds );
 
 			$slide_formats['production'] = array(
 				'title' => _x( 'Event', 'slide-format', 'foyer' ),
