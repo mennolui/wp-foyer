@@ -2,6 +2,13 @@
 
 class Test_Foyer_Slide_Formats extends Foyer_UnitTestCase {
 
+	function replace_format_backgrounds( $slide_format_backgrounds ) {
+		return array( 'default' );
+	}
+
+
+	/* Tests */
+
 	function test_is_pdf_slide_format_registered() {
 		$slide_format = Foyer_Slides::get_slide_format_by_slug( 'pdf' );
 		$this->assertNotEmpty( $slide_format );
@@ -49,10 +56,15 @@ class Test_Foyer_Slide_Formats extends Foyer_UnitTestCase {
 		$this->assertEquals( $expected, $actual );
 	}
 
-	function test_are_backgrounds_for_production_slide_format_registered() {
-		$expected = array( 'default', 'image' );
+	function test_are_backgrounds_for_default_slide_format_filtered() {
+		add_filter( 'foyer/slides/backgrounds/format=default', array( $this, 'replace_format_backgrounds' ) );
+
+		$expected = array( 'default' );
 		$actual = array_keys( Foyer_Slides::get_slide_format_backgrounds_by_slug( 'default' ) );
 
 		$this->assertEquals( $expected, $actual );
+
+		remove_filter( 'foyer/slides/backgrounds/format=default', array( $this, 'remove_default_background_from_format_backgrounds' ) );
 	}
+
 }

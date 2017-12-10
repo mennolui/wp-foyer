@@ -32,5 +32,4 @@ class Test_Foyer_Slides extends Foyer_UnitTestCase {
 
 		$this->assertNotContains( 'not-registered', $actual );
 	}
-
 }
