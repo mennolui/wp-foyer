@@ -46,7 +46,7 @@ class Foyer_Slide {
 	 * The output is escaped, so this method can be used in templates without further escaping.
 	 *
 	 * @since	1.0.0
-	 * @since	1.0.1			Escaped the output.
+	 * @since	1.0.1	Escaped the output.
 	 *
 	 * @param 	array 	$classes
 	 * @return 	string
@@ -85,7 +85,7 @@ class Foyer_Slide {
 	 * The output is escaped, so this method can be used in templates without further escaping.
 	 *
 	 * @since	1.0.0
-	 * @since	1.0.1			Escaped the output.
+	 * @since	1.0.1	Escaped the output.
 	 *
 	 * @param 	array 	$data
 	 * @return 	string
@@ -115,10 +115,30 @@ class Foyer_Slide {
 	}
 
 	/**
+	 * Gets the background of the slide.
+	 *
+	 * @since	1.4.0
+	 *
+	 * @return	string	The background key.
+	 */
+	public function get_background() {
+
+		$slide_background = get_post_meta( $this->ID, 'slide_background', true );
+
+		$slide_background_keys = array_keys( Foyer_Slides::get_slide_backgrounds() );
+
+		if ( empty ( $slide_background ) || ! in_array( $slide_background, $slide_background_keys ) ) {
+			$slide_background = $slide_background_keys[0];
+		}
+
+		return $slide_background;
+	}
+
+	/**
 	 * Gets the format of the slide.
 	 *
 	 * @since	1.0.0
-	 * @since	1.0.1			Renamed from format() to get_format().
+	 * @since	1.0.1	Renamed from format() to get_format().
 	 *
 	 * @return	string	The format key.
 	 */
@@ -128,7 +148,7 @@ class Foyer_Slide {
 
 		$slide_format_keys = array_keys( Foyer_Slides::get_slide_formats() );
 
-		if (empty ($slide_format) || !in_array( $slide_format, $slide_format_keys ) ) {
+		if ( empty ( $slide_format ) || ! in_array( $slide_format, $slide_format_keys ) ) {
 			$slide_format = $slide_format_keys[0];
 		}
 
@@ -139,8 +159,8 @@ class Foyer_Slide {
 	 * Gets the URL of the slide image.
 	 *
 	 * @since	1.0.0
-	 * @since	1.0.1			Renamed from image() to get_image_url().
-	 * @since	1.3.1			Now returns the image uploaded on the production slide, for production slides.
+	 * @since	1.0.1	Renamed from image() to get_image_url().
+	 * @since	1.3.1	Now returns the image uploaded on the production slide, for production slides.
 	 *
 	 * @return	string	The URL of the slide image.
 	 */

@@ -51,18 +51,62 @@ class Foyer_Slides {
 		return $default_slides_transition;
 	}
 
+	/**
+	 * Gets a slide background by its slug.
+	 *
+	 * @since	1.4.0
+	 * @param	string	$slug	The slug of the background to get.
+	 * @return	array			The slide background properties.
+	 */
+	static function get_slide_background_by_slug( $slug ) {
+
+		foreach( self::get_slide_backgrounds() as $slide_background_key => $slide_background_data ) {
+			if ( $slug == $slide_background_key ) {
+				return $slide_background_data;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Gets all available slide backgrounds.
+	 *
+	 * @since	1.4.0
+	 * @return	array	All backgrounds with their properties.
+	 */
+	static function get_slide_backgrounds() {
+
+		$slide_backgrounds = array(
+			'none' => array(
+				'title' => __( 'No background', 'foyer' ),
+			),
+		);
+
+		/**
+		 * Filter available slide backgrounds.
+		 *
+		 * @see Foyer_Theater::add_production_slide_format() for an example.
+		 *
+		 * @since	1.0.0
+		 * @param	array	$slide_backgrounds	The currently available slide backgrounds.
+		 */
+		$slide_backgrounds = apply_filters( 'foyer/slides/backgrounds', $slide_backgrounds );
+
+		return $slide_backgrounds;
+	}
 
 	/**
 	 * Gets a slide format by its slug.
 	 *
 	 * @since	1.0.0
-	 * @param	string	$slug
-	 * @return	array			The slide format data.
+	 * @param	string	$slug	The slug of the format to get.
+	 * @return	array			The slide format properties.
 	 */
 	static function get_slide_format_by_slug( $slug ) {
 
 		foreach( self::get_slide_formats() as $slide_format_key => $slide_format_data ) {
-			if ($slug == $slide_format_key) {
+			if ( $slug == $slide_format_key ) {
 				return $slide_format_data;
 			}
 		}
@@ -75,13 +119,13 @@ class Foyer_Slides {
 	 * Gets all available slide formats.
 	 *
 	 * @since	1.0.0
-	 * @return	array
+	 * @return	array	All formats with their properties.
 	 */
 	static function get_slide_formats() {
 
 		$slide_formats = array(
 			'default' => array(
-				'title' => __( 'Default', 'foyer'),
+				'title' => __( 'Default', 'foyer' ),
 			),
 		);
 
@@ -93,12 +137,8 @@ class Foyer_Slides {
 		 * @since	1.0.0
 		 * @param	array	$slide_formats	The currently available slide formats.
 		 */
-		$slide_formats = apply_filters( 'foyer/slides/formats', $slide_formats);
+		$slide_formats = apply_filters( 'foyer/slides/formats', $slide_formats );
 
 		return $slide_formats;
 	}
-
-
-
-
 }

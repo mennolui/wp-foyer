@@ -27,6 +27,7 @@ class Foyer {
 	 * general functionality of the plugin (not public/admin specific).
 	 *
 	 * @since	1.3.2	Changed method to static.
+	 * @since	1.4.0	Registered hooks for slide backgrounds.
 	 */
 	static function init() {
 
@@ -37,6 +38,9 @@ class Foyer {
 
 		/* Foyer_Setup */
 		add_action( 'init', array( 'Foyer_Setup', 'register_post_types' ) );
+
+		/* Foyer_Slide_Backgrounds */
+		add_filter( 'foyer/slides/backgrounds', array( 'Foyer_Slide_Backgrounds', 'add_image_slide_background' ) );
 
 		/* Foyer_Slide_Formats */
 		add_filter( 'foyer/slides/formats', array( 'Foyer_Slide_Formats', 'add_pdf_slide_format' ) );
@@ -83,6 +87,8 @@ class Foyer {
 	 *
 	 * @since	1.0.0
 	 * @since	1.3.2	Changed method to static.
+	 * @since	1.4.0	Included includes/class-foyer-slide-backgrounds.php.
+	 *
 	 * @access	private
 	 */
 	private static function load_dependencies() {
@@ -104,6 +110,9 @@ class Foyer {
 
 		/* Slides helper functions. */
 		require_once FOYER_PLUGIN_PATH . 'includes/class-foyer-slides.php';
+
+		/* Slide backgrounds. */
+		require_once FOYER_PLUGIN_PATH . 'includes/class-foyer-slide-backgrounds.php';
 
 		/* Slide formats. */
 		require_once FOYER_PLUGIN_PATH . 'includes/class-foyer-slide-formats.php';

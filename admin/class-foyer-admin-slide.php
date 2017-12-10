@@ -142,7 +142,7 @@ class Foyer_Admin_Slide {
 	 * @since	1.3.2	Changed method to static.
 	 *
 	 * @param 	int		$post_id	The channel id.
-	 * @return void
+	 * @return	void
 	 */
 	static function save_slide( $post_id ) {
 
@@ -188,13 +188,14 @@ class Foyer_Admin_Slide {
 	}
 
 	/**
-	 * Outputs the content of the channel editor meta box.
+	 * Outputs the content of the meta box holding all slide format choices.
 	 *
 	 * @since	1.0.0
-	 * @since	1.0.1			Escaped and sanitized the output.
+	 * @since	1.0.1	Escaped and sanitized the output.
 	 * @since	1.3.2	Changed method to static.
 	 *
-	 * @param	WP_Post		$post	The post object of the current display.
+	 * @param	WP_Post		$post	The post object of the current slide.
+	 * @return	void
 	 */
 	static function slide_format_meta_box( $post ) {
 
@@ -211,5 +212,8 @@ class Foyer_Admin_Slide {
 				<span><?php echo esc_html( $slide_format_data['title'] ); ?></span>
 			</label><?php
 		}
+
+		$slide_backgrounds = Foyer_Slides::get_slide_backgrounds();
+		var_dump( $slide_backgrounds );
 	}
 }
