@@ -6,7 +6,7 @@
  * @since		1.3.1	Moved two methods from Foyer_Admin_Slide.
  *
  * @package		Foyer
- * @subpackage	Foyer/includes
+ * @subpackage	Foyer/admin
  * @author		Menno Luitjes <menno@mennoluitjes.nl>
  */
 class Foyer_Admin_Slide_Format_Default {

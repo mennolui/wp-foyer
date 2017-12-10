@@ -6,7 +6,7 @@
  * @since		1.2.0
  *
  * @package		Foyer
- * @subpackage	Foyer/includes
+ * @subpackage	Foyer/admin
  * @author		Menno Luitjes <menno@mennoluitjes.nl>
  */
 class Foyer_Admin_Slide_Format_Video {

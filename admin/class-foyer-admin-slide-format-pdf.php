@@ -5,7 +5,7 @@
  *
  * @since		1.1.0
  * @package		Foyer
- * @subpackage	Foyer/includes
+ * @subpackage	Foyer/admin
  * @author		Menno Luitjes <menno@mennoluitjes.nl>
  */
 class Foyer_Admin_Slide_Format_PDF {
@@ -89,7 +89,7 @@ class Foyer_Admin_Slide_Format_PDF {
 
 	/**
 	 * Displays an admin notice on the Slide edit screen if something went wrong during saving.
-	 * 
+	 *
 	 * Error is stored in a transient.
 	 *
 	 * @since	1.3.2
@@ -103,7 +103,7 @@ class Foyer_Admin_Slide_Format_PDF {
 		if ( empty( $screen ) || Foyer_Slide::post_type_name != $screen->post_type ) {
 			return;
 		}
-		
+
 		if ( $error = get_transient( 'foyer_save_slide_pdf_notice_' . get_the_ID() . '_' . get_current_user_id() ) ) { ?>
 			<div class="notice notice-error">
 				<p><?php _e( 'Processing PDF pages failed.', 'foyer' ); ?></p>
@@ -112,9 +112,9 @@ class Foyer_Admin_Slide_Format_PDF {
 					<?php _e( 'Error message:', 'foyer' ); ?> <?php echo $error->get_error_message(); ?>
 				</p>
 			</div><?php
-			
+
 			delete_transient( 'foyer_save_slide_pdf_notice_' . get_the_ID() . '_' . get_current_user_id() );
-		}		
+		}
 	}
 
 	/**
@@ -152,11 +152,11 @@ class Foyer_Admin_Slide_Format_PDF {
 
 		// Check if WordPress install has WP_Image_Editor_Imagick PDF setup support (WP 4.7 and up)
 		if ( ! method_exists( 'WP_Image_Editor_Imagick', 'pdf_setup' ) ) {
-			return new WP_Error( 
-				'wp_image_editor_imagick_pdf_setup', 
+			return new WP_Error(
+				'wp_image_editor_imagick_pdf_setup',
 				__( 'Your WordPress version lacks support for PDF processing.', 'foyer' ),
 				$editor
-			);			
+			);
 		}
 
 		// Get the number of pages in the PDF
