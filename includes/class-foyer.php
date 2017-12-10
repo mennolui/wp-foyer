@@ -28,6 +28,8 @@ class Foyer {
 	 *
 	 * @since	1.3.2	Changed method to static.
 	 * @since	1.4.0	Registered hooks for slide backgrounds.
+	 *					Changed priority of slide format filters to make sure they are triggered before
+	 *					filters with default priority.
 	 */
 	static function init() {
 
@@ -40,13 +42,15 @@ class Foyer {
 		add_action( 'init', array( 'Foyer_Setup', 'register_post_types' ) );
 
 		/* Foyer_Slide_Backgrounds */
-		add_filter( 'foyer/slides/backgrounds', array( 'Foyer_Slide_Backgrounds', 'add_image_slide_background' ) );
+		add_filter( 'foyer/slides/backgrounds', array( 'Foyer_Slide_Backgrounds', 'add_default_slide_background' ), 5 );
+		add_filter( 'foyer/slides/backgrounds', array( 'Foyer_Slide_Backgrounds', 'add_image_slide_background' ), 5 );
 
 		/* Foyer_Slide_Formats */
-		add_filter( 'foyer/slides/formats', array( 'Foyer_Slide_Formats', 'add_pdf_slide_format' ) );
-		add_filter( 'foyer/slides/formats', array( 'Foyer_Slide_Formats', 'add_video_slide_format' ) );
-		add_filter( 'foyer/slides/formats', array( 'Foyer_Slide_Formats', 'add_iframe_slide_format' ) );
-		add_filter( 'foyer/slides/formats', array( 'Foyer_Slide_Formats', 'add_production_slide_format' ) );
+		add_filter( 'foyer/slides/formats', array( 'Foyer_Slide_Formats', 'add_default_slide_format' ), 5 );
+		add_filter( 'foyer/slides/formats', array( 'Foyer_Slide_Formats', 'add_pdf_slide_format' ), 5 );
+		add_filter( 'foyer/slides/formats', array( 'Foyer_Slide_Formats', 'add_video_slide_format' ), 5 );
+		add_filter( 'foyer/slides/formats', array( 'Foyer_Slide_Formats', 'add_iframe_slide_format' ), 5 );
+		add_filter( 'foyer/slides/formats', array( 'Foyer_Slide_Formats', 'add_production_slide_format' ), 5 );
 	}
 
 	/**

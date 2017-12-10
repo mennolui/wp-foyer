@@ -41,6 +41,8 @@ class Foyer_Admin_Slide {
 	 * @since	1.0.0
 	 * @since	1.3.1	Updated the slide_default_meta_box callback, after method was moved to Foyer_Admin_Slide_Format_Default.
 	 * @since	1.3.2	Changed method to static.
+	 * @since	1.4.0	Removed value for $meta_box_callback for default slide format, as this value is now defined in the
+	 *					slide format properties, same as for the other slide formats.
 	 */
 	static function add_slide_editor_meta_boxes() {
 		add_meta_box(
@@ -54,13 +56,13 @@ class Foyer_Admin_Slide {
 
 		foreach( Foyer_Slides::get_slide_formats() as $slide_format_key => $slide_format_data ) {
 
-			if ( empty( $slide_format_data['meta_box'] ) ) {
-				$meta_box_callback = array( 'Foyer_Admin_Slide_Format_Default', 'slide_default_meta_box');
-			} else {
+			$meta_box_callback = '';
+			if ( ! empty( $slide_format_data['meta_box'] ) ) {
 				$meta_box_callback = $slide_format_data['meta_box'];
 			}
+
 			add_meta_box(
-				'foyer_slide_format_'.$slide_format_key,
+				'foyer_slide_format_' . $slide_format_key,
 				sprintf( __( 'Slide format: %s ', 'foyer'), $slide_format_data['title'] ),
 				$meta_box_callback,
 				Foyer_Slide::post_type_name,
@@ -140,6 +142,8 @@ class Foyer_Admin_Slide {
 	 * @since	1.0.0
 	 * @since	1.3.1	Updated the save_slide_default call, after method was moved to Foyer_Admin_Slide_Format_Default.
 	 * @since	1.3.2	Changed method to static.
+	 * @since	1.4.0	Removed call_user_func_array() for default slide format, as the callback is now defined in the
+	 *					slide format properties, same as for the other slide formats.
 	 *
 	 * @param 	int		$post_id	The channel id.
 	 * @return	void
@@ -176,13 +180,11 @@ class Foyer_Admin_Slide {
 		$slide_format_slug = sanitize_title( $_POST['slide_format'] );
 		$slide_format = Foyer_Slides::get_slide_format_by_slug( $slide_format_slug );
 
-		if (!empty( $slide_format ) ) {
-			update_post_meta( $post_id, 'slide_format', $slide_format_slug);
+		if ( ! empty( $slide_format ) ) {
+			update_post_meta( $post_id, 'slide_format', $slide_format_slug );
 		}
 
-		if (empty( $slide_format['save_post'] ) ) {
-			Foyer_Admin_Slide_Format_Default::save_slide_default( $post_id );
-		} else {
+		if ( ! empty( $slide_format['save_post'] ) ) {
 			call_user_func_array( $slide_format['save_post'], array( $post_id ) );
 		}
 	}
@@ -211,9 +213,10 @@ class Foyer_Admin_Slide {
 				<input type="radio" value="<?php echo esc_attr( $slide_format_key ); ?>" name="slide_format" <?php checked( $slide->get_format(), $slide_format_key, true ); ?> />
 				<span><?php echo esc_html( $slide_format_data['title'] ); ?></span>
 			</label><?php
+
+			$slide_format_backgrounds = Foyer_Slides::get_slide_format_backgrounds_by_slug( $slide_format_key );
+			var_dump( $slide_format_backgrounds );
 		}
 
-		$slide_backgrounds = Foyer_Slides::get_slide_backgrounds();
-		var_dump( $slide_backgrounds );
 	}
 }

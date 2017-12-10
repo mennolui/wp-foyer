@@ -60,35 +60,63 @@ class Foyer_Slides {
 	 */
 	static function get_slide_background_by_slug( $slug ) {
 
-		foreach( self::get_slide_backgrounds() as $slide_background_key => $slide_background_data ) {
-			if ( $slug == $slide_background_key ) {
-				return $slide_background_data;
+		$slide_backgrounds = self::get_slide_backgrounds();
+
+		if ( empty( $slide_backgrounds[$slug] ) ) {
+			return false;
+		}
+
+		return $slide_backgrounds[$slug];
+	}
+
+	/**
+	 * Gets the available slide backgrounds for a slide format, by its slug.
+	 *
+	 * Only returns slide format backgrounds that are registered according to Foyer_Slides::get_slide_backgrounds().
+	 *
+	 * @since	1.4.0
+	 * @param	string	$slug	The slug of the slide format to get the slide backgrounds for.
+	 * @return	array			The slide backgrounds with their properties.
+	 */
+	static function get_slide_format_backgrounds_by_slug( $slug ) {
+
+		$slide_format = self::get_slide_format_by_slug( $slug );
+
+		if ( empty( $slide_format['slide_backgrounds'] ) ) {
+			return false;
+		}
+
+		$slide_format_backgrounds = array();
+
+		foreach ( $slide_format['slide_backgrounds'] as $slide_background_slug ) {
+			$slide_background_data = self::get_slide_background_by_slug( $slide_background_slug );
+			if ( ! empty( $slide_background_data ) ) {
+				// Only add to backgrounds if this background is registered
+				$slide_format_backgrounds[$slide_background_slug] = $slide_background_data;
 			}
 		}
 
-		return false;
+		return $slide_format_backgrounds;
 	}
 
 	/**
 	 * Gets all available slide backgrounds.
+	 *
+	 * Slide backgrounds are added through filters.
 	 *
 	 * @since	1.4.0
 	 * @return	array	All backgrounds with their properties.
 	 */
 	static function get_slide_backgrounds() {
 
-		$slide_backgrounds = array(
-			'none' => array(
-				'title' => __( 'No background', 'foyer' ),
-			),
-		);
+		$slide_backgrounds = array();
 
 		/**
 		 * Filter available slide backgrounds.
 		 *
-		 * @see Foyer_Theater::add_production_slide_format() for an example.
+		 * @see Foyer_Slide_Backgrounds::add_image_slide_background() for an example.
 		 *
-		 * @since	1.0.0
+		 * @since	1.4.0
 		 * @param	array	$slide_backgrounds	The currently available slide backgrounds.
 		 */
 		$slide_backgrounds = apply_filters( 'foyer/slides/backgrounds', $slide_backgrounds );
@@ -118,21 +146,21 @@ class Foyer_Slides {
 	/**
 	 * Gets all available slide formats.
 	 *
+	 * Slide formats are added through filters.
+	 *
 	 * @since	1.0.0
+	 * @since	1.4.0	Default slide format is now also added through filter, instead of here.
+	 *
 	 * @return	array	All formats with their properties.
 	 */
 	static function get_slide_formats() {
 
-		$slide_formats = array(
-			'default' => array(
-				'title' => __( 'Default', 'foyer' ),
-			),
-		);
+		$slide_formats = array();
 
 		/**
 		 * Filter available slide formats.
 		 *
-		 * @see Foyer_Theater::add_production_slide_format() for an example.
+		 * @see Foyer_Slide_Formats::add_production_slide_format() for an example.
 		 *
 		 * @since	1.0.0
 		 * @param	array	$slide_formats	The currently available slide formats.
