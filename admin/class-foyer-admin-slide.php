@@ -43,6 +43,7 @@ class Foyer_Admin_Slide {
 	 * @since	1.3.2	Changed method to static.
 	 * @since	1.4.0	Removed value for $meta_box_callback for default slide format, as this value is now defined in the
 	 *					slide format properties, same as for the other slide formats.
+	 *					Added meta boxes for slide background choices and for each slide background.
 	 */
 	static function add_slide_editor_meta_boxes() {
 		add_meta_box(
@@ -56,15 +57,40 @@ class Foyer_Admin_Slide {
 
 		foreach( Foyer_Slides::get_slide_formats() as $slide_format_key => $slide_format_data ) {
 
-			$meta_box_callback = '';
-			if ( ! empty( $slide_format_data['meta_box'] ) ) {
-				$meta_box_callback = $slide_format_data['meta_box'];
+			if ( empty( $slide_format_data['meta_box'] ) ) {
+				continue;
 			}
 
 			add_meta_box(
 				'foyer_slide_format_' . $slide_format_key,
 				sprintf( __( 'Slide format: %s ', 'foyer'), $slide_format_data['title'] ),
-				$meta_box_callback,
+				$slide_format_data['meta_box'],
+				Foyer_Slide::post_type_name,
+				'normal',
+				'low'
+			);
+		}
+
+		add_meta_box(
+			'foyer_slide_background',
+			__( 'Slide background' , 'foyer' ),
+			array( __CLASS__, 'slide_background_meta_box' ),
+			Foyer_Slide::post_type_name,
+			'normal',
+			'low'
+		);
+
+		// @todo: get all backgrounds used on formats
+		foreach( Foyer_Slides::get_slide_backgrounds() as $slide_background_key => $slide_background_data ) {
+
+			if ( empty( $slide_background_data['meta_box'] ) ) {
+				continue;
+			}
+
+			add_meta_box(
+				'foyer_slide_background_' . $slide_background_key,
+				sprintf( __( 'Slide background: %s ', 'foyer'), $slide_background_data['title'] ),
+				$slide_background_data['meta_box'],
 				Foyer_Slide::post_type_name,
 				'normal',
 				'low'
@@ -190,6 +216,31 @@ class Foyer_Admin_Slide {
 	}
 
 	/**
+	 * Outputs the content of the meta box holding all slide background choices.
+	 *
+	 * @since	1.4.0
+	 *
+	 * @param	WP_Post		$post	The post object of the current slide.
+	 * @return	void
+	 */
+	static function slide_background_meta_box( $post ) {
+
+		wp_nonce_field( Foyer_Slide::post_type_name, Foyer_Slide::post_type_name.'_nonce' );
+
+		$slide = new Foyer_Slide( $post->ID );
+
+		?><input type="hidden" id="foyer_slide_editor_<?php echo Foyer_Slide::post_type_name; ?>"
+			name="foyer_slide_editor_<?php echo Foyer_Slide::post_type_name; ?>" value="<?php echo intval( $post->ID ); ?>"><?php
+
+		foreach( Foyer_Slides::get_slide_backgrounds() as $slide_background_key => $slide_background_data ) {
+			?><label>
+				<input type="radio" value="<?php echo esc_attr( $slide_background_key ); ?>" name="slide_background" <?php checked( $slide->get_background(), $slide_background_key, true ); ?> />
+				<span><?php echo esc_html( $slide_background_data['title'] ); ?></span>
+			</label><?php
+		}
+	}
+
+	/**
 	 * Outputs the content of the meta box holding all slide format choices.
 	 *
 	 * @since	1.0.0
@@ -213,10 +264,6 @@ class Foyer_Admin_Slide {
 				<input type="radio" value="<?php echo esc_attr( $slide_format_key ); ?>" name="slide_format" <?php checked( $slide->get_format(), $slide_format_key, true ); ?> />
 				<span><?php echo esc_html( $slide_format_data['title'] ); ?></span>
 			</label><?php
-
-			$slide_format_backgrounds = Foyer_Slides::get_slide_format_backgrounds_by_slug( $slide_format_key );
-			var_dump( $slide_format_backgrounds );
 		}
-
 	}
 }

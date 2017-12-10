@@ -23,8 +23,6 @@ class Foyer_Slide_Backgrounds {
 
 		$slide_backgrounds['default'] = array(
 			'title' => _x( 'No background', 'foyer', 'slide-background' ),
-			'meta_box' => array( 'Foyer_Admin_Slide_Background_Default', 'slide_background_meta_box' ),
-			'save_post' => array( 'Foyer_Admin_Slide_Background_Default', 'save_slide_background' ),
 		);
 		return $slide_backgrounds;
 	}
