@@ -131,6 +131,7 @@ class Foyer_Admin {
 		 * Admin area functionality for specific slide backgrounds.
 		 */
 		require_once FOYER_PLUGIN_PATH . 'admin/class-foyer-admin-slide-background-image.php';
+		require_once FOYER_PLUGIN_PATH . 'admin/class-foyer-admin-slide-background-video.php';
 
 		/**
 		 * Admin area functionality for specific slide formats.

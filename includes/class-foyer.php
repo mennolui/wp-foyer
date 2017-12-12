@@ -44,6 +44,7 @@ class Foyer {
 		/* Foyer_Slide_Backgrounds */
 		add_filter( 'foyer/slides/backgrounds', array( 'Foyer_Slide_Backgrounds', 'add_default_slide_background' ), 5 );
 		add_filter( 'foyer/slides/backgrounds', array( 'Foyer_Slide_Backgrounds', 'add_image_slide_background' ), 5 );
+		add_filter( 'foyer/slides/backgrounds', array( 'Foyer_Slide_Backgrounds', 'add_video_slide_background' ), 5 );
 
 		/* Foyer_Slide_Formats */
 		add_filter( 'foyer/slides/formats', array( 'Foyer_Slide_Formats', 'add_default_slide_format' ), 5 );

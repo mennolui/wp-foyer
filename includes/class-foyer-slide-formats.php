@@ -34,8 +34,8 @@ class Foyer_Slide_Formats {
 
 		$slide_formats['default'] = array(
 			'title' => _x( 'Default', 'slide-format', 'foyer' ),
-			'meta_box' => array( 'Foyer_Admin_Slide_Format_Default', 'slide_default_meta_box' ),
-			'save_post' => array( 'Foyer_Admin_Slide_Format_Default', 'save_slide_default' ),
+//			'meta_box' => array( 'Foyer_Admin_Slide_Format_Default', 'slide_default_meta_box' ),
+//			'save_post' => array( 'Foyer_Admin_Slide_Format_Default', 'save_slide_default' ),
 			'slide_backgrounds' => $slide_format_backgrounds,
 		);
 		return $slide_formats;

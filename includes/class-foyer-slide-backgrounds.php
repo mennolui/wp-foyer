@@ -44,4 +44,22 @@ class Foyer_Slide_Backgrounds {
 		);
 		return $slide_backgrounds;
 	}
+
+	/**
+	 * Adds the Video slide background.
+	 *
+	 * @since	1.4.0
+	 *
+	 * @param 	array	$slide_backgrounds	The current slide backgrounds.
+	 * @return	array						The slide backgrounds with the Video slide background added.
+	 */
+	static function add_video_slide_background( $slide_backgrounds ) {
+
+		$slide_backgrounds['video'] = array(
+			'title' => _x( 'Video', 'foyer', 'slide-background' ),
+			'meta_box' => array( 'Foyer_Admin_Slide_Background_Video', 'slide_background_meta_box' ),
+			'save_post' => array( 'Foyer_Admin_Slide_Background_Video', 'save_slide_background' ),
+		);
+		return $slide_backgrounds;
+	}
 }

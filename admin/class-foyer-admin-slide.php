@@ -55,6 +55,15 @@ class Foyer_Admin_Slide {
 			'low'
 		);
 
+		add_meta_box(
+			'foyer_slide_background',
+			__( 'Slide background' , 'foyer' ),
+			array( __CLASS__, 'slide_background_meta_box' ),
+			Foyer_Slide::post_type_name,
+			'normal',
+			'low'
+		);
+
 		foreach( Foyer_Slides::get_slide_formats() as $slide_format_key => $slide_format_data ) {
 
 			if ( empty( $slide_format_data['meta_box'] ) ) {
@@ -70,15 +79,6 @@ class Foyer_Admin_Slide {
 				'low'
 			);
 		}
-
-		add_meta_box(
-			'foyer_slide_background',
-			__( 'Slide background' , 'foyer' ),
-			array( __CLASS__, 'slide_background_meta_box' ),
-			Foyer_Slide::post_type_name,
-			'normal',
-			'low'
-		);
 
 		// @todo: get all backgrounds used on formats
 		foreach( Foyer_Slides::get_slide_backgrounds() as $slide_background_key => $slide_background_data ) {
@@ -170,6 +170,7 @@ class Foyer_Admin_Slide {
 	 * @since	1.3.2	Changed method to static.
 	 * @since	1.4.0	Removed call_user_func_array() for default slide format, as the callback is now defined in the
 	 *					slide format properties, same as for the other slide formats.
+	 *					Saves the slide background value, and invokes saving the background's fields through a callback.
 	 *
 	 * @param 	int		$post_id	The channel id.
 	 * @return	void
@@ -203,6 +204,7 @@ class Foyer_Admin_Slide {
 			return $post_id;
 		}
 
+		/* Slide format */
 		$slide_format_slug = sanitize_title( $_POST['slide_format'] );
 		$slide_format = Foyer_Slides::get_slide_format_by_slug( $slide_format_slug );
 
@@ -212,6 +214,18 @@ class Foyer_Admin_Slide {
 
 		if ( ! empty( $slide_format['save_post'] ) ) {
 			call_user_func_array( $slide_format['save_post'], array( $post_id ) );
+		}
+
+		/* Slide background */
+		$slide_background_slug = sanitize_title( $_POST['slide_background'] );
+		$slide_background = Foyer_Slides::get_slide_background_by_slug( $slide_background_slug );
+
+		if ( ! empty( $slide_background ) ) {
+			update_post_meta( $post_id, 'slide_background', $slide_background_slug );
+		}
+
+		if ( ! empty( $slide_background['save_post'] ) ) {
+			call_user_func_array( $slide_background['save_post'], array( $post_id ) );
 		}
 	}
 
