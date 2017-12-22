@@ -35,6 +35,9 @@ class Foyer {
 
 		self::load_dependencies();
 
+		/* Foyer_Updater */
+		add_action( 'plugins_loaded', array( 'Foyer_Updater', 'update' ) );
+
 		/* Foyer_i18n */
 		add_action( 'plugins_loaded', array( 'Foyer_i18n', 'load_plugin_textdomain' ) );
 
@@ -106,6 +109,9 @@ class Foyer {
 		require_once FOYER_PLUGIN_PATH . 'includes/class-foyer-display.php';
 		require_once FOYER_PLUGIN_PATH . 'includes/class-foyer-channel.php';
 		require_once FOYER_PLUGIN_PATH . 'includes/class-foyer-slide.php';
+
+		/* Database updater. */
+		require_once FOYER_PLUGIN_PATH . 'includes/class-foyer-updater.php';
 
 		/* Setup of internationalization. */
 		require_once FOYER_PLUGIN_PATH . 'includes/class-foyer-i18n.php';
