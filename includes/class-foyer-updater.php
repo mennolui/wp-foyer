@@ -52,21 +52,21 @@ class Foyer_Updater {
 	 *
 	 * @since    1.4.0
 	 *
-	 * @return	void
+	 * @return	bool	True if database was updated, false otherwise.
 	 */
 	static function update() {
 		$db_version = self::get_db_version();
 
 	    if ( $db_version === Foyer::get_version() ) {
 			// No update needed, bail
-		    return;
+		    return false;
 	    }
 
 		if ( version_compare( $db_version, '1.4.0', '<' ) ) {
 			// Current db version is lower than 1.4.0, run update to 1.4.0
 			if ( ! self::update_to_1_4_0() ) {
 				// Update failed, bail
-				return;
+				return false;
 			}
 			// Update successful, update db version
 			self::update_db_version( '1.4.0' );
@@ -76,6 +76,8 @@ class Foyer_Updater {
 
 		// All updates were successful, update db version to current plugin version
 		self::update_db_version( Foyer::get_version() );
+
+		return true;
 	}
 
 	/**
