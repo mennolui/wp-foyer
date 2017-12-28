@@ -80,7 +80,7 @@ class Test_Foyer_Updater extends Foyer_UnitTestCase {
 		// Run update to 1.4.0
 		Foyer_Updater::update_to_1_4_0();
 
-		// Default slide with image
+		// Check conversion of Default slide with image
 		$actual = get_post_meta( $slide_1_id, 'slide_bg_image_image', true );
 		$expected = $default_image_id;
 		$this->assertEquals( $expected, $actual );
@@ -93,7 +93,7 @@ class Test_Foyer_Updater extends Foyer_UnitTestCase {
 		$expected = 'image';
 		$this->assertEquals( $expected, $actual );
 
-		// Production slide with image
+		// Check conversion of Production slide with image
 		$actual = get_post_meta( $slide_2_id, 'slide_bg_image_image', true );
 		$expected = $production_image_id;
 		$this->assertEquals( $expected, $actual );
@@ -106,7 +106,7 @@ class Test_Foyer_Updater extends Foyer_UnitTestCase {
 		$expected = 'image';
 		$this->assertEquals( $expected, $actual );
 
-		// Video slide with video
+		// Check conversion of Video slide with video
 		$actual = get_post_meta( $slide_3_id, 'slide_bg_video_video_url', true );
 		$expected = $video_url;
 		$this->assertEquals( $expected, $actual );
@@ -128,7 +128,7 @@ class Test_Foyer_Updater extends Foyer_UnitTestCase {
 		$expected = 'video';
 		$this->assertEquals( $expected, $actual );
 
-		// Default slide without image
+		// Check conversion of Default slide without image
 		$actual = get_post_meta( $slide_4_id, 'slide_bg_image_image', true );
 		$expected = false;
 		$this->assertEquals( $expected, $actual );
@@ -141,7 +141,7 @@ class Test_Foyer_Updater extends Foyer_UnitTestCase {
 		$expected = 'default';
 		$this->assertEquals( $expected, $actual );
 
-		// Video slide without video
+		// Check conversion of Video slide without video
 		$actual = get_post_meta( $slide_5_id, 'slide_bg_video_video_url', true );
 		$expected = false;
 		$this->assertEquals( $expected, $actual );
@@ -162,6 +162,10 @@ class Test_Foyer_Updater extends Foyer_UnitTestCase {
 		$actual = get_post_meta( $slide_4_id, 'slide_default_image', true );
 		$expected = false;
 		$this->assertEquals( $expected, $actual );
+
+		// @todo:
+		// - is trashed slide updated
+		// - is draft slide updated
 
 	}
 }
