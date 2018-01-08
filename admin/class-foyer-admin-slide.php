@@ -54,48 +54,6 @@ class Foyer_Admin_Slide {
 			'normal',
 			'low'
 		);
-
-		add_meta_box(
-			'foyer_slide_background',
-			__( 'Slide background' , 'foyer' ),
-			array( __CLASS__, 'slide_background_meta_box' ),
-			Foyer_Slide::post_type_name,
-			'normal',
-			'low'
-		);
-
-		foreach( Foyer_Slides::get_slide_formats() as $slide_format_key => $slide_format_data ) {
-
-			if ( empty( $slide_format_data['meta_box'] ) ) {
-				continue;
-			}
-
-			add_meta_box(
-				'foyer_slide_format_' . $slide_format_key,
-				sprintf( __( 'Slide format: %s ', 'foyer'), $slide_format_data['title'] ),
-				$slide_format_data['meta_box'],
-				Foyer_Slide::post_type_name,
-				'normal',
-				'low'
-			);
-		}
-
-		// @todo: get all backgrounds used on formats
-		foreach( Foyer_Slides::get_slide_backgrounds() as $slide_background_key => $slide_background_data ) {
-
-			if ( empty( $slide_background_data['meta_box'] ) ) {
-				continue;
-			}
-
-			add_meta_box(
-				'foyer_slide_background_' . $slide_background_key,
-				sprintf( __( 'Slide background: %s ', 'foyer'), $slide_background_data['title'] ),
-				$slide_background_data['meta_box'],
-				Foyer_Slide::post_type_name,
-				'normal',
-				'low'
-			);
-		}
 	}
 
 	/**
@@ -270,14 +228,59 @@ class Foyer_Admin_Slide {
 
 		$slide = new Foyer_Slide( $post->ID );
 
-		?><input type="hidden" id="foyer_slide_editor_<?php echo Foyer_Slide::post_type_name; ?>"
-			name="foyer_slide_editor_<?php echo Foyer_Slide::post_type_name; ?>" value="<?php echo intval( $post->ID ); ?>"><?php
+		?><div class="foyer_slide_formats_backgrounds">
 
-		foreach( Foyer_Slides::get_slide_formats() as $slide_format_key => $slide_format_data ) {
-			?><label>
-				<input type="radio" value="<?php echo esc_attr( $slide_format_key ); ?>" name="slide_format" <?php checked( $slide->get_format(), $slide_format_key, true ); ?> />
-				<span><?php echo esc_html( $slide_format_data['title'] ); ?></span>
-			</label><?php
-		}
+			<input type="hidden" id="foyer_slide_editor_<?php echo Foyer_Slide::post_type_name; ?>"
+				name="foyer_slide_editor_<?php echo Foyer_Slide::post_type_name; ?>" value="<?php echo intval( $post->ID ); ?>">
+
+			<select name="slide_format">
+				<?php foreach( Foyer_Slides::get_slide_formats() as $slide_format_key => $slide_format_data ) { ?>
+					<option value="<?php echo esc_attr( $slide_format_key ); ?>" <?php selected( $slide->get_format(), $slide_format_key, true ); ?>>
+						<?php echo esc_html( $slide_format_data['title'] ); ?>
+					</option>
+				<?php } ?>
+			</select>
+
+			<select name="slide_background">
+				<?php foreach( Foyer_Slides::get_slide_backgrounds() as $slide_background_key => $slide_background_data ) { ?>
+					<option value="<?php echo esc_attr( $slide_background_key ); ?>" <?php selected( $slide->get_background(), $slide_background_key, true ); ?>>
+						<?php echo esc_html( $slide_background_data['title'] ); ?>
+					</option>
+				<?php } ?>
+			</select>
+		</div>
+
+
+		<div class="foyer_slide_formats"><?php
+
+			foreach( Foyer_Slides::get_slide_formats() as $slide_format_key => $slide_format_data ) {
+
+				if ( empty( $slide_format_data['meta_box'] ) ) {
+					continue;
+				}
+
+				?><div class="<?php echo 'foyer_slide_format_' . $slide_format_key; ?>">
+					<h3><?php echo sprintf( __( 'Slide format: %s ', 'foyer'), $slide_format_data['title'] ); ?></h3>
+					<?php call_user_func_array( $slide_format_data['meta_box'], array( get_post( $slide->ID ) ) ); ?>
+				</div><?php
+			} ?>
+
+		</div>
+
+		<div class="foyer_slide_backgrounds"><?php
+
+			foreach( Foyer_Slides::get_slide_backgrounds() as $slide_background_key => $slide_background_data ) {
+
+				if ( empty( $slide_background_data['meta_box'] ) ) {
+					continue;
+				}
+
+				?><div class="<?php echo 'foyer_slide_format_' . $slide_background_key; ?>">
+					<h3><?php echo sprintf( __( 'Slide background: %s ', 'foyer'), $slide_background_data['title'] ); ?></h3>
+					<?php call_user_func_array( $slide_background_data['meta_box'], array( get_post( $slide->ID ) ) ); ?>
+				</div><?php
+			} ?>
+
+		</div><?php
 	}
 }
