@@ -29,6 +29,7 @@ if ( ! empty( $slide_pdf_file ) ) {
 						}
 					?></figure>
 				</div>
+				<?php $slide->background(); ?>
 			</div><?php
 
 		}

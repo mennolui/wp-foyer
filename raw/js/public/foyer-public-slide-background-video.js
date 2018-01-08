@@ -1,19 +1,21 @@
-var foyer_slide_video_selector = '.foyer-slide-video';
+var foyer_slide_bg_video_selector = '.foyer-slide-background-video';
 var foyer_yt_players = {};
 var foyer_yt_api_ready = false;
 
 /**
- * Sets up the Video slide format public functionality.
+ * Sets up the Video slide background public functionality.
  *
- * @since	1.2.0
+ * Functionality was copied from foyer-public-slide-video.js (since 1.2.0, removed in 1.4.0).
+ *
+ * @since	1.4.0
  */
 jQuery(document).ready(function() {
 
-	if (jQuery(foyer_slide_video_selector).length) {
+	if (jQuery(foyer_slide_bg_video_selector).length) {
 		// Our view includes video slides, load YouTube API and bind events
-		foyer_slide_video_load_youtube_api();
-		foyer_slide_video_bind_display_loading_events();
-		foyer_slide_video_bind_ticker_events();
+		foyer_slide_bg_video_load_youtube_api();
+		foyer_slide_bg_video_bind_display_loading_events();
+		foyer_slide_bg_video_bind_ticker_events();
 	}
 
 });
@@ -21,40 +23,40 @@ jQuery(document).ready(function() {
 /**
  * Binds events to be able to set up video players in newly loaded slide groups and replaced channels.
  *
- * @since	1.2.0
+ * @since	1.4.0
  */
-function foyer_slide_video_bind_display_loading_events() {
+function foyer_slide_bg_video_bind_display_loading_events() {
 
 	jQuery('body').on('channel:replaced-channel', foyer_channel_selector, function ( event ) {
 		if (foyer_yt_api_ready) {
-			foyer_slide_video_init_video_placeholders();
-			foyer_slide_video_cleanup_youtube_players();
+			foyer_slide_bg_video_init_video_placeholders();
+			foyer_slide_bg_video_cleanup_youtube_players();
 		}
 		else {
-			foyer_slide_video_load_youtube_api();
+			foyer_slide_bg_video_load_youtube_api();
 		}
 	});
 
 	jQuery('body').on('slides:loaded-new-slide-group', foyer_slides_selector, function ( event ) {
 		if (foyer_yt_api_ready) {
-			foyer_slide_video_init_video_placeholders();
+			foyer_slide_bg_video_init_video_placeholders();
 		}
 		else {
-			foyer_slide_video_load_youtube_api();
+			foyer_slide_bg_video_load_youtube_api();
 		}
 	});
 
 	jQuery('body').on('slides:removed-old-slide-group', foyer_slides_selector, function ( event ) {
-		foyer_slide_video_cleanup_youtube_players();
+		foyer_slide_bg_video_cleanup_youtube_players();
 	});
 }
 
 /**
  * Binds events to be able to start and stop video playback at the right time, and prevent advancing to the next slide.
  *
- * @since	1.2.0
+ * @since	1.4.0
  */
-function foyer_slide_video_bind_ticker_events() {
+function foyer_slide_bg_video_bind_ticker_events() {
 
 	jQuery('body').on('slides:before-binding-events', foyer_slides_selector, function ( event ) {
 		// The slides ticker is about to set up binding events
@@ -65,7 +67,7 @@ function foyer_slide_video_bind_ticker_events() {
 			// Determine if we should prevent its default action or not
 
 			// Set container
-			var container = jQuery(foyer_slide_video_selector).filter('.active').find('.youtube-video-container');
+			var container = jQuery(foyer_slide_bg_video_selector).filter('.active').find('.youtube-video-container');
 
 			// Set player reference
 			var player = window.foyer_yt_players[container.attr('id')]
@@ -100,7 +102,7 @@ function foyer_slide_video_bind_ticker_events() {
 		});
 	});
 
-	jQuery('body').on('slide:became-active', foyer_slide_video_selector, function( event ) {
+	jQuery('body').on('slide:became-active', foyer_slide_bg_video_selector, function( event ) {
 		// A video slide became active
 
 		// Set container
@@ -117,7 +119,7 @@ function foyer_slide_video_bind_ticker_events() {
 		}
 	});
 
-	jQuery('body').on('slide:left-active', foyer_slide_video_selector, function( event ) {
+	jQuery('body').on('slide:left-active', foyer_slide_bg_video_selector, function( event ) {
 		// A video slide left the active state
 
 		// Set container
@@ -143,9 +145,9 @@ function foyer_slide_video_bind_ticker_events() {
  *
  * Used after newly loaded slide groups and replaced channels.
  *
- * @since	1.2.0
+ * @since	1.4.0
  */
-function foyer_slide_video_cleanup_youtube_players() {
+function foyer_slide_bg_video_cleanup_youtube_players() {
 	for (var player_id in window.foyer_yt_players) {
 		if (!jQuery('#' + player_id).length) {
 			// Video is no longer present in the document, remove its player reference
@@ -157,9 +159,9 @@ function foyer_slide_video_cleanup_youtube_players() {
 /**
  * Inits all new video placeholders, storing player references for later use.
  *
- * @since	1.2.0
+ * @since	1.4.0
  */
-function foyer_slide_video_init_video_placeholders() {
+function foyer_slide_bg_video_init_video_placeholders() {
 	// Loop over any video placeholders that are not yet replaced by an iframe
 	jQuery('div.youtube-video-container').each(function() {
 
@@ -182,7 +184,7 @@ function foyer_slide_video_init_video_placeholders() {
 					'showinfo': 0,
 				},
 				events: {
-					'onReady': foyer_slide_video_prepare_player_for_playback(player_id),
+					'onReady': foyer_slide_bg_video_prepare_player_for_playback(player_id),
 				}
 			});
 		}
@@ -192,9 +194,9 @@ function foyer_slide_video_init_video_placeholders() {
 /**
  * Loads the YouTube IFrame Player API to be used in the Video format slide admin.
  *
- * @since	1.2.0
+ * @since	1.4.0
  */
-function foyer_slide_video_load_youtube_api() {
+function foyer_slide_bg_video_load_youtube_api() {
 	// Load YouTube IFrame Player API code asynchronously
 	var tag = document.createElement('script');
 	tag.src = "https://www.youtube.com/iframe_api";
@@ -207,10 +209,10 @@ function foyer_slide_video_load_youtube_api() {
  *
  * Invoked whenever the player is ready.
  *
- * @since	1.2.0
+ * @since	1.4.0
  * @param	string	player_id	The ID of the player
  */
-function foyer_slide_video_prepare_player_for_playback(player_id) {
+function foyer_slide_bg_video_prepare_player_for_playback(player_id) {
 
 	return function(event) {
 
@@ -228,7 +230,7 @@ function foyer_slide_video_prepare_player_for_playback(player_id) {
 
 		if (
 			jQuery(foyer_slides_selector).length &&
-			! jQuery('#' + player_id).parents(foyer_slide_video_selector).hasClass('active')
+			! jQuery('#' + player_id).parents(foyer_slide_bg_video_selector).hasClass('active')
 		) {
 			// When this video slide (viewed on a channel or display) is not active at this very moment,
 			// pause, so it can start playing whenever it becomes active
@@ -242,9 +244,9 @@ function foyer_slide_video_prepare_player_for_playback(player_id) {
  *
  * Invoked whenever the YouTube IFrame Player API is ready.
  *
- * @since	1.2.0
+ * @since	1.4.0
  */
 function onYouTubeIframeAPIReady() {
 	foyer_yt_api_ready = true;
-	foyer_slide_video_init_video_placeholders()
+	foyer_slide_bg_video_init_video_placeholders()
 }

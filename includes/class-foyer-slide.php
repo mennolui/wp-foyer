@@ -41,6 +41,60 @@ class Foyer_Slide {
 	}
 
 	/**
+	 * Outputs the background template HTML for use in the slide format template.
+	 *
+	 * @since	1.4.0
+	 *
+	 * @return	string	The background template HTML.
+	 */
+	public function background() {
+		Foyer_Templates::get_template( 'slides/backgrounds/' . $this->get_background() . '.php' );
+	}
+
+	/**
+	 * Outputs the slide background classes for use in the template.
+	 *
+	 * The output is escaped, so this method can be used in templates without further escaping.
+	 *
+	 * @since	1.4.0
+	 *
+	 * @param 	array 	$classes
+	 * @return 	void
+	 */
+	public function background_classes( $classes = array() ) {
+
+		$classes[] = 'foyer-slide-background';
+		$classes[] = 'foyer-slide-background-' . $this->get_background();
+
+		if ( empty( $classes ) ) {
+			return;
+		}
+
+		?> class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" <?php
+	}
+
+	/**
+	 * Outputs the slide background data attributes for use in the template.
+	 *
+	 * The output is escaped, so this method can be used in templates without further escaping.
+	 *
+	 * @since	1.4.0
+	 *
+	 * @param 	array 	$data
+	 * @return 	string
+	 */
+	public function background_data_attr( $data = array() ) {
+
+		if ( empty( $data ) ) {
+			return;
+		}
+
+		foreach ( $data as $key => $value ) {
+			?> data-<?php echo esc_attr( $key ); ?>="<?php echo esc_attr( $value ); ?>"<?php
+		}
+	}
+
+	/**
 	 * Outputs the slide classes for use in the template.
 	 *
 	 * The output is escaped, so this method can be used in templates without further escaping.
@@ -49,7 +103,7 @@ class Foyer_Slide {
 	 * @since	1.0.1	Escaped the output.
 	 *
 	 * @param 	array 	$classes
-	 * @return 	string
+	 * @return 	void
 	 */
 	public function classes( $classes = array() ) {
 

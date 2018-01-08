@@ -3,7 +3,7 @@ var foyer_yt_player;
 /**
  * Sets up the Video slide format admin functionality.
  *
- * Functionality was copied from foyer-admin-slide-video.js (removed in 1.4.0).
+ * Functionality was copied from foyer-admin-slide-video.js (since 1.2.0, removed in 1.4.0).
  *
  * @since	1.4.0
  */
