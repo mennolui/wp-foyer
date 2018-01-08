@@ -235,6 +235,8 @@ html {
   width: 100%;
   height: 100%;
   border: none;
+  margin: 0;
+  padding: 0;
 }
 .foyer-slide.foyer-slide-pdf figure img {
   -o-object-fit: contain;

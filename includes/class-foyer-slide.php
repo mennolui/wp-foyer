@@ -101,6 +101,7 @@ class Foyer_Slide {
 	 *
 	 * @since	1.0.0
 	 * @since	1.0.1	Escaped the output.
+	 * @since	1.4.0	Added slide background to the classes.
 	 *
 	 * @param 	array 	$classes
 	 * @return 	void
@@ -108,7 +109,8 @@ class Foyer_Slide {
 	public function classes( $classes = array() ) {
 
 		$classes[] = 'foyer-slide';
-		$classes[] = 'foyer-slide-'.$this->get_format();
+		$classes[] = 'foyer-slide-' . $this->get_format();
+		$classes[] = 'foyer-slide-background-' . $this->get_background();
 
 		if ( Foyer_Channel::post_type_name == get_post_type( get_queried_object_id() ) ) {
 			$channel = new Foyer_Channel( get_queried_object_id() );
@@ -119,14 +121,14 @@ class Foyer_Slide {
 			$channel = new Foyer_Channel( $display->get_active_channel() );
 		}
 
-		if (!empty ($channel) )	{
+		if ( ! empty ( $channel ) ) {
 			$slides = $channel->get_slides();
-			if ( !empty($slides) && $this->ID == $slides[0]->ID) {
+			if ( ! empty( $slides ) && $this->ID == $slides[0]->ID ) {
 				$classes[] = 'next';
 			}
 		}
 
-		if (empty( $classes )) {
+		if ( empty( $classes ) ) {
 			return;
 		}
 
@@ -212,18 +214,21 @@ class Foyer_Slide {
 	/**
 	 * Gets the URL of the slide image.
 	 *
+	 * @deprecated	1.4.0
+	 *
 	 * @since	1.0.0
 	 * @since	1.0.1	Renamed from image() to get_image_url().
 	 * @since	1.3.1	Now returns the image uploaded on the production slide, for production slides.
+	 * @since	1.4.0	Now returns the background image, instead of the default slide or production slide image.
 	 *
 	 * @return	string	The URL of the slide image.
 	 */
 	public function get_image_url() {
-		$attachment_id = get_post_meta( $this->ID, 'slide_default_image', true );
-		if ( 'production' == $this->get_format() ) {
-			$attachment_id = get_post_meta( $this->ID, 'slide_production_image', true );
-		}
+		_deprecated_function( 'Foyer_Slide::get_image_url()', '1.4.0', '' );
+
+		$attachment_id = get_post_meta( $this->ID, 'slide_bg_image_image', true );
 		$attachment_src = wp_get_attachment_image_src( $attachment_id, 'foyer_fhd_square' );
+
 		if ( empty ( $attachment_src[0] ) ) {
 			return false;
 		}
@@ -236,10 +241,13 @@ class Foyer_Slide {
 	 *
 	 * The output is escaped, so this method can be used in templates without further escaping.
 	 *
+	 * @deprecated	1.4.0
+	 *
 	 * @since	1.0.1
 	 * @return	void
 	 */
 	public function image_url() {
+		_deprecated_function( 'Foyer_Slide::image_url()', '1.4.0', '' );
 		echo esc_url( $this->get_image_url() );
 	}
 }
