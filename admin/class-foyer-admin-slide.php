@@ -220,6 +220,8 @@ class Foyer_Admin_Slide {
 	 * @since	1.3.2	Changed method to static.
 	 * @since	1.4.0	Renamed from slide_format_meta_box() to slide_content_meta_box().
 	 *					Rebuild into a single metabox holding format and background selects and content.
+	 *					Displayed a slide format description and slide background description and a message
+	 *					'No settings.' when both description and meta_box are empty.
 	 *
 	 * @param	WP_Post		$post	The post object of the current slide.
 	 * @return	void
@@ -265,11 +267,20 @@ class Foyer_Admin_Slide {
 
 				?><div id="<?php echo 'foyer_slide_format_' . $slide_format_key; ?>">
 					<h3><?php echo sprintf( __( 'Slide format: %s ', 'foyer'), $slide_format_data['title'] ); ?></h3>
-					<?php if ( empty( $slide_format_data['meta_box'] ) ) { ?>
-						<p><?php _e( 'No settings.', 'foyer' ); ?></p>
-					<?php } else { ?>
+
+					<?php if ( ! empty( $slide_format_data['description'] ) ) { ?>
+						<p class="foyer_slide_admin_description"><?php echo esc_html( $slide_format_data['description'] ); ?></p>
+					<?php } ?>
+
+					<?php if ( ! empty( $slide_format_data['meta_box'] ) ) { ?>
 						<?php call_user_func_array( $slide_format_data['meta_box'], array( get_post( $slide->ID ) ) ); ?>
 					<?php } ?>
+
+					<?php if ( empty( $slide_format_data['description'] ) && empty( $slide_format_data['meta_box'] ) ) { ?>
+						<p class="foyer_slide_admin_description"><?php _e( 'No settings.', 'foyer' ); ?></p>
+					<?php } ?>
+
+
 				</div><?php
 			} ?>
 
@@ -281,11 +292,19 @@ class Foyer_Admin_Slide {
 
 				?><div id="<?php echo 'foyer_slide_background_' . $slide_background_key; ?>">
 					<h3><?php echo sprintf( __( 'Slide background: %s ', 'foyer'), $slide_background_data['title'] ); ?></h3>
-					<?php if ( empty( $slide_background_data['meta_box'] ) ) { ?>
-						<p><?php _e( 'No settings.', 'foyer' ); ?></p>
-					<?php } else { ?>
+
+					<?php if ( ! empty( $slide_background_data['description'] ) ) { ?>
+						<p class="foyer_slide_admin_description"><?php echo esc_html( $slide_background_data['description'] ); ?></p>
+					<?php } ?>
+
+					<?php if ( ! empty( $slide_background_data['meta_box'] ) ) { ?>
 						<?php call_user_func_array( $slide_background_data['meta_box'], array( get_post( $slide->ID ) ) ); ?>
 					<?php } ?>
+
+					<?php if ( empty( $slide_background_data['description'] ) && empty( $slide_background_data['meta_box'] ) ) { ?>
+						<p class="foyer_slide_admin_description"><?php _e( 'No settings.', 'foyer' ); ?></p>
+					<?php } ?>
+
 				</div><?php
 			} ?>
 

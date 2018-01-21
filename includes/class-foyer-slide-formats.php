@@ -22,7 +22,7 @@ class Foyer_Slide_Formats {
 	 */
 	static function add_default_slide_format( $slide_formats ) {
 
-		$slide_format_backgrounds = array( 'default', 'image', 'video' );
+		$slide_format_backgrounds = array( 'image', 'video' );
 
 		/**
 		 * Filter available slide backgrounds for this slide format.
@@ -34,6 +34,7 @@ class Foyer_Slide_Formats {
 
 		$slide_formats['default'] = array(
 			'title' => _x( 'Default', 'slide-format', 'foyer' ),
+			'description' => __( 'Displays a background only.', 'foyer' ),
 			'slide_backgrounds' => $slide_format_backgrounds,
 		);
 		return $slide_formats;
@@ -62,6 +63,7 @@ class Foyer_Slide_Formats {
 
 		$slide_formats['iframe'] = array(
 			'title' => _x( 'External web page', 'slide-format', 'foyer' ),
+			'description' => __( 'Displays a web page to your liking.', 'foyer' ),
 			'meta_box' => array( 'Foyer_Admin_Slide_Format_Iframe', 'slide_meta_box' ),
 			'save_post' => array( 'Foyer_Admin_Slide_Format_Iframe', 'save_slide' ),
 			'slide_backgrounds' => $slide_format_backgrounds,
@@ -92,6 +94,7 @@ class Foyer_Slide_Formats {
 
 		$slide_formats['pdf'] = array(
 			'title' => _x( 'PDF', 'slide-format', 'foyer' ),
+			'description' => __( 'Displays a slide for each page in the uploaded PDF.', 'foyer' ),
 			'meta_box' => array( 'Foyer_Admin_Slide_Format_PDF', 'slide_pdf_meta_box' ),
 			'save_post' => array( 'Foyer_Admin_Slide_Format_PDF', 'save_slide_pdf' ),
 			'slide_backgrounds' => $slide_format_backgrounds,
@@ -128,6 +131,7 @@ class Foyer_Slide_Formats {
 
 		$slide_formats['production'] = array(
 			'title' => _x( 'Event', 'slide-format', 'foyer' ),
+			'description' => __( 'Displays title and details of a selected event, with its image as default background.', 'foyer' ),
 			'meta_box' => array( 'Foyer_Admin_Slide_Format_Production', 'slide_production_meta_box' ),
 			'save_post' => array( 'Foyer_Admin_Slide_Format_Production', 'save_slide_production' ),
 			'slide_backgrounds' => $slide_format_backgrounds,

@@ -22,7 +22,8 @@ class Foyer_Slide_Backgrounds {
 	static function add_default_slide_background( $slide_backgrounds ) {
 
 		$slide_backgrounds['default'] = array(
-			'title' => _x( 'No background', 'foyer', 'slide-background' ),
+			'title' => _x( 'Default / none', 'foyer', 'slide-background' ),
+			'description' => __( 'Displays the default background for the chosen slide format, if any, or no background.', 'foyer' ),
 		);
 		return $slide_backgrounds;
 	}

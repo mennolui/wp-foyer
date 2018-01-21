@@ -87,6 +87,9 @@ div[id^=foyer_slide_background_] {
 .foyer_slide_formats {
   border-bottom: 1px solid #eee;
 }
+.foyer_slide_admin_description {
+  color: #72777c;
+}
 .xdsoft_datetimepicker {
   -webkit-box-shadow: 0 5px 15px -5px rgba(0, 0, 0, 0.506);
           box-shadow: 0 5px 15px -5px rgba(0, 0, 0, 0.506);
