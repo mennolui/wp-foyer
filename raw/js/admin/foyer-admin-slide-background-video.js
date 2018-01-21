@@ -92,7 +92,6 @@ function foyer_admin_slide_bg_video_update_youtube_video_preview() {
  */
 function foyer_admin_slide_bg_video_validate_youtube_video_url() {
 	var video_metadata = foyer_get_video_id(jQuery('#slide_bg_video_video_url').val());
-	console.log(video_metadata);
 
 	if (video_metadata && video_metadata.id && 'youtube' == video_metadata.service) {
 		// Valid YouTube video URL, rewrite URL field and update the video preview

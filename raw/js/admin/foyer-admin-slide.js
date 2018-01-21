@@ -1,4 +1,23 @@
 /**
+ * Initializes the slide background select on the slide admin page, with the saved background.
+ *
+ * @since	1.4.0
+ *
+ * @return 	void
+ */
+function init_slide_background_select() {
+	var $slide_background_select;
+	var slide_background;
+
+	$slide_background_select = jQuery('#foyer_slide_content select[name=slide_background]');
+	slide_background = jQuery('#foyer_slide_content select[name=slide_background]').val();
+
+	update_slide_background_select();
+
+	$slide_background_select.find('option[value="'+slide_background+'"]').attr('selected','selected');
+}
+
+/**
  * Hide/unhides slide background meta boxes on the slide admin page.
  *
  * @since	1.4.0
@@ -6,13 +25,38 @@
  * @return 	void
  */
 function update_slide_background_meta_boxes() {
-	var meta_boxes;
+	var $meta_boxes;
 	var slide_format;
 
-	meta_boxes = jQuery('.foyer_slide_backgrounds > *');
+	$meta_boxes = jQuery('.foyer_slide_backgrounds > *');
 	slide_background = jQuery('#foyer_slide_content select[name=slide_background]').val();
-console.log(slide_background);
-	meta_boxes.hide().filter('#foyer_slide_background_'+slide_background).show();
+
+	$meta_boxes.hide().filter('#foyer_slide_background_'+slide_background).show();
+}
+
+/**
+ * Rebuilds the slide background select on the slide admin page, for the selected slide format.
+ *
+ * @since	1.4.0
+ *
+ * @return 	void
+ */
+function update_slide_background_select() {
+	var $slide_background_select;
+	var slide_format;
+	var slide_format_backgrounds;
+
+	$slide_background_select = jQuery('#foyer_slide_content select[name=slide_background]');
+	slide_format = jQuery('#foyer_slide_content select[name=slide_format]').val();
+	slide_format_backgrounds = foyer_slide_formats_backgrounds[slide_format];
+
+	$slide_background_select.empty();
+
+	jQuery.each(slide_format_backgrounds, function(key, data) {
+		$slide_background_select.append(
+			jQuery('<option></option>').attr('value', key).text(data.title)
+		);
+	});
 }
 
 /**
@@ -24,23 +68,25 @@ console.log(slide_background);
  * @return 	void
  */
 function update_slide_format_meta_boxes() {
-	var meta_boxes;
+	var $meta_boxes;
 	var slide_format;
 
-	meta_boxes = jQuery('.foyer_slide_formats > *');
+	$meta_boxes = jQuery('.foyer_slide_formats > *');
 	slide_format = jQuery('#foyer_slide_content select[name=slide_format]').val();
 
-	meta_boxes.hide().filter('#foyer_slide_format_'+slide_format).show();
+	$meta_boxes.hide().filter('#foyer_slide_format_'+slide_format).show();
 }
 
 jQuery( function() {
 
 	// Hide/unhide meta boxes on page load.
+	init_slide_background_select();
 	update_slide_format_meta_boxes();
 	update_slide_background_meta_boxes();
 
 	// Hide/unhide meta boxes if user selects another slide format or background.
 	jQuery('#foyer_slide_content select[name=slide_format]').on('change', function() {
+		update_slide_background_select();
 		update_slide_format_meta_boxes();
 		update_slide_background_meta_boxes();
 	});
@@ -83,9 +129,9 @@ jQuery( function() {
 
 			// Create the media frame.
 			file_frame = wp.media.frames.file_frame = wp.media({
-				title: foyer_slide_format_default.text_select_photo,
+				title: foyer_slide_image_defaults.text_select_photo,
 				button: {
-					text: foyer_slide_format_default.text_use_photo
+					text: foyer_slide_image_defaults.text_use_photo
 				},
 				multiple: false // Set to true to allow multiple files to be selected
 			});

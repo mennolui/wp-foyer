@@ -80,21 +80,25 @@ class Foyer_Admin_Slide {
 	 * Localizes the JavaScript for the slide admin area.
 	 *
 	 * @since	1.0.0
-	 * @since	1.0.1			Escaped the output.
-	 * @since	1.1.3			Fixed a Javascript issue where adding an image to a slide was only possible when
-	 *							the image was already in the media library. Removed 'photo' default as it is no
-	 *							longer needed by our Javascript.
-	 * @since	1.3.1			Changed handle of script to {plugin_name}-admin.
+	 * @since	1.0.1	Escaped the output.
+	 * @since	1.1.3	Fixed a Javascript issue where adding an image to a slide was only possible when
+	 *					the image was already in the media library. Removed 'photo' default as it is no
+	 *					longer needed by our Javascript.
+	 * @since	1.3.1	Changed handle of script to {plugin_name}-admin.
 	 * @since	1.3.2	Changed method to static.
+	 * @since	1.4.0	Renamed slide_format_default to slide_image_defaults.
+	 *					Added the slide formats backgrounds.
 	 *
 	 */
 	static function localize_scripts() {
-		$slide_format_default = array(
+		$slide_image_defaults = array(
 			'text_select_photo' => esc_html__( 'Select an image', 'foyer' ),
 			'text_use_photo' => esc_html__( 'Use this image', 'foyer' ),
 		);
-		wp_localize_script( Foyer::get_plugin_name() . '-admin', 'foyer_slide_format_default', $slide_format_default );
+		wp_localize_script( Foyer::get_plugin_name() . '-admin', 'foyer_slide_image_defaults', $slide_image_defaults );
 
+		$slide_formats_backgrounds = Foyer_Slides::get_slide_formats_backgrounds();
+		wp_localize_script( Foyer::get_plugin_name() . '-admin', 'foyer_slide_formats_backgrounds', $slide_formats_backgrounds );
 	}
 
 	/**
@@ -238,7 +242,7 @@ class Foyer_Admin_Slide {
 				name="foyer_slide_editor_<?php echo Foyer_Slide::post_type_name; ?>" value="<?php echo intval( $post->ID ); ?>">
 
 			<div class="foyer_slide_select_format">
-				<p>Format</p>
+				<p><?php _e( 'Format', 'foyer' ); ?></p>
 				<select name="slide_format">
 					<?php foreach( Foyer_Slides::get_slide_formats() as $slide_format_key => $slide_format_data ) { ?>
 						<option value="<?php echo esc_attr( $slide_format_key ); ?>" <?php selected( $slide->get_format(), $slide_format_key, true ); ?>>
@@ -249,7 +253,7 @@ class Foyer_Admin_Slide {
 			</div>
 
 			<div class="foyer_slide_select_background">
-				<p>Background</p>
+				<p><?php _e( 'Background', 'foyer' ); ?></p>
 				<select name="slide_background">
 					<?php foreach( Foyer_Slides::get_slide_backgrounds() as $slide_background_key => $slide_background_data ) { ?>
 						<option value="<?php echo esc_attr( $slide_background_key ); ?>" <?php selected( $slide->get_background(), $slide_background_key, true ); ?>>
@@ -279,7 +283,6 @@ class Foyer_Admin_Slide {
 					<?php if ( empty( $slide_format_data['description'] ) && empty( $slide_format_data['meta_box'] ) ) { ?>
 						<p class="foyer_slide_admin_description"><?php _e( 'No settings.', 'foyer' ); ?></p>
 					<?php } ?>
-
 
 				</div><?php
 			} ?>

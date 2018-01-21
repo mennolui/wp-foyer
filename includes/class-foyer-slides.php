@@ -142,7 +142,6 @@ class Foyer_Slides {
 		return false;
 	}
 
-
 	/**
 	 * Gets all available slide formats.
 	 *
@@ -168,5 +167,21 @@ class Foyer_Slides {
 		$slide_formats = apply_filters( 'foyer/slides/formats', $slide_formats );
 
 		return $slide_formats;
+	}
+
+	/**
+	 * Gets the available slide backgrounds for each available slide format.
+	 *
+	 * @since	1.4.0
+	 * @return	array			The slide formats with their backgrounds with their properties.
+	 */
+	static function get_slide_formats_backgrounds() {
+		$slide_formats_backgrounds = array();
+
+		foreach( self::get_slide_formats() as $slide_format_key => $slide_format_data ) {
+			$slide_formats_backgrounds[$slide_format_key] = self::get_slide_format_backgrounds_by_slug( $slide_format_key );
+		}
+
+		return $slide_formats_backgrounds;
 	}
 }
