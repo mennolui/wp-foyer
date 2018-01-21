@@ -136,6 +136,19 @@ class Foyer_Slide {
 	}
 
 	/**
+	 * Outputs the slide format's default background template HTML, if any.
+	 *
+	 * Used in the Default slide background template.
+	 *
+	 * @since	1.4.0
+	 *
+	 * @return	string	The slide format's default background template HTML.
+	 */
+	public function default_background() {
+		Foyer_Templates::get_template( 'slides/backgrounds/default-' . $this->get_format() . '.php' );
+	}
+
+	/**
 	 * Outputs the slide data attributes for use in the template.
 	 *
 	 * The output is escaped, so this method can be used in templates without further escaping.

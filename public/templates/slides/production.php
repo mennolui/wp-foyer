@@ -8,6 +8,7 @@
  */
 
 $slide = new Foyer_Slide( get_the_id() );
+
 $production_id = get_post_meta( $slide->ID, 'slide_production_production_id', true );
 $production = new WPT_Production( $production_id );
 
