@@ -263,13 +263,13 @@ class Foyer_Admin_Slide {
 
 			foreach( Foyer_Slides::get_slide_formats() as $slide_format_key => $slide_format_data ) {
 
-				if ( empty( $slide_format_data['meta_box'] ) ) {
-					continue;
-				}
-
 				?><div id="<?php echo 'foyer_slide_format_' . $slide_format_key; ?>">
 					<h3><?php echo sprintf( __( 'Slide format: %s ', 'foyer'), $slide_format_data['title'] ); ?></h3>
-					<?php call_user_func_array( $slide_format_data['meta_box'], array( get_post( $slide->ID ) ) ); ?>
+					<?php if ( empty( $slide_format_data['meta_box'] ) ) { ?>
+						<p><?php _e( 'No settings.', 'foyer' ); ?></p>
+					<?php } else { ?>
+						<?php call_user_func_array( $slide_format_data['meta_box'], array( get_post( $slide->ID ) ) ); ?>
+					<?php } ?>
 				</div><?php
 			} ?>
 
@@ -279,13 +279,13 @@ class Foyer_Admin_Slide {
 
 			foreach( Foyer_Slides::get_slide_backgrounds() as $slide_background_key => $slide_background_data ) {
 
-				if ( empty( $slide_background_data['meta_box'] ) ) {
-					continue;
-				}
-
 				?><div id="<?php echo 'foyer_slide_background_' . $slide_background_key; ?>">
 					<h3><?php echo sprintf( __( 'Slide background: %s ', 'foyer'), $slide_background_data['title'] ); ?></h3>
-					<?php call_user_func_array( $slide_background_data['meta_box'], array( get_post( $slide->ID ) ) ); ?>
+					<?php if ( empty( $slide_background_data['meta_box'] ) ) { ?>
+						<p><?php _e( 'No settings.', 'foyer' ); ?></p>
+					<?php } else { ?>
+						<?php call_user_func_array( $slide_background_data['meta_box'], array( get_post( $slide->ID ) ) ); ?>
+					<?php } ?>
 				</div><?php
 			} ?>
 
