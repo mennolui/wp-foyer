@@ -43,13 +43,13 @@ class Foyer_Admin_Slide {
 	 * @since	1.3.2	Changed method to static.
 	 * @since	1.4.0	Removed value for $meta_box_callback for default slide format, as this value is now defined in the
 	 *					slide format properties, same as for the other slide formats.
-	 *					Added meta boxes for slide background choices and for each slide background.
+	 *					Switched to a single metabox holding format and background selects and content.
 	 */
 	static function add_slide_editor_meta_boxes() {
 		add_meta_box(
-			'foyer_slide_format',
-			__( 'Slide format' , 'foyer' ),
-			array( __CLASS__, 'slide_format_meta_box' ),
+			'foyer_slide_content',
+			__( 'Slide content' , 'foyer' ),
+			array( __CLASS__, 'slide_content_meta_box' ),
 			Foyer_Slide::post_type_name,
 			'normal',
 			'low'
@@ -213,41 +213,49 @@ class Foyer_Admin_Slide {
 	}
 
 	/**
-	 * Outputs the content of the meta box holding all slide format choices.
+	 * Outputs the content of the meta box holding all slide content.
 	 *
 	 * @since	1.0.0
 	 * @since	1.0.1	Escaped and sanitized the output.
 	 * @since	1.3.2	Changed method to static.
+	 * @since	1.4.0	Renamed from slide_format_meta_box() to slide_content_meta_box().
+	 *					Rebuild into a single metabox holding format and background selects and content.
 	 *
 	 * @param	WP_Post		$post	The post object of the current slide.
 	 * @return	void
 	 */
-	static function slide_format_meta_box( $post ) {
+	static function slide_content_meta_box( $post ) {
 
 		wp_nonce_field( Foyer_Slide::post_type_name, Foyer_Slide::post_type_name.'_nonce' );
 
 		$slide = new Foyer_Slide( $post->ID );
 
-		?><div class="foyer_slide_formats_backgrounds">
+		?><div class="foyer_slide_select_format_background">
 
 			<input type="hidden" id="foyer_slide_editor_<?php echo Foyer_Slide::post_type_name; ?>"
 				name="foyer_slide_editor_<?php echo Foyer_Slide::post_type_name; ?>" value="<?php echo intval( $post->ID ); ?>">
 
-			<select name="slide_format">
-				<?php foreach( Foyer_Slides::get_slide_formats() as $slide_format_key => $slide_format_data ) { ?>
-					<option value="<?php echo esc_attr( $slide_format_key ); ?>" <?php selected( $slide->get_format(), $slide_format_key, true ); ?>>
-						<?php echo esc_html( $slide_format_data['title'] ); ?>
-					</option>
-				<?php } ?>
-			</select>
+			<div class="foyer_slide_select_format">
+				<p>Format</p>
+				<select name="slide_format">
+					<?php foreach( Foyer_Slides::get_slide_formats() as $slide_format_key => $slide_format_data ) { ?>
+						<option value="<?php echo esc_attr( $slide_format_key ); ?>" <?php selected( $slide->get_format(), $slide_format_key, true ); ?>>
+							<?php echo esc_html( $slide_format_data['title'] ); ?>
+						</option>
+					<?php } ?>
+				</select>
+			</div>
 
-			<select name="slide_background">
-				<?php foreach( Foyer_Slides::get_slide_backgrounds() as $slide_background_key => $slide_background_data ) { ?>
-					<option value="<?php echo esc_attr( $slide_background_key ); ?>" <?php selected( $slide->get_background(), $slide_background_key, true ); ?>>
-						<?php echo esc_html( $slide_background_data['title'] ); ?>
-					</option>
-				<?php } ?>
-			</select>
+			<div class="foyer_slide_select_background">
+				<p>Background</p>
+				<select name="slide_background">
+					<?php foreach( Foyer_Slides::get_slide_backgrounds() as $slide_background_key => $slide_background_data ) { ?>
+						<option value="<?php echo esc_attr( $slide_background_key ); ?>" <?php selected( $slide->get_background(), $slide_background_key, true ); ?>>
+							<?php echo esc_html( $slide_background_data['title'] ); ?>
+						</option>
+					<?php } ?>
+				</select>
+			</div>
 		</div>
 
 
@@ -259,7 +267,7 @@ class Foyer_Admin_Slide {
 					continue;
 				}
 
-				?><div class="<?php echo 'foyer_slide_format_' . $slide_format_key; ?>">
+				?><div id="<?php echo 'foyer_slide_format_' . $slide_format_key; ?>">
 					<h3><?php echo sprintf( __( 'Slide format: %s ', 'foyer'), $slide_format_data['title'] ); ?></h3>
 					<?php call_user_func_array( $slide_format_data['meta_box'], array( get_post( $slide->ID ) ) ); ?>
 				</div><?php
@@ -275,7 +283,7 @@ class Foyer_Admin_Slide {
 					continue;
 				}
 
-				?><div class="<?php echo 'foyer_slide_format_' . $slide_background_key; ?>">
+				?><div id="<?php echo 'foyer_slide_background_' . $slide_background_key; ?>">
 					<h3><?php echo sprintf( __( 'Slide background: %s ', 'foyer'), $slide_background_data['title'] ); ?></h3>
 					<?php call_user_func_array( $slide_background_data['meta_box'], array( get_post( $slide->ID ) ) ); ?>
 				</div><?php

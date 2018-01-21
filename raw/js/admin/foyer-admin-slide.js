@@ -1,15 +1,34 @@
 /**
+ * Hide/unhides slide background meta boxes on the slide admin page.
+ *
+ * @since	1.4.0
+ *
+ * @return 	void
+ */
+function update_slide_background_meta_boxes() {
+	var meta_boxes;
+	var slide_format;
+
+	meta_boxes = jQuery('.foyer_slide_backgrounds > *');
+	slide_background = jQuery('#foyer_slide_content select[name=slide_background]').val();
+console.log(slide_background);
+	meta_boxes.hide().filter('#foyer_slide_background_'+slide_background).show();
+}
+
+/**
  * Hide/unhides slide format meta boxes on the slide admin page.
  *
  * @since	1.0.0
+ * @since	1.4.0	Rewritten to work with the new content meta box that includes format and background selects and their content.
+ *
  * @return 	void
  */
 function update_slide_format_meta_boxes() {
 	var meta_boxes;
 	var slide_format;
 
-	meta_boxes = jQuery('.postbox[id*=foyer_slide_format_]');
-	slide_format = jQuery('#foyer_slide_format input[name=slide_format]:checked').val();
+	meta_boxes = jQuery('.foyer_slide_formats > *');
+	slide_format = jQuery('#foyer_slide_content select[name=slide_format]').val();
 
 	meta_boxes.hide().filter('#foyer_slide_format_'+slide_format).show();
 }
@@ -18,10 +37,15 @@ jQuery( function() {
 
 	// Hide/unhide meta boxes on page load.
 	update_slide_format_meta_boxes();
+	update_slide_background_meta_boxes();
 
-	// Hide/unhide meta boxes if user selects another slide format.
-	jQuery('#foyer_slide_format input[name=slide_format]').on('change', function() {
+	// Hide/unhide meta boxes if user selects another slide format or background.
+	jQuery('#foyer_slide_content select[name=slide_format]').on('change', function() {
 		update_slide_format_meta_boxes();
+		update_slide_background_meta_boxes();
+	});
+	jQuery('#foyer_slide_content select[name=slide_background]').on('change', function() {
+		update_slide_background_meta_boxes();
 	});
 
 });

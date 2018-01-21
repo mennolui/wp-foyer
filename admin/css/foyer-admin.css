@@ -1,3 +1,6 @@
+body.post-php.post-type-foyer_channel #edit-slug-box {
+  display: none;
+}
 .foyer_slides_editor_slides {
   margin-bottom: 2em;
 }
@@ -31,7 +34,11 @@
 .foyer_slides_editor_add {
   border-top: 1px solid #eee;
 }
-div[id^=foyer_slide_format_] {
+body.post-php.post-type-foyer_slide #edit-slug-box {
+  display: none;
+}
+div[id^=foyer_slide_format_],
+div[id^=foyer_slide_background_] {
   display: none;
 }
 .slide_image_field .slide_image_upload_button {
@@ -43,6 +50,42 @@ div[id^=foyer_slide_format_] {
 }
 .slide_image_field.empty .slide_image_upload_button {
   display: inline;
+}
+.foyer_slide_select_format_background {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: -6px -12px 0 -12px;
+  padding: 8px 12px;
+  background-color: #fafafa;
+  border-bottom: 1px solid #eee;
+}
+.foyer_slide_select_format_background .foyer_slide_select_format,
+.foyer_slide_select_format_background .foyer_slide_select_background {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
+  padding-right: 20px;
+}
+.foyer_slide_select_format_background .foyer_slide_select_format p,
+.foyer_slide_select_format_background .foyer_slide_select_background p {
+  margin: 0;
+  padding-right: 10px;
+  color: #72777c;
+}
+.foyer_slide_formats,
+.foyer_slide_backgrounds {
+  margin: 0 -12px;
+  padding: 12px;
+}
+.foyer_slide_formats {
+  border-bottom: 1px solid #eee;
 }
 .xdsoft_datetimepicker {
   -webkit-box-shadow: 0 5px 15px -5px rgba(0, 0, 0, 0.506);
