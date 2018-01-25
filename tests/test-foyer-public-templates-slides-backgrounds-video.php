@@ -1,8 +1,11 @@
 <?php
 
-class Test_Foyer_Public_Templates_Slides_Video extends Foyer_UnitTestCase {
+class Test_Foyer_Public_Templates_Slides_Backgrounds_Video extends Foyer_UnitTestCase {
 
-	function test_are_all_video_slide_properties_included_in_slide() {
+	/**
+	 * @since	1.4.0
+	 */
+	function test_are_all_slide_background_video_properties_included_in_slide() {
 
 		$this->assume_role( 'administrator' );
 
@@ -12,11 +15,12 @@ class Test_Foyer_Public_Templates_Slides_Video extends Foyer_UnitTestCase {
 		$video_end = '60';
 		$hold_slide = '1';
 
-		update_post_meta( $this->slide1, 'slide_format', 'video' );
-		update_post_meta( $this->slide1, 'slide_video_video_url', $video_url );
-		update_post_meta( $this->slide1, 'slide_video_video_start', $video_start );
-		update_post_meta( $this->slide1, 'slide_video_video_end', $video_end );
-		update_post_meta( $this->slide1, 'slide_video_hold_slide', $hold_slide );
+		update_post_meta( $this->slide1, 'slide_format', '' );
+		update_post_meta( $this->slide1, 'slide_background', 'video' );
+		update_post_meta( $this->slide1, 'slide_bg_video_video_url', $video_url );
+		update_post_meta( $this->slide1, 'slide_bg_video_video_start', $video_start );
+		update_post_meta( $this->slide1, 'slide_bg_video_video_end', $video_end );
+		update_post_meta( $this->slide1, 'slide_bg_video_hold_slide', $hold_slide );
 
 		$this->go_to( get_permalink( $this->slide1 ) );
 
