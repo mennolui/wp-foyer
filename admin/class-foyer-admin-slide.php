@@ -166,6 +166,10 @@ class Foyer_Admin_Slide {
 			return $post_id;
 		}
 
+		if ( ! isset( $_POST['slide_format'] ) || ! isset( $_POST['slide_background'] ) ) {
+			return $post_id;
+		}
+
 		/* Slide format */
 		$slide_format_slug = sanitize_title( $_POST['slide_format'] );
 		$slide_format = Foyer_Slides::get_slide_format_by_slug( $slide_format_slug );
