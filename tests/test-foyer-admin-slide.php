@@ -14,42 +14,22 @@ class Test_Foyer_Admin_Slide extends Foyer_UnitTestCase {
 		return $meta_boxes;
 	}
 
-	function test_slide_format_meta_box_is_displayed_on_slide_admin_page() {
-
-		$meta_boxes = $this->get_meta_boxes_for_slide( $this->slide1 );
-
-		$this->assertContains( '<div id="foyer_slide_format" class="postbox', $meta_boxes );
-	}
-
-	function test_all_slide_format_radios_are_displayed_on_slide_admin_page() {
-
-		$meta_boxes = $this->get_meta_boxes_for_slide( $this->slide1 );
-
-		$slide_formats = Foyer_Slides::get_slide_formats();
-		foreach ( $slide_formats as $key => $slide_format ) {
-			$this->assertContains( '<input type="radio" value="' . $key . '" name="slide_format"', $meta_boxes );
-		}
-	}
-
-	function test_all_slide_format_meta_boxes_are_displayed_on_slide_admin_page() {
-
-		$meta_boxes = $this->get_meta_boxes_for_slide( $this->slide1 );
-
-		$slide_formats = Foyer_Slides::get_slide_formats();
-		foreach ( $slide_formats as $key => $slide_format ) {
-			$this->assertContains( '<div id="foyer_slide_format_' . $key . '" class="postbox', $meta_boxes );
-		}
-	}
-
+	/**
+	 * @since	1.?
+	 * @since	1.4.0	Updated to work with slide backgrounds.
+	 */
 	function test_is_slide_format_default_saved() {
 
 		$this->assume_role( 'administrator' );
+
+		// Set slide_format to an existing value, not default
+		update_post_meta( $this->slide1, 'slide_format', 'pdf' );
 
 		$slide_format = 'default';
 
 		$_POST[ Foyer_Slide::post_type_name.'_nonce' ] = wp_create_nonce( Foyer_Slide::post_type_name );
 		$_POST['slide_format'] = $slide_format;
-		$_POST['slide_default_image'] = '';
+		$_POST['slide_background'] = '';
 
 		Foyer_Admin_Slide::save_slide( $this->slide1 );
 
@@ -59,6 +39,10 @@ class Test_Foyer_Admin_Slide extends Foyer_UnitTestCase {
 		$this->assertEquals( $slide_format, $actual );
 	}
 
+	/**
+	 * @since	1.?
+	 * @since	1.4.0	Updated to work with slide backgrounds.
+	 */
 	function test_is_slide_format_pdf_saved() {
 
 		$this->assume_role( 'administrator' );
@@ -67,6 +51,7 @@ class Test_Foyer_Admin_Slide extends Foyer_UnitTestCase {
 
 		$_POST[ Foyer_Slide::post_type_name.'_nonce' ] = wp_create_nonce( Foyer_Slide::post_type_name );
 		$_POST['slide_format'] = $slide_format;
+		$_POST['slide_background'] = '';
 		$_POST['slide_pdf_file'] = '';
 
 		Foyer_Admin_Slide::save_slide( $this->slide1 );
@@ -75,5 +60,123 @@ class Test_Foyer_Admin_Slide extends Foyer_UnitTestCase {
 
 		$actual = $updated_slide->get_format();
 		$this->assertEquals( $slide_format, $actual );
+	}
+
+	/**
+	 * @since	1.4.0
+	 */
+	function test_is_slide_background_default_saved() {
+
+		$this->assume_role( 'administrator' );
+
+		// Set slide_background to an existing value, not default
+		update_post_meta( $this->slide1, 'slide_background', 'image' );
+
+		$slide_background = 'default';
+
+		$_POST[ Foyer_Slide::post_type_name.'_nonce' ] = wp_create_nonce( Foyer_Slide::post_type_name );
+		$_POST['slide_format'] = '';
+		$_POST['slide_background'] = $slide_background;
+
+		Foyer_Admin_Slide::save_slide( $this->slide1 );
+
+		$updated_slide = new Foyer_Slide( $this->slide1 );
+
+		$actual = $updated_slide->get_background();
+		$this->assertEquals( $slide_background, $actual );
+	}
+
+	/**
+	 * @since	1.4.0
+	 */
+	function test_is_slide_background_image_saved() {
+
+		$this->assume_role( 'administrator' );
+
+		$slide_background = 'image';
+
+		$_POST[ Foyer_Slide::post_type_name.'_nonce' ] = wp_create_nonce( Foyer_Slide::post_type_name );
+		$_POST['slide_format'] = '';
+		$_POST['slide_background'] = $slide_background;
+		$_POST['slide_bg_image_image'] = '';
+
+		Foyer_Admin_Slide::save_slide( $this->slide1 );
+
+		$updated_slide = new Foyer_Slide( $this->slide1 );
+
+		$actual = $updated_slide->get_background();
+		$this->assertEquals( $slide_background, $actual );
+	}
+
+	/**
+	 * @since	1.4.0
+	 */
+	function test_slide_format_select_is_displayed_on_slide_admin_page() {
+
+		$meta_boxes = $this->get_meta_boxes_for_slide( $this->slide1 );
+
+		$this->assertContains( '<div class="foyer_slide_select_format"', $meta_boxes );
+	}
+
+	/**
+	 * @since	1.4.0
+	 */
+	function test_slide_background_select_is_displayed_on_slide_admin_page() {
+
+		$meta_boxes = $this->get_meta_boxes_for_slide( $this->slide1 );
+
+		$this->assertContains( '<div class="foyer_slide_select_background"', $meta_boxes );
+	}
+
+	/**
+	 * @since	1.4.0
+	 */
+	function test_all_slide_format_options_are_displayed_on_slide_admin_page() {
+
+		$meta_boxes = $this->get_meta_boxes_for_slide( $this->slide1 );
+
+		$slide_formats = Foyer_Slides::get_slide_formats();
+		foreach ( $slide_formats as $key => $slide_format ) {
+			$this->assertContains( '<option value="' . $key . '"', $meta_boxes );
+		}
+	}
+
+	/**
+	 * @since	1.4.0
+	 */
+	function test_all_slide_background_options_are_displayed_on_slide_admin_page() {
+
+		$meta_boxes = $this->get_meta_boxes_for_slide( $this->slide1 );
+
+		$slide_backgrounds = Foyer_Slides::get_slide_backgrounds();
+		foreach ( $slide_backgrounds as $key => $slide_background ) {
+			$this->assertContains( '<option value="' . $key . '"', $meta_boxes );
+		}
+	}
+
+	/**
+	 * @since	1.4.0
+	 */
+	function test_all_slide_format_admin_panels_are_displayed_on_slide_admin_page() {
+
+		$meta_boxes = $this->get_meta_boxes_for_slide( $this->slide1 );
+
+		$slide_formats = Foyer_Slides::get_slide_formats();
+		foreach ( $slide_formats as $key => $slide_format ) {
+			$this->assertContains( '<div id="foyer_slide_format_' . $key . '"', $meta_boxes );
+		}
+	}
+
+	/**
+	 * @since	1.4.0
+	 */
+	function test_all_slide_background_admin_panels_are_displayed_on_slide_admin_page() {
+
+		$meta_boxes = $this->get_meta_boxes_for_slide( $this->slide1 );
+
+		$slide_backgrounds = Foyer_Slides::get_slide_backgrounds();
+		foreach ( $slide_backgrounds as $key => $slide_background ) {
+			$this->assertContains( '<div id="foyer_slide_background_' . $key . '"', $meta_boxes );
+		}
 	}
 }
