@@ -2,6 +2,10 @@
 
 class Test_Foyer_Admin_Slide_Format_PDF extends Foyer_UnitTestCase {
 
+	/**
+	 * @since	1.?
+	 * @since	1.4.0	Updated to work with slide backgrounds.
+	 */
 	function test_are_all_pdf_slide_properties_saved() {
 
 		$this->assume_role( 'administrator' );
@@ -12,6 +16,7 @@ class Test_Foyer_Admin_Slide_Format_PDF extends Foyer_UnitTestCase {
 
 		$_POST[ Foyer_Slide::post_type_name.'_nonce' ] = wp_create_nonce( Foyer_Slide::post_type_name );
 		$_POST['slide_format'] = 'pdf';
+		$_POST['slide_background'] = '';
 
 		$_POST['slide_pdf_file'] = $pdf_attachment_id;
 
