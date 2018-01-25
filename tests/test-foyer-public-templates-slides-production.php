@@ -4,6 +4,10 @@
  */
 class Test_Foyer_Public_Templates_Slides_Production extends Foyer_UnitTestCase {
 
+	/**
+	 * @since	1.?
+	 * @since	1.4.0	Updated to work with slide backgrounds.
+	 */
 	function test_are_all_production_slide_properties_included_in_slide() {
 
 		// Load Theater plugin (if not loaded already)
@@ -20,13 +24,9 @@ class Test_Foyer_Public_Templates_Slides_Production extends Foyer_UnitTestCase {
 		/* Create production */
 		$production_id = $this->factory->post->create( $prod_args );
 
-		/* Create image attachment */
-		$file = dirname( __FILE__ ) . '/assets/Kip-400x400.jpg';
-		$image_attachment_id = $this->factory->attachment->create_upload_object( $file );
-
 		update_post_meta( $this->slide1, 'slide_format', 'production' );
+		update_post_meta( $this->slide1, 'slide_background', '' );
 		update_post_meta( $this->slide1, 'slide_production_production_id', $production_id );
-		update_post_meta( $this->slide1, 'slide_production_image', $image_attachment_id );
 
 		$this->go_to( get_permalink( $this->slide1 ) );
 
@@ -35,7 +35,6 @@ class Test_Foyer_Public_Templates_Slides_Production extends Foyer_UnitTestCase {
 		$actual = ob_get_clean();
 
 		$this->assertContains( $production_title, $actual );
-		$this->assertRegExp( '/Kip-400x400.*\.jpg/', $actual );
 	}
 }
 
