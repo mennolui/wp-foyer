@@ -18,21 +18,21 @@ class Foyer_Templates {
 	 *
 	 * @since	1.0.0
 	 *
-	 * @param string 	$template_name			Template to load.
-	 * @param array 	$args					Args passed for the template file.
-	 * @param string 	$string $template_path	Path to templates.
-	 * @param string	$default_path			Default path to template files.
+	 * @param	string 	$template_name			Template to load.
+	 * @param	array 	$args					Args passed for the template file.
+	 * @param	string 	$string $template_path	Path to templates.
+	 * @param	string	$default_path			Default path to template files.
+	 * @return	void
 	 */
 	static function get_template( $template_name, $args = array(), $template_path = '', $default_path = '' ) {
-		if ( is_array( $args ) && isset( $args ) ) :
+		if ( is_array( $args ) && isset( $args ) ) {
 			extract( $args );
-		endif;
+		}
 		$template_file = self::locate_template( $template_name, $template_path, $default_path );
-		if ( ! file_exists( $template_file ) ) :
-			_doing_it_wrong( __FUNCTION__, sprintf( '<code>%s</code> does not exist.', $template_file ), '1.0.1' );
-			// @todo: use current plugin version
-			return;
-		endif;
+		if ( ! file_exists( $template_file ) ) {
+			_doing_it_wrong( __FUNCTION__, sprintf( '<code>%s</code> does not exist.', $template_file ), FOYER_PLUGIN_VERSION );
+			return false;
+		}
 		include $template_file;
 	}
 
@@ -43,7 +43,7 @@ class Foyer_Templates {
 	 * Search Order:
 	 * 1. /themes/theme/foyer/$template_name
 	 * 2. /themes/theme/$template_name
-	 * 3. /plugins/wp-foyer/public/templates/$template_name.
+	 * 3. /plugins/foyer/public/templates/$template_name.
 	 *
 	 * @since	1.0.0
 	 *
@@ -53,23 +53,23 @@ class Foyer_Templates {
 	 * @return 	string 						Path to the template file.
 	 */
 	static function locate_template( $template_name, $template_path = '', $default_path = '' ) {
-		// Set variable to search in woocommerce-plugin-templates folder of theme.
-		if ( ! $template_path ) :
+		// Set template path to foyer folder of theme.
+		if ( ! $template_path ) {
 			$template_path = 'foyer/';
-		endif;
-		// Set default plugin templates path.
-		if ( ! $default_path ) :
+		}
+		// Set default path to templates folder of plugin.
+		if ( ! $default_path ) {
 			$default_path = plugin_dir_path( __FILE__ ) . 'templates/'; // Path to the template folder
-		endif;
-		// Search template file in theme folder.
+		}
+		// Search template file in theme.
 		$template = locate_template( array(
 			$template_path . $template_name,
 			$template_name
 		) );
-		// Get plugins template file.
-		if ( ! $template ) :
+		// Fall back to template file in plugin.
+		if ( ! $template ) {
 			$template = $default_path . $template_name;
-		endif;
+		}
 		return apply_filters( 'foyer/templates/template', $template, $template_name, $template_path, $default_path );
 	}
 
@@ -95,13 +95,17 @@ class Foyer_Templates {
 		) {
 			// Show inside preview iframe when logged in.
 			$file = 'preview.php';
-		} else if ( is_singular( Foyer_Slide::post_type_name ) ) {
+		}
+		else if ( is_singular( Foyer_Slide::post_type_name ) ) {
 			$file = 'single-slide.php';
-		} else if ( is_singular( Foyer_Channel::post_type_name ) ) {
+		}
+		else if ( is_singular( Foyer_Channel::post_type_name ) ) {
 			$file = 'single-channel.php';
-		} else if ( is_singular( Foyer_Display::post_type_name ) ) {
+		}
+		else if ( is_singular( Foyer_Display::post_type_name ) ) {
 			$file = 'single-display.php';
-		} else {
+		}
+		else {
 			return $template;
 		}
 
