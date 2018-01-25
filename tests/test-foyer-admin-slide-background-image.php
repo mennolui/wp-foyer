@@ -1,8 +1,11 @@
 <?php
 
-class Test_Foyer_Admin_Slide_Format_Default extends Foyer_UnitTestCase {
+class Test_Foyer_Admin_Slide_Background_Image extends Foyer_UnitTestCase {
 
-	function test_are_all_default_slide_properties_saved() {
+	/**
+	 * @since	1.4.0
+	 */
+	function test_are_all_slide_background_image_properties_saved() {
 
 		$this->assume_role( 'administrator' );
 
@@ -11,13 +14,14 @@ class Test_Foyer_Admin_Slide_Format_Default extends Foyer_UnitTestCase {
 		$image_attachment_id = $this->factory->attachment->create_upload_object( $file );
 
 		$_POST[ Foyer_Slide::post_type_name.'_nonce' ] = wp_create_nonce( Foyer_Slide::post_type_name );
-		$_POST['slide_format'] = 'default';
+		$_POST['slide_format'] = '';
+		$_POST['slide_background'] = 'image';
 
-		$_POST['slide_default_image'] = $image_attachment_id;
+		$_POST['slide_bg_image_image'] = $image_attachment_id;
 
 		Foyer_Admin_Slide::save_slide( $this->slide1 );
 
-		$actual = get_post_meta( $this->slide1, 'slide_default_image', true );
+		$actual = get_post_meta( $this->slide1, 'slide_bg_image_image', true );
 		$this->assertEquals( $image_attachment_id, $actual );
 	}
 }
