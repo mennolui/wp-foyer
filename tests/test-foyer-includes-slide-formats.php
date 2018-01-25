@@ -34,9 +34,13 @@ class Test_Foyer_Slide_Formats extends Foyer_UnitTestCase {
 		$this->assertNotEmpty( $slide_format );
 	}
 
-	function test_is_video_slide_format_registered() {
+	/**
+	 * @since	1.?
+	 * @since	1.4.0	Updated to work with slide backgrounds.
+	 */
+	function test_is_deprecated_video_slide_format_not_registered() {
 		$slide_format = Foyer_Slides::get_slide_format_by_slug( 'video' );
-		$this->assertNotEmpty( $slide_format );
+		$this->assertEmpty( $slide_format );
 	}
 
 	function test_is_iframe_slide_format_registered() {
@@ -49,13 +53,19 @@ class Test_Foyer_Slide_Formats extends Foyer_UnitTestCase {
 		$this->assertNotEmpty( $slide_format );
 	}
 
+	/**
+	 * @since	1.4.0
+	 */
 	function test_are_backgrounds_for_default_slide_format_registered() {
-		$expected = array( 'default', 'image' );
+		$expected = array( 'image', 'video' );
 		$actual = array_keys( Foyer_Slides::get_slide_format_backgrounds_by_slug( 'default' ) );
 
 		$this->assertEquals( $expected, $actual );
 	}
 
+	/**
+	 * @since	1.4.0
+	 */
 	function test_are_backgrounds_for_default_slide_format_filtered() {
 		add_filter( 'foyer/slides/backgrounds/format=default', array( $this, 'replace_format_backgrounds' ) );
 
