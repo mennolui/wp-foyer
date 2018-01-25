@@ -14,7 +14,7 @@ class Test_Foyer_Admin_Slide_Format_Iframe extends Foyer_UnitTestCase {
 
 		$_POST[ Foyer_Slide::post_type_name.'_nonce' ] = wp_create_nonce( Foyer_Slide::post_type_name );
 		$_POST['slide_format'] = 'iframe';
-		$_POST['slide_background'] = '';
+		$_POST['slide_background'] = 'default';
 
 		$_POST['slide_iframe_website_url'] = $website_url;
 

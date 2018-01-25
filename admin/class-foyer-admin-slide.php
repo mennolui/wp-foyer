@@ -174,21 +174,22 @@ class Foyer_Admin_Slide {
 		$slide_format_slug = sanitize_title( $_POST['slide_format'] );
 		$slide_format = Foyer_Slides::get_slide_format_by_slug( $slide_format_slug );
 
-		if ( ! empty( $slide_format ) ) {
-			update_post_meta( $post_id, 'slide_format', $slide_format_slug );
+		/* Slide background */
+		$slide_background_slug = sanitize_title( $_POST['slide_background'] );
+		$slide_background = Foyer_Slides::get_slide_background_by_slug_for_slide_format( $slide_background_slug, $slide_format_slug );
+
+		if ( empty( $slide_format ) || empty( $slide_background ) ) {
+			// Submitted slide format or slide background does not exist, bail
+			return $post_id;
 		}
+
+		update_post_meta( $post_id, 'slide_format', $slide_format_slug );
 
 		if ( ! empty( $slide_format['save_post'] ) ) {
 			call_user_func_array( $slide_format['save_post'], array( $post_id ) );
 		}
 
-		/* Slide background */
-		$slide_background_slug = sanitize_title( $_POST['slide_background'] );
-		$slide_background = Foyer_Slides::get_slide_background_by_slug( $slide_background_slug );
-
-		if ( ! empty( $slide_background ) ) {
-			update_post_meta( $post_id, 'slide_background', $slide_background_slug );
-		}
+		update_post_meta( $post_id, 'slide_background', $slide_background_slug );
 
 		if ( ! empty( $slide_background['save_post'] ) ) {
 			call_user_func_array( $slide_background['save_post'], array( $post_id ) );

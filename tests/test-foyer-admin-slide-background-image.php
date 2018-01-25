@@ -14,7 +14,7 @@ class Test_Foyer_Admin_Slide_Background_Image extends Foyer_UnitTestCase {
 		$image_attachment_id = $this->factory->attachment->create_upload_object( $file );
 
 		$_POST[ Foyer_Slide::post_type_name.'_nonce' ] = wp_create_nonce( Foyer_Slide::post_type_name );
-		$_POST['slide_format'] = '';
+		$_POST['slide_format'] = 'default';
 		$_POST['slide_background'] = 'image';
 
 		$_POST['slide_bg_image_image'] = $image_attachment_id;

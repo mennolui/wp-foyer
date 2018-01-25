@@ -29,7 +29,8 @@ class Test_Foyer_Admin_Slide extends Foyer_UnitTestCase {
 
 		$_POST[ Foyer_Slide::post_type_name.'_nonce' ] = wp_create_nonce( Foyer_Slide::post_type_name );
 		$_POST['slide_format'] = $slide_format;
-		$_POST['slide_background'] = '';
+		$_POST['slide_background'] = 'image';
+		$_POST['slide_bg_image_image'] = '';
 
 		Foyer_Admin_Slide::save_slide( $this->slide1 );
 
@@ -51,7 +52,7 @@ class Test_Foyer_Admin_Slide extends Foyer_UnitTestCase {
 
 		$_POST[ Foyer_Slide::post_type_name.'_nonce' ] = wp_create_nonce( Foyer_Slide::post_type_name );
 		$_POST['slide_format'] = $slide_format;
-		$_POST['slide_background'] = '';
+		$_POST['slide_background'] = 'default';
 		$_POST['slide_pdf_file'] = '';
 
 		Foyer_Admin_Slide::save_slide( $this->slide1 );
@@ -75,8 +76,9 @@ class Test_Foyer_Admin_Slide extends Foyer_UnitTestCase {
 		$slide_background = 'default';
 
 		$_POST[ Foyer_Slide::post_type_name.'_nonce' ] = wp_create_nonce( Foyer_Slide::post_type_name );
-		$_POST['slide_format'] = '';
+		$_POST['slide_format'] = 'iframe';
 		$_POST['slide_background'] = $slide_background;
+		$_POST['slide_iframe_website_url'] = '';
 
 		Foyer_Admin_Slide::save_slide( $this->slide1 );
 
@@ -96,7 +98,7 @@ class Test_Foyer_Admin_Slide extends Foyer_UnitTestCase {
 		$slide_background = 'image';
 
 		$_POST[ Foyer_Slide::post_type_name.'_nonce' ] = wp_create_nonce( Foyer_Slide::post_type_name );
-		$_POST['slide_format'] = '';
+		$_POST['slide_format'] = 'default';
 		$_POST['slide_background'] = $slide_background;
 		$_POST['slide_bg_image_image'] = '';
 
@@ -106,6 +108,32 @@ class Test_Foyer_Admin_Slide extends Foyer_UnitTestCase {
 
 		$actual = $updated_slide->get_background();
 		$this->assertEquals( $slide_background, $actual );
+	}
+
+	/**
+	 * @since	1.4.0
+	 */
+	function test_is_slide_not_saved_when_saving_slide_background_default_for_slide_format_default() {
+
+		$this->assume_role( 'administrator' );
+
+		$old_slide_background = 'video';
+
+		// Set slide_background to an existing value, not default
+		update_post_meta( $this->slide1, 'slide_background', $old_slide_background );
+
+		// Try to save slide_format default and background default, to try to create an unwanted situation
+		// (slide format default has no background default)
+		$_POST[ Foyer_Slide::post_type_name.'_nonce' ] = wp_create_nonce( Foyer_Slide::post_type_name );
+		$_POST['slide_format'] = 'default';
+		$_POST['slide_background'] = 'default';
+
+		Foyer_Admin_Slide::save_slide( $this->slide1 );
+
+		$updated_slide = new Foyer_Slide( $this->slide1 );
+
+		$actual = $updated_slide->get_background();
+		$this->assertEquals( $old_slide_background, $actual );
 	}
 
 	/**

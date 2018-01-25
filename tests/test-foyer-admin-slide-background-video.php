@@ -15,7 +15,7 @@ class Test_Foyer_Admin_Slide_Background_Video extends Foyer_UnitTestCase {
 		$hold_slide = '1';
 
 		$_POST[ Foyer_Slide::post_type_name.'_nonce' ] = wp_create_nonce( Foyer_Slide::post_type_name );
-		$_POST['slide_format'] = '';
+		$_POST['slide_format'] = 'default';
 		$_POST['slide_background'] = 'video';
 
 		$_POST['slide_bg_video_video_url'] = $video_url;

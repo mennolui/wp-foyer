@@ -16,7 +16,7 @@ class Test_Foyer_Admin_Slide_Format_PDF extends Foyer_UnitTestCase {
 
 		$_POST[ Foyer_Slide::post_type_name.'_nonce' ] = wp_create_nonce( Foyer_Slide::post_type_name );
 		$_POST['slide_format'] = 'pdf';
-		$_POST['slide_background'] = '';
+		$_POST['slide_background'] = 'default';
 
 		$_POST['slide_pdf_file'] = $pdf_attachment_id;
 

@@ -100,6 +100,25 @@ class Foyer_Slides {
 	}
 
 	/**
+	 * Gets a slide background by its slug, for a specific slide format.
+	 *
+	 * Only returns a slide background if it is registered to the slide format.
+	 *
+	 * @since	1.4.0
+	 * @param	string	$slide_background_slug	The slug of the slide background to get.
+	 * @param	string	$slide_format_slug		The slug of the slide format to get the slide background for.
+	 * @return	array							The slide background properties.
+	 */
+	static function get_slide_background_by_slug_for_slide_format( $slide_background_slug, $slide_format_slug ) {
+		$slide_format_backgrounds = self::get_slide_format_backgrounds_by_slug( $slide_format_slug );
+		if ( empty( $slide_format_backgrounds[$slide_background_slug] ) ) {
+			return false;
+		}
+
+		return $slide_format_backgrounds[$slide_background_slug];
+	}
+
+	/**
 	 * Gets all available slide backgrounds.
 	 *
 	 * Slide backgrounds are added through filters.
