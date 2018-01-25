@@ -135,6 +135,7 @@ class Foyer_Slide_Formats {
 			'meta_box' => array( 'Foyer_Admin_Slide_Format_Production', 'slide_production_meta_box' ),
 			'save_post' => array( 'Foyer_Admin_Slide_Format_Production', 'save_slide_production' ),
 			'slide_backgrounds' => $slide_format_backgrounds,
+			'default_background_template' => true,
 		);
 
 		return $slide_formats;

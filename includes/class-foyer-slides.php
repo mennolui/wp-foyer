@@ -184,4 +184,21 @@ class Foyer_Slides {
 
 		return $slide_formats_backgrounds;
 	}
+
+	/**
+	 * Checks if the slide format has a default background template.
+	 *
+	 * @since	1.4.0
+	 *
+	 * @param	string	$slug	The slug of the slide format.
+	 * @return	bool			True if the slide format is known to have a default background template.
+	 */
+	static function slide_format_has_default_background_template( $slug ) {
+		$slide_format_data = self::get_slide_format_by_slug( $slug );
+
+		if ( empty( $slide_format_data['default_background_template'] ) ) {
+			return false;
+		}
+		return true;
+	}
 }

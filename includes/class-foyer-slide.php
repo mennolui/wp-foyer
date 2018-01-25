@@ -136,7 +136,7 @@ class Foyer_Slide {
 	}
 
 	/**
-	 * Outputs the slide format's default background template HTML, if any.
+	 * Outputs the slide format's default background template HTML, if it is known to have one.
 	 *
 	 * Used in the Default slide background template.
 	 *
@@ -145,7 +145,9 @@ class Foyer_Slide {
 	 * @return	string	The slide format's default background template HTML.
 	 */
 	public function default_background() {
-		Foyer_Templates::get_template( 'slides/backgrounds/default-' . $this->get_format() . '.php' );
+		if ( Foyer_Slides::slide_format_has_default_background_template( self::get_format() ) ) {
+			Foyer_Templates::get_template( 'slides/backgrounds/default-' . $this->get_format() . '.php' );
+		}
 	}
 
 	/**
