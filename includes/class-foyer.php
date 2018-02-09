@@ -109,6 +109,11 @@ class Foyer {
 		require_once FOYER_PLUGIN_PATH . 'includes/class-foyer-channel.php';
 		require_once FOYER_PLUGIN_PATH . 'includes/class-foyer-slide.php';
 
+		/* Display, channel and slide helper functions. */
+		require_once FOYER_PLUGIN_PATH . 'includes/class-foyer-displays.php';
+		require_once FOYER_PLUGIN_PATH . 'includes/class-foyer-channels.php';
+		require_once FOYER_PLUGIN_PATH . 'includes/class-foyer-slides.php';
+
 		/* Database updater. */
 		require_once FOYER_PLUGIN_PATH . 'includes/class-foyer-updater.php';
 
@@ -117,9 +122,6 @@ class Foyer {
 
 		/* General (not public/admin) setup actions. */
 		require_once FOYER_PLUGIN_PATH . 'includes/class-foyer-setup.php';
-
-		/* Slides helper functions. */
-		require_once FOYER_PLUGIN_PATH . 'includes/class-foyer-slides.php';
 
 		/* Slide backgrounds. */
 		require_once FOYER_PLUGIN_PATH . 'includes/class-foyer-slide-backgrounds.php';

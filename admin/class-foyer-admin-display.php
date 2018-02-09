@@ -249,10 +249,7 @@ class Foyer_Admin_Display {
 					<select id="foyer_channel_editor_default_channel" name="foyer_channel_editor_default_channel">
 						<option value="">(<?php echo esc_html__( 'Select a channel', 'foyer' ); ?>)</option>
 						<?php
-							$channels = get_posts( array(
-								'post_type' => Foyer_Channel::post_type_name,
-								'posts_per_page' => -1,
-							) ); //@todo: move to class
+							$channels = Foyer_Channels::get_posts();
 							foreach ( $channels as $channel ) {
 								$checked = '';
 								if ( $default_channel == $channel->ID ) {
@@ -310,10 +307,7 @@ class Foyer_Admin_Display {
 					<select id="foyer_channel_editor_scheduled_channel" name="foyer_channel_editor_scheduled_channel">
 						<option value="">(<?php echo esc_html__( 'Select a channel', 'foyer' ); ?>)</option>
 						<?php
-							$channels = get_posts( array(
-								'post_type' => Foyer_Channel::post_type_name,
-								'posts_per_page' => -1,
-							) ); //@todo: move to class
+							$channels = Foyer_Channels::get_posts();
 							foreach ( $channels as $channel ) {
 								$checked = '';
 								if ( ! empty( $scheduled_channel['channel'] ) && $scheduled_channel['channel'] == $channel->ID ) {

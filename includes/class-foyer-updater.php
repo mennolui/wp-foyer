@@ -104,11 +104,9 @@ class Foyer_Updater {
 	static function update_to_1_4_0() {
 
 		$args = array(
-			'post_type' => Foyer_Slide::post_type_name,
-			'posts_per_page' => -1,
 			'post_status' => array( 'any', 'trash' ),
 		 );
-		$slides = get_posts( $args );
+		$slides = Foyer_Slides::get_posts( $args );
 
 		// Loop over all slides and convert them to new slide formats and slide backgrounds
 		foreach ( $slides as $slide ) {
@@ -150,7 +148,6 @@ class Foyer_Updater {
 				// Slide background is empty, set to 'default'
 				update_post_meta( $slide->ID, 'slide_background', 'default' );
 			}
-
 		}
 
 		return true;

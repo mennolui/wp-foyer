@@ -52,6 +52,25 @@ class Foyer_Slides {
 	}
 
 	/**
+	 * Gets all slide posts.
+	 *
+	 * @since	1.4.0
+	 *
+	 * @param	array				$args	Additional args for get_posts().
+	 * @return	array of WP_Post			The slide posts.
+	 */
+	static function get_posts( $args = array() ) {
+		$defaults = array(
+			'post_type' => Foyer_Slide::post_type_name,
+			'posts_per_page' => -1,
+		);
+
+		$args = wp_parse_args( $args, $defaults );
+
+		return get_posts( $args );
+	}
+
+	/**
 	 * Gets a slide background by its slug.
 	 *
 	 * @since	1.4.0

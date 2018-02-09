@@ -156,10 +156,7 @@ class Foyer_Admin_Channel {
 							<select id="foyer_slides_editor_add" class="foyer_slides_editor_add_select">
 								<option value="">(<?php echo esc_html__( 'Select a slide', 'foyer' ); ?>)</option>
 								<?php
-									$slides = get_posts( array(
-										'post_type' => Foyer_Slide::post_type_name,
-										'posts_per_page' => -1,
-									) ); //@todo: move to class
+									$slides = Foyer_Slides::get_posts();
 									foreach ( $slides as $slide ) {
 									?>
 										<option value="<?php echo intval( $slide->ID ); ?>"><?php echo esc_html( $slide->post_title ); ?></option>
