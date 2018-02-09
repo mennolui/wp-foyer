@@ -69,6 +69,27 @@ class Test_Foyer_Admin_Channel extends Foyer_UnitTestCase {
 		$actual = $updated_channel->get_slides_transition();
 		$this->assertEquals( $transition, $actual );
 	}
+
+	function test_add_slide_html_contains_all_slides() {
+
+		/* Create many slides */
+		$slide_args = array(
+			'post_type' => Foyer_Slide::post_type_name,
+		);
+		$this->factory->post->create_many( 15, $slide_args );
+
+		$actual = Foyer_Admin_Channel::get_add_slide_html( get_post( $this->channel1 ) );
+
+		$args = array(
+			'post_type' => Foyer_Slide::post_type_name,
+			'posts_per_page' => -1,
+		);
+		$slides = get_posts( $args );
+
+		foreach ( $slides as $slide ) {
+			$this->assertContains( $slide->post_title . '</option>', $actual );
+		}
+	}
 }
 
 /**

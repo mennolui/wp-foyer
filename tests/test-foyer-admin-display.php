@@ -172,4 +172,46 @@ class Test_Foyer_Admin_Display extends Foyer_UnitTestCase {
 
 		$this->assertEquals( '<a href="' . esc_url( get_edit_post_link( $channel_id ) ) . '">' . $channel_title . '</a>', $actual );
 	}
+
+	function test_default_channel_html_contains_all_channels() {
+
+		/* Create many channels */
+		$channel_args = array(
+			'post_type' => Foyer_Channel::post_type_name,
+		);
+		$this->factory->post->create_many( 15, $channel_args );
+
+		$actual = Foyer_Admin_Display::get_default_channel_html( get_post( $this->display1 ) );
+
+		$args = array(
+			'post_type' => Foyer_Channel::post_type_name,
+			'posts_per_page' => -1,
+		);
+		$channels = get_posts( $args );
+
+		foreach ( $channels as $channel ) {
+			$this->assertContains( $channel->post_title . '</option>', $actual );
+		}
+	}
+
+	function test_scheduled_channel_html_contains_all_channels() {
+
+		/* Create many channels */
+		$channel_args = array(
+			'post_type' => Foyer_Channel::post_type_name,
+		);
+		$this->factory->post->create_many( 15, $channel_args );
+
+		$actual = Foyer_Admin_Display::get_scheduled_channel_html( get_post( $this->display1 ) );
+
+		$args = array(
+			'post_type' => Foyer_Channel::post_type_name,
+			'posts_per_page' => -1,
+		);
+		$channels = get_posts( $args );
+
+		foreach ( $channels as $channel ) {
+			$this->assertContains( $channel->post_title . '</option>', $actual );
+		}
+	}
 }
