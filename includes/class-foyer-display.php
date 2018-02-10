@@ -83,8 +83,12 @@ class Foyer_Display {
 
 		$classes[] = 'foyer-display';
 
-		if ( $this->is_reset_requested() ) {
+		if ( $this->is_reset_requested() && ! $_GET['foyer-preview'] ) {
+			// Reset is requested and we are not previewing, add class to invoke reset
 			$classes[] = 'foyer-reset-display';
+
+			// Display will be reset, delete reset request
+			$this->delete_reset_request();
 		}
 
 		if ( empty( $classes ) ) {
