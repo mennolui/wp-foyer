@@ -46,7 +46,7 @@ function foyer_display_load_data() {
 		current_slide_group_class = 'foyer-slide-group-1';
 	}
 
-	if (next_slide_group_class.length) {
+	if (next_slide_group_class) {
 		// Found an empty group, load html
 
 		jQuery.get(window.location, function(html) {
