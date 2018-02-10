@@ -150,6 +150,8 @@ class Foyer_Updater {
 			}
 		}
 
+		Foyer_Displays::reset_all_displays();
+
 		return true;
 	}
 }

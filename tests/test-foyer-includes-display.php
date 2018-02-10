@@ -319,4 +319,74 @@ class Test_Foyer_Display extends Foyer_UnitTestCase {
 
 		$this->assertEquals( $default_channel, $actual );
 	}
+
+	function test_is_reset_request_added() {
+
+		/* Create display */
+		$display_args = array(
+			'post_type' => Foyer_Display::post_type_name,
+		);
+
+		$display_id = $this->factory->post->create( $display_args );
+
+		/* Check that no reset request is present */
+		$this->assertEmpty( get_post_meta( $display_id, 'foyer_reset_display' ), true );
+
+		$display = new Foyer_Display( $display_id );
+		$display->add_reset_request();
+
+		/* Check that reset request was added */
+		$this->assertNotEmpty( get_post_meta( $display_id, 'foyer_reset_display' ), true );
+	}
+
+	function test_is_reset_request_deleted() {
+
+		/* Create display */
+		$display_args = array(
+			'post_type' => Foyer_Display::post_type_name,
+		);
+
+		$display_id = $this->factory->post->create( $display_args );
+
+		$display = new Foyer_Display( $display_id );
+		$display->add_reset_request();
+
+		/* Check that reset request was added */
+		$this->assertNotEmpty( get_post_meta( $display_id, 'foyer_reset_display' ), true );
+
+		$display->delete_reset_request();
+
+		/* Check that no reset request is present after delete */
+		$this->assertEmpty( get_post_meta( $display_id, 'foyer_reset_display' ), true );
+	}
+
+	function test_is_foyer_reset_display_class_added_when_reset_is_requested() {
+
+		/* Create display */
+		$display_args = array(
+			'post_type' => Foyer_Display::post_type_name,
+		);
+
+		$display_id = $this->factory->post->create( $display_args );
+
+		$display = new Foyer_Display( $display_id );
+
+		/* Check that no foyer-reset-display class is present by default */
+		ob_start();
+		$display->classes();
+		$actual = ob_get_clean();
+
+		$expected = 'foyer-reset-display';
+		$this->assertNotContains( $expected, $actual );
+
+		$display->add_reset_request();
+
+		/* Check that foyer-reset-display class is added */
+		ob_start();
+		$display->classes();
+		$actual = ob_get_clean();
+
+		$expected = 'foyer-reset-display';
+		$this->assertContains( $expected, $actual );
+	}
 }

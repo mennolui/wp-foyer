@@ -58,6 +58,52 @@ class Foyer_Display {
 		$this->ID = $ID;
 	}
 
+	/**
+	 * Adds a request for the display to be reset.
+	 *
+	 * @since	1.4.0
+	 *
+	 * @return 	void
+	 */
+	public function add_reset_request() {
+		update_post_meta( $this->ID, 'foyer_reset_display', 1 );
+	}
+
+	/**
+	 * Outputs the display classes for use in the template.
+	 *
+	 * The output is escaped, so this method can be used in templates without further escaping.
+	 *
+	 * @since	1.4.0
+	 *
+	 * @param 	array 	$classes
+	 * @return 	void
+	 */
+	public function classes( $classes = array() ) {
+
+		$classes[] = 'foyer-display';
+
+		if ( $this->is_reset_requested() ) {
+			$classes[] = 'foyer-reset-display';
+		}
+
+		if ( empty( $classes ) ) {
+			return;
+		}
+
+		?> class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" <?php
+	}
+
+	/**
+	 * Deletes the request for the display to be reset.
+	 *
+	 * @since	1.4.0
+	 *
+	 * @return 	void
+	 */
+	public function delete_reset_request() {
+		delete_post_meta( $this->ID, 'foyer_reset_display' );
+	}
 
 	/**
 	 * Get the currently active channel for this display.
@@ -156,4 +202,14 @@ class Foyer_Display {
 		return $schedule;
 	}
 
+	/**
+	 * Checks if a reset is requested for this display.
+	 *
+	 * @since	1.4.0
+	 *
+	 * @return 	bool	True if reset is requested for this display, false otherwise.
+	 */
+	private function is_reset_requested() {
+		return (bool) get_post_meta( $this->ID, 'foyer_reset_display', true );
+	}
 }
