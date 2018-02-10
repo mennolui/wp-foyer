@@ -79,10 +79,12 @@ function update_slide_format_meta_boxes() {
 
 jQuery( function() {
 
-	// Hide/unhide meta boxes on page load.
-	init_slide_background_select();
-	update_slide_format_meta_boxes();
-	update_slide_background_meta_boxes();
+	if (jQuery('#foyer_slide_content select[name=slide_format], #foyer_slide_content select[name=slide_background]').length) {
+		// Hide/unhide meta boxes on page load.
+		init_slide_background_select();
+		update_slide_format_meta_boxes();
+		update_slide_background_meta_boxes();
+	}
 
 	// Hide/unhide meta boxes if user selects another slide format or background.
 	jQuery('#foyer_slide_content select[name=slide_format]').on('change', function() {
