@@ -101,13 +101,17 @@ class Foyer_Slides {
 
 		$slide_format = self::get_slide_format_by_slug( $slug );
 
-		if ( empty( $slide_format['slide_backgrounds'] ) ) {
-			return false;
+		if ( ! empty( $slide_format['slide_backgrounds'] ) ) {
+			$slide_backgrounds = $slide_format['slide_backgrounds'];
+		}
+		else {
+			// Each slide format should have at least one background, use 'default'
+			$slide_backgrounds = array( 'default' );
 		}
 
 		$slide_format_backgrounds = array();
 
-		foreach ( $slide_format['slide_backgrounds'] as $slide_background_slug ) {
+		foreach ( $slide_backgrounds as $slide_background_slug ) {
 			$slide_background_data = self::get_slide_background_by_slug( $slide_background_slug );
 			if ( ! empty( $slide_background_data ) ) {
 				// Only add to backgrounds if this background is registered

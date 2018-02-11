@@ -52,11 +52,13 @@ function update_slide_background_select() {
 
 	$slide_background_select.empty();
 
-	jQuery.each(slide_format_backgrounds, function(key, data) {
-		$slide_background_select.append(
-			jQuery('<option></option>').attr('value', key).text(data.title)
-		);
-	});
+	if (slide_format_backgrounds) {
+		jQuery.each(slide_format_backgrounds, function(key, data) {
+			$slide_background_select.append(
+				jQuery('<option></option>').attr('value', key).text(data.title)
+			);
+		});
+	}
 }
 
 /**
