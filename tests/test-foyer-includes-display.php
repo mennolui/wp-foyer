@@ -389,4 +389,28 @@ class Test_Foyer_Display extends Foyer_UnitTestCase {
 		$expected = 'foyer-reset-display';
 		$this->assertContains( $expected, $actual );
 	}
+
+	function test_is_foyer_reset_display_class_not_added_when_reset_is_requested_and_previewing() {
+
+		// We are previewing
+		$_GET['foyer-preview'] = 1;
+
+		/* Create display */
+		$display_args = array(
+			'post_type' => Foyer_Display::post_type_name,
+		);
+
+		$display_id = $this->factory->post->create( $display_args );
+
+		$display = new Foyer_Display( $display_id );
+		$display->add_reset_request();
+
+		/* Check that foyer-reset-display class is not added */
+		ob_start();
+		$display->classes();
+		$actual = ob_get_clean();
+
+		$expected = 'foyer-reset-display';
+		$this->assertNotContains( $expected, $actual );
+	}
 }
