@@ -29,7 +29,7 @@ class Test_Foyer_Updater extends Foyer_UnitTestCase {
 	}
 
 	function test_is_database_update_skipped_when_database_is_up_to_date() {
-		// Set ddatabase version to current plugin version
+		// Set database version to current plugin version
 		Foyer_Updater::update_db_version( Foyer::get_version() );
 
 		$actual = Foyer_Updater::update();
@@ -49,19 +49,34 @@ class Test_Foyer_Updater extends Foyer_UnitTestCase {
 		$video_end = '60';
 		$hold_slide = '1';
 
+		$website_url = 'https://mennoluitjes.nl';
+
 		$slide_args = array(
 			'post_type' => Foyer_Slide::post_type_name,
 		);
 
-		/* Create slides */
+		$slide_draft_args = wp_parse_args( array(
+			'post_status' => 'draft',
+		), $slide_args );
+
+		$slide_trash_args = wp_parse_args( array(
+			'post_status' => 'trash',
+		), $slide_args );
+
+
+		/* Create a slide for each oldskool slide format */
+
+		/* Default slide, with image */
 		$slide_1_id = $this->factory->post->create( $slide_args );
 		update_post_meta( $slide_1_id, 'slide_format', 'default' );
 		update_post_meta( $slide_1_id, 'slide_default_image', $default_image_id );
 
+		/* Production slide, with image */
 		$slide_2_id = $this->factory->post->create( $slide_args );
 		update_post_meta( $slide_2_id, 'slide_format', 'production' );
 		update_post_meta( $slide_2_id, 'slide_production_image', $production_image_id );
 
+		/* Video slide */
 		$slide_3_id = $this->factory->post->create( $slide_args );
 		update_post_meta( $slide_3_id, 'slide_format', 'video' );
 		update_post_meta( $slide_3_id, 'slide_video_video_url', $video_url );
@@ -69,13 +84,33 @@ class Test_Foyer_Updater extends Foyer_UnitTestCase {
 		update_post_meta( $slide_3_id, 'slide_video_video_end', $video_end );
 		update_post_meta( $slide_3_id, 'slide_video_hold_slide', $hold_slide );
 
+		/* Default slide, without image */
 		$slide_4_id = $this->factory->post->create( $slide_args );
 		update_post_meta( $slide_4_id, 'slide_format', 'default' );
-		update_post_meta( $slide_4_id, 'slide_default_image', '' );
 
+		/* Video slide, with empty fields */
 		$slide_5_id = $this->factory->post->create( $slide_args );
 		update_post_meta( $slide_5_id, 'slide_format', 'video' );
 		update_post_meta( $slide_5_id, 'slide_video_video_url', '' );
+
+		/* Production slide, without image */
+		$slide_6_id = $this->factory->post->create( $slide_args );
+		update_post_meta( $slide_6_id, 'slide_format', 'production' );
+
+		/* Iframe slide */
+		$slide_7_id = $this->factory->post->create( $slide_args );
+		update_post_meta( $slide_7_id, 'slide_format', 'iframe' );
+		update_post_meta( $slide_7_id, 'slide_iframe_website_url', $website_url );
+
+		/* Draft default slide, with image */
+		$slide_8_id = $this->factory->post->create( $slide_draft_args );
+		update_post_meta( $slide_8_id, 'slide_format', 'default' );
+		update_post_meta( $slide_8_id, 'slide_default_image', $default_image_id );
+
+		/* Trashed default slide, with image */
+		$slide_9_id = $this->factory->post->create( $slide_trash_args );
+		update_post_meta( $slide_9_id, 'slide_format', 'default' );
+		update_post_meta( $slide_9_id, 'slide_default_image', $default_image_id );
 
 		// Run update to 1.4.0
 		Foyer_Updater::update_to_1_4_0();
@@ -128,7 +163,7 @@ class Test_Foyer_Updater extends Foyer_UnitTestCase {
 		$expected = 'video';
 		$this->assertEquals( $expected, $actual );
 
-		// Check conversion of Default slide without image
+		// Check conversion of Default slide without image (result should still be image background)
 		$actual = get_post_meta( $slide_4_id, 'slide_bg_image_image', true );
 		$expected = false;
 		$this->assertEquals( $expected, $actual );
@@ -138,10 +173,10 @@ class Test_Foyer_Updater extends Foyer_UnitTestCase {
 		$this->assertEquals( $expected, $actual );
 
 		$actual = get_post_meta( $slide_4_id, 'slide_background', true );
-		$expected = 'default';
+		$expected = 'image';
 		$this->assertEquals( $expected, $actual );
 
-		// Check conversion of Video slide without video
+		// Check conversion of Video slide without video (result should still be video background)
 		$actual = get_post_meta( $slide_5_id, 'slide_bg_video_video_url', true );
 		$expected = false;
 		$this->assertEquals( $expected, $actual );
@@ -151,10 +186,62 @@ class Test_Foyer_Updater extends Foyer_UnitTestCase {
 		$this->assertEquals( $expected, $actual );
 
 		$actual = get_post_meta( $slide_5_id, 'slide_background', true );
+		$expected = 'video';
+		$this->assertEquals( $expected, $actual );
+
+		// Check conversion of Production slide without image (result should be default background)
+		$actual = get_post_meta( $slide_6_id, 'slide_bg_image_image', true );
+		$expected = false;
+		$this->assertEquals( $expected, $actual );
+
+		$actual = get_post_meta( $slide_6_id, 'slide_format', true );
+		$expected = 'production';
+		$this->assertEquals( $expected, $actual );
+
+		$actual = get_post_meta( $slide_6_id, 'slide_background', true );
 		$expected = 'default';
 		$this->assertEquals( $expected, $actual );
 
-		// Old meta is deleted
+		// Check conversion of Iframe slide
+		$actual = get_post_meta( $slide_7_id, 'slide_iframe_website_url', true );
+		$expected = $website_url;
+		$this->assertEquals( $expected, $actual );
+
+		$actual = get_post_meta( $slide_7_id, 'slide_format', true );
+		$expected = 'iframe';
+		$this->assertEquals( $expected, $actual );
+
+		$actual = get_post_meta( $slide_7_id, 'slide_background', true );
+		$expected = 'default';
+		$this->assertEquals( $expected, $actual );
+
+		// Check conversion of DRAFT default slide with image
+		$actual = get_post_meta( $slide_8_id, 'slide_bg_image_image', true );
+		$expected = $default_image_id;
+		$this->assertEquals( $expected, $actual );
+
+		$actual = get_post_meta( $slide_8_id, 'slide_format', true );
+		$expected = 'default';
+		$this->assertEquals( $expected, $actual );
+
+		$actual = get_post_meta( $slide_8_id, 'slide_background', true );
+		$expected = 'image';
+		$this->assertEquals( $expected, $actual );
+
+		// Check conversion of TRASHED default slide with image
+		$actual = get_post_meta( $slide_9_id, 'slide_bg_image_image', true );
+		$expected = $default_image_id;
+		$this->assertEquals( $expected, $actual );
+
+		$actual = get_post_meta( $slide_9_id, 'slide_format', true );
+		$expected = 'default';
+		$this->assertEquals( $expected, $actual );
+
+		$actual = get_post_meta( $slide_9_id, 'slide_background', true );
+		$expected = 'image';
+		$this->assertEquals( $expected, $actual );
+
+		// Check old meta is deleted
 		$actual = get_post_meta( $slide_1_id, 'slide_default_image', true );
 		$expected = false;
 		$this->assertEquals( $expected, $actual );
@@ -162,10 +249,8 @@ class Test_Foyer_Updater extends Foyer_UnitTestCase {
 		$actual = get_post_meta( $slide_4_id, 'slide_default_image', true );
 		$expected = false;
 		$this->assertEquals( $expected, $actual );
-
-		// @todo:
-		// - is trashed slide updated
-		// - is draft slide updated
-
 	}
+
+	// @todo: test if update is triggered on page init
+	// @todo: test update is only run once
 }
