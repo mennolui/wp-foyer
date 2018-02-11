@@ -115,10 +115,9 @@ class Foyer_Updater {
 
 			if ( 'default' == $slide_format ) {
 				$renamed = self::rename_meta_key_for_post( $slide, 'slide_default_image', 'slide_bg_image_image' );
-				if ( $renamed ) {
-					// Post meta was not empty, set background to 'image'
-					update_post_meta( $slide->ID, 'slide_background', 'image' );
-				}
+
+				// Always set background to 'image'
+				update_post_meta( $slide->ID, 'slide_background', 'image' );
 			}
 			elseif ( 'production' == $slide_format ) {
 				$renamed = self::rename_meta_key_for_post( $slide, 'slide_production_image', 'slide_bg_image_image' );
@@ -133,10 +132,8 @@ class Foyer_Updater {
 				self::rename_meta_key_for_post( $slide, 'slide_video_video_end', 'slide_bg_video_video_end' );
 				self::rename_meta_key_for_post( $slide, 'slide_video_hold_slide', 'slide_bg_video_hold_slide' );
 
-				if ( $renamed ) {
-					// Post meta was not empty, set background to 'video'
-					update_post_meta( $slide->ID, 'slide_background', 'video' );
-				}
+				// Always set background to 'video'
+				update_post_meta( $slide->ID, 'slide_background', 'video' );
 
 				// Set slide format to 'default'
 				update_post_meta( $slide->ID, 'slide_format', 'default' );
