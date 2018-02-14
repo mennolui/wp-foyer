@@ -46,13 +46,21 @@ function foyer_display_load_data() {
 		current_slide_group_class = 'foyer-slide-group-1';
 	}
 
-	if (next_slide_group_class.length) {
+	if (next_slide_group_class) {
 		// Found an empty group, load html
 
 		jQuery.get(window.location, function(html) {
-			$new_html = jQuery(jQuery.parseHTML(html));
+			$new_html = jQuery(jQuery.parseHTML(jQuery.trim(html)));
 
-			if ($new_html.find(foyer_channel_selector).attr('class') !== jQuery(foyer_channel_selector).attr('class')) {
+			if ($new_html.filter(foyer_display_selector).hasClass('foyer-reset-display')) {
+				// Use filter instead of find to target top-level element
+				// https://stackoverflow.com/questions/15403600/jquery-not-finding-elements-in-jquery-parsehtml-result
+
+				// Reset was requested
+				// Reload after current slideshow has shutdown
+				foyer_ticker_shutdown(foyer_display_reload_window);
+			}
+			else if ($new_html.find(foyer_channel_selector).attr('class') !== jQuery(foyer_channel_selector).attr('class')) {
 				// Channel ID has changed or its other properties have changed
 				// Replace channel HTML and restart slideshow after current slideshow has shutdown
 				foyer_ticker_shutdown(foyer_display_replace_channel, $new_html.find(foyer_channel_selector));
