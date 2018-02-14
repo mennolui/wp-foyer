@@ -320,6 +320,9 @@ class Test_Foyer_Display extends Foyer_UnitTestCase {
 		$this->assertEquals( $default_channel, $actual );
 	}
 
+	/**
+	 * @since	1.4.0
+	 */
 	function test_is_reset_request_added() {
 
 		/* Create display */
@@ -339,6 +342,9 @@ class Test_Foyer_Display extends Foyer_UnitTestCase {
 		$this->assertNotEmpty( get_post_meta( $display_id, 'foyer_reset_display' ), true );
 	}
 
+	/**
+	 * @since	1.4.0
+	 */
 	function test_is_reset_request_deleted() {
 
 		/* Create display */
@@ -360,6 +366,9 @@ class Test_Foyer_Display extends Foyer_UnitTestCase {
 		$this->assertEmpty( get_post_meta( $display_id, 'foyer_reset_display' ), true );
 	}
 
+	/**
+	 * @since	1.4.0
+	 */
 	function test_is_foyer_reset_display_class_added_when_reset_is_requested() {
 
 		/* Create display */
@@ -390,6 +399,9 @@ class Test_Foyer_Display extends Foyer_UnitTestCase {
 		$this->assertContains( $expected, $actual );
 	}
 
+	/**
+	 * @since	1.4.0
+	 */
 	function test_is_foyer_reset_display_class_not_added_when_reset_is_requested_and_previewing() {
 
 		// We are previewing

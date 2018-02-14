@@ -70,6 +70,9 @@ class Test_Foyer_Admin_Channel extends Foyer_UnitTestCase {
 		$this->assertEquals( $transition, $actual );
 	}
 
+	/**
+	 * @since	1.4.0
+	 */
 	function test_add_slide_html_contains_all_slides() {
 
 		/* Create many slides */

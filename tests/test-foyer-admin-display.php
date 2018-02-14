@@ -173,6 +173,9 @@ class Test_Foyer_Admin_Display extends Foyer_UnitTestCase {
 		$this->assertEquals( '<a href="' . esc_url( get_edit_post_link( $channel_id ) ) . '">' . $channel_title . '</a>', $actual );
 	}
 
+	/**
+	 * @since	1.4.0
+	 */
 	function test_default_channel_html_contains_all_channels() {
 
 		/* Create many channels */
@@ -194,6 +197,9 @@ class Test_Foyer_Admin_Display extends Foyer_UnitTestCase {
 		}
 	}
 
+	/**
+	 * @since	1.4.0
+	 */
 	function test_scheduled_channel_html_contains_all_channels() {
 
 		/* Create many channels */

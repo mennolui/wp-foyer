@@ -4,6 +4,9 @@ class Test_Foyer_Displays extends Foyer_UnitTestCase {
 
 	/* Tests */
 
+	/**
+	 * @since	1.4.0
+	 */
 	function test_are_all_reset_requests_added() {
 
 		/* Create many displays */

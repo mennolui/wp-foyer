@@ -2,6 +2,9 @@
 
 class Test_Foyer_Updater extends Foyer_UnitTestCase {
 
+	/**
+	 * @since	1.4.0
+	 */
 	function test_is_database_version_updated_after_plugin_update() {
 		// Set to really old version to trigger database update
 		Foyer_Updater::update_db_version( '1.0.0' );
@@ -15,6 +18,9 @@ class Test_Foyer_Updater extends Foyer_UnitTestCase {
 		$this->assertEquals( $expected, $actual );
 	}
 
+	/**
+	 * @since	1.4.0
+	 */
 	function test_is_database_version_updated_after_plugin_update_with_no_database_version_set() {
 		// Remove database version to trigger database update
 		delete_option( 'foyer_plugin_version' );
@@ -28,6 +34,9 @@ class Test_Foyer_Updater extends Foyer_UnitTestCase {
 		$this->assertEquals( $expected, $actual );
 	}
 
+	/**
+	 * @since	1.4.0
+	 */
 	function test_is_database_update_skipped_when_database_is_up_to_date() {
 		// Set database version to current plugin version
 		Foyer_Updater::update_db_version( Foyer::get_version() );
@@ -37,6 +46,9 @@ class Test_Foyer_Updater extends Foyer_UnitTestCase {
 		$this->assertEquals( $expected, $actual );
 	}
 
+	/**
+	 * @since	1.4.0
+	 */
 	function test_are_slides_correctly_converted_on_update_to_1_4_0() {
 		$this->assume_role( 'administrator' );
 
@@ -250,7 +262,4 @@ class Test_Foyer_Updater extends Foyer_UnitTestCase {
 		$expected = false;
 		$this->assertEquals( $expected, $actual );
 	}
-
-	// @todo: test if update is triggered on page init
-	// @todo: test update is only run once
 }
