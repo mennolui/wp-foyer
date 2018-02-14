@@ -131,6 +131,7 @@ Enhancements:
 * Displays now only use channels that are published, and channels now only use slides that are published (so no draft or private or trashed slides) (1.3.2).
 * The Channel columns in the Display admin table now contain 'None' if no channel is set (1.3.2).
 * Major internal changes that no one should notice: Refactored all non-object classes to use static methods, and switched from using a central Foyer_Loader class to registering actions and filters directly from Foyer, Foyer_Admin and Foyer_Public classes (1.3.2).
+* Added a foyer-reset-display detection to JS, in anticipation of the 1.4.0 release that will need to be able to trigger it (1.3.3).
 
 Bug fixes:
 
@@ -139,6 +140,7 @@ Bug fixes:
 * Fixed an issue introduced in 1.2.6 where the media library lightbox texts were no longer set (1.3.1).
 * Fixed an issue where the 'External web page' slide format displayed a border around the web page, depending on the theme and browser used (1.3.2).
 * Fixed an issue where the Landscape / Portrait buttons were not styled correctly, depending on the theme used (1.3.2).
+* Fixed a long unnoticed JS error that occurred while attempting loading new display data when no slide group was empty yet (1.3.3).
 
 = 1.2 =
 Release Date: April 12, 2017
@@ -195,6 +197,9 @@ Bug fixes:
 
 = 1.4.0 =
 Introduces a brand new way to build slides: choose a format, then a background. Check the changelog for all details.
+
+= 1.3.3 =
+Fixes some issues and brings some minor enhancements. Check the changelog for all details.
 
 = 1.3.2 =
 Fixes some issues and brings some minor enhancements. Check the changelog for all details.
