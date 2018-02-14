@@ -1,6 +1,6 @@
 === Foyer - Digital Signage for WordPress ===
 Contributors: mennolui, slimndap
-Tags: digital, signage, narrowcasting, displays, screens, signs, onsite, foyer, lobby, kiosk, venue, theater, cinema
+Tags: digital signage, signage, narrowcasting, slideshow
 Requires at least: 4.1
 Tested up to: 4.9
 Stable tag: trunk
@@ -27,13 +27,17 @@ Create slideshows and show them off on any networked display. Hardware not inclu
 Foyer comes with build in support for the [Theater for WordPress plugin](https://wordpress.org/plugins/theatre/). With Theater & Foyer you can easily publish your events on your website, and showcase them on your onsite displays.
 
 = Slide formats =
-* Image: Displays an image, covering the entire slide.
-* PDF: Creates a slide for each page in an uploaded PDF, displaying that page contained within the slide.
-* Video: Displays a YouTube video, or a specified fragment.
+* Default: Displays a background only.
 * External web page: Displays a web page to your liking.
 * Event: Displays the image, title and details of a selected event (requires Theater for WordPress).
+* PDF: Creates a slide for each page in an uploaded PDF, displaying that page contained within the slide.
 
-More features and slide formats are coming soon.
+= Slide backgrounds =
+* Image: Displays an image, covering the entire slide background.
+* Video: Displays a YouTube video, or a specified fragment, as slide background.
+
+More features, slide formats and slide backgrounds are coming soon.
+Eg. a WordPress Post slide, a Title & Text slide, a widgets bar for displaying Time and Weather.
 
 = Feature suggestions wanted! =
 Since this plugin is quite new, I'm curious..
@@ -48,8 +52,8 @@ Since this plugin is quite new, I'm curious..
 
 Donations are very welcome and help me dedicate more time to developing this plugin.
 
-* Send some Bitcoin to 1LWZ4RRjpA34GqS5dVAw1fbrFweW97WZVG or..
-* Send ETH (or tokens) to 0xfd8ab9b18960ffc72ad2ef110c50afd2985cca7d or..
+* Bitcoin: 1LWZ4RRjpA34GqS5dVAw1fbrFweW97WZVG or..
+* ETH (or tokens): 0xfd8ab9b18960ffc72ad2ef110c50afd2985cca7d or..
 * [Donate through PayPal](https://www.paypal.me/mennoluitjes).
 
 == Installation ==
@@ -108,6 +112,11 @@ Changes to displays, channels and slides are never instantly visible on your dig
 Coming soon.
 
 == Changelog ==
+
+= 1.4 =
+Release Date: February 14, 2018
+
+Introduces a brand new way to build slides: choose a format, then a background. Now you can build event slides with video backgrounds. Or, coming up in a future release :-), WordPress Post slides on a background color.
 
 = 1.3 =
 Release Date: November 25, 2017
@@ -183,6 +192,9 @@ Bug fixes:
 
 
 == Upgrade Notice ==
+
+= 1.4.0 =
+Introduces a brand new way to build slides: choose a format, then a background. Check the changelog for all details.
 
 = 1.3.2 =
 Fixes some issues and brings some minor enhancements. Check the changelog for all details.
