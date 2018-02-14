@@ -115,6 +115,10 @@ class Foyer_Admin {
 	 * Loads the required dependencies for the admin-facing side of the plugin.
 	 *
 	 * @since	1.3.2
+	 * @since	1.4.0	Included admin/class-foyer-admin-slide-background-image.php.
+	 *					Included admin/class-foyer-admin-slide-background-video.php.
+	 *					Removed include admin/class-foyer-admin-slide-format-video.php.
+	 *
 	 * @access	private
 	 */
 	private static function load_dependencies() {
@@ -139,6 +143,5 @@ class Foyer_Admin {
 		require_once FOYER_PLUGIN_PATH . 'admin/class-foyer-admin-slide-format-iframe.php';
 		require_once FOYER_PLUGIN_PATH . 'admin/class-foyer-admin-slide-format-pdf.php';
 		require_once FOYER_PLUGIN_PATH . 'admin/class-foyer-admin-slide-format-production.php';
-		require_once FOYER_PLUGIN_PATH . 'admin/class-foyer-admin-slide-format-video.php';
 	}
 }

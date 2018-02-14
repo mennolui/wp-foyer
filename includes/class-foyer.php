@@ -95,6 +95,9 @@ class Foyer {
 	 * @since	1.0.0
 	 * @since	1.3.2	Changed method to static.
 	 * @since	1.4.0	Included includes/class-foyer-slide-backgrounds.php.
+	 * 					Included includes/class-foyer-updater.php.
+	 * 					Included includes/class-foyer-displays.php.
+	 * 					Included includes/class-foyer-channels.php.
 	 *
 	 * @access	private
 	 */
