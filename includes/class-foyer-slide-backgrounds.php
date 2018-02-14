@@ -22,7 +22,7 @@ class Foyer_Slide_Backgrounds {
 	static function add_default_slide_background( $slide_backgrounds ) {
 
 		$slide_backgrounds['default'] = array(
-			'title' => _x( 'Default / none', 'foyer', 'slide-background' ),
+			'title' => _x( 'Default / none', 'slide-background', 'foyer' ),
 			'description' => __( 'Displays the default background for the chosen slide format, if any, or no background.', 'foyer' ),
 		);
 		return $slide_backgrounds;
@@ -39,7 +39,7 @@ class Foyer_Slide_Backgrounds {
 	static function add_image_slide_background( $slide_backgrounds ) {
 
 		$slide_backgrounds['image'] = array(
-			'title' => _x( 'Image', 'foyer', 'slide-background' ),
+			'title' => _x( 'Image', 'slide-background', 'foyer' ),
 			'meta_box' => array( 'Foyer_Admin_Slide_Background_Image', 'slide_background_meta_box' ),
 			'save_post' => array( 'Foyer_Admin_Slide_Background_Image', 'save_slide_background' ),
 		);
@@ -57,7 +57,7 @@ class Foyer_Slide_Backgrounds {
 	static function add_video_slide_background( $slide_backgrounds ) {
 
 		$slide_backgrounds['video'] = array(
-			'title' => _x( 'Video', 'foyer', 'slide-background' ),
+			'title' => _x( 'Video', 'slide-background', 'foyer' ),
 			'meta_box' => array( 'Foyer_Admin_Slide_Background_Video', 'slide_background_meta_box' ),
 			'save_post' => array( 'Foyer_Admin_Slide_Background_Video', 'save_slide_background' ),
 		);
