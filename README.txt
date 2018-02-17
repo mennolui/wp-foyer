@@ -1,6 +1,6 @@
 === Foyer - Digital Signage for WordPress ===
 Contributors: mennolui, slimndap
-Tags: digital signage, signage, narrowcasting, slideshow
+Tags: digital signage, signage, narrowcasting, slideshow, theater
 Requires at least: 4.1
 Tested up to: 4.9
 Stable tag: trunk
@@ -103,9 +103,15 @@ Yes, this is possible if you know how to write WordPress templates. Create a foy
 = Can I add my own slide formats? =
 Yes, this is possible if you know how to write WordPress templates, and how to register PHP functions to WordPress plugin hooks. Have a look at how the plugin adds slide formats itself, in includes/class-foyer.php. More documentation for developers is coming soon.
 
+= The top/bottom or left/right part of my image is missing, why? =
+All images are displayed in a way that they fully cover the display. So if your display has a landscape orientation, and you upload an image with portrait orientation, the image will still cover the entire width of the display, which is great. But of course the top and bottom part of that image will not be visible. The greater the difference between the display orientation and the uploaded image orientation, the greater the top/bottom part or left/right part that will be invisble.
+
+The plugin always displays the center-middle part of each image. So if the important part of your image is in the top part of the image, that might not be visible. You might have to crop that image before uploading and adding to a slide.
+
+If you want to have full control you can always create and upload images that have the exact same orientation and proportions as your display. For most displays this is 1920x1080 pixels (landscape) or 1080x1920 (portrait). That way the images will be 100% visible.
+
 = My changes are not directly visible on my displays, what's happening? =
 Changes to displays, channels and slides are never instantly visible on your digital signs. Each digital sign tries to contact your website every 5 minutes to see if you made any changes. If so and you changed the channel for a display, the new channel will be shown right after the slide that is currently being displayed. For any other changes, like adding slides, the new slides will be shown right after a full cycle of the slides that are currently being displayed.
-
 
 == Screenshots ==
 
