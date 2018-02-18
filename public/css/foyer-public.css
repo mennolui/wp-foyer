@@ -224,6 +224,7 @@ html {
 }
 .foyer-slide .foyer-slide-field.foyer-slide-field-title {
   font-size: 5rem;
+  font-weight: bold;
   margin-bottom: 1rem;
 }
 .foyer-slide .foyer-slide-field.foyer-slide-field-date {
@@ -289,7 +290,7 @@ html {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  padding: 4vmin 4vmin;
+  padding: 4vmin;
 }
 .foyer-slide.foyer-slide-post .inner .foyer-slide-fields .foyer-slide-field-title span,
 .foyer-slide.foyer-slide-post .inner .foyer-slide-fields .foyer-slide-field-date span,
