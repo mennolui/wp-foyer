@@ -19,6 +19,12 @@ body.single-foyer_slide {
 	* {
 		box-sizing: border-box;
 	}
+
+	// Remove TwentySixteen borders overlaying our pages
+	&:not(.custom-background-image):before,
+	&:not(.custom-background-image):after {
+		display: none;
+	}
 }
 
 .foyer-display,
