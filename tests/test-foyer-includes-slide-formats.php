@@ -77,4 +77,12 @@ class Test_Foyer_Slide_Formats extends Foyer_UnitTestCase {
 		remove_filter( 'foyer/slides/backgrounds/format=default', array( $this, 'remove_default_background_from_format_backgrounds' ) );
 	}
 
+	/**
+	 * @since	1.5.0
+	 */
+	function test_is_post_slide_format_registered() {
+		$slide_format = Foyer_Slides::get_slide_format_by_slug( 'post' );
+		$this->assertNotEmpty( $slide_format );
+	}
+
 }
