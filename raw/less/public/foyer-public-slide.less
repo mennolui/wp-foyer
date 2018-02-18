@@ -11,21 +11,19 @@ html {
 	position: relative;
 	z-index: 1;
 
-	.foyer-slide-fields {
-		position: absolute;
-		bottom: 0;
-		left: 0; right: 0;
-
-		padding: 2vmin 4vmin;
-		background-color: rgba(255,255,255, 0.5);
-
+	.foyer-slide-field {
 		color: #000;
 
-		font-size: 1rem;
+		font-size: 2rem;
 		line-height: 1.2;
 
-		h1 {
+		&.foyer-slide-field-title {
+			font-size: 5rem;
+			margin-bottom: 1rem;
+		}
+		&.foyer-slide-field-date {
 			font-size: 3rem;
+			margin-bottom: 1rem;
 		}
 	}
 

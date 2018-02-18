@@ -117,6 +117,14 @@ body.single-foyer_slide * {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
+body.single-foyer_display:not(.custom-background-image):before,
+body.single-foyer_channel:not(.custom-background-image):before,
+body.single-foyer_slide:not(.custom-background-image):before,
+body.single-foyer_display:not(.custom-background-image):after,
+body.single-foyer_channel:not(.custom-background-image):after,
+body.single-foyer_slide:not(.custom-background-image):after {
+  display: none;
+}
 .foyer-display,
 .foyer-channel,
 .foyer-slides {
@@ -209,19 +217,18 @@ html {
   position: relative;
   z-index: 1;
 }
-.foyer-slide .foyer-slide-fields {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 2vmin 4vmin;
-  background-color: rgba(255, 255, 255, 0.5);
+.foyer-slide .foyer-slide-field {
   color: #000;
-  font-size: 1rem;
+  font-size: 2rem;
   line-height: 1.2;
 }
-.foyer-slide .foyer-slide-fields h1 {
+.foyer-slide .foyer-slide-field.foyer-slide-field-title {
+  font-size: 5rem;
+  margin-bottom: 1rem;
+}
+.foyer-slide .foyer-slide-field.foyer-slide-field-date {
   font-size: 3rem;
+  margin-bottom: 1rem;
 }
 .foyer-slide .foyer-slide-background {
   position: absolute;
@@ -246,6 +253,96 @@ html {
   height: 100%;
   -o-object-fit: contain;
      object-fit: contain;
+}
+.foyer-slide.foyer-slide-post .inner {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+.foyer-slide.foyer-slide-post .inner figure,
+.foyer-slide.foyer-slide-post .inner .foyer-slide-fields {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
+  width: auto;
+  height: auto;
+}
+.foyer-slide.foyer-slide-post .inner figure {
+  margin: 0;
+}
+.foyer-slide.foyer-slide-post .inner figure img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.foyer-slide.foyer-slide-post .inner .foyer-slide-fields {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 4vmin 4vmin;
+}
+.foyer-slide.foyer-slide-post .inner .foyer-slide-fields .foyer-slide-field-title span,
+.foyer-slide.foyer-slide-post .inner .foyer-slide-fields .foyer-slide-field-date span,
+.foyer-slide.foyer-slide-post .inner .foyer-slide-fields .foyer-slide-field-content {
+  line-height: 1.5;
+  padding: 0.5rem 1rem;
+  background-color: rgba(255, 255, 255, 0.5);
+  -webkit-box-decoration-break: clone;
+          box-decoration-break: clone;
+}
+.foyer-slide.foyer-slide-post .inner .foyer-slide-fields .foyer-slide-field-content {
+  padding: 1rem;
+}
+.foyer-slide.foyer-slide-post .inner .foyer-slide-fields .foyer-slide-field-content > *:last-child {
+  margin-bottom: 0;
+}
+@media (min-aspect-ratio: 1/1) {
+  .foyer-slide.foyer-slide-post .inner {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+  }
+  .foyer-slide.foyer-slide-post .inner .foyer-slide-fields {
+    width: 66.66666667%;
+  }
+  .foyer-slide.foyer-slide-post .inner figure,
+  .foyer-slide.foyer-slide-post .inner figure + .foyer-slide-fields {
+    width: 50%;
+  }
+}
+@media (max-aspect-ratio: 1/1) {
+  .foyer-slide.foyer-slide-post .inner {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
+  }
+  .foyer-slide.foyer-slide-post .inner figure,
+  .foyer-slide.foyer-slide-post .inner figure + .foyer-slide-fields {
+    height: 50%;
+  }
+}
+.foyer-slide.foyer-slide-production .foyer-slide-fields {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2vmin 4vmin;
+  background-color: rgba(255, 255, 255, 0.5);
 }
 .foyer-slide-background.foyer-slide-background-image figure,
 .foyer-slide-background.foyer-slide-background-default figure {

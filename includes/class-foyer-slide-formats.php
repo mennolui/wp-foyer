@@ -103,6 +103,36 @@ class Foyer_Slide_Formats {
 	}
 
 	/**
+	 * Adds the Post slide format.
+	 *
+	 * @since	1.5.0
+	 *
+	 * @param 	array	$slide_formats	The current slide formats.
+	 * @return	array					The slide formats with the Post slide format added.
+	 */
+	static function add_post_slide_format( $slide_formats ) {
+
+		$slide_format_backgrounds = array( 'default', 'image', 'video' );
+
+		/**
+		 * Filter available slide backgrounds for this slide format.
+		 *
+		 * @since	1.5.0
+		 * @param	array	$slide_format_backgrounds	The currently available slide backgrounds for this slide format.
+		 */
+		$slide_format_backgrounds = apply_filters( 'foyer/slides/backgrounds/format=post', $slide_format_backgrounds );
+
+		$slide_formats['post'] = array(
+			'title' => _x( 'Post', 'slide-format', 'foyer' ),
+			'description' => __( 'Displays a WordPress post.', 'foyer' ),
+			'meta_box' => array( 'Foyer_Admin_Slide_Format_Post', 'slide_meta_box' ),
+			'save_post' => array( 'Foyer_Admin_Slide_Format_Post', 'save_slide' ),
+			'slide_backgrounds' => $slide_format_backgrounds,
+		);
+		return $slide_formats;
+	}
+
+	/**
 	 * Adds the Production slide format.
 	 *
 	 * @since	1.0.0

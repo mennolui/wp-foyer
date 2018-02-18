@@ -142,6 +142,7 @@ class Foyer_Admin {
 		 */
 		require_once FOYER_PLUGIN_PATH . 'admin/class-foyer-admin-slide-format-iframe.php';
 		require_once FOYER_PLUGIN_PATH . 'admin/class-foyer-admin-slide-format-pdf.php';
+		require_once FOYER_PLUGIN_PATH . 'admin/class-foyer-admin-slide-format-post.php';
 		require_once FOYER_PLUGIN_PATH . 'admin/class-foyer-admin-slide-format-production.php';
 	}
 }
