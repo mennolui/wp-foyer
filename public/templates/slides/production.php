@@ -16,8 +16,8 @@ $production = new WPT_Production( $production_id );
 	<div class="inner">
 		<?php if ( ! empty( $production_id ) ) { ?>
 			<div class="foyer-slide-fields">
-				<h1><?php echo esc_html( $production->title() ); ?></h1>
-				<div class="date"><?php echo $production->dates_html(); ?></div>
+				<div class="foyer-slide-field foyer-slide-field-title"><?php echo esc_html( $production->title() ); ?></div>
+				<div class="foyer-slide-field foyer-slide-field-date"><?php echo $production->dates_html(); ?></div>
 			</div>
 		<?php } ?>
 	</div>
