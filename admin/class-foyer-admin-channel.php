@@ -159,7 +159,7 @@ class Foyer_Admin_Channel {
 									$slides = Foyer_Slides::get_posts();
 									foreach ( $slides as $slide ) {
 									?>
-										<option value="<?php echo intval( $slide->ID ); ?>"><?php echo esc_html( $slide->post_title ); ?></option>
+										<option value="<?php echo intval( $slide->ID ); ?>"><?php echo esc_html( get_the_title( $slide->ID ) ); ?></option>
 									<?php
 									}
 								?>

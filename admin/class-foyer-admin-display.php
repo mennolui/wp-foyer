@@ -256,7 +256,7 @@ class Foyer_Admin_Display {
 									$checked = 'selected="selected"';
 								}
 							?>
-								<option value="<?php echo intval( $channel->ID ); ?>" <?php echo $checked; ?>><?php echo esc_html( $channel->post_title ); ?></option>
+								<option value="<?php echo intval( $channel->ID ); ?>" <?php echo $checked; ?>><?php echo esc_html( get_the_title( $channel->ID ) ); ?></option>
 							<?php
 							}
 						?>
