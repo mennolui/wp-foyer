@@ -124,7 +124,7 @@ class Foyer_Slide_Formats {
 
 		$slide_formats['post'] = array(
 			'title' => _x( 'Post', 'slide-format', 'foyer' ),
-			'description' => __( 'Displays a WordPress post.', 'foyer' ),
+			'description' => __( 'Displays title, date and content of a post.', 'foyer' ),
 			'meta_box' => array( 'Foyer_Admin_Slide_Format_Post', 'slide_meta_box' ),
 			'save_post' => array( 'Foyer_Admin_Slide_Format_Post', 'save_slide' ),
 			'slide_backgrounds' => $slide_format_backgrounds,
@@ -161,7 +161,7 @@ class Foyer_Slide_Formats {
 
 		$slide_formats['production'] = array(
 			'title' => _x( 'Event', 'slide-format', 'foyer' ),
-			'description' => __( 'Displays title and details of a selected event, with its image as default background.', 'foyer' ),
+			'description' => __( 'Displays title and details of an event, with its image as default background.', 'foyer' ),
 			'meta_box' => array( 'Foyer_Admin_Slide_Format_Production', 'slide_production_meta_box' ),
 			'save_post' => array( 'Foyer_Admin_Slide_Format_Production', 'save_slide_production' ),
 			'slide_backgrounds' => $slide_format_backgrounds,

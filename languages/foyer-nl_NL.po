@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Foyer - Digital Signage for WordPress\n"
-"POT-Creation-Date: 2018-02-14 17:17+0100\n"
-"PO-Revision-Date: 2018-02-14 17:25+0100\n"
+"POT-Creation-Date: 2018-02-19 19:26+0100\n"
+"PO-Revision-Date: 2018-02-19 19:26+0100\n"
 "Last-Translator: Menno Luitjes <menno@mennoluitjes.nl>\n"
 "Language-Team: Menno Luitjes <menno@mennoluitjes.nl>\n"
 "Language: nl_NL\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
-"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
@@ -149,44 +149,35 @@ msgid "Remove image"
 msgstr "Verwijder afbeelding"
 
 #: admin/class-foyer-admin-slide-background-video.php:71
-#: admin/class-foyer-admin-slide-format-video.php:68
 msgid "YouTube video URL"
 msgstr "YouTube video URL"
 
 #: admin/class-foyer-admin-slide-background-video.php:78
-#: admin/class-foyer-admin-slide-format-video.php:75
 msgid "Not a valid YouTube video URL, eg. https://youtu.be/MlQunle406U"
 msgstr "Geen geldige YouTube video URL, bijv. https://youtu.be/MlQunle406U"
 
 #: admin/class-foyer-admin-slide-background-video.php:84
-#: admin/class-foyer-admin-slide-format-video.php:81
 msgid "Start at"
 msgstr "Start op"
 
 #: admin/class-foyer-admin-slide-background-video.php:89
 #: admin/class-foyer-admin-slide-background-video.php:99
-#: admin/class-foyer-admin-slide-format-video.php:86
-#: admin/class-foyer-admin-slide-format-video.php:96
 msgid "seconds"
 msgstr "seconden"
 
 #: admin/class-foyer-admin-slide-background-video.php:94
-#: admin/class-foyer-admin-slide-format-video.php:91
 msgid "End at"
 msgstr "Eindig op"
 
 #: admin/class-foyer-admin-slide-background-video.php:104
-#: admin/class-foyer-admin-slide-format-video.php:101
 msgid "Hold slide until end?"
 msgstr "Houd slide vast tot einde?"
 
 #: admin/class-foyer-admin-slide-background-video.php:109
-#: admin/class-foyer-admin-slide-format-video.php:106
 msgid "Yes, hold the slide until the end of the video."
 msgstr "Ja, houd de slide vast tot het einde van de video."
 
 #: admin/class-foyer-admin-slide-background-video.php:114
-#: admin/class-foyer-admin-slide-format-video.php:111
 msgid "Preview"
 msgstr "Voorbeeld"
 
@@ -236,8 +227,32 @@ msgstr "Upload PDF bestand"
 msgid "Remove PDF file"
 msgstr "Verwijder PDF bestand"
 
+#: admin/class-foyer-admin-slide-format-post.php:72
+#: includes/class-foyer-slide-formats.php:126
+msgctxt "slide-format"
+msgid "Post"
+msgstr "Bericht"
+
+#: admin/class-foyer-admin-slide-format-post.php:86
+msgid "Display featured image?"
+msgstr "Toon uitgelichte afbeelding?"
+
+#: admin/class-foyer-admin-slide-format-post.php:91
+msgid "Yes, display the featured image, if any."
+msgstr "Ja, toon de uitgelichte afbeelding, indien aanwezig."
+
+#: admin/class-foyer-admin-slide-format-post.php:96
+msgid "Use excerpt?"
+msgstr "Gebruik samenvatting?"
+
+#: admin/class-foyer-admin-slide-format-post.php:101
+msgid "Yes, use the manual excerpt instead of the post content."
+msgstr ""
+"Ja, gebruik de handmatige samenvatting in plaats van de inhoud van het "
+"bericht."
+
 #: admin/class-foyer-admin-slide-format-production.php:55
-#: includes/class-foyer-slide-formats.php:133
+#: includes/class-foyer-slide-formats.php:163
 msgctxt "slide-format"
 msgid "Event"
 msgstr "Voorstelling"
@@ -394,8 +409,8 @@ msgid ""
 "Displays the default background for the chosen slide format, if any, or no "
 "background."
 msgstr ""
-"Toont de standaard achtergrond van het gekozen slide soort, indien "
-"aanwezig, of geen achtergrond."
+"Toont de standaard achtergrond van het gekozen slide soort, indien aanwezig, "
+"of geen achtergrond."
 
 #: includes/class-foyer-slide-backgrounds.php:42
 msgctxt "slide-background"
@@ -434,13 +449,16 @@ msgstr "PDF"
 msgid "Displays a slide for each page in the uploaded PDF."
 msgstr "Toont een slide voor iedere pagina in de geüploade PDF."
 
-#: includes/class-foyer-slide-formats.php:134
+#: includes/class-foyer-slide-formats.php:127
+msgid "Displays title, date and content of a post."
+msgstr "Toont titel, datum en inhoud van een bericht."
+
+#: includes/class-foyer-slide-formats.php:164
 msgid ""
-"Displays title and details of a selected event, with its image as default "
-"background."
+"Displays title and details of an event, with its image as default background."
 msgstr ""
-"Toont titel en gegevens van een geselecteerde voorstelling, met z’n "
-"afbeelding als standaard achtergrond."
+"Toont titel en gegevens van een voorstelling, met z’n afbeelding als "
+"standaard achtergrond."
 
 #. Plugin Name of the plugin/theme
 msgid "Foyer - Digital Signage for WordPress"
@@ -458,6 +476,16 @@ msgstr ""
 #. Author of the plugin/theme
 msgid "Menno Luitjes"
 msgstr ""
+
+#~ msgid ""
+#~ "Displays title and details of a selected event, with its image as default "
+#~ "background."
+#~ msgstr ""
+#~ "Toont titel en gegevens van een geselecteerde voorstelling, met z’n "
+#~ "afbeelding als standaard achtergrond."
+
+#~ msgid "Displays a WordPress post."
+#~ msgstr "Toont titel, datum en inhoud van een bericht."
 
 #~ msgctxt "foyer"
 #~ msgid "Video"
