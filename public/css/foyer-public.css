@@ -297,12 +297,12 @@ html {
 .foyer-slide.foyer-slide-post .inner .foyer-slide-fields .foyer-slide-field-content {
   line-height: 1.5;
   padding: 0.5rem 1rem;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.8);
   -webkit-box-decoration-break: clone;
           box-decoration-break: clone;
 }
 .foyer-slide.foyer-slide-post .inner .foyer-slide-fields .foyer-slide-field-content {
-  padding: 1rem;
+  padding: 1.5rem 1rem;
 }
 .foyer-slide.foyer-slide-post .inner .foyer-slide-fields .foyer-slide-field-content > *:last-child {
   margin-bottom: 0;
@@ -343,7 +343,7 @@ html {
   left: 0;
   right: 0;
   padding: 2vmin 4vmin;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.8);
 }
 .foyer-slide-background.foyer-slide-background-image figure,
 .foyer-slide-background.foyer-slide-background-default figure {
