@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Foyer - Digital Signage for WordPress\n"
-"POT-Creation-Date: 2018-02-19 19:26+0100\n"
-"PO-Revision-Date: 2018-02-19 19:26+0100\n"
+"POT-Creation-Date: 2018-02-19 20:11+0100\n"
+"PO-Revision-Date: 2018-02-19 20:11+0100\n"
 "Last-Translator: Menno Luitjes <menno@mennoluitjes.nl>\n"
 "Language-Team: Menno Luitjes <menno@mennoluitjes.nl>\n"
 "Language: nl_NL\n"
@@ -238,8 +238,8 @@ msgid "Display featured image?"
 msgstr "Toon uitgelichte afbeelding?"
 
 #: admin/class-foyer-admin-slide-format-post.php:91
-msgid "Yes, display the featured image, if any."
-msgstr "Ja, toon de uitgelichte afbeelding, indien aanwezig."
+msgid "Yes, display the featured image."
+msgstr "Ja, toon de uitgelichte afbeelding."
 
 #: admin/class-foyer-admin-slide-format-post.php:96
 msgid "Use excerpt?"
@@ -476,6 +476,9 @@ msgstr ""
 #. Author of the plugin/theme
 msgid "Menno Luitjes"
 msgstr ""
+
+#~ msgid "Yes, display the featured image, if any."
+#~ msgstr "Ja, toon de uitgelichte afbeelding, indien aanwezig."
 
 #~ msgid ""
 #~ "Displays title and details of a selected event, with its image as default "

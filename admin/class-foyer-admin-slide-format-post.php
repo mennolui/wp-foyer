@@ -88,7 +88,7 @@ class Foyer_Admin_Slide_Format_Post {
 					<td>
 						<input type="checkbox" name="slide_post_display_thumbnail" id="slide_post_display_thumbnail"
 							value="1" <?php checked( $slide_post_display_thumbnail, 1 ); ?> />
-						<span><?php _e( 'Yes, display the featured image, if any.', 'foyer' ); ?></span>
+						<span><?php _e( 'Yes, display the featured image.', 'foyer' ); ?></span>
 					</td>
 				</tr>
 				<tr>
