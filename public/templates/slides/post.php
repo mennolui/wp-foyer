@@ -9,7 +9,7 @@ $slide = new Foyer_Slide( get_the_id() );
 
 $slide_post_id = get_post_meta( $slide->ID, 'slide_post_post_id', true );
 $slide_post = get_post( $slide_post_id );
-$slide_post_img = get_the_post_thumbnail( $slide_post->ID );
+$slide_post_img = get_the_post_thumbnail( $slide_post->ID, 'foyer_fhd_square' );
 
 $slide_post_display_thumbnail = get_post_meta( $slide->ID, 'slide_post_display_thumbnail', true );
 $slide_post_use_excerpt = get_post_meta( $slide->ID, 'slide_post_use_excerpt', true );
