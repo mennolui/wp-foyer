@@ -170,4 +170,34 @@ class Foyer_Slide_Formats {
 
 		return $slide_formats;
 	}
+
+	/**
+	 * Adds the Text slide format.
+	 *
+	 * @since	1.5.0
+	 *
+	 * @param 	array	$slide_formats	The current slide formats.
+	 * @return	array					The slide formats with the Text slide format added.
+	 */
+	static function add_text_slide_format( $slide_formats ) {
+
+		$slide_format_backgrounds = array( 'default', 'image', 'video' );
+
+		/**
+		 * Filter available slide backgrounds for this slide format.
+		 *
+		 * @since	1.5.0
+		 * @param	array	$slide_format_backgrounds	The currently available slide backgrounds for this slide format.
+		 */
+		$slide_format_backgrounds = apply_filters( 'foyer/slides/backgrounds/format=text', $slide_format_backgrounds );
+
+		$slide_formats['text'] = array(
+			'title' => _x( 'Manual text', 'slide-format', 'foyer' ),
+			'description' => __( 'Displays a title, a subtitle and some content.', 'foyer' ),
+			'meta_box' => array( 'Foyer_Admin_Slide_Format_Text', 'slide_meta_box' ),
+			'save_post' => array( 'Foyer_Admin_Slide_Format_Text', 'save_slide' ),
+			'slide_backgrounds' => $slide_format_backgrounds,
+		);
+		return $slide_formats;
+	}
 }

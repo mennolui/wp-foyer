@@ -85,4 +85,11 @@ class Test_Foyer_Slide_Formats extends Foyer_UnitTestCase {
 		$this->assertNotEmpty( $slide_format );
 	}
 
+	/**
+	 * @since	1.5.0
+	 */
+	function test_is_text_slide_format_registered() {
+		$slide_format = Foyer_Slides::get_slide_format_by_slug( 'text' );
+		$this->assertNotEmpty( $slide_format );
+	}
 }
