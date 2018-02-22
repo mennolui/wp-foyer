@@ -28,8 +28,9 @@ Foyer comes with build in support for the [Theater for WordPress plugin](https:/
 
 = Slide formats =
 * Default: Displays a background only.
+* Post: Displays title, date and content of a post.
+* Event: Displays title and details of an event, with its featured image as default background (requires Theater for WordPress).
 * External web page: Displays a web page to your liking.
-* Event: Displays the image, title and details of a selected event (requires Theater for WordPress).
 * PDF: Creates a slide for each page in an uploaded PDF, displaying that page contained within the slide.
 
 = Slide backgrounds =
@@ -37,7 +38,7 @@ Foyer comes with build in support for the [Theater for WordPress plugin](https:/
 * Video: Displays a YouTube video, or a specified fragment, as slide background.
 
 More features, slide formats and slide backgrounds are coming soon.
-Eg. a WordPress Post slide, a Title & Text slide, a widgets bar for displaying Time and Weather.
+Eg. <del>a WordPress Post slide,</del> a Title & Text slide, a widgets bar for displaying Time and Weather.
 
 = Feature suggestions wanted! =
 Since this plugin is quite new, I'm curious..
@@ -118,6 +119,11 @@ Changes to displays, channels and slides are never instantly visible on your dig
 Coming soon.
 
 == Changelog ==
+
+= 1.5 =
+Release Date: February 19, 2018
+
+Introduces the Post slide format. Displays title, date and content of a post, and optionally the featured image.
 
 = 1.4 =
 Release Date: February 14, 2018
@@ -200,6 +206,8 @@ Bug fixes:
 
 
 == Upgrade Notice ==
+= 1.5.0 =
+Introduces the Post slide format. Check the changelog for all details.
 
 = 1.4.0 =
 Introduces a brand new way to build slides: choose a format, then a background. Check the changelog for all details.
