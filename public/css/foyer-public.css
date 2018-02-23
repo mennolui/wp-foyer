@@ -227,6 +227,7 @@ html {
   font-weight: bold;
   margin-bottom: 1rem;
 }
+.foyer-slide .foyer-slide-field.foyer-slide-field-pretitle,
 .foyer-slide .foyer-slide-field.foyer-slide-field-subtitle {
   font-size: 3rem;
   font-weight: bold;
@@ -236,7 +237,7 @@ html {
   font-size: 3rem;
   margin-bottom: 1rem;
 }
-.foyer-slide .foyer-slide-field .foyer-slide-field-content > *:last-child {
+.foyer-slide .foyer-slide-field.foyer-slide-field-content > *:last-child {
   margin-bottom: 0;
 }
 .foyer-slide .foyer-slide-background {
@@ -377,6 +378,7 @@ html {
           justify-content: center;
   padding: 4vmin;
 }
+.foyer-slide.foyer-slide-text .inner .foyer-slide-fields .foyer-slide-field-pretitle span,
 .foyer-slide.foyer-slide-text .inner .foyer-slide-fields .foyer-slide-field-title span,
 .foyer-slide.foyer-slide-text .inner .foyer-slide-fields .foyer-slide-field-subtitle span,
 .foyer-slide.foyer-slide-text .inner .foyer-slide-fields .foyer-slide-field-content {
@@ -385,6 +387,10 @@ html {
   background-color: rgba(255, 255, 255, 0.8);
   -webkit-box-decoration-break: clone;
           box-decoration-break: clone;
+}
+.foyer-slide.foyer-slide-text .inner .foyer-slide-fields .foyer-slide-field-pretitle span,
+.foyer-slide.foyer-slide-text .inner .foyer-slide-fields .foyer-slide-field-subtitle span {
+  line-height: 1.7;
 }
 .foyer-slide.foyer-slide-text .inner .foyer-slide-fields .foyer-slide-field-content {
   padding: 1.5rem 1rem;

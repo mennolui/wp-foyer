@@ -9,6 +9,7 @@ class Test_Foyer_Admin_Slide_Format_Text extends Foyer_UnitTestCase {
 
 		$this->assume_role( 'administrator' );
 
+		$pretitle = 'Winning pre-title.';
 		$title = 'Great title.';
 		$subtitle = 'Best subtitle.';
 		$content = '<strong>Some strong words.</strong>' . "\n\n" . 'And a second paragraph.';
@@ -17,11 +18,15 @@ class Test_Foyer_Admin_Slide_Format_Text extends Foyer_UnitTestCase {
 		$_POST['slide_format'] = 'text';
 		$_POST['slide_background'] = 'default';
 
+		$_POST['slide_text_pretitle'] = $pretitle;
 		$_POST['slide_text_title'] = $title;
 		$_POST['slide_text_subtitle'] = $subtitle;
 		$_POST['slide_text_content'] = $content;
 
 		Foyer_Admin_Slide::save_slide( $this->slide1 );
+
+		$actual = get_post_meta( $this->slide1, 'slide_text_pretitle', true );
+		$this->assertEquals( $pretitle, $actual );
 
 		$actual = get_post_meta( $this->slide1, 'slide_text_title', true );
 		$this->assertEquals( $title, $actual );
