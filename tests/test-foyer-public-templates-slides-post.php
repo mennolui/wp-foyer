@@ -130,5 +130,64 @@ class Test_Foyer_Public_Templates_Slides_Post extends Foyer_UnitTestCase {
 		$this->assertContains( $post_excerpt, $actual );
 		$this->assertNotContains( $post_content, $actual );
 	}
+
+	/**
+	 * @since	1.5.0
+	 */
+	function test_are_all_text_slide_field_elements_included_in_slide() {
+
+		$post_title = 'Hello world this is our post';
+		$post_content = 'With a lot a lot a lot a lot a lot of content.';
+		$args = array(
+			'post_type' => 'post',
+			'post_title' => $post_title,
+			'post_content' => $post_content,
+		);
+
+		/* Create post */
+		$post_id = $this->factory->post->create( $args );
+
+		update_post_meta( $this->slide1, 'slide_format', 'post' );
+		update_post_meta( $this->slide1, 'slide_background', '' );
+		update_post_meta( $this->slide1, 'slide_post_post_id', $post_id );
+
+		$this->go_to( get_permalink( $this->slide1 ) );
+
+		ob_start();
+		Foyer_Templates::get_template( 'partials/slide.php' );
+		$actual = ob_get_clean();
+
+		$this->assertContains( '<div class="foyer-slide-field foyer-slide-field-title', $actual );
+		$this->assertContains( '<div class="foyer-slide-field foyer-slide-field-date', $actual );
+		$this->assertContains( '<div class="foyer-slide-field foyer-slide-field-content', $actual );
+	}
+
+	/**
+	 * @since	1.5.0
+	 */
+	function test_is_content_element_not_included_in_post_slide_when_empty() {
+
+		$post_title = 'Hello world this is our post';
+		$args = array(
+			'post_type' => 'post',
+			'post_title' => $post_title,
+			'post_content' => '',
+		);
+
+		/* Create post */
+		$post_id = $this->factory->post->create( $args );
+
+		update_post_meta( $this->slide1, 'slide_format', 'post' );
+		update_post_meta( $this->slide1, 'slide_background', '' );
+		update_post_meta( $this->slide1, 'slide_post_post_id', $post_id );
+
+		$this->go_to( get_permalink( $this->slide1 ) );
+
+		ob_start();
+		Foyer_Templates::get_template( 'partials/slide.php' );
+		$actual = ob_get_clean();
+
+		$this->assertNotContains( '<div class="foyer-slide-field foyer-slide-field-content', $actual );
+	}
 }
 
