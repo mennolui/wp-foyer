@@ -22,13 +22,7 @@ class Foyer_Admin_Slide_Format_Text {
 	static function save_slide( $post_id ) {
 		$slide_text_title = sanitize_text_field( $_POST['slide_text_title'] );
 		$slide_text_subtitle = sanitize_text_field( $_POST['slide_text_subtitle'] );
-
-		if ( function_exists( 'sanitize_textarea_field' ) ) {
-			$slide_text_content = sanitize_textarea_field( $_POST['slide_text_content'] );
-		}
-		else {
-			$slide_text_content = implode( "\n", array_map( 'sanitize_text_field', explode( "\n", $_POST['slide_text_content'] ) ) );
-		}
+		$slide_text_content = wp_kses_post( $_POST['slide_text_content'] );
 
 		update_post_meta( $post_id, 'slide_text_title', $slide_text_title );
 		update_post_meta( $post_id, 'slide_text_subtitle', $slide_text_subtitle );
@@ -55,7 +49,7 @@ class Foyer_Admin_Slide_Format_Text {
 						<label for="slide_text_title"><?php _e( 'Title', 'foyer' ); ?></label>
 					</th>
 					<td>
-						<input type="text" name="slide_text_title" id="slide_text_title" class="all-options" value="<?php echo esc_html( $slide_text_title ); ?>" />
+						<input type="text" name="slide_text_title" id="slide_text_title" class="large-text" value="<?php echo esc_html( $slide_text_title ); ?>" />
 					</td>
 				</tr>
 				<tr>
@@ -63,7 +57,7 @@ class Foyer_Admin_Slide_Format_Text {
 						<label for="slide_text_subtitle"><?php _e( 'Subtitle', 'foyer' ); ?></label>
 					</th>
 					<td>
-						<input type="text" name="slide_text_subtitle" id="slide_text_subtitle" class="all-options" value="<?php echo esc_html( $slide_text_subtitle ); ?>" />
+						<input type="text" name="slide_text_subtitle" id="slide_text_subtitle" class="large-text" value="<?php echo esc_html( $slide_text_subtitle ); ?>" />
 					</td>
 				</tr>
 				<tr>
