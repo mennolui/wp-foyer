@@ -1,24 +1,14 @@
-.foyer-slide.foyer-slide-post {
+.foyer-slide.foyer-slide-text {
 
 	.inner {
 		display: flex;
 		width: 100%;
 		height: 100%;
 
-		figure,
 		.foyer-slide-fields {
 			flex: 0 0 auto;
 			width: auto;
 			height: auto;
-		}
-
-		figure {
-			margin: 0;
-			img {
-				width: 100%;
-				height: 100%;
-				object-fit: cover; // no IE support
-			}
 		}
 
 		.foyer-slide-fields {
@@ -29,7 +19,7 @@
 			padding: 4vmin;
 
 			.foyer-slide-field-title span,
-			.foyer-slide-field-date span,
+			.foyer-slide-field-subtitle span,
 			.foyer-slide-field-content {
 				line-height: 1.5;
 				padding: 0.5rem 1rem;
@@ -46,20 +36,10 @@
 			.foyer-slide-fields {
 				width: (100% * 2/3);
 			}
-			figure,
-			figure + .foyer-slide-fields {
-				width: 50%;
-			}
 		}
 		@media (max-aspect-ratio: 1/1) {
 			flex-direction: column;
 			justify-content: flex-end;
-			figure,
-			figure + .foyer-slide-fields {
-				height: 50%;
-			}
-			.foyer-slide-fields {
-			}
 		}
 	}
 }
