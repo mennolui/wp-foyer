@@ -310,6 +310,9 @@ html {
   -webkit-box-decoration-break: clone;
           box-decoration-break: clone;
 }
+.foyer-slide.foyer-slide-post .inner .foyer-slide-fields .foyer-slide-field-date span {
+  line-height: 1.7;
+}
 .foyer-slide.foyer-slide-post .inner .foyer-slide-fields .foyer-slide-field-content {
   padding: 1.5rem 1rem;
 }
