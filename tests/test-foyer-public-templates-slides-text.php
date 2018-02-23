@@ -1,5 +1,5 @@
 <?php
-class Test_Foyer_Public_Templates_Slides_Post extends Foyer_UnitTestCase {
+class Test_Foyer_Public_Templates_Slides_Text extends Foyer_UnitTestCase {
 
 	/**
 	 * @since	1.5.0
