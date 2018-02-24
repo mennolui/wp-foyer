@@ -129,11 +129,12 @@ div[id^=foyer_slide_background_] {
 .foyer_slide_formats dl dt,
 .foyer_slide_backgrounds dl dt {
   color: #72777c;
+  margin-bottom: 0.25em;
 }
 .foyer_slide_formats dl dd,
 .foyer_slide_backgrounds dl dd {
   color: #23282d;
-  font-size: 1.3em;
+  font-size: 1.75em;
   line-height: 1.4em;
   font-weight: 600;
 }
