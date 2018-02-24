@@ -369,8 +369,8 @@ class Foyer_Admin_Channel {
 							$slide_background_data = Foyer_Slides::get_slide_background_by_slug( $slide->get_background() );
 
 							?>
-								<div class="foyer_slides_editor_slides_slide <?php
-									if ( $slide->is_stack() ) { echo 'foyer-slide-is-stack'; }
+								<div class="foyer_slides_editor_slides_slide<?php
+									if ( $slide->is_stack() ) { echo ' foyer-slide-is-stack'; }
 								?>"
 									data-slide-id="<?php echo intval( $slide->ID ); ?>"
 									data-slide-key="<?php echo $i; ?>"

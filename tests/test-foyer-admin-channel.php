@@ -93,6 +93,56 @@ class Test_Foyer_Admin_Channel extends Foyer_UnitTestCase {
 			$this->assertContains( $slide->post_title . '</option>', $actual );
 		}
 	}
+
+	function test_is_stack_class_included_in_channel_admin_page_for_slide_stack() {
+
+		/* Create a slide */
+		$slide_args = array(
+			'post_type' => Foyer_Slide::post_type_name,
+		);
+
+		$slide_stack_id = $this->factory->post->create( $slide_args );
+		update_post_meta( $slide_stack_id, 'slide_format', 'pdf' );
+
+		/* Create a channel */
+		$channel_args = array(
+			'post_type' => Foyer_Channel::post_type_name,
+		);
+
+		$channel_id = $this->factory->post->create( $channel_args );
+		update_post_meta( $channel_id, Foyer_Slide::post_type_name, array( $slide_stack_id ) );
+
+		$meta_boxes = $this->get_meta_boxes_for_channel( $channel_id );
+
+		$this->assertContains( '<div class="foyer_slides_editor_slides_slide foyer-slide-is-stack', $meta_boxes );
+	}
+
+	function test_is_stack_class_not_included_in_channel_admin_page_for_single_slide() {
+
+		/* Create a slide */
+		$slide_args = array(
+			'post_type' => Foyer_Slide::post_type_name,
+		);
+
+		$slide_single_id = $this->factory->post->create( $slide_args );
+		update_post_meta( $slide_single_id, 'slide_format', 'default' );
+
+		/* Create a channel */
+		$channel_args = array(
+			'post_type' => Foyer_Channel::post_type_name,
+		);
+
+		$channel_id = $this->factory->post->create( $channel_args );
+		update_post_meta( $channel_id, Foyer_Slide::post_type_name, array( $slide_single_id ) );
+
+		$meta_boxes = $this->get_meta_boxes_for_channel( $channel_id );
+
+		$this->assertContains( '<div class="foyer_slides_editor_slides_slide', $meta_boxes );
+		$this->assertNotContains( '<div class="foyer_slides_editor_slides_slide foyer-slide-is-stack', $meta_boxes );
+	}
+
+	// @todo: is overlay with its content in HTML
+
 }
 
 /**
