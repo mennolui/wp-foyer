@@ -274,8 +274,8 @@ class Foyer_Admin_Slide {
 
 			foreach( Foyer_Slides::get_slide_formats() as $slide_format_key => $slide_format_data ) {
 
-				?><div id="<?php echo 'foyer_slide_format_' . $slide_format_key; ?>">
-					<h3><?php echo sprintf( __( 'Slide format: %s ', 'foyer'), $slide_format_data['title'] ); ?></h3>
+				?><div id="<?php echo esc_attr( 'foyer_slide_format_' . $slide_format_key ); ?>">
+					<h3><?php echo esc_html( sprintf( __( 'Slide format: %s ', 'foyer'), $slide_format_data['title'] ) ); ?></h3>
 
 					<?php if ( ! empty( $slide_format_data['description'] ) ) { ?>
 						<p class="foyer_slide_admin_description"><?php echo esc_html( $slide_format_data['description'] ); ?></p>
@@ -298,8 +298,8 @@ class Foyer_Admin_Slide {
 
 			foreach( Foyer_Slides::get_slide_backgrounds() as $slide_background_key => $slide_background_data ) {
 
-				?><div id="<?php echo 'foyer_slide_background_' . $slide_background_key; ?>">
-					<h3><?php echo sprintf( __( 'Slide background: %s ', 'foyer'), $slide_background_data['title'] ); ?></h3>
+				?><div id="<?php echo esc_attr( 'foyer_slide_background_' . $slide_background_key ); ?>">
+					<h3><?php echo esc_html( sprintf( __( 'Slide background: %s ', 'foyer'), $slide_background_data['title'] ) ); ?></h3>
 
 					<?php if ( ! empty( $slide_background_data['description'] ) ) { ?>
 						<p class="foyer_slide_admin_description"><?php echo esc_html( $slide_background_data['description'] ); ?></p>
