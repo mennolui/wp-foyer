@@ -13,6 +13,27 @@
 class Foyer_Admin_Slide {
 
 	/**
+	 * Adds the channel editor meta box to the display admin page.
+	 *
+	 * @since	1.0.0
+	 * @since	1.3.1	Updated the slide_default_meta_box callback, after method was moved to Foyer_Admin_Slide_Format_Default.
+	 * @since	1.3.2	Changed method to static.
+	 * @since	1.4.0	Removed value for $meta_box_callback for default slide format, as this value is now defined in the
+	 *					slide format properties, same as for the other slide formats.
+	 *					Switched to a single metabox holding format and background selects and content.
+	 */
+	static function add_slide_editor_meta_boxes() {
+		add_meta_box(
+			'foyer_slide_content',
+			__( 'Slide content' , 'foyer' ),
+			array( __CLASS__, 'slide_content_meta_box' ),
+			Foyer_Slide::post_type_name,
+			'normal',
+			'low'
+		);
+	}
+
+	/**
 	 * Adds a Slide Format column to the Slides admin table, just after the title column.
 	 *
 	 * @since	1.0.0
@@ -33,27 +54,6 @@ class Foyer_Admin_Slide {
 			}
 		}
 		return $new_columns;
-	}
-
-	/**
-	 * Adds the channel editor meta box to the display admin page.
-	 *
-	 * @since	1.0.0
-	 * @since	1.3.1	Updated the slide_default_meta_box callback, after method was moved to Foyer_Admin_Slide_Format_Default.
-	 * @since	1.3.2	Changed method to static.
-	 * @since	1.4.0	Removed value for $meta_box_callback for default slide format, as this value is now defined in the
-	 *					slide format properties, same as for the other slide formats.
-	 *					Switched to a single metabox holding format and background selects and content.
-	 */
-	static function add_slide_editor_meta_boxes() {
-		add_meta_box(
-			'foyer_slide_content',
-			__( 'Slide content' , 'foyer' ),
-			array( __CLASS__, 'slide_content_meta_box' ),
-			Foyer_Slide::post_type_name,
-			'normal',
-			'low'
-		);
 	}
 
 	/**
@@ -232,7 +232,7 @@ class Foyer_Admin_Slide {
 	 *					Displayed a slide format description and slide background description and a message
 	 *					'No settings.' when both description and meta_box are empty.
 	 * @since	1.5.0	Changed the markup of the slide format title and the slide background title,
-	 *					in order to improve the styling of these heading.
+	 *					in order to improve the styling of these headings. Escapes these headings.
 	 *					Moved the output of slide format options to a seperate method, and introduced two optgroups,
 	 *					one for Single slides and one for Magic slide stacks.
 	 *
