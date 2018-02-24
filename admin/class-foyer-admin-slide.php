@@ -231,6 +231,10 @@ class Foyer_Admin_Slide {
 	 *					Rebuild into a single metabox holding format and background selects and content.
 	 *					Displayed a slide format description and slide background description and a message
 	 *					'No settings.' when both description and meta_box are empty.
+	 * @since	1.5.0	Changed the markup of the slide format title and the slide background title,
+	 *					in order to improve the styling of these heading.
+	 *					Moved the output of slide format options to a seperate method, and introduced two optgroups,
+	 *					one for Single slides and one for Magic slide stacks.
 	 *
 	 * @param	WP_Post		$post	The post object of the current slide.
 	 * @return	void
@@ -249,11 +253,12 @@ class Foyer_Admin_Slide {
 			<div class="foyer_slide_select_format">
 				<p><?php _e( 'Format', 'foyer' ); ?></p>
 				<select name="slide_format">
-					<?php foreach( Foyer_Slides::get_slide_formats() as $slide_format_key => $slide_format_data ) { ?>
-						<option value="<?php echo esc_attr( $slide_format_key ); ?>" <?php selected( $slide->get_format(), $slide_format_key, true ); ?>>
-							<?php echo esc_html( $slide_format_data['title'] ); ?>
-						</option>
-					<?php } ?>
+					<optgroup label="<?php echo esc_attr( __( 'Single slides', 'foyer' ) ); ?>">
+						<?php self::slide_format_options_html( $slide, false ); ?>
+					</optgroup>
+					<optgroup label="<?php echo esc_attr( __( 'Magic slide stacks', 'foyer' ) ); ?>">
+						<?php self::slide_format_options_html( $slide, true ); ?>
+					</optgroup>
 				</select>
 			</div>
 
@@ -324,5 +329,26 @@ class Foyer_Admin_Slide {
 			} ?>
 
 		</div><?php
+	}
+
+	/**
+	 * Outputs the slide format options HTML, containing stacks only or single slides only.
+	 *
+	 * @since	1.5.0
+	 *
+	 * @param	Foyer_Slide		$slide	The slide object of the current slide.
+	 * @param	bool			$stack	Whether to output stacks, or single slides.
+	 * @return	void
+	 */
+	static function slide_format_options_html( $slide, $stack = false ) {
+
+		foreach( Foyer_Slides::get_slide_formats() as $slide_format_key => $slide_format_data ) {
+			if ( $stack == Foyer_Slides::slide_format_is_stack( $slide_format_key ) ) {
+
+				?><option value="<?php echo esc_attr( $slide_format_key ); ?>" <?php selected( $slide->get_format(), $slide_format_key, true ); ?>>
+					<?php echo esc_html( $slide_format_data['title'] ); ?>
+				</option><?php
+			}
+		}
 	}
 }
