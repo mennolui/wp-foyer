@@ -39,6 +39,7 @@ body.post-php.post-type-foyer_channel #edit-slug-box {
   z-index: 10;
   background-color: #e0e0e0;
   padding: 0.5em;
+  overflow: hidden;
 }
 .foyer_slides_editor_slides .foyer_slides_editor_slides_slide .foyer_slides_editor_slides_slide_iframe_container .foyer_slides_editor_slides_slide_iframe_container_overlay h4,
 .foyer_slides_editor_slides .foyer_slides_editor_slides_slide .foyer_slides_editor_slides_slide_iframe_container .foyer_slides_editor_slides_slide_iframe_container_overlay dl {
