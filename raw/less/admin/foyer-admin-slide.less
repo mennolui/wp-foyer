@@ -39,7 +39,6 @@ div[id^=foyer_slide_background_] {
 			padding-right: 10px;
 
 			color: @wp-form-alt-txt-color;
-//			font-weight: 600;
 		}
 	}
 }
@@ -48,6 +47,23 @@ div[id^=foyer_slide_background_] {
 .foyer_slide_backgrounds {
 	margin: 0 -12px;
 	padding: 12px;
+
+	dl {
+		margin: 0;
+		dt,
+		dd {
+			margin: 0;
+		}
+		dt {
+			color: @wp-form-alt-txt-color;
+		}
+		dd {
+			color: @wp-form-txt-color;
+			font-size: 1.3em;
+			line-height: 1.4em;
+			font-weight: 600;
+		}
+	}
 }
 .foyer_slide_formats {
 	border-bottom: 1px solid @wp-form-hr-color;

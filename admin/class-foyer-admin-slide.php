@@ -275,19 +275,23 @@ class Foyer_Admin_Slide {
 			foreach( Foyer_Slides::get_slide_formats() as $slide_format_key => $slide_format_data ) {
 
 				?><div id="<?php echo esc_attr( 'foyer_slide_format_' . $slide_format_key ); ?>">
-					<h3><?php echo esc_html( sprintf( __( 'Slide format: %s ', 'foyer'), $slide_format_data['title'] ) ); ?></h3>
+					<dl>
+						<dt><?php echo esc_html( __( 'Format', 'foyer') ); ?></dt>
+						<dd><?php echo esc_html( $slide_format_data['title'] ); ?></dd>
+					</dl>
 
 					<?php if ( ! empty( $slide_format_data['description'] ) ) { ?>
 						<p class="foyer_slide_admin_description"><?php echo esc_html( $slide_format_data['description'] ); ?></p>
+					<?php } ?>
+
+					<?php if ( empty( $slide_format_data['description'] ) && empty( $slide_format_data['meta_box'] ) ) { ?>
+						<p class="foyer_slide_admin_description"><?php _e( 'No settings.', 'foyer' ); ?></p>
 					<?php } ?>
 
 					<?php if ( ! empty( $slide_format_data['meta_box'] ) ) { ?>
 						<?php call_user_func_array( $slide_format_data['meta_box'], array( get_post( $slide->ID ) ) ); ?>
 					<?php } ?>
 
-					<?php if ( empty( $slide_format_data['description'] ) && empty( $slide_format_data['meta_box'] ) ) { ?>
-						<p class="foyer_slide_admin_description"><?php _e( 'No settings.', 'foyer' ); ?></p>
-					<?php } ?>
 
 				</div><?php
 			} ?>
@@ -299,18 +303,21 @@ class Foyer_Admin_Slide {
 			foreach( Foyer_Slides::get_slide_backgrounds() as $slide_background_key => $slide_background_data ) {
 
 				?><div id="<?php echo esc_attr( 'foyer_slide_background_' . $slide_background_key ); ?>">
-					<h3><?php echo esc_html( sprintf( __( 'Slide background: %s ', 'foyer'), $slide_background_data['title'] ) ); ?></h3>
+					<dl>
+						<dt><?php echo esc_html( __( 'Background', 'foyer') ); ?></dt>
+						<dd><?php echo esc_html( $slide_background_data['title'] ); ?></dd>
+					</dl>
 
 					<?php if ( ! empty( $slide_background_data['description'] ) ) { ?>
 						<p class="foyer_slide_admin_description"><?php echo esc_html( $slide_background_data['description'] ); ?></p>
 					<?php } ?>
 
-					<?php if ( ! empty( $slide_background_data['meta_box'] ) ) { ?>
-						<?php call_user_func_array( $slide_background_data['meta_box'], array( get_post( $slide->ID ) ) ); ?>
-					<?php } ?>
-
 					<?php if ( empty( $slide_background_data['description'] ) && empty( $slide_background_data['meta_box'] ) ) { ?>
 						<p class="foyer_slide_admin_description"><?php _e( 'No settings.', 'foyer' ); ?></p>
+					<?php } ?>
+
+					<?php if ( ! empty( $slide_background_data['meta_box'] ) ) { ?>
+						<?php call_user_func_array( $slide_background_data['meta_box'], array( get_post( $slide->ID ) ) ); ?>
 					<?php } ?>
 
 				</div><?php

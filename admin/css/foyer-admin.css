@@ -116,6 +116,27 @@ div[id^=foyer_slide_background_] {
   margin: 0 -12px;
   padding: 12px;
 }
+.foyer_slide_formats dl,
+.foyer_slide_backgrounds dl {
+  margin: 0;
+}
+.foyer_slide_formats dl dt,
+.foyer_slide_backgrounds dl dt,
+.foyer_slide_formats dl dd,
+.foyer_slide_backgrounds dl dd {
+  margin: 0;
+}
+.foyer_slide_formats dl dt,
+.foyer_slide_backgrounds dl dt {
+  color: #72777c;
+}
+.foyer_slide_formats dl dd,
+.foyer_slide_backgrounds dl dd {
+  color: #23282d;
+  font-size: 1.3em;
+  line-height: 1.4em;
+  font-weight: 600;
+}
 .foyer_slide_formats {
   border-bottom: 1px solid #eee;
 }
