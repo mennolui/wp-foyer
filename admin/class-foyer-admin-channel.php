@@ -363,19 +363,33 @@ class Foyer_Admin_Channel {
 
 							$slide_url = get_permalink( $slide->ID );
 							$slide_url = add_query_arg( 'foyer-preview', 1, $slide_url );
+							$slide_format_data = Foyer_Slides::get_slide_format_by_slug( $slide->get_format() );
+							$slide_background_data = Foyer_Slides::get_slide_background_by_slug( $slide->get_background() );
 
 							?>
-								<div class="foyer_slides_editor_slides_slide"
+								<div class="foyer_slides_editor_slides_slide <?php
+									if ( $slide->is_stack() ) { echo 'foyer-slide-is-stack'; }
+								?>"
 									data-slide-id="<?php echo intval( $slide->ID ); ?>"
 									data-slide-key="<?php echo $i; ?>"
 								>
 									<div class="foyer_slides_editor_slides_slide_iframe_container">
+										<div class="foyer_slides_editor_slides_slide_iframe_container_overlay">
+											<h4><?php echo esc_html( get_the_title( $slide->ID ) ); ?></h4>
+											<dl>
+												<dt><?php _e( 'Format', 'foyer'); ?></dt>
+												<dd><?php echo esc_html( $slide_format_data['title'] ); ?></dd>
+											</dl>
+											<dl>
+												<dt><?php _e( 'Background', 'foyer'); ?></dt>
+												<dd><?php echo esc_html( $slide_background_data['title'] ); ?></dd>
+											</dl>
+										</div>
 										<iframe src="<?php echo esc_url( $slide_url ); ?>" width="1080" height="1920"></iframe>
 									</div>
 									<div class="foyer_slides_editor_slides_slide_caption">
-										<?php echo esc_html_x( 'Slide', 'slide cpt', 'foyer' ) . ' ' . ($i + 1); ?>
+										<?php echo esc_html_x( 'Slide', 'slide cpt', 'foyer' ) . ' ' . ( $i + 1 ); ?>
 										(<a href="#" class="foyer_slides_editor_slides_slide_remove"><?php echo esc_html__( 'x', 'foyer' ); ?></a>)
-
 									</div>
 								</div>
 							<?php

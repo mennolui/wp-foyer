@@ -76,6 +76,7 @@ class Foyer_Slide_Formats {
 	 *
 	 * @since	1.1.0
 	 * @since	1.4.0	Added appropriate slide backgrounds to the properties of this slide format.
+	 * @since	1.5.0	Added the stack property.
 	 *
 	 * @param 	array	$slide_formats	The current slide formats.
 	 * @return	array					The slide formats with the PDF slide format added.
@@ -98,6 +99,7 @@ class Foyer_Slide_Formats {
 			'meta_box' => array( 'Foyer_Admin_Slide_Format_PDF', 'slide_pdf_meta_box' ),
 			'save_post' => array( 'Foyer_Admin_Slide_Format_PDF', 'save_slide_pdf' ),
 			'slide_backgrounds' => $slide_format_backgrounds,
+			'stack' => true,
 		);
 		return $slide_formats;
 	}

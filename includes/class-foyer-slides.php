@@ -233,12 +233,29 @@ class Foyer_Slides {
 	 * @since	1.4.0
 	 *
 	 * @param	string	$slug	The slug of the slide format.
-	 * @return	bool			True if the slide format is known to have a default background template.
+	 * @return	bool			True if the slide format is known to have a default background template, false otherwise.
 	 */
 	static function slide_format_has_default_background_template( $slug ) {
 		$slide_format_data = self::get_slide_format_by_slug( $slug );
 
 		if ( empty( $slide_format_data['default_background_template'] ) ) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Checks if the slide format results in a stack of slides.
+	 *
+	 * @since	1.5.0
+	 *
+	 * @param	string	$slug	The slug of the slide format.
+	 * @return	bool			True if the slide format is known to result in a stack of slides, false otherwise.
+	 */
+	static function slide_format_is_stack( $slug ) {
+		$slide_format_data = self::get_slide_format_by_slug( $slug );
+
+		if ( empty( $slide_format_data['stack'] ) ) {
 			return false;
 		}
 		return true;

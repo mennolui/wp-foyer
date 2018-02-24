@@ -265,4 +265,15 @@ class Foyer_Slide {
 		_deprecated_function( 'Foyer_Slide::image_url()', '1.4.0', '' );
 		echo esc_url( $this->get_image_url() );
 	}
+
+	/**
+	 * Checks if the slide results in a stack of slides.
+	 *
+	 * @since	1.5.0
+	 *
+	 * @return	bool	True if the slide is a stack, false otherwise.
+	 */
+	public function is_stack() {
+		return Foyer_Slides::slide_format_is_stack( self::get_format() );
+	}
 }

@@ -14,9 +14,11 @@ body.post-php.post-type-foyer_channel #edit-slug-box {
   cursor: move;
 }
 .foyer_slides_editor_slides .foyer_slides_editor_slides_slide .foyer_slides_editor_slides_slide_iframe_container {
-  border: 1px solid #eee;
+  border: 1px solid #ccc;
+  background-color: #e0e0e0;
   width: 108px;
   height: 192px;
+  position: relative;
 }
 .foyer_slides_editor_slides .foyer_slides_editor_slides_slide .foyer_slides_editor_slides_slide_iframe_container iframe {
   width: 1080px;
@@ -27,9 +29,38 @@ body.post-php.post-type-foyer_channel #edit-slug-box {
           transform-origin: top left;
   pointer-events: none;
 }
+.foyer_slides_editor_slides .foyer_slides_editor_slides_slide .foyer_slides_editor_slides_slide_iframe_container .foyer_slides_editor_slides_slide_iframe_container_overlay {
+  display: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background-color: #e0e0e0;
+  padding: 0.5em;
+}
+.foyer_slides_editor_slides .foyer_slides_editor_slides_slide .foyer_slides_editor_slides_slide_iframe_container .foyer_slides_editor_slides_slide_iframe_container_overlay h4,
+.foyer_slides_editor_slides .foyer_slides_editor_slides_slide .foyer_slides_editor_slides_slide_iframe_container .foyer_slides_editor_slides_slide_iframe_container_overlay dl {
+  margin: 0 0 0.5em 0;
+}
+.foyer_slides_editor_slides .foyer_slides_editor_slides_slide .foyer_slides_editor_slides_slide_iframe_container .foyer_slides_editor_slides_slide_iframe_container_overlay dl dt,
+.foyer_slides_editor_slides .foyer_slides_editor_slides_slide .foyer_slides_editor_slides_slide_iframe_container .foyer_slides_editor_slides_slide_iframe_container_overlay dl dd {
+  margin: 0;
+}
+.foyer_slides_editor_slides .foyer_slides_editor_slides_slide .foyer_slides_editor_slides_slide_iframe_container .foyer_slides_editor_slides_slide_iframe_container_overlay dl dt {
+  color: #72777c;
+}
+.foyer_slides_editor_slides .foyer_slides_editor_slides_slide .foyer_slides_editor_slides_slide_iframe_container:hover .foyer_slides_editor_slides_slide_iframe_container_overlay {
+  display: block;
+}
 .foyer_slides_editor_slides .foyer_slides_editor_slides_slide .foyer_slides_editor_slides_slide_caption {
-  margin-top: 0.5em;
+  margin-top: 1em;
   text-align: center;
+}
+.foyer_slides_editor_slides .foyer_slides_editor_slides_slide.foyer-slide-is-stack .foyer_slides_editor_slides_slide_iframe_container {
+  -webkit-box-shadow: 3px 3px 0 0 #f2f2f2, 3px 3px 0 1px #eee, 7px 7px 0 0 #fafafa, 7px 7px 0 1px #eee;
+          box-shadow: 3px 3px 0 0 #f2f2f2, 3px 3px 0 1px #eee, 7px 7px 0 0 #fafafa, 7px 7px 0 1px #eee;
 }
 .foyer_slides_editor_add {
   border-top: 1px solid #eee;
