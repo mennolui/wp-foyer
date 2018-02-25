@@ -141,7 +141,35 @@ class Test_Foyer_Admin_Channel extends Foyer_UnitTestCase {
 		$this->assertNotContains( '<div class="foyer_slides_editor_slides_slide foyer-slide-is-stack', $meta_boxes );
 	}
 
-	// @todo: is overlay with its content in HTML
+	function test_is_overlay_with_info_about_slide_included_in_channel_admin_page() {
+
+		$title = 'Just another slide';
+
+		/* Create a slide */
+		$slide_args = array(
+			'post_type' => Foyer_Slide::post_type_name,
+			'post_title' => $title
+		);
+
+		$slide_id = $this->factory->post->create( $slide_args );
+		update_post_meta( $slide_id, 'slide_format', 'default' );
+		update_post_meta( $slide_id, 'slide_background', 'image' );
+
+		/* Create a channel */
+		$channel_args = array(
+			'post_type' => Foyer_Channel::post_type_name,
+		);
+
+		$channel_id = $this->factory->post->create( $channel_args );
+		update_post_meta( $channel_id, Foyer_Slide::post_type_name, array( $slide_id ) );
+
+		$meta_boxes = $this->get_meta_boxes_for_channel( $channel_id );
+
+		$this->assertContains( '<div class="foyer_slides_editor_slides_slide_iframe_container_overlay', $meta_boxes );
+		$this->assertContains( '<h4>' . $title . '</h4>', $meta_boxes );
+		$this->assertContains( '<dd>Default</dd>', $meta_boxes );
+		$this->assertContains( '<dd>Image</dd>', $meta_boxes );
+	}
 
 }
 
