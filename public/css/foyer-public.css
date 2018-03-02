@@ -50,10 +50,9 @@ body.single-foyer_slide.admin-bar {
   z-index: 999;
   bottom: 0;
   height: 45px;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid #eee;
   background: #eee;
   width: 100%;
-  color: #ccc;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
   font-size: 13px;
   font-weight: 400;
@@ -75,7 +74,7 @@ body.single-foyer_slide.admin-bar {
   -webkit-transition: 0.15s color ease-in-out, 0.15s background-color ease-in-out, 0.15s border-color ease-in-out;
   transition: 0.15s color ease-in-out, 0.15s background-color ease-in-out, 0.15s border-color ease-in-out;
   font: inherit;
-  color: #656a6f;
+  color: #72777c;
   outline: none;
 }
 .foyer-preview-actions div:hover {
@@ -86,8 +85,8 @@ body.single-foyer_slide.admin-bar {
   border-color: #0073aa;
 }
 .foyer-preview-actions div.active {
-  border-color: #191e23;
-  color: #191e23;
+  border-color: #23282d;
+  color: #23282d;
 }
 .foyer-preview-actions div.active:hover {
   color: #0073aa;

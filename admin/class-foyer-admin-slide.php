@@ -13,6 +13,27 @@
 class Foyer_Admin_Slide {
 
 	/**
+	 * Adds the channel editor meta box to the display admin page.
+	 *
+	 * @since	1.0.0
+	 * @since	1.3.1	Updated the slide_default_meta_box callback, after method was moved to Foyer_Admin_Slide_Format_Default.
+	 * @since	1.3.2	Changed method to static.
+	 * @since	1.4.0	Removed value for $meta_box_callback for default slide format, as this value is now defined in the
+	 *					slide format properties, same as for the other slide formats.
+	 *					Switched to a single metabox holding format and background selects and content.
+	 */
+	static function add_slide_editor_meta_boxes() {
+		add_meta_box(
+			'foyer_slide_content',
+			__( 'Slide content' , 'foyer' ),
+			array( __CLASS__, 'slide_content_meta_box' ),
+			Foyer_Slide::post_type_name,
+			'normal',
+			'low'
+		);
+	}
+
+	/**
 	 * Adds a Slide Format column to the Slides admin table, just after the title column.
 	 *
 	 * @since	1.0.0
@@ -33,27 +54,6 @@ class Foyer_Admin_Slide {
 			}
 		}
 		return $new_columns;
-	}
-
-	/**
-	 * Adds the channel editor meta box to the display admin page.
-	 *
-	 * @since	1.0.0
-	 * @since	1.3.1	Updated the slide_default_meta_box callback, after method was moved to Foyer_Admin_Slide_Format_Default.
-	 * @since	1.3.2	Changed method to static.
-	 * @since	1.4.0	Removed value for $meta_box_callback for default slide format, as this value is now defined in the
-	 *					slide format properties, same as for the other slide formats.
-	 *					Switched to a single metabox holding format and background selects and content.
-	 */
-	static function add_slide_editor_meta_boxes() {
-		add_meta_box(
-			'foyer_slide_content',
-			__( 'Slide content' , 'foyer' ),
-			array( __CLASS__, 'slide_content_meta_box' ),
-			Foyer_Slide::post_type_name,
-			'normal',
-			'low'
-		);
 	}
 
 	/**
@@ -231,6 +231,10 @@ class Foyer_Admin_Slide {
 	 *					Rebuild into a single metabox holding format and background selects and content.
 	 *					Displayed a slide format description and slide background description and a message
 	 *					'No settings.' when both description and meta_box are empty.
+	 * @since	1.5.0	Changed the markup of the slide format title and the slide background title,
+	 *					in order to improve the styling of these headings. Escapes these headings.
+	 *					Moved the output of slide format options to a seperate method, and introduced two optgroups,
+	 *					one for Single slides and one for Magic slide stacks.
 	 *
 	 * @param	WP_Post		$post	The post object of the current slide.
 	 * @return	void
@@ -249,11 +253,12 @@ class Foyer_Admin_Slide {
 			<div class="foyer_slide_select_format">
 				<p><?php _e( 'Format', 'foyer' ); ?></p>
 				<select name="slide_format">
-					<?php foreach( Foyer_Slides::get_slide_formats() as $slide_format_key => $slide_format_data ) { ?>
-						<option value="<?php echo esc_attr( $slide_format_key ); ?>" <?php selected( $slide->get_format(), $slide_format_key, true ); ?>>
-							<?php echo esc_html( $slide_format_data['title'] ); ?>
-						</option>
-					<?php } ?>
+					<optgroup label="<?php echo esc_attr( __( 'Single slides', 'foyer' ) ); ?>">
+						<?php self::slide_format_options_html( $slide, false ); ?>
+					</optgroup>
+					<optgroup label="<?php echo esc_attr( __( 'Magic slide stacks', 'foyer' ) ); ?>">
+						<?php self::slide_format_options_html( $slide, true ); ?>
+					</optgroup>
 				</select>
 			</div>
 
@@ -274,20 +279,24 @@ class Foyer_Admin_Slide {
 
 			foreach( Foyer_Slides::get_slide_formats() as $slide_format_key => $slide_format_data ) {
 
-				?><div id="<?php echo 'foyer_slide_format_' . $slide_format_key; ?>">
-					<h3><?php echo sprintf( __( 'Slide format: %s ', 'foyer'), $slide_format_data['title'] ); ?></h3>
+				?><div id="<?php echo esc_attr( 'foyer_slide_format_' . $slide_format_key ); ?>">
+					<dl>
+						<dt><?php echo esc_html( __( 'Format', 'foyer') ); ?></dt>
+						<dd><?php echo esc_html( $slide_format_data['title'] ); ?></dd>
+					</dl>
 
 					<?php if ( ! empty( $slide_format_data['description'] ) ) { ?>
 						<p class="foyer_slide_admin_description"><?php echo esc_html( $slide_format_data['description'] ); ?></p>
+					<?php } ?>
+
+					<?php if ( empty( $slide_format_data['description'] ) && empty( $slide_format_data['meta_box'] ) ) { ?>
+						<p class="foyer_slide_admin_description"><?php _e( 'No settings.', 'foyer' ); ?></p>
 					<?php } ?>
 
 					<?php if ( ! empty( $slide_format_data['meta_box'] ) ) { ?>
 						<?php call_user_func_array( $slide_format_data['meta_box'], array( get_post( $slide->ID ) ) ); ?>
 					<?php } ?>
 
-					<?php if ( empty( $slide_format_data['description'] ) && empty( $slide_format_data['meta_box'] ) ) { ?>
-						<p class="foyer_slide_admin_description"><?php _e( 'No settings.', 'foyer' ); ?></p>
-					<?php } ?>
 
 				</div><?php
 			} ?>
@@ -298,24 +307,48 @@ class Foyer_Admin_Slide {
 
 			foreach( Foyer_Slides::get_slide_backgrounds() as $slide_background_key => $slide_background_data ) {
 
-				?><div id="<?php echo 'foyer_slide_background_' . $slide_background_key; ?>">
-					<h3><?php echo sprintf( __( 'Slide background: %s ', 'foyer'), $slide_background_data['title'] ); ?></h3>
+				?><div id="<?php echo esc_attr( 'foyer_slide_background_' . $slide_background_key ); ?>">
+					<dl>
+						<dt><?php echo esc_html( __( 'Background', 'foyer') ); ?></dt>
+						<dd><?php echo esc_html( $slide_background_data['title'] ); ?></dd>
+					</dl>
 
 					<?php if ( ! empty( $slide_background_data['description'] ) ) { ?>
 						<p class="foyer_slide_admin_description"><?php echo esc_html( $slide_background_data['description'] ); ?></p>
-					<?php } ?>
-
-					<?php if ( ! empty( $slide_background_data['meta_box'] ) ) { ?>
-						<?php call_user_func_array( $slide_background_data['meta_box'], array( get_post( $slide->ID ) ) ); ?>
 					<?php } ?>
 
 					<?php if ( empty( $slide_background_data['description'] ) && empty( $slide_background_data['meta_box'] ) ) { ?>
 						<p class="foyer_slide_admin_description"><?php _e( 'No settings.', 'foyer' ); ?></p>
 					<?php } ?>
 
+					<?php if ( ! empty( $slide_background_data['meta_box'] ) ) { ?>
+						<?php call_user_func_array( $slide_background_data['meta_box'], array( get_post( $slide->ID ) ) ); ?>
+					<?php } ?>
+
 				</div><?php
 			} ?>
 
 		</div><?php
+	}
+
+	/**
+	 * Outputs the slide format options HTML, containing stacks only or single slides only.
+	 *
+	 * @since	1.5.0
+	 *
+	 * @param	Foyer_Slide		$slide	The slide object of the current slide.
+	 * @param	bool			$stack	Whether to output stacks, or single slides.
+	 * @return	void
+	 */
+	static function slide_format_options_html( $slide, $stack = false ) {
+
+		foreach( Foyer_Slides::get_slide_formats() as $slide_format_key => $slide_format_data ) {
+			if ( $stack == Foyer_Slides::slide_format_is_stack( $slide_format_key ) ) {
+
+				?><option value="<?php echo esc_attr( $slide_format_key ); ?>" <?php selected( $slide->get_format(), $slide_format_key, true ); ?>>
+					<?php echo esc_html( $slide_format_data['title'] ); ?>
+				</option><?php
+			}
+		}
 	}
 }

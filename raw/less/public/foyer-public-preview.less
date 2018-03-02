@@ -1,3 +1,5 @@
+@import '../admin/foyer-admin-colors';
+
 @height-admin-bar: 32px;
 @height-admin-bar-mobile: 46px;
 @height-actions-bar: 45px;
@@ -9,7 +11,7 @@ body.single-foyer_slide {
 		display: flex;
 		align-items: center;
 		height: auto;
-		background-color: #555;
+		background-color: @preview-bg-color;
 	}
 }
 
@@ -49,10 +51,9 @@ body.single-foyer_slide {
 	z-index: 999; // Above Twenty Sixteen border
     bottom: 0;
     height: 45px;
-    border-top: 1px solid #ddd;
-    background: #eee;
+    border-top: 1px solid @wp-form-hr-color;
+    background: @wp-form-hr-color;
 	width: 100%;
-	color: #ccc;
 	font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
 	font-size: 13px;
     font-weight: 400;
@@ -71,22 +72,21 @@ body.single-foyer_slide {
 	    -webkit-transition: .15s color ease-in-out,.15s background-color ease-in-out,.15s border-color ease-in-out;
 	    transition: .15s color ease-in-out,.15s background-color ease-in-out,.15s border-color ease-in-out;
 	    font: inherit;
-	    color: #656a6f;
+	    color: @wp-form-alt-txt-color;
 	    outline: none;
 		&:hover {
-			background-color: #fff;;
-			color: #0073aa;
+			background-color: @wp-form-bg-color;
+			color: @wp-secondary-txt-color;
 			&.active {
-				border-color: #0073aa;
+				border-color: @wp-secondary-txt-color;
 			}
 		}
 		&.active {
-			border-color: #191e23;
-			color: #191e23;
+			border-color: @wp-form-txt-color;
+			color: @wp-form-txt-color;
 			&:hover {
-				color: #0073aa;
-				border-color: #0073aa;
-
+				color: @wp-secondary-txt-color;
+				border-color: @wp-secondary-txt-color;
 			}
 		}
 	}

@@ -19,9 +19,12 @@ body.post-php.post-type-foyer_channel {
 		cursor: move;
 
 		.foyer_slides_editor_slides_slide_iframe_container {
-			border: 1px solid #eee;
+			border: 1px solid @slides-editor-slide-border-color;
+			background-color: @slides-editor-slide-bg-color;
 			width: 108px;
 			height: 192px;
+			position: relative;
+
 
 			iframe {
 				width: 1080px;
@@ -30,10 +33,48 @@ body.post-php.post-type-foyer_channel {
 				transform-origin: top left;
 				pointer-events: none;
 			}
+
+			.foyer_slides_editor_slides_slide_iframe_container_overlay {
+				display: none;
+				position: absolute;
+				top: 0; bottom: 0;
+				left: 0; right: 0;
+				z-index: 10;
+				background-color: @slides-editor-slide-bg-color;
+				padding: 0.5em;
+				overflow: hidden;
+
+				h4,
+				dl {
+					margin: 0 0 0.5em 0;
+				}
+				dl {
+					dt,
+					dd {
+						margin: 0;
+					}
+					dt {
+						color: @wp-form-alt-txt-color;
+					}
+				}
+			}
+
+			&:hover {
+				.foyer_slides_editor_slides_slide_iframe_container_overlay {
+					display: block;
+				}
+			}
 		}
+
 		.foyer_slides_editor_slides_slide_caption {
-			margin-top: 0.5em;
+			margin-top: 1em;
 			text-align: center;
+		}
+
+		&.foyer-slide-is-stack {
+			.foyer_slides_editor_slides_slide_iframe_container {
+				box-shadow: 3px 3px 0 0 @slides-editor-slide-shadow-bg-color, 3px 3px 0 1px @slides-editor-slide-shadow-border-color, 7px 7px 0 0 @slides-editor-slide-shadow-shadow-bg-color, 7px 7px 0 1px @slides-editor-slide-shadow-border-color;
+			}
 		}
 	}
 }

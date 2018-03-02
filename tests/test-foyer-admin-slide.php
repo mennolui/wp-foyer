@@ -207,4 +207,34 @@ class Test_Foyer_Admin_Slide extends Foyer_UnitTestCase {
 			$this->assertContains( '<div id="foyer_slide_background_' . $key . '"', $meta_boxes );
 		}
 	}
+
+	/**
+	 * @since	1.5.0
+	 */
+	function test_all_single_slide_options_are_displayed_for_their_optgroup() {
+
+		ob_start();
+		Foyer_Admin_Slide::slide_format_options_html( new Foyer_Slide( $this->slide1 ), false );
+		$actual = ob_get_clean();
+
+		$this->assertContains( '<option value="default"', $actual );
+		$this->assertContains( '<option value="iframe"', $actual );
+
+		$this->assertNotContains( '<option value="pdf"', $actual );
+	}
+
+	/**
+	 * @since	1.5.0
+	 */
+	function test_all_slide_stack_options_are_displayed_for_their_optgroup() {
+
+		ob_start();
+		Foyer_Admin_Slide::slide_format_options_html( new Foyer_Slide( $this->slide1 ), true );
+		$actual = ob_get_clean();
+
+		$this->assertContains( '<option value="pdf"', $actual );
+
+		$this->assertNotContains( '<option value="default"', $actual );
+		$this->assertNotContains( '<option value="iframe"', $actual );
+	}
 }
