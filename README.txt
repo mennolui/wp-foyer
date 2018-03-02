@@ -28,7 +28,8 @@ Foyer comes with build in support for the [Theater for WordPress plugin](https:/
 
 = Slide formats =
 * Default: Displays a background only.
-* Post: Displays title, date and content of a post.
+* Manual text: Displays some text.
+* Post: Displays title, date and content of a post, and optionally the featured image.
 * Event: Displays title and details of an event, with its featured image as default background (requires Theater for WordPress).
 * External web page: Displays a web page to your liking.
 * PDF: Creates a slide for each page in an uploaded PDF, displaying that page contained within the slide.
@@ -123,7 +124,7 @@ Coming soon.
 = 1.5 =
 Release Date: March 2, 2018
 
-Introduces the Post slide format and the Manual text slide format. Displays title, date and content of a post, and optionally the featured image. The Manual text slide format displays your text: pre-title, title, subtitle, content. Also, slides that generate multiple slides (like the PDF slide format) are now called Magic slide stacks.
+Introduces the Post slide format and the Manual text slide format. Displays title, date and content of a post, and optionally the featured image. The Manual text slide format displays your text: pre-title, title, subtitle, content. Also, slides that generate multiple slides (like the PDF slide format) are now called.. Magic slide stacks! The channel admin is improved by displaying title and properties of each slide.
 
 = 1.4 =
 Release Date: February 14, 2018

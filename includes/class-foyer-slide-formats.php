@@ -195,7 +195,7 @@ class Foyer_Slide_Formats {
 
 		$slide_formats['text'] = array(
 			'title' => _x( 'Manual text', 'slide-format', 'foyer' ),
-			'description' => __( 'Displays a title, a subtitle and some content.', 'foyer' ),
+			'description' => __( 'Displays some text.', 'foyer' ),
 			'meta_box' => array( 'Foyer_Admin_Slide_Format_Text', 'slide_meta_box' ),
 			'save_post' => array( 'Foyer_Admin_Slide_Format_Text', 'save_slide' ),
 			'slide_backgrounds' => $slide_format_backgrounds,

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Foyer - Digital Signage for WordPress\n"
-"POT-Creation-Date: 2018-02-19 20:11+0100\n"
-"PO-Revision-Date: 2018-02-19 20:11+0100\n"
+"POT-Creation-Date: 2018-03-02 15:36+0100\n"
+"PO-Revision-Date: 2018-03-02 15:40+0100\n"
 "Last-Translator: Menno Luitjes <menno@mennoluitjes.nl>\n"
 "Language-Team: Menno Luitjes <menno@mennoluitjes.nl>\n"
 "Language: nl_NL\n"
@@ -60,32 +60,42 @@ msgid_plural "seconds"
 msgstr[0] "seconde"
 msgstr[1] "seconden"
 
-#: admin/class-foyer-admin-channel.php:356
+#: admin/class-foyer-admin-channel.php:358
 msgid "No slides in this channel yet."
 msgstr "Nog geen slides in dit kanaal."
 
-#: admin/class-foyer-admin-channel.php:376 includes/class-foyer-setup.php:71
+#: admin/class-foyer-admin-channel.php:382
+#: admin/class-foyer-admin-slide.php:254 admin/class-foyer-admin-slide.php:284
+msgid "Format"
+msgstr "Soort"
+
+#: admin/class-foyer-admin-channel.php:386
+#: admin/class-foyer-admin-slide.php:266 admin/class-foyer-admin-slide.php:312
+msgid "Background"
+msgstr "Achtergrond"
+
+#: admin/class-foyer-admin-channel.php:393 includes/class-foyer-setup.php:71
 msgctxt "slide cpt"
 msgid "Slide"
 msgstr "Slide"
 
-#: admin/class-foyer-admin-channel.php:377
+#: admin/class-foyer-admin-channel.php:394
 msgid "x"
 msgstr ""
 
-#: admin/class-foyer-admin-channel.php:407
+#: admin/class-foyer-admin-channel.php:423
 msgid "Fade"
 msgstr "Vervagen"
 
-#: admin/class-foyer-admin-channel.php:408
+#: admin/class-foyer-admin-channel.php:424
 msgid "Slide"
 msgstr "Schuiven"
 
-#: admin/class-foyer-admin-channel.php:409
+#: admin/class-foyer-admin-channel.php:425
 msgid "No transition"
 msgstr "Geen overgang"
 
-#: admin/class-foyer-admin-channel.php:433
+#: admin/class-foyer-admin-channel.php:449
 msgid "Are you sure you want to remove this slide from the channel?"
 msgstr "Weet u zeker dat u deze slide van het kanaal wilt verwijderen?"
 
@@ -228,7 +238,7 @@ msgid "Remove PDF file"
 msgstr "Verwijder PDF bestand"
 
 #: admin/class-foyer-admin-slide-format-post.php:72
-#: includes/class-foyer-slide-formats.php:126
+#: includes/class-foyer-slide-formats.php:128
 msgctxt "slide-format"
 msgid "Post"
 msgstr "Bericht"
@@ -252,18 +262,34 @@ msgstr ""
 "bericht."
 
 #: admin/class-foyer-admin-slide-format-production.php:55
-#: includes/class-foyer-slide-formats.php:163
+#: includes/class-foyer-slide-formats.php:165
 msgctxt "slide-format"
 msgid "Event"
 msgstr "Voorstelling"
 
-#: admin/class-foyer-admin-slide.php:32
-msgid "Slide format"
-msgstr "Slide soort"
+#: admin/class-foyer-admin-slide-format-text.php:52
+msgid "Pre-title"
+msgstr "Boventitel"
 
-#: admin/class-foyer-admin-slide.php:51
+#: admin/class-foyer-admin-slide-format-text.php:60
+msgid "Title"
+msgstr "Titel"
+
+#: admin/class-foyer-admin-slide-format-text.php:68
+msgid "Subtitle"
+msgstr "Ondertitel"
+
+#: admin/class-foyer-admin-slide-format-text.php:76
+msgid "Content"
+msgstr "Inhoud"
+
+#: admin/class-foyer-admin-slide.php:28
 msgid "Slide content"
 msgstr "Slide inhoud"
+
+#: admin/class-foyer-admin-slide.php:53
+msgid "Slide format"
+msgstr "Slide soort"
 
 #: admin/class-foyer-admin-slide.php:95
 msgid "Select an image"
@@ -273,27 +299,17 @@ msgstr "Selecteer een afbeelding"
 msgid "Use this image"
 msgstr "Gebruik deze afbeelding"
 
-#: admin/class-foyer-admin-slide.php:250
-msgid "Format"
-msgstr "Soort"
+#: admin/class-foyer-admin-slide.php:256
+msgid "Single slides"
+msgstr "Enkelvoudige slides"
 
-#: admin/class-foyer-admin-slide.php:261
-msgid "Background"
-msgstr "Achtergrond"
+#: admin/class-foyer-admin-slide.php:259
+msgid "Magic slide stacks"
+msgstr "Magische slide stapels"
 
-#: admin/class-foyer-admin-slide.php:278
-#, php-format
-msgid "Slide format: %s "
-msgstr "Slide soort: %s"
-
-#: admin/class-foyer-admin-slide.php:289 admin/class-foyer-admin-slide.php:313
+#: admin/class-foyer-admin-slide.php:293 admin/class-foyer-admin-slide.php:321
 msgid "No settings."
 msgstr "Geen instellingen."
-
-#: admin/class-foyer-admin-slide.php:302
-#, php-format
-msgid "Slide background: %s "
-msgstr "Slide achtergrond: %s"
 
 #: admin/class-foyer-admin.php:78 admin/class-foyer-admin.php:79
 msgctxt "admin menu"
@@ -440,25 +456,34 @@ msgstr "Externe webpagina"
 msgid "Displays a web page to your liking."
 msgstr "Toont een webpagina naar keuze."
 
-#: includes/class-foyer-slide-formats.php:96
+#: includes/class-foyer-slide-formats.php:97
 msgctxt "slide-format"
 msgid "PDF"
 msgstr "PDF"
 
-#: includes/class-foyer-slide-formats.php:97
+#: includes/class-foyer-slide-formats.php:98
 msgid "Displays a slide for each page in the uploaded PDF."
 msgstr "Toont een slide voor iedere pagina in de geüploade PDF."
 
-#: includes/class-foyer-slide-formats.php:127
+#: includes/class-foyer-slide-formats.php:129
 msgid "Displays title, date and content of a post."
 msgstr "Toont titel, datum en inhoud van een bericht."
 
-#: includes/class-foyer-slide-formats.php:164
+#: includes/class-foyer-slide-formats.php:166
 msgid ""
 "Displays title and details of an event, with its image as default background."
 msgstr ""
 "Toont titel en gegevens van een voorstelling, met z’n afbeelding als "
 "standaard achtergrond."
+
+#: includes/class-foyer-slide-formats.php:197
+msgctxt "slide-format"
+msgid "Manual text"
+msgstr "Handmatige tekst"
+
+#: includes/class-foyer-slide-formats.php:198
+msgid "Displays some text."
+msgstr "Toont wat tekst."
 
 #. Plugin Name of the plugin/theme
 msgid "Foyer - Digital Signage for WordPress"
@@ -466,7 +491,7 @@ msgstr ""
 
 #. Plugin URI of the plugin/theme
 #. Author URI of the plugin/theme
-msgid "http://mennoluitjes.nl"
+msgid "https://mennoluitjes.nl"
 msgstr ""
 
 #. Description of the plugin/theme
@@ -476,6 +501,15 @@ msgstr ""
 #. Author of the plugin/theme
 msgid "Menno Luitjes"
 msgstr ""
+
+#~ msgid "Displays your text."
+#~ msgstr "Toont tekst naar keuze."
+
+#~ msgid "Slide format: %s "
+#~ msgstr "Slide soort: %s"
+
+#~ msgid "Slide background: %s "
+#~ msgstr "Slide achtergrond: %s"
 
 #~ msgid "Yes, display the featured image, if any."
 #~ msgstr "Ja, toon de uitgelichte afbeelding, indien aanwezig."
