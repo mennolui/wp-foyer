@@ -262,4 +262,7 @@ class Test_Foyer_Updater extends Foyer_UnitTestCase {
 		$expected = false;
 		$this->assertEquals( $expected, $actual );
 	}
+
+	// @todo: test_are_displays_reset_when_updating_to_1_4_0
+	// @todo: test_are_displays_reset_when_updating_to_1_5_0
 }

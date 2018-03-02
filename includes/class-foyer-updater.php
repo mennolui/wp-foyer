@@ -63,16 +63,24 @@ class Foyer_Updater {
 	    }
 
 		if ( version_compare( $db_version, '1.4.0', '<' ) ) {
-			// Current db version is lower than 1.4.0, run update to 1.4.0
-			if ( ! self::update_to_1_4_0() ) {
-				// Update failed, bail
-				return false;
-			}
-			// Update successful, update db version
+			// Initial db version is lower than 1.4.0, and this requires some update code
+
+			// Run update to 1.4.0
+			self::update_to_1_4_0();
+
+			// Update db version
 			self::update_db_version( '1.4.0' );
 		}
 
-		// Update to releases newer than 1.4.0 here
+		if ( version_compare( $db_version, '1.5.0', '<' ) ) {
+			// Initial db version is lower than 1.5.0, and this requires some update code
+
+			// Run update to 1.5.0
+			self::update_to_1_5_0();
+
+			// Update db version
+			self::update_db_version( '1.5.0' );
+		}
 
 		// All updates were successful, update db version to current plugin version
 		self::update_db_version( Foyer::get_version() );
@@ -96,6 +104,7 @@ class Foyer_Updater {
 	 * Updates the database to version 1.4.0.
 	 *
 	 * All slides in the database are converted to the new slide formats and slide backgrounds introduced in 1.4.0.
+	 * Additionally resets all displays.
 	 *
 	 * @since    1.4.0
 	 *
@@ -147,6 +156,24 @@ class Foyer_Updater {
 			}
 		}
 
+		// Update contains changes that require CSS/JS to be reloaded, reset displays
+		Foyer_Displays::reset_all_displays();
+
+		return true;
+	}
+
+	/**
+	 * Updates the database to version 1.5.0.
+	 *
+	 * No db changes are made, just resets all displays.
+	 *
+	 * @since    1.5.0
+	 *
+	 * @return	bool	True, update is always successful.
+	 */
+	static function update_to_1_5_0() {
+
+		// Update contains changes that require CSS/JS to be reloaded, reset displays
 		Foyer_Displays::reset_all_displays();
 
 		return true;
