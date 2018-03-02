@@ -8,17 +8,17 @@
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
  *
- * @link              http://mennoluitjes.nl
+ * @link              https://mennoluitjes.nl
  * @since             1.0.0
  * @package           Foyer
  *
  * @wordpress-plugin
  * Plugin Name:       Foyer - Digital Signage for WordPress
- * Plugin URI:        http://mennoluitjes.nl
+ * Plugin URI:        https://mennoluitjes.nl
  * Description:       Create slideshows and show them off on your networked displays.
- * Version:           1.4.0
+ * Version:           1.5.0
  * Author:            Menno Luitjes
- * Author URI:        http://mennoluitjes.nl
+ * Author URI:        https://mennoluitjes.nl
  * License:           GPL-3.0+
  * License URI:       https://www.gnu.org/licenses/gpl.html
  * Text Domain:       foyer
@@ -65,7 +65,7 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-foyer.php';
  */
 function run_foyer() {
 
-	define( 'FOYER_PLUGIN_VERSION', '1.4.0' ); // do not access directly
+	define( 'FOYER_PLUGIN_VERSION', '1.5.0' ); // do not access directly
 	define( 'FOYER_PLUGIN_NAME', 'foyer' ); // do not access directly
 	define( 'FOYER_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 	define( 'FOYER_PLUGIN_URL', plugins_url( '', __FILE__ ) );

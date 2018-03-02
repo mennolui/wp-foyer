@@ -38,7 +38,7 @@ Foyer comes with build in support for the [Theater for WordPress plugin](https:/
 * Video: Displays a YouTube video, or a specified fragment, as slide background.
 
 More features, slide formats and slide backgrounds are coming soon.
-Eg. <del>a WordPress Post slide,</del> a Title & Text slide, a widgets bar for displaying Time and Weather.
+Eg. <del>a WordPress Post slide, a Title & Text slide,</del> a widgets bar for displaying Time and Weather.
 
 = Feature suggestions wanted! =
 Since this plugin is quite new, I'm curious..
@@ -121,9 +121,9 @@ Coming soon.
 == Changelog ==
 
 = 1.5 =
-Release Date: February 19, 2018
+Release Date: March 2, 2018
 
-Introduces the Post slide format. Displays title, date and content of a post, and optionally the featured image.
+Introduces the Post slide format and the Manual text slide format. Displays title, date and content of a post, and optionally the featured image. The Manual text slide format displays your text: pre-title, title, subtitle, content. Also, slides that generate multiple slides (like the PDF slide format) are now called Magic slide stacks.
 
 = 1.4 =
 Release Date: February 14, 2018
@@ -207,7 +207,7 @@ Bug fixes:
 
 == Upgrade Notice ==
 = 1.5.0 =
-Introduces the Post slide format. Check the changelog for all details.
+Introduces the Post slide format, the Manual text slide format and Magic slide stacks. Check the changelog for all details.
 
 = 1.4.0 =
 Introduces a brand new way to build slides: choose a format, then a background. Check the changelog for all details.
