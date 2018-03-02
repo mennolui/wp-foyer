@@ -16,6 +16,7 @@ class Test_Foyer_Public_Templates_Slides_Text extends Foyer_UnitTestCase {
 		update_post_meta( $this->slide1, 'slide_format', 'text' );
 		update_post_meta( $this->slide1, 'slide_background', '' );
 
+		update_post_meta( $this->slide1, 'slide_text_pretitle', $pretitle );
 		update_post_meta( $this->slide1, 'slide_text_title', $title );
 		update_post_meta( $this->slide1, 'slide_text_subtitle', $subtitle );
 		update_post_meta( $this->slide1, 'slide_text_content', $content );
@@ -46,6 +47,7 @@ class Test_Foyer_Public_Templates_Slides_Text extends Foyer_UnitTestCase {
 		update_post_meta( $this->slide1, 'slide_format', 'text' );
 		update_post_meta( $this->slide1, 'slide_background', '' );
 
+		update_post_meta( $this->slide1, 'slide_text_pretitle', $pretitle );
 		update_post_meta( $this->slide1, 'slide_text_title', $title );
 		update_post_meta( $this->slide1, 'slide_text_subtitle', $subtitle );
 		update_post_meta( $this->slide1, 'slide_text_content', $content );
