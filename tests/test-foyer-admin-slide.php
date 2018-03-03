@@ -237,4 +237,28 @@ class Test_Foyer_Admin_Slide extends Foyer_UnitTestCase {
 		$this->assertNotContains( '<option value="default"', $actual );
 		$this->assertNotContains( '<option value="iframe"', $actual );
 	}
+
+	/**
+	 * @since	1.5.1
+	 */
+	function test_slide_format_column_contains_format_and_background() {
+
+		$this->assume_role( 'administrator' );
+
+		/* Create slide */
+		$slide_args = array(
+			'post_type' => Foyer_Slide::post_type_name,
+		);
+
+		$slide_id = $this->factory->post->create( $slide_args );
+
+		update_post_meta( $slide_id, 'slide_format', 'post' );
+		update_post_meta( $slide_id, 'slide_background', 'image' );
+
+		ob_start();
+		Foyer_Admin_Slide::do_slide_format_column( 'slide_format', $slide_id );
+		$actual = ob_get_clean();
+
+		$this->assertEquals( 'Post<br />Image', $actual );
+	}
 }

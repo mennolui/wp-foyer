@@ -38,6 +38,7 @@ class Foyer_Admin_Slide {
 	 *
 	 * @since	1.0.0
 	 * @since	1.3.2	Changed method to static.
+	 * @since	1.5.1	Renamed column from 'Slide format' to 'Slide format, background'.
 	 *
 	 * @param 	array	$columns	The current columns.
 	 * @return	array				The new columns.
@@ -50,7 +51,7 @@ class Foyer_Admin_Slide {
 
 			if ( 'title' == $key ) {
 				// Add slides count column after the title column
-				$new_columns['slide_format'] = __( 'Slide format', 'foyer' );
+				$new_columns['slide_format'] = __( 'Slide format, background', 'foyer' );
 			}
 		}
 		return $new_columns;
@@ -61,6 +62,7 @@ class Foyer_Admin_Slide {
 	 *
 	 * @since	1.0.0
 	 * @since	1.3.2	Changed method to static.
+	 * @since	1.5.1	Added the slide background to the output.
 	 *
 	 * @param 	string	$column		The current column that needs output.
 	 * @param 	int 	$post_id 	The current display ID.
@@ -69,10 +71,12 @@ class Foyer_Admin_Slide {
 	static function do_slide_format_column( $column, $post_id ) {
 		if ( 'slide_format' == $column ) {
 
-			$slide = new Foyer_Slide( get_the_id() );
-			$format_slug = $slide->get_format();
-			$format = Foyer_Slides::get_slide_format_by_slug( $format_slug );
-			echo $format['title'];
+			$slide = new Foyer_Slide( $post_id );
+
+			$format = Foyer_Slides::get_slide_format_by_slug( $slide->get_format() );
+			$background = Foyer_Slides::get_slide_background_by_slug( $slide->get_background() );
+
+			echo esc_html( $format['title'] ) . '<br />' . esc_html( $background['title'] );
 	    }
 	}
 
