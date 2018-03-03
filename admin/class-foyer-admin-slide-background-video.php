@@ -75,7 +75,7 @@ class Foyer_Admin_Slide_Background_Video {
 						<input type="text" name="slide_bg_video_video_url" id="slide_bg_video_video_url" class="all-options"
 							value="<?php echo $slide_bg_video_video_url; ?>" />
 						<p class="wp-ui-text-notification hidden" id="slide_bg_video_video_url_notification">
-							<?php _e( 'Not a valid YouTube video URL, eg. https://youtu.be/MlQunle406U', 'foyer'); ?>
+							<?php printf( esc_html__( 'Not a valid YouTube video URL, eg. %s', 'foyer' ), 'https://youtu.be/MlQunle406U' ); ?>
 						</p>
 					</td>
 				</tr>

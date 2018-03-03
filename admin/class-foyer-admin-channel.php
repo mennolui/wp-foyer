@@ -391,7 +391,7 @@ class Foyer_Admin_Channel {
 									</div>
 									<div class="foyer_slides_editor_slides_slide_caption">
 										<?php echo esc_html_x( 'Slide', 'slide cpt', 'foyer' ) . ' ' . ( $i + 1 ); ?>
-										(<a href="#" class="foyer_slides_editor_slides_slide_remove"><?php echo esc_html__( 'x', 'foyer' ); ?></a>)
+										(<a href="#" class="foyer_slides_editor_slides_slide_remove">x</a>)
 									</div>
 								</div>
 							<?php

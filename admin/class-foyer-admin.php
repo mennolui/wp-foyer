@@ -75,8 +75,8 @@ class Foyer_Admin {
 	 */
 	static function admin_menu() {
 		add_menu_page(
-			_x( 'Foyer', 'admin menu', 'foyer' ),
-			_x( 'Foyer', 'admin menu', 'foyer' ),
+			_x( 'Foyer', 'plugin name in admin menu', 'foyer' ),
+			_x( 'Foyer', 'plugin name in admin menu', 'foyer' ),
 			'edit_posts',
 			'foyer',
 			array(),

@@ -42,7 +42,7 @@ class Foyer_Admin_Display {
 	static function add_channel_editor_meta_box() {
 		add_meta_box(
 			'foyer_channel_editor',
-			__( 'Channel' , 'foyer' ),
+			_x( 'Channel', 'channel cpt', 'foyer' ),
 			array( __CLASS__, 'channel_editor_meta_box' ),
 			Foyer_Display::post_type_name,
 			'normal',
