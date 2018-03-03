@@ -3,6 +3,7 @@
  * Default slide background template for the production slide format.
  *
  * @since	1.4.0
+ * @since	1.5.1	Refactored the template using the new background_image() method for responsive images.
  */
 
 $slide = new Foyer_Slide( get_the_id() );
@@ -14,18 +15,13 @@ if ( ! empty( $production ) ) {
 
 	$production_attachment_id = $production->thumbnail();
 
-	if ( ! empty( $production_attachment_id ) ) {
+	if ( ! empty( $slide->get_background_image( $production_attachment_id ) ) ) {
 
-		$production_attachment_src = wp_get_attachment_image_src( $production_attachment_id, 'foyer_fhd_square' );
+		?><div<?php $slide->background_classes(); ?><?php $slide->background_data_attr(); ?>>
+			<figure>
+				<?php $slide->background_image( $production_attachment_id ); ?>
+			</figure>
+		</div><?php
 
-		if ( ! empty( $production_attachment_src[0] ) ) {
-
-			?><div<?php $slide->background_classes(); ?><?php $slide->background_data_attr();?>>
-				<figure>
-					<img src="<?php echo $production_attachment_src[0]; ?>" />
-				</figure>
-			</div><?php
-
-		}
 	}
 }

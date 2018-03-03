@@ -95,6 +95,56 @@ class Foyer_Slide {
 	}
 
 	/**
+	 * Gets the background image HTML.
+	 *
+	 * The HTML is escaped, so this method can be used in templates without further escaping.
+	 *
+	 * @since	1.5.1
+	 *
+	 * @param 	int 	$attachment_id	The ID of the attachment to output.
+	 * @return	void
+	 */
+	public function get_background_image( $attachment_id ) {
+
+		if ( empty( $attachment_id ) ) {
+			return;
+		}
+
+		$attachment_portrait_src = wp_get_attachment_image_src( $attachment_id, 'foyer_fhd_portrait' );
+		$attachment_landscape_src = wp_get_attachment_image_src( $attachment_id, 'foyer_fhd_landscape' );
+
+		if ( empty( $attachment_landscape_src[0] ) ) {
+			return;
+		}
+
+		ob_start();
+		?>
+			<picture>
+				<?php if ( ! empty( $attachment_portrait_src[0] ) ) { ?>
+					<source srcset="<?php echo $attachment_portrait_src[0];?>" media="(orientation: portrait)">
+				<?php } ?>
+				<img src="<?php echo $attachment_landscape_src[0];?>">
+			</picture>
+		<?php
+
+		return ob_get_clean();
+	}
+
+	/**
+	 * Outputs the background image HTML.
+	 *
+	 * The output is escaped, so this method can be used in templates without further escaping.
+	 *
+	 * @since	1.5.1
+	 *
+	 * @param 	int 	$attachment_id	The ID of the attachment to output.
+	 * @return	void
+	 */
+	public function background_image( $attachment_id ) {
+		echo $this->get_background_image( $attachment_id );
+	}
+
+	/**
 	 * Outputs the slide classes for use in the template.
 	 *
 	 * The output is escaped, so this method can be used in templates without further escaping.
