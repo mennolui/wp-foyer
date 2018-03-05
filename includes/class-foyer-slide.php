@@ -110,20 +110,30 @@ class Foyer_Slide {
 			return;
 		}
 
-		$attachment_portrait_src = wp_get_attachment_image_src( $attachment_id, 'foyer_fhd_portrait' );
-		$attachment_landscape_src = wp_get_attachment_image_src( $attachment_id, 'foyer_fhd_landscape' );
+		$fhd_landscape_src = wp_get_attachment_image_src( $attachment_id, 'foyer_fhd_landscape' );
+		$fhd_portrait_src = wp_get_attachment_image_src( $attachment_id, 'foyer_fhd_portrait' );
 
-		if ( empty( $attachment_landscape_src[0] ) ) {
+		$uhd4k_landscape_src = wp_get_attachment_image_src( $attachment_id, 'foyer_uhd4k_landscape' );
+		$uhd4k_portrait_src = wp_get_attachment_image_src( $attachment_id, 'foyer_uhd4k_portrait' );
+
+		if ( empty( $fhd_landscape_src[0] ) ) {
 			return;
 		}
 
 		ob_start();
 		?>
 			<picture>
-				<?php if ( ! empty( $attachment_portrait_src[0] ) ) { ?>
-					<source srcset="<?php echo $attachment_portrait_src[0];?>" media="(orientation: portrait)">
+				<?php if ( ! empty( $uhd4k_portrait_src[0] ) ) { ?>
+					<source srcset="<?php echo $uhd4k_portrait_src[0];?>" media="(orientation: portrait) and (min-height:2020px)">
 				<?php } ?>
-				<img src="<?php echo $attachment_landscape_src[0];?>">
+				<?php if ( ! empty( $uhd4k_landscape_src[0] ) ) { ?>
+					<source srcset="<?php echo $uhd4k_landscape_src[0];?>" media="(orientation: landscape) and (min-width:2020px)">
+				<?php } ?>
+				<?php if ( ! empty( $fhd_portrait_src[0] ) ) { ?>
+					<source srcset="<?php echo $fhd_portrait_src[0];?>" media="(orientation: portrait)">
+				<?php } ?>
+				<source srcset="<?php echo $fhd_landscape_src[0];?>" media="(orientation: landscape)">
+				<img src="<?php echo $fhd_landscape_src[0];?>">
 			</picture>
 		<?php
 

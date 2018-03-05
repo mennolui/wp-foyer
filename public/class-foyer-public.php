@@ -44,14 +44,22 @@ class Foyer_Public {
 	 */
 	static function add_image_sizes() {
 
-		// Full HD (1920 x 1080) square
-		add_image_size( 'foyer_fhd_square', 1920, 1920, true );
-
-		// Full HD landscape (1920 x 1080)
+		// Full HD landscape
 		add_image_size( 'foyer_fhd_landscape', 1920, 1080, true );
 
-		// Full HD portrait (1080 x 1920)
+		// Full HD portrait
 		add_image_size( 'foyer_fhd_portrait', 1080, 1920, true );
+
+		// 4K Ultra HD landscape
+		add_image_size( 'foyer_uhd4k_landscape', 3840, 2160, true );
+
+		// 4K Ultra HD portrait
+		add_image_size( 'foyer_uhd4k_portrait', 2160, 3840, true );
+
+		/*
+		 * @deprecated	1.5.1
+		 */
+		add_image_size( 'foyer_fhd_square', 1920, 1920, true );
 	}
 
 	/**
