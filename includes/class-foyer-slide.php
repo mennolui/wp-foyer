@@ -110,30 +110,49 @@ class Foyer_Slide {
 			return;
 		}
 
+		$attachment_url = wp_get_attachment_url( $attachment_id );
+
+		if ( empty( $attachment_url ) ) {
+			return;
+		}
+
 		$fhd_landscape_src = wp_get_attachment_image_src( $attachment_id, 'foyer_fhd_landscape' );
 		$fhd_portrait_src = wp_get_attachment_image_src( $attachment_id, 'foyer_fhd_portrait' );
 
 		$uhd4k_landscape_src = wp_get_attachment_image_src( $attachment_id, 'foyer_uhd4k_landscape' );
 		$uhd4k_portrait_src = wp_get_attachment_image_src( $attachment_id, 'foyer_uhd4k_portrait' );
 
-		if ( empty( $fhd_landscape_src[0] ) ) {
-			return;
-		}
+		$max_fhd = 1920;
 
 		ob_start();
 		?>
 			<picture>
 				<?php if ( ! empty( $uhd4k_portrait_src[0] ) ) { ?>
-					<source srcset="<?php echo $uhd4k_portrait_src[0];?>" media="(orientation: portrait) and (min-height:2020px)">
+					<source srcset="<?php echo $uhd4k_portrait_src[0]; ?>" media="(orientation: portrait) and (min-height:<?php echo $max_fhd + 1; ?>px)">
+					<?php for ( $i = 2; $i <= 4; $i++ ) { ?>
+						<source srcset="<?php echo $uhd4k_portrait_src[0]; ?>" media="(orientation: portrait) and (min-height:<?php echo round( $max_fhd / $i ) + 1; ?>px) and (-webkit-min-device-pixel-ratio: <?php echo $i; ?>)">
+						<source srcset="<?php echo $uhd4k_portrait_src[0]; ?>" media="(orientation: portrait) and (min-height:<?php echo round( $max_fhd / $i ) + 1; ?>px) and (webkit-min-device-pixel-ratio: <?php echo $i; ?>)">
+					<?php } ?>
 				<?php } ?>
+
 				<?php if ( ! empty( $uhd4k_landscape_src[0] ) ) { ?>
-					<source srcset="<?php echo $uhd4k_landscape_src[0];?>" media="(orientation: landscape) and (min-width:2020px)">
+					<source srcset="<?php echo $uhd4k_landscape_src[0]; ?>" media="(orientation: landscape) and (min-width:<?php echo $max_fhd + 1; ?>px)">
+					<?php for ( $i = 2; $i <= 4; $i++ ) { ?>
+						<source srcset="<?php echo $uhd4k_landscape_src[0]; ?>" media="(orientation: landscape) and (min-width:<?php echo round( $max_fhd / $i ) + 1; ?>px) and (-webkit-min-device-pixel-ratio: <?php echo $i; ?>)">
+						<source srcset="<?php echo $uhd4k_landscape_src[0]; ?>" media="(orientation: landscape) and (min-width:<?php echo round( $max_fhd / $i ) + 1; ?>px) and (webkit-min-device-pixel-ratio: <?php echo $i; ?>)">
+					<?php } ?>
 				<?php } ?>
+
 				<?php if ( ! empty( $fhd_portrait_src[0] ) ) { ?>
-					<source srcset="<?php echo $fhd_portrait_src[0];?>" media="(orientation: portrait)">
+					<source srcset="<?php echo $fhd_portrait_src[0]; ?>" media="(orientation: portrait)">
 				<?php } ?>
-				<source srcset="<?php echo $fhd_landscape_src[0];?>" media="(orientation: landscape)">
-				<img src="<?php echo $fhd_landscape_src[0];?>">
+
+				<?php if ( ! empty( $fhd_landscape_src[0] ) ) { ?>
+					<source srcset="<?php echo $fhd_landscape_src[0]; ?>" media="(orientation: landscape)">
+				<?php } ?>
+
+				<!-- fallback for browsers that do not support the picture element, or uploads that do not have Foyer image sizes -->
+				<img src="<?php echo $attachment_url; ?>">
 			</picture>
 		<?php
 
