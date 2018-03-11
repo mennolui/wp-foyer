@@ -210,6 +210,9 @@ function foyer_slide_bg_video_load_youtube_api() {
  * Invoked whenever the player is ready.
  *
  * @since	1.4.0
+ * @since	1.5.1	Video slides no longer play when previewed while editing a Channel.
+ *					Muting of video is now optional, based on the foyer-output-sound data attribute.
+ *
  * @param	string	player_id	The ID of the player
  */
 function foyer_slide_bg_video_prepare_player_for_playback(player_id) {
@@ -222,8 +225,15 @@ function foyer_slide_bg_video_prepare_player_for_playback(player_id) {
 		// Set player reference
 		var player = window.foyer_yt_players[player_id];
 
-		// No sound
-		player.mute();
+		if ((window.self != window.top) && (top.location.href.search('/post.php?') != -1)) {
+			// Viewed on a slide displayed within a Channel edit page: don't play video
+			return;
+		}
+
+		if (!container.data('foyer-output-sound')) {
+			// No sound (unless output sound option is checked)
+			player.mute();
+		}
 
 		// Trigger buffering so video is ready to play when needed
 		player.seekTo(container.data('foyer-video-start'));
@@ -232,7 +242,7 @@ function foyer_slide_bg_video_prepare_player_for_playback(player_id) {
 			jQuery(foyer_slides_selector).length &&
 			! jQuery('#' + player_id).parents(foyer_slide_bg_video_selector).hasClass('active')
 		) {
-			// When this video slide (viewed on a channel or display) is not active at this very moment,
+			// Viewed on a channel or display: When this video slide is not active at this very moment,
 			// pause, so it can start playing whenever it becomes active
 			player.pauseVideo();
 		}
