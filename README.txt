@@ -126,6 +126,17 @@ Release Date: March 2, 2018
 
 Introduces the Post slide format and the Manual text slide format. Displays title, date and content of a post, and optionally the featured image. The Manual text slide format displays your text: pre-title, title, subtitle, content. Also, slides that generate multiple slides (like the PDF slide format) are now called.. Magic slide stacks! The channel admin is improved by displaying title and properties of each slide.
 
+Enhancements:
+
+* Added a new option to enable sound for a video background (1.5.1).
+* Video backgrounds no longer play when previewed while editing a Channel (1.5.1).
+* Displayed the slide background, next to the slide format, on the slides admin page (1.5.1).
+* Tweaked some translatable strings to make translation easier (1.5.1).
+
+Bug fixes:
+
+* Fixed an issue where YouTube videos stopped playing after 5 minutes when page caching was enabled (1.5.1). Thanks [Heinz](https://wordpress.org/support/users/wp_hela/) for troubleshooting!
+
 = 1.4 =
 Release Date: February 14, 2018
 
@@ -207,6 +218,9 @@ Bug fixes:
 
 
 == Upgrade Notice ==
+= 1.5.1 =
+Bug fixes and minor enhancements. Check the changelog for full details.
+
 = 1.5.0 =
 Introduces the Post slide format, the Manual text slide format and Magic slide stacks. Check the changelog for all details.
 
