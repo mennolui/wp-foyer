@@ -19,6 +19,7 @@ class Foyer_Admin_Slide_Background_Video {
 	 * Functionality was copied from Foyer_Admin_Slide_Format_Video (removed).
 	 *
 	 * @since	1.4.0
+	 * @since	1.5.1	Added saving of the slide_bg_video_output_sound option.
 	 *
 	 * @param	int		$post_id	The ID of the post being saved.
 	 * @return	void
@@ -44,16 +45,26 @@ class Foyer_Admin_Slide_Background_Video {
 			}
 		}
 
+		$slide_bg_video_output_sound = '';
+		if ( isset( $_POST['slide_bg_video_output_sound'] ) ) {
+			$slide_bg_video_output_sound = intval( $_POST['slide_bg_video_output_sound'] );
+			if ( empty( $slide_bg_video_output_sound ) ) {
+				$slide_bg_video_output_sound = '';
+			}
+		}
+
 		update_post_meta( $post_id, 'slide_bg_video_video_url', $slide_bg_video_video_url );
 		update_post_meta( $post_id, 'slide_bg_video_video_start', $slide_bg_video_video_start );
 		update_post_meta( $post_id, 'slide_bg_video_video_end', $slide_bg_video_video_end );
 		update_post_meta( $post_id, 'slide_bg_video_hold_slide', $slide_bg_video_hold_slide );
+		update_post_meta( $post_id, 'slide_bg_video_output_sound', $slide_bg_video_output_sound );
 	}
 
 	/**
 	 * Outputs the meta box for the Video slide background.
 	 *
 	 * @since	1.4.0
+	 * @since	1.5.1	Added a slide_bg_video_output_sound option.
 	 *
 	 * @param	WP_Post	$post	The post of the current slide.
 	 * @return	void
@@ -63,6 +74,7 @@ class Foyer_Admin_Slide_Background_Video {
 		$slide_bg_video_video_start = get_post_meta( $post->ID, 'slide_bg_video_video_start', true );
 		$slide_bg_video_video_end = get_post_meta( $post->ID, 'slide_bg_video_video_end', true );
 		$slide_bg_video_hold_slide = get_post_meta( $post->ID, 'slide_bg_video_hold_slide', true );
+		$slide_bg_video_output_sound = get_post_meta( $post->ID, 'slide_bg_video_output_sound', true );
 
 		?><table class="form-table">
 			<tbody>
@@ -107,6 +119,16 @@ class Foyer_Admin_Slide_Background_Video {
 						<input type="checkbox" name="slide_bg_video_hold_slide" id="slide_bg_video_hold_slide"
 							value="1" <?php checked( $slide_bg_video_hold_slide, 1 ); ?> />
 						<span><?php _e('Yes, hold the slide until the end of the video.', 'foyer'); ?></span>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row">
+						<label for="slide_bg_video_output_sound"><?php _e('Output sound?', 'foyer'); ?></label>
+					</th>
+					<td>
+						<input type="checkbox" name="slide_bg_video_output_sound" id="slide_bg_video_output_sound"
+							value="1" <?php checked( $slide_bg_video_output_sound, 1 ); ?> />
+						<span><?php _e('Yes, output sound.', 'foyer'); ?></span>
 					</td>
 				</tr>
 				<tr>
