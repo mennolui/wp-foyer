@@ -3,6 +3,8 @@
  * Video slide background template.
  *
  * @since	1.4.0
+ * @since	1.5.1	Removed the container's unique ID attribute. Our JS no longer relies on this unique ID
+ *					as this failed when page caching was enabled. Fixes issue #15.
  */
 
 $slide = new Foyer_Slide( get_the_id() );
@@ -20,7 +22,7 @@ $video_id = substr( $video_url, strrpos( $video_url, '/' ) + 1 );
 if ( ! empty( $video_id ) ) {
 
 	?><div<?php $slide->background_classes(); ?><?php $slide->background_data_attr();?>>
-		<div class="youtube-video-container" id="<?php echo uniqid(); ?>"
+		<div class="youtube-video-container"
 			data-foyer-video-id="<?php echo $video_id; ?>"
 			data-foyer-video-start="<?php echo $video_start; ?>"
 			data-foyer-video-end="<?php echo $video_end; ?>"

@@ -160,6 +160,8 @@ function foyer_slide_bg_video_cleanup_youtube_players() {
  * Inits all new video placeholders, storing player references for later use.
  *
  * @since	1.4.0
+ * @since	1.5.1	Sets a unique ID attribute for each container, and no longer relies on unique ID's
+ *					coming from the server as this failed when page caching was enabled. Fixes issue #15.
  */
 function foyer_slide_bg_video_init_video_placeholders() {
 	// Loop over any video placeholders that are not yet replaced by an iframe
@@ -167,6 +169,9 @@ function foyer_slide_bg_video_init_video_placeholders() {
 
 		// Set container
 		var container = jQuery(this);
+
+		// Set unique ID attribute
+		container.attr('id', 'player-' + Math.random().toString(36).substr(2, 16));
 
 		var player_id = container.attr('id');
 		var video_id = container.data('foyer-video-id');
