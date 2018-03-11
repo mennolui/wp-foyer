@@ -222,6 +222,11 @@ function foyer_slide_bg_video_prepare_player_for_playback(player_id) {
 		// Set player reference
 		var player = window.foyer_yt_players[player_id];
 
+		if ((window.self != window.top) && (top.location.href.search('/post.php?') != -1)) {
+			// Viewed on a slide displayed within a Channel edit page: don't play video
+			return;
+		}
+
 		// No sound
 		player.mute();
 
@@ -232,7 +237,7 @@ function foyer_slide_bg_video_prepare_player_for_playback(player_id) {
 			jQuery(foyer_slides_selector).length &&
 			! jQuery('#' + player_id).parents(foyer_slide_bg_video_selector).hasClass('active')
 		) {
-			// When this video slide (viewed on a channel or display) is not active at this very moment,
+			// Viewed on a channel or display: When this video slide is not active at this very moment,
 			// pause, so it can start playing whenever it becomes active
 			player.pauseVideo();
 		}
