@@ -6,6 +6,7 @@ var foyer_yt_player;
  * Functionality was copied from foyer-admin-slide-video.js (since 1.2.0, removed in 1.4.0).
  *
  * @since	1.4.0
+ * @since	1.5.1	Updates the player's mute status whenever the 'Output sound?' checkbox is toggled.
  */
 jQuery( function() {
 
@@ -29,6 +30,11 @@ jQuery( function() {
 		foyer_admin_slide_bg_video_update_youtube_video_preview();
 	});
 
+	jQuery('#slide_bg_video_output_sound').on('change', function() {
+		// Update player's mute status
+		foyer_admin_slide_bg_video_update_player_mute();
+	});
+
 });
 
 /**
@@ -50,19 +56,41 @@ function foyer_admin_load_youtube_api() {
  * Invoked whenever the player is ready.
  *
  * @since	1.4.0
+ * @since	1.5.1	Updates the player's mute status before playing.
  */
 function foyer_admin_slide_bg_video_prepare_player_for_playback() {
 	if (window.foyer_yt_player) {
 		var player = window.foyer_yt_player;
-		player.mute();
+		foyer_admin_slide_bg_video_update_player_mute();
 		player.playVideo();
 	}
 }
 
 /**
- * Updates the Video format slide admin preview player with new parameters as entered by the user.
+ * Updates the slide admin video preview player's mute status.
+ *
+ * Invoked whenever a video starts playing, or .
+ *
+ * @since	1.5.1
+ */
+function foyer_admin_slide_bg_video_update_player_mute() {
+	if (window.foyer_yt_player) {
+		var player = window.foyer_yt_player;
+
+		if (jQuery('#slide_bg_video_output_sound').prop('checked')) {
+			player.unMute();
+		}
+		else {
+			player.mute();
+		}
+	}
+}
+
+/**
+ * Updates the slide admin video preview with new parameters as entered by the user, and restarts playback.
  *
  * @since	1.4.0
+ * @since	1.5.1	Updates the player's mute status before playing.
  */
 function foyer_admin_slide_bg_video_update_youtube_video_preview() {
 	if (jQuery('#slide_bg_video_video_id').val() && jQuery('#slide_bg_video_video_id').val().length) {
@@ -75,7 +103,7 @@ function foyer_admin_slide_bg_video_update_youtube_video_preview() {
 			var end = jQuery('#slide_bg_video_video_end').val();
 
 			if (video_id) {
-				player.mute();
+				foyer_admin_slide_bg_video_update_player_mute();
 				player.loadVideoById( {videoId: video_id, startSeconds: start, endSeconds: end} );
 			}
 		}
