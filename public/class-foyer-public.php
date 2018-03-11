@@ -44,6 +44,9 @@ class Foyer_Public {
 	 */
 	static function add_image_sizes() {
 
+		// Foyer 16:9
+		add_image_size( 'foyer_16_9', 1920, 1080, true );
+
 		// Full HD landscape
 		add_image_size( 'foyer_fhd_landscape', 1920, 1080, true );
 

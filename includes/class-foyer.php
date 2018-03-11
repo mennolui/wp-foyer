@@ -114,6 +114,8 @@ class Foyer {
 		require_once FOYER_PLUGIN_PATH . 'includes/class-foyer-channel.php';
 		require_once FOYER_PLUGIN_PATH . 'includes/class-foyer-slide.php';
 
+		require_once FOYER_PLUGIN_PATH . 'includes/class-foyer-image.php';
+
 		/* Display, channel and slide helper functions. */
 		require_once FOYER_PLUGIN_PATH . 'includes/class-foyer-displays.php';
 		require_once FOYER_PLUGIN_PATH . 'includes/class-foyer-channels.php';
