@@ -82,6 +82,16 @@ class Foyer_Updater {
 			self::update_db_version( '1.5.0' );
 		}
 
+		if ( version_compare( $db_version, '1.5.1', '<' ) ) {
+			// Initial db version is lower than 1.5.1, and this requires some update code
+
+			// Run update to 1.5.1
+			self::update_to_1_5_1();
+
+			// Update db version
+			self::update_db_version( '1.5.1' );
+		}
+
 		// All updates were successful, update db version to current plugin version
 		self::update_db_version( Foyer::get_version() );
 
@@ -172,6 +182,23 @@ class Foyer_Updater {
 	 * @return	bool	True, update is always successful.
 	 */
 	static function update_to_1_5_0() {
+
+		// Update contains changes that require CSS/JS to be reloaded, reset displays
+		Foyer_Displays::reset_all_displays();
+
+		return true;
+	}
+
+	/**
+	 * Updates the database to version 1.5.1.
+	 *
+	 * No db changes are made, just resets all displays.
+	 *
+	 * @since    1.5.1
+	 *
+	 * @return	bool	True, update is always successful.
+	 */
+	static function update_to_1_5_1() {
 
 		// Update contains changes that require CSS/JS to be reloaded, reset displays
 		Foyer_Displays::reset_all_displays();
