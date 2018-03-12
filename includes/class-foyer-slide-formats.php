@@ -177,6 +177,7 @@ class Foyer_Slide_Formats {
 	 * Adds the Text slide format.
 	 *
 	 * @since	1.5.0
+	 * @since	1.5.1	Renamed the slide format from 'Manual text' to 'Text'.
 	 *
 	 * @param 	array	$slide_formats	The current slide formats.
 	 * @return	array					The slide formats with the Text slide format added.
@@ -194,7 +195,7 @@ class Foyer_Slide_Formats {
 		$slide_format_backgrounds = apply_filters( 'foyer/slides/backgrounds/format=text', $slide_format_backgrounds );
 
 		$slide_formats['text'] = array(
-			'title' => _x( 'Manual text', 'slide-format', 'foyer' ),
+			'title' => _x( 'Text', 'slide-format', 'foyer' ),
 			'description' => __( 'Displays some text.', 'foyer' ),
 			'meta_box' => array( 'Foyer_Admin_Slide_Format_Text', 'slide_meta_box' ),
 			'save_post' => array( 'Foyer_Admin_Slide_Format_Text', 'save_slide' ),
