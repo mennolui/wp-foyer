@@ -4,6 +4,7 @@ class Test_Foyer_Public_Templates_Slides_Backgrounds_Video extends Foyer_UnitTes
 
 	/**
 	 * @since	1.4.0
+	 * @since	1.5.1	Now also tests if the new slide_bg_video_enable_sound option is saved.
 	 */
 	function test_are_all_slide_background_video_properties_included_in_slide() {
 
