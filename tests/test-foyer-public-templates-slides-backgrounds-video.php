@@ -14,7 +14,7 @@ class Test_Foyer_Public_Templates_Slides_Backgrounds_Video extends Foyer_UnitTes
 		$video_start = '35';
 		$video_end = '60';
 		$hold_slide = '1';
-		$output_sound = '1';
+		$enable_sound = '1';
 
 		update_post_meta( $this->slide1, 'slide_format', '' );
 		update_post_meta( $this->slide1, 'slide_background', 'video' );
@@ -22,7 +22,7 @@ class Test_Foyer_Public_Templates_Slides_Backgrounds_Video extends Foyer_UnitTes
 		update_post_meta( $this->slide1, 'slide_bg_video_video_start', $video_start );
 		update_post_meta( $this->slide1, 'slide_bg_video_video_end', $video_end );
 		update_post_meta( $this->slide1, 'slide_bg_video_hold_slide', $hold_slide );
-		update_post_meta( $this->slide1, 'slide_bg_video_output_sound', $output_sound );
+		update_post_meta( $this->slide1, 'slide_bg_video_enable_sound', $enable_sound );
 
 		$this->go_to( get_permalink( $this->slide1 ) );
 
@@ -42,7 +42,7 @@ class Test_Foyer_Public_Templates_Slides_Backgrounds_Video extends Foyer_UnitTes
 		$expected = 'data-foyer-hold-slide="' . $hold_slide . '"';
 		$this->assertContains( $expected, $actual );
 
-		$expected = 'data-foyer-output-sound="' . $output_sound . '"';
+		$expected = 'data-foyer-output-sound="' . $enable_sound . '"';
 		$this->assertContains( $expected, $actual );
 	}
 }

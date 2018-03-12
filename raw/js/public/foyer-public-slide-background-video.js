@@ -236,7 +236,7 @@ function foyer_slide_bg_video_prepare_player_for_playback(player_id) {
 		}
 
 		if (!container.data('foyer-output-sound')) {
-			// No sound (unless output sound option is checked)
+			// No sound (unless enable sound option is checked)
 			player.mute();
 		}
 

@@ -6,7 +6,7 @@ var foyer_yt_player;
  * Functionality was copied from foyer-admin-slide-video.js (since 1.2.0, removed in 1.4.0).
  *
  * @since	1.4.0
- * @since	1.5.1	Updates the player's mute status whenever the 'Output sound?' checkbox is toggled.
+ * @since	1.5.1	Updates the player's mute status whenever the 'Enable sound?' checkbox is toggled.
  */
 jQuery( function() {
 
@@ -30,7 +30,7 @@ jQuery( function() {
 		foyer_admin_slide_bg_video_update_youtube_video_preview();
 	});
 
-	jQuery('#slide_bg_video_output_sound').on('change', function() {
+	jQuery('#slide_bg_video_enable_sound').on('change', function() {
 		// Update player's mute status
 		foyer_admin_slide_bg_video_update_player_mute();
 	});
@@ -77,7 +77,7 @@ function foyer_admin_slide_bg_video_update_player_mute() {
 	if (window.foyer_yt_player) {
 		var player = window.foyer_yt_player;
 
-		if (jQuery('#slide_bg_video_output_sound').prop('checked')) {
+		if (jQuery('#slide_bg_video_enable_sound').prop('checked')) {
 			player.unMute();
 		}
 		else {
