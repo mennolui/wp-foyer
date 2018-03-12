@@ -72,6 +72,7 @@ class Foyer_Admin {
 	 * @since	1.0.0
 	 * @since	1.3.2	Changed method to static.
 	 *					Added context for translations.
+	 * @since	1.5.1	Improved the context of the translatable string 'Foyer' to make translation easier.
 	 */
 	static function admin_menu() {
 		add_menu_page(

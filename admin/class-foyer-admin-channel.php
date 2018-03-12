@@ -338,6 +338,7 @@ class Foyer_Admin_Channel {
 	 * @since	1.3.2	Changed method to static.
 	 * @since	1.5.0	Added a foyer-slide-is-stack class to stack slides.
 	 *					Added an overlay for slides containing slide title, format and background, to be shown on hover.
+	 * @since	1.5.1	Removed the translatable string 'x' to make translation easier.
 	 *
 	 * @param	WP_Post	$post
 	 * @return	string	$html	The HTML that lists all slides in the slides editor.

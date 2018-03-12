@@ -38,6 +38,7 @@ class Foyer_Admin_Display {
 	 *
 	 * @since	1.0.0
 	 * @since	1.3.2	Changed method to static.
+	 * @since	1.5.1	Added context to the translatable string 'Channel' to make translation easier.
 	 */
 	static function add_channel_editor_meta_box() {
 		add_meta_box(
