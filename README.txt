@@ -137,6 +137,7 @@ Enhancements:
 * Video backgrounds no longer play when previewed while editing a Channel (1.5.1).
 * Displayed the slide background, next to the slide format, on the slides admin page (1.5.1).
 * Tweaked some translatable strings to make translation easier (1.5.1).
+* Renamed the 'Manual text' slide format to 'Text', keeping it simple (1.5.1).
 
 Bug fixes:
 
