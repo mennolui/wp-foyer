@@ -115,6 +115,11 @@ If you want to have full control you can always create and upload images that ha
 = My changes are not directly visible on my displays, what's happening? =
 Changes to displays, channels and slides are never instantly visible on your digital signs. Each digital sign tries to contact your website every 5 minutes to see if you made any changes. If so and you changed the channel for a display, the new channel will be shown right after the slide that is currently being displayed. For any other changes, like adding slides, the new slides will be shown right after a full cycle of the slides that are currently being displayed.
 
+= Does Foyer work together with caching plugins like W3 Total Cache or WP Super Cache =
+Yes, but your cache settings might need some tweaking. Your display loads new content every 5 minutes. With page cache or browser cache enabled your display will not show the changes you made within 5 minutes but instead this might take hours. Make sure all cache layers are disabled for Foyer displays.
+
+Settings for W3 Total Cache: Add `/foyer/*` on a new line under Performance > Page Cache > Never cache the following pages.
+
 == Screenshots ==
 
 Coming soon.
