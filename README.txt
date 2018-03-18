@@ -28,7 +28,7 @@ Foyer comes with build in support for the [Theater for WordPress plugin](https:/
 
 = Slide formats =
 * Default: Displays a background only.
-* Manual text: Displays some text.
+* Text: Displays some text.
 * Post: Displays title, date and content of a post, and optionally the featured image.
 * Event: Displays title and details of an event, with its featured image as default background (requires Theater for WordPress).
 * External web page: Displays a web page to your liking.

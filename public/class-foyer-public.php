@@ -38,13 +38,30 @@ class Foyer_Public {
 	 *
 	 * @since	1.0.0
 	 * @since	1.3.2	Changed method to static.
+	 * @since	1.5.2	Moved away from hard cropped images, instead introduced the soft cropped 'foyer' image size,
+	 *					ready for responsive images and higher resolutions.
 	 *
 	 * @return	void
 	 */
 	static function add_image_sizes() {
 
-		// Full HD (1920 x 1080) square
-		add_image_size( 'foyer_fhd_square', 1920, 1920, true );
+		/*
+		 * To be used in templates.
+		 */
+		add_image_size( 'foyer', 1920, 1920, false ); // to be set to the same dimensions as the largest internal image size
+
+		/*
+		 * Internal image sizes, to force cropping of different intermediate sizes.
+		 */
+		add_image_size( 'foyer_fhd', 1920, 1920, false ); // soft crop: scaled down to fit within 1920x1920 (Full HD)
+//		add_image_size( 'foyer_4kuhd', 3840, 3840, false ); // soft crop: scaled down to fit within 3840x3840 (4K Ultra HD)
+//		4K UHD is disabled for now.
+
+		/*
+		 * @deprecated	1.5.2
+		 * Use 'foyer' instead.
+		 */
+		add_image_size( 'foyer_fhd_square', 1920, 1920, true ); // hard cropped to 1920x1920
 	}
 
 	/**
