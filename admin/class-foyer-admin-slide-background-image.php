@@ -53,12 +53,13 @@ class Foyer_Admin_Slide_Background_Image {
 					<td>
 						<div class="slide_image_field<?php if ( empty( $slide_bg_image_image ) ) { ?> empty<?php } ?>">
 							<div class="image-preview-wrapper">
-								<img class="slide_image_preview" src="<?php echo esc_url( wp_get_attachment_url( $slide_bg_image_image ) ); ?>" height="100">
+								<img class="slide_image_preview" src="<?php echo esc_url( wp_get_attachment_url( $slide_bg_image_image ) ); ?>">
 							</div>
 
 							<input type="button" class="button slide_image_upload_button" value="<?php esc_html_e( 'Upload image', 'foyer' ); ?>" />
 							<input type="button" class="button slide_image_delete_button" value="<?php esc_html_e( 'Remove image', 'foyer' ); ?>" />
 							<input type="hidden" name="slide_bg_image_image" class="slide_image_value" value='<?php echo intval( $slide_bg_image_image ); ?>'>
+							<p><?php _e( 'For best results use an image that is at least 1920 x 1080 pixels (landscape), or 1080 x 1920 pixels (portrait).', 'foyer' ); ?></p>
 						</div>
 					</td>
 				</tr>

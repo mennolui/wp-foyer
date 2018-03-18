@@ -83,6 +83,23 @@ div[id^=foyer_slide_background_] {
 .slide_image_field.empty .slide_image_upload_button {
   display: inline;
 }
+.slide_image_field .slide_image_upload_button,
+.slide_image_field .slide_image_delete_button {
+  margin-top: 14px;
+}
+.slide_image_field .slide_image_preview {
+  display: block;
+  max-width: 480px;
+  max-height: 480px;
+}
+.slide_image_field p {
+  display: none;
+  color: #72777c;
+  margin-top: 1em !important;
+}
+.slide_image_field.empty p {
+  display: block;
+}
 .foyer_slide_select_format_background {
   display: -webkit-box;
   display: -ms-flexbox;

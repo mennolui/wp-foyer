@@ -156,7 +156,7 @@ jQuery( function() {
 				else {
 					image_preview_url = attachment.url;
 				}
-				slide_image_field.find('.slide_image_preview').attr('src', image_preview_url).css('width', 'auto');
+				slide_image_field.find('.slide_image_preview').attr('src', image_preview_url);
 				slide_image_field.find('.slide_image_value').val(attachment.id);
 
 				// Restore the main post ID
