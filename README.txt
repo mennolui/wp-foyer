@@ -138,10 +138,14 @@ Enhancements:
 * Displayed the slide background, next to the slide format, on the slides admin page (1.5.1).
 * Tweaked some translatable strings to make translation easier (1.5.1).
 * Renamed the 'Manual text' slide format to 'Text', keeping it simple (1.5.1).
+* Added a hint about minimal image sizes to the image slide background admin (1.5.2).
+* Added a hint about minimal image sizes to the image slide background admin (1.5.2).
+* Removed Dutch translation files (1.5.2). Translations are now fully handled by https://translate.wordpress.org/projects/wp-plugins/foyer. Translations welcome!
 
 Bug fixes:
 
 * Fixed an issue where YouTube videos stopped playing after 5 minutes when page caching was enabled (1.5.1). Thanks [Heinz](https://wordpress.org/support/users/wp_hela/) for troubleshooting!
+* Fixed an issue where images on slides were over cropped, even when adding exact Full HD sizes (1.5.2).
 
 = 1.4 =
 Release Date: February 14, 2018
@@ -224,6 +228,9 @@ Bug fixes:
 
 
 == Upgrade Notice ==
+= 1.5.2 =
+Bug fixes and minor enhancements. Check the changelog for full details.
+
 = 1.5.1 =
 Bug fixes and minor enhancements. Check the changelog for full details.
 
