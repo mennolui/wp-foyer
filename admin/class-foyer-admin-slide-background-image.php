@@ -34,6 +34,8 @@ class Foyer_Admin_Slide_Background_Image {
 	 * Outputs the meta box for the Image slide background.
 	 *
 	 * @since	1.4.0
+	 * @since	1.5.2	Added a hint about minimal image sizes.
+	 *					Removed the height attribute of the preview image, sizing is now done with CSS.
 	 *
 	 * @param 	WP_Post	$post	The post of the slide that is being edited.
 	 * @return 	void
@@ -59,7 +61,7 @@ class Foyer_Admin_Slide_Background_Image {
 							<input type="button" class="button slide_image_upload_button" value="<?php esc_html_e( 'Upload image', 'foyer' ); ?>" />
 							<input type="button" class="button slide_image_delete_button" value="<?php esc_html_e( 'Remove image', 'foyer' ); ?>" />
 							<input type="hidden" name="slide_bg_image_image" class="slide_image_value" value='<?php echo intval( $slide_bg_image_image ); ?>'>
-							<p><?php _e( 'For best results use an image that is at least 1920 x 1080 pixels (landscape), or 1080 x 1920 pixels (portrait).', 'foyer' ); ?></p>
+							<p><?php _e( 'For the best results use an image that is at least 1920 x 1080 pixels (landscape), or 1080 x 1920 pixels (portrait).', 'foyer' ); ?></p>
 						</div>
 					</td>
 				</tr>

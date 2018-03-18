@@ -106,6 +106,8 @@ jQuery( function() {
  * @since	1.0.0
  * @since	1.1.3	Fixed an issue where adding an image to a slide was only possible when
  *					the image was already in the media library.
+ * @since	1.5.2	Removed setting the width to auto on the preview image, sizing is now done with CSS.
+
  *
  * Based on: http://jeroensormani.com/how-to-include-the-wordpress-media-selector-in-your-plugin/
  */
