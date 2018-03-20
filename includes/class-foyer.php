@@ -3,11 +3,8 @@
 /**
  * The core plugin class.
  *
- * This is used to define internationalization, general hooks, admin-specific hooks, and
- * public-facing hooks.
- *
- * Also maintains the unique identifier of this plugin as well as the current
- * version of the plugin.
+ * This is used to load general dependencies, register general hooks, and load and init
+ * the admin and public parts of the plugin.
  *
  * @since		1.0.0
  * @since		1.3.2	Refactored class from object to static methods.
@@ -30,6 +27,9 @@ class Foyer {
 	 * @since	1.4.0	Registered hooks for slide backgrounds.
 	 *					Changed priority of slide format filters to make sure they are triggered before
 	 *					filters with default priority.
+	 * @since	1.5.3	Changed priority of Foyer_Setup::register_post_types() on init to 5 to make sure it is
+	 *					triggered before filters with default priority, and before the occasional flush_rewrite_rules()
+	 *					after updating.
 	 */
 	static function init() {
 
@@ -42,7 +42,7 @@ class Foyer {
 		add_action( 'plugins_loaded', array( 'Foyer_i18n', 'load_plugin_textdomain' ) );
 
 		/* Foyer_Setup */
-		add_action( 'init', array( 'Foyer_Setup', 'register_post_types' ) );
+		add_action( 'init', array( 'Foyer_Setup', 'register_post_types' ), 5 );
 
 		/* Foyer_Slide_Backgrounds */
 		add_filter( 'foyer/slides/backgrounds', array( 'Foyer_Slide_Backgrounds', 'add_default_slide_background' ), 5 );

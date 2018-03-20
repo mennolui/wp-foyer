@@ -50,7 +50,12 @@ class Foyer_Updater {
 	/**
 	 * Updates the database to the latest plugin version, if plugin was updated.
 	 *
+	 * Triggered at 'plugins_loaded', before 'init', thus before custom post types are registered.
+	 *
 	 * @since    1.4.0
+	 * @since    1.5.0	Added update code for 1.5.0.
+	 * @since    1.5.1	Added update code for 1.5.1.
+	 * @since    1.5.3	Made sure the rewrite rules are flushed after each update. Fixes #19 for existing installs.
 	 *
 	 * @return	bool	True if database was updated, false otherwise.
 	 */
@@ -94,6 +99,18 @@ class Foyer_Updater {
 
 		// All updates were successful, update db version to current plugin version
 		self::update_db_version( Foyer::get_version() );
+
+		/*
+		 * Flush the rewrite rules on init, right after custom post types are registered.
+		 *
+		 * Fired on the first page load after plugin update.
+		 * When network activated fired for each site.
+		 * When network activated fired when a new site is created on the multisite network.
+		 *
+		 * When network deactivated and later network activated again this is _not_ fired.
+		 * In this situation rewrite rules could go missing for all sites other than the primary site.
+		 */
+		add_action( 'init', array( __CLASS__ ,'flush_rewrite_rules' ), 6 );
 
 		return true;
 	}
