@@ -139,7 +139,6 @@ Enhancements:
 * Tweaked some translatable strings to make translation easier (1.5.1).
 * Renamed the 'Manual text' slide format to 'Text', keeping it simple (1.5.1).
 * Added a hint about minimal image sizes to the image slide background admin (1.5.2).
-* Added a hint about minimal image sizes to the image slide background admin (1.5.2).
 * Removed Dutch translation files (1.5.2). Translations are now fully handled by https://translate.wordpress.org/projects/wp-plugins/foyer. Translations welcome!
 
 Bug fixes:
