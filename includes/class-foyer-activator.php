@@ -17,7 +17,7 @@ class Foyer_Activator {
 	 *
 	 * @since	1.0.0
 	 * @since	1.5.3	Flushes the rewrite rules to make sure pretty permalinks for our custom post types
-	 *					work properly after plugin is activated. Fixes #19.
+	 *					work properly after plugin is activated. Fixes #19 for new installs.
 	 *
 	 * @return	void
 	 */
