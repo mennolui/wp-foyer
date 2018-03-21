@@ -145,6 +145,7 @@ Bug fixes:
 
 * Fixed an issue where YouTube videos stopped playing after 5 minutes when page caching was enabled (1.5.1). Thanks [Heinz](https://wordpress.org/support/users/wp_hela/) for troubleshooting!
 * Fixed an issue where images on slides were over cropped, even when adding exact Full HD sizes (1.5.2).
+* Fixed a 404 Not Found issue when accessing a display on its pretty permalink in fresh Foyer installs (1.5.3).
 
 = 1.4 =
 Release Date: February 14, 2018
@@ -227,6 +228,9 @@ Bug fixes:
 
 
 == Upgrade Notice ==
+= 1.5.3 =
+Bug fixes and minor enhancements. Check the changelog for full details.
+
 = 1.5.2 =
 Bug fixes and minor enhancements. Check the changelog for full details.
 
