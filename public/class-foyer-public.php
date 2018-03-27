@@ -18,6 +18,7 @@ class Foyer_Public {
 	 * Loads dependencies and registers hooks for the public-facing side of the plugin.
 	 *
 	 * @since	1.3.2
+	 * @since	1.5.4	Added a wp_head action to add the Web App manifest to displays.
 	 */
 	static function init() {
 		self::load_dependencies();
@@ -26,6 +27,7 @@ class Foyer_Public {
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_styles' ) );
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_scripts' ) );
 		add_action( 'init', array( __CLASS__, 'add_image_sizes' ) );
+		add_action( 'wp_head', array( __CLASS__, 'add_web_app_manifest' ) );
 
 		/* Foyer_Templates */
 		add_action( 'template_include', array( 'Foyer_Templates', 'template_include' ) );
@@ -64,8 +66,30 @@ class Foyer_Public {
 		add_image_size( 'foyer_fhd_square', 1920, 1920, true ); // hard cropped to 1920x1920
 	}
 
+
 	/**
-	 * Register the stylesheets for the public-facing side of the site.
+	 * Adds the Web App manifest to the head of Foyer displays.
+	 *
+	 * Only for users that are not logged in.
+	 *
+	 * @since	1.5.4
+	 *
+	 * @return	void
+	 */
+	static function add_web_app_manifest() {
+		if ( ! is_singular( Foyer_Display::post_type_name ) ) {
+			return;
+		}
+
+		if ( is_user_logged_in() ) {
+			return;
+		}
+
+		?><link rel="manifest" href="<?php echo FOYER_PLUGIN_URL; ?>public/assets/manifest.json"><?php
+	}
+
+	/**
+	 * Register the stylesheets for the public-facing side of the plugin.
 	 *
 	 * @since	1.0.0
 	 * @since	1.2.5	Added a 'foyer/public/enqueue_styles' action.
@@ -94,7 +118,7 @@ class Foyer_Public {
 	}
 
 	/**
-	 * Register the JavaScript for the public-facing side of the site.
+	 * Register the JavaScript for the public-facing side of the plugin.
 	 *
 	 * @since	1.0.0
 	 * @since	1.2.5	Added a 'foyer/public/enqueue_scripts' action.

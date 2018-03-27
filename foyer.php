@@ -68,7 +68,7 @@ function run_foyer() {
 	define( 'FOYER_PLUGIN_VERSION', '1.5.3' ); // do not access directly
 	define( 'FOYER_PLUGIN_NAME', 'foyer' ); // do not access directly
 	define( 'FOYER_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
-	define( 'FOYER_PLUGIN_URL', plugins_url( '', __FILE__ ) );
+	define( 'FOYER_PLUGIN_URL', trailingslashit( plugins_url( '', __FILE__ ) ) );
 	define( 'FOYER_PLUGIN_FILE', __FILE__ );
 
 	Foyer::init();
