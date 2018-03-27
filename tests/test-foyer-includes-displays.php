@@ -23,14 +23,14 @@ class Test_Foyer_Displays extends Foyer_UnitTestCase {
 
 		/* Check that no reset requests are present */
 		foreach ( $displays as $display ) {
-			$this->assertEmpty( get_post_meta( $display->ID, 'foyer_reset_display' ), true );
+			$this->assertEmpty( get_post_meta( $display->ID, 'foyer_reset_display', true ) );
 		}
 
 		Foyer_Displays::reset_all_displays();
 
 		/* Check that all reset requests were added */
 		foreach ( $displays as $display ) {
-			$this->assertNotEmpty( get_post_meta( $display->ID, 'foyer_reset_display' ), true );
+			$this->assertNotEmpty( get_post_meta( $display->ID, 'foyer_reset_display', true ) );
 		}
 	}
 }

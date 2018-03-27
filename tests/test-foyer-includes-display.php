@@ -333,13 +333,13 @@ class Test_Foyer_Display extends Foyer_UnitTestCase {
 		$display_id = $this->factory->post->create( $display_args );
 
 		/* Check that no reset request is present */
-		$this->assertEmpty( get_post_meta( $display_id, 'foyer_reset_display' ), true );
+		$this->assertEmpty( get_post_meta( $display_id, 'foyer_reset_display', true ) );
 
 		$display = new Foyer_Display( $display_id );
 		$display->add_reset_request();
 
 		/* Check that reset request was added */
-		$this->assertNotEmpty( get_post_meta( $display_id, 'foyer_reset_display' ), true );
+		$this->assertNotEmpty( get_post_meta( $display_id, 'foyer_reset_display', true ) );
 	}
 
 	/**
