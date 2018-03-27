@@ -89,9 +89,14 @@ I recommend using a (mini-)computer with the Chrome browser in kiosk mode, and a
 When setting up multiple digital signs with their own content, each display needs its own (mini-)computer.
 
 = Can I use a Raspberry Pi mini-computer for my digital sign? =
-Absolutely! Be aware that transitions and video playback on the Pi will be very choppy though, if they work at all. Use the 'No transition' setting for channels, don't add videos, and your Raspberry Pi digital sign will be fine.
+Sure! Be aware that transitions and video playback on the Pi will be very choppy though, if they work at all. Use the 'No transition' setting for channels, don't add videos, and your Raspberry Pi digital sign will be fine.
 
 I can recommend installing the paid version of [Raspberry Digital Signage](http://www.binaryemotions.com/digital-signage/raspberry-digital-signage/) as operating system on the SD card of a Raspberry Pi 3 Model B. Just power up your Pi, enter the URL of your Foyer display when asked, and you'll have an instant digital sign each time you power up.
+
+= Can I use an Android mini-computer or tablet for my digital sign? =
+Absolutely! Transitions and video playback should be smooth, of course depending on the hardware used. To set up your digital sign with the Chrome browser: Open your display URL in Chrome and tap 'Add to Home screen' from the Chrome menu. A shortcut will be added to your Home screen. When you launch this shortcut your display will be shown full screen.
+
+You might want to use hardware that supports auto power-on after power outage. And you might want to use a Kiosk and Lockdown app, to make sure your display will launch when Android starts. And for tablets to make sure nobody can interact with the screen, and to avoid display sleep.
 
 = Landscape or portrait? =
 You choose! Install your digital sign the way you prefer. Foyer will follow. Slide templates are designed to work in both landscape and portrait mode. Only the background image will be cropped differently, of course.
@@ -140,6 +145,7 @@ Enhancements:
 * Renamed the 'Manual text' slide format to 'Text', keeping it simple (1.5.1).
 * Added a hint about minimal image sizes to the image slide background admin (1.5.2).
 * Removed Dutch translation files (1.5.2). Translations are now fully handled by https://translate.wordpress.org/projects/wp-plugins/foyer. Translations welcome!
+* Added a Web App manifest that enables displays to launch full screen on Android (1.5.4). Just tap 'Add to Home screen' from the Chrome menu and launch this shortcut.
 
 Bug fixes:
 
@@ -228,6 +234,9 @@ Bug fixes:
 
 
 == Upgrade Notice ==
+= 1.5.4 =
+Bug fixes and minor enhancements. Check the changelog for full details.
+
 = 1.5.3 =
 Bug fixes and minor enhancements. Check the changelog for full details.
 
