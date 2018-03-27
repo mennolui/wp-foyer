@@ -11,6 +11,28 @@
 class Foyer_Updater {
 
 	/**
+	 * Adds an action on init that flushes the rewrite rules.
+	 *
+	 * @since	1.5.4
+	 *
+	 * @return	void
+	 */
+	static function add_flush_rewrite_rules_action() {
+
+		/*
+		 * Flush the rewrite rules on init, right after custom post types are registered.
+		 *
+		 * Fired on the first page load after plugin update.
+		 * When network activated fired for each site.
+		 * When network activated fired when a new site is created on the multisite network.
+		 *
+		 * When network deactivated and later network activated again this is _not_ fired.
+		 * In this situation rewrite rules could go missing for all sites other than the primary site.
+		 */
+		add_action( 'init', array( __CLASS__ ,'flush_rewrite_rules' ), 6 );
+	}
+
+	/**
 	 * Gets the database version.
 	 *
 	 * @since    1.4.0
@@ -48,14 +70,43 @@ class Foyer_Updater {
 	}
 
 	/**
+	 * Resets all displays for certain updates.
+	 *
+	 * @since	1.5.4
+	 *
+	 * @param	string	$db_version		The current database version.
+	 * @return	void
+	 */
+	static function reset_displays_for_certain_updates( $db_version ) {
+
+		$reset_displays = false;
+		$reset_displays_versions = array( '1.4.0', '1.5.0', '1.5.1' );
+
+		foreach( $reset_displays_versions as $reset_displays_version ) {
+			if ( version_compare( $db_version, $reset_displays_version, '<' ) ) {
+				$reset_displays = true;
+			}
+		}
+
+		if ( $reset_displays ) {
+			// Update contains changes that require CSS/JS to be reloaded, reset displays
+			Foyer_Displays::reset_all_displays();
+		}
+	}
+
+	/**
 	 * Updates the database to the latest plugin version, if plugin was updated.
 	 *
 	 * Triggered at 'plugins_loaded', before 'init', thus before custom post types are registered.
 	 *
-	 * @since    1.4.0
-	 * @since    1.5.0	Added update code for 1.5.0.
-	 * @since    1.5.1	Added update code for 1.5.1.
-	 * @since    1.5.3	Made sure the rewrite rules are flushed after each update. Fixes #19 for existing installs.
+	 * @since	1.4.0
+	 * @since	1.5.0	Added update code for 1.5.0.
+	 * @since	1.5.1	Added update code for 1.5.1.
+	 * @since	1.5.3	Made sure the rewrite rules are flushed after each update. Fixes #19 for existing installs.
+	 * @since	1.5.4	Made sure no update scripts are run for fresh installs.
+	 *					Added a call to a new method that resets displays for certain versions, and removed
+	 *					two calls to update methods for versions that only needed to reset displays.
+	 *					Moved hooking of flush rewrite rules to its own method.
 	 *
 	 * @return	bool	True if database was updated, false otherwise.
 	 */
@@ -67,6 +118,12 @@ class Foyer_Updater {
 		    return false;
 	    }
 
+		if ( empty( $db_version ) ) {
+			// Fresh install, make sure all update code is skipped,
+			// but still continue to flush the rewrite rules and update the db version
+			$db_version = Foyer::get_version();
+		}
+
 		if ( version_compare( $db_version, '1.4.0', '<' ) ) {
 			// Initial db version is lower than 1.4.0, and this requires some update code
 
@@ -77,40 +134,14 @@ class Foyer_Updater {
 			self::update_db_version( '1.4.0' );
 		}
 
-		if ( version_compare( $db_version, '1.5.0', '<' ) ) {
-			// Initial db version is lower than 1.5.0, and this requires some update code
-
-			// Run update to 1.5.0
-			self::update_to_1_5_0();
-
-			// Update db version
-			self::update_db_version( '1.5.0' );
-		}
-
-		if ( version_compare( $db_version, '1.5.1', '<' ) ) {
-			// Initial db version is lower than 1.5.1, and this requires some update code
-
-			// Run update to 1.5.1
-			self::update_to_1_5_1();
-
-			// Update db version
-			self::update_db_version( '1.5.1' );
-		}
+		// Reset displays for certain updates only
+		self::reset_displays_for_certain_updates( $db_version );
 
 		// All updates were successful, update db version to current plugin version
 		self::update_db_version( Foyer::get_version() );
 
-		/*
-		 * Flush the rewrite rules on init, right after custom post types are registered.
-		 *
-		 * Fired on the first page load after plugin update.
-		 * When network activated fired for each site.
-		 * When network activated fired when a new site is created on the multisite network.
-		 *
-		 * When network deactivated and later network activated again this is _not_ fired.
-		 * In this situation rewrite rules could go missing for all sites other than the primary site.
-		 */
-		add_action( 'init', array( __CLASS__ ,'flush_rewrite_rules' ), 6 );
+		// Flush rewrite rules
+		self::add_flush_rewrite_rules_action();
 
 		return true;
 	}
@@ -182,43 +213,6 @@ class Foyer_Updater {
 				update_post_meta( $slide->ID, 'slide_background', 'default' );
 			}
 		}
-
-		// Update contains changes that require CSS/JS to be reloaded, reset displays
-		Foyer_Displays::reset_all_displays();
-
-		return true;
-	}
-
-	/**
-	 * Updates the database to version 1.5.0.
-	 *
-	 * No db changes are made, just resets all displays.
-	 *
-	 * @since    1.5.0
-	 *
-	 * @return	bool	True, update is always successful.
-	 */
-	static function update_to_1_5_0() {
-
-		// Update contains changes that require CSS/JS to be reloaded, reset displays
-		Foyer_Displays::reset_all_displays();
-
-		return true;
-	}
-
-	/**
-	 * Updates the database to version 1.5.1.
-	 *
-	 * No db changes are made, just resets all displays.
-	 *
-	 * @since    1.5.1
-	 *
-	 * @return	bool	True, update is always successful.
-	 */
-	static function update_to_1_5_1() {
-
-		// Update contains changes that require CSS/JS to be reloaded, reset displays
-		Foyer_Displays::reset_all_displays();
 
 		return true;
 	}
