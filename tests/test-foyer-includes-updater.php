@@ -263,6 +263,35 @@ class Test_Foyer_Updater extends Foyer_UnitTestCase {
 		$this->assertEquals( $expected, $actual );
 	}
 
-	// @todo: test_are_displays_reset_when_updating_to_1_4_0
-	// @todo: test_are_displays_reset_when_updating_to_1_5_0
+	/*
+	 * @since	1.5.4
+	 */
+	function test_are_displays_reset_when_updating_from_1_0_0() {
+		// Set to really old version to trigger database update
+		Foyer_Updater::update_db_version( '1.0.0' );
+
+		/* Check that reset request is not yet present */
+		$this->assertEmpty( get_post_meta( $this->display1, 'foyer_reset_display', true ) );
+
+		Foyer_Updater::update();
+
+		/* Check that reset request was added */
+		$this->assertNotEmpty( get_post_meta( $this->display1, 'foyer_reset_display', true ) );
+	}
+
+	/*
+	 * @since	1.5.4
+	 */
+	function test_are_displays_reset_when_database_is_up_to_date() {
+		// Set database version to current plugin version
+		Foyer_Updater::update_db_version( Foyer::get_version() );
+
+		/* Check that reset request is not yet present */
+		$this->assertEmpty( get_post_meta( $this->display1, 'foyer_reset_display', true ) );
+
+		Foyer_Updater::update();
+
+		/* Check that reset request was not added */
+		$this->assertEmpty( get_post_meta( $this->display1, 'foyer_reset_display', true ) );
+	}
 }
