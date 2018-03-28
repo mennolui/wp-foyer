@@ -187,6 +187,7 @@ function foyer_slide_bg_video_init_video_placeholders() {
 					'modestbranding': 1,
 					'rel': 0,
 					'showinfo': 0,
+					'playsinline': 1,
 				},
 				events: {
 					'onReady': foyer_slide_bg_video_prepare_player_for_playback(player_id),
