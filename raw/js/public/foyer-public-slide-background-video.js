@@ -55,6 +55,8 @@ function foyer_slide_bg_video_bind_display_loading_events() {
  * Binds events to be able to start and stop video playback at the right time, and prevent advancing to the next slide.
  *
  * @since	1.4.0
+ * @since	1.6.0	Let the slideshow continue to next slide when the video is not playing. This prevents holding
+ *					the slideshow indefinitely in case of network failure. Fixes #16.
  */
 function foyer_slide_bg_video_bind_ticker_events() {
 
@@ -73,7 +75,7 @@ function foyer_slide_bg_video_bind_ticker_events() {
 			var player = window.foyer_yt_players[container.attr('id')]
 
 			if (1 == container.data('foyer-hold-slide')) {
-				// We should wait for the end of the video before proceeding to the next slide
+				// We should wait for the end of the video before proceeding to the next slide, but only when playing
 
 				if (player && typeof player.playVideo === 'function') {
 					// Player exists and is ready
@@ -85,7 +87,10 @@ function foyer_slide_bg_video_bind_ticker_events() {
 						end = duration;
 					}
 
-					if ( current_time >= end - foyer_ticker_css_transition_duration ) {
+					if ( 1 !== player.getPlayerState() ) {
+						// Video not playing, do not prevent next slide
+					}
+					else if ( current_time >= end - foyer_ticker_css_transition_duration ) {
 						// Video almost ended, do not prevent next slide
 					}
 					else {
