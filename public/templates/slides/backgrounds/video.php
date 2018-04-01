@@ -22,7 +22,12 @@ $video_id = substr( $video_url, strrpos( $video_url, '/' ) + 1 );
 if ( ! empty( $video_id ) ) {
 
 	?><div<?php $slide->background_classes(); ?><?php $slide->background_data_attr();?>>
-		<div class="youtube-video-container"
+		<video preload="auto" playsinline muted autoplay loop data-object-fit>
+			<source type="video/mp4" src="https://storage.googleapis.com/coverr-main/mp4/Mt_Baker.mp4">
+		</video>
+		<div class="html5-video-container">
+		</div>
+		<div class="yyoutube-video-container"
 			data-foyer-video-id="<?php echo $video_id; ?>"
 			data-foyer-video-start="<?php echo $video_start; ?>"
 			data-foyer-video-end="<?php echo $video_end; ?>"
