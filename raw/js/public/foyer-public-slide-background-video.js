@@ -243,6 +243,12 @@ function foyer_slide_bg_video_prepare_player_for_playback(player_id) {
 		// Set player reference
 		var player = window.foyer_yt_players[player_id];
 
+		// Make sure YouTube player covers the entire slide background with video, also on window resize
+		foyer_slide_bg_video_resize_youtube_to_cover(player_id);
+		jQuery(window).on('resize', function() {
+			foyer_slide_bg_video_resize_youtube_to_cover(player_id);
+		});
+
 		if ((window.self != window.top) && (top.location.href.search('/post.php?') != -1)) {
 			// Viewed on a slide displayed within a Channel edit page: don't play video
 			return;
@@ -264,12 +270,6 @@ function foyer_slide_bg_video_prepare_player_for_playback(player_id) {
 			// pause, so it can start playing whenever it becomes active
 			player.pauseVideo();
 		}
-
-		// Make sure YouTube player covers the entire slide background with video, also on window resize
-		foyer_slide_bg_video_resize_youtube_to_cover(player_id);
-		jQuery(window).on('resize', function() {
-			foyer_slide_bg_video_resize_youtube_to_cover(player_id);
-		});
 	}
 }
 
