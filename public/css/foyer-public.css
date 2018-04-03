@@ -215,6 +215,7 @@ html {
   background-color: #fff;
   position: relative;
   z-index: 1;
+  overflow: hidden;
 }
 .foyer-slide .foyer-slide-field {
   color: #000;
@@ -246,6 +247,7 @@ html {
   left: 0;
   right: 0;
   z-index: -1;
+  overflow: hidden;
 }
 .foyer-slide.foyer-slide-iframe iframe {
   width: 100%;
