@@ -146,12 +146,16 @@ Enhancements:
 * Added a hint about minimal image sizes to the image slide background admin (1.5.2).
 * Removed Dutch translation files (1.5.2). Translations are now fully handled by https://translate.wordpress.org/projects/wp-plugins/foyer. Translations welcome!
 * Added a Web App manifest that enables displays to launch full screen on Android (1.5.4). Just tap 'Add to Home screen' from the Chrome menu and launch this shortcut.
+* Encouraged iOS to play YouTube background videos (1.5.5). Works! However not when in "Low Power Mode", and not for videos with sound enabled.
+* YouTube videos now cover the entire slide background (1.5.5). Hello vertical videos!
 
 Bug fixes:
 
 * Fixed an issue where YouTube videos stopped playing after 5 minutes when page caching was enabled (1.5.1). Thanks [Heinz](https://wordpress.org/support/users/wp_hela/) for troubleshooting!
 * Fixed an issue where images on slides were over cropped, even when adding exact Full HD sizes (1.5.2).
 * Fixed a 404 Not Found issue when accessing a display on its pretty permalink in fresh Foyer installs (1.5.3).
+* Fixed an issue where slideshows would not continue to the next slide when the video of the current slide is not playing, eg. in case of prolonged network failure (1.5.5).
+* Fixed an issue where background images were not covering the entire slide, in Edge (1.5.5).
 
 = 1.4 =
 Release Date: February 14, 2018
@@ -234,6 +238,9 @@ Bug fixes:
 
 
 == Upgrade Notice ==
+= 1.5.5 =
+Bug fixes and minor enhancements. Check the changelog for full details.
+
 = 1.5.4 =
 Bug fixes and minor enhancements. Check the changelog for full details.
 
