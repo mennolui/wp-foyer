@@ -122,7 +122,7 @@ jQuery( function() {
 		jQuery('.slide_image_upload_button').on('click', function(event) {
 			var slide_image_field;
 			var file_frame;
-			var	file_type = 'image';
+			var file_type = 'image';
 
 			if ( jQuery(this).parent('.slide_image_field').hasClass('file_type_video') ) {
 				file_type = 'video';
