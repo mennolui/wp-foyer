@@ -172,6 +172,8 @@ function foyer_slide_bg_video_cleanup_youtube_players() {
  * @since	1.4.0
  * @since	1.5.1	Sets a unique ID attribute for each container, and no longer relies on unique ID's
  *					coming from the server as this failed when page caching was enabled. Fixes issue #15.
+ * @since	1.6.0	Added the 'playsinline' argument to encourage iOS to play YouTube background videos.
+ *					Works! However not when in "Low Power Mode", and not for videos with sound enabled.
  */
 function foyer_slide_bg_video_init_video_placeholders() {
 	// Loop over any video placeholders that are not yet replaced by an iframe
