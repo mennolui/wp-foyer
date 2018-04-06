@@ -107,7 +107,7 @@ jQuery( function() {
  * @since	1.1.3	Fixed an issue where adding an image to a slide was only possible when
  *					the image was already in the media library.
  * @since	1.5.2	Removed setting the width to auto on the preview image, sizing is now done with CSS.
-
+ * @since	1.6.0	Limited the media selector to certain file types, based on newly added file_type_* classes.
  *
  * Based on: http://jeroensormani.com/how-to-include-the-wordpress-media-selector-in-your-plugin/
  */
@@ -122,7 +122,17 @@ jQuery( function() {
 		jQuery('.slide_image_upload_button').on('click', function(event) {
 			var slide_image_field;
 			var file_frame;
+			var	file_type = 'image';
+
+			if ( jQuery(this).parent('.slide_image_field').hasClass('file_type_video') ) {
+				file_type = 'video';
+			}
+			if ( jQuery(this).parent('.slide_image_field').hasClass('file_type_pdf') ) {
+				file_type = 'application/pdf';
+			}
+
 			event.preventDefault();
+
 			slide_image_field = jQuery(this).parent();
 
 			// If the media frame already exists, reopen it.
@@ -138,6 +148,9 @@ jQuery( function() {
 				title: foyer_slide_image_defaults.text_select_photo,
 				button: {
 					text: foyer_slide_image_defaults.text_use_photo
+				},
+				library: {
+					type: file_type
 				},
 				multiple: false // Set to true to allow multiple files to be selected
 			});

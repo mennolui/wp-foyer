@@ -275,7 +275,7 @@ class Foyer_Admin_Slide_Format_PDF {
 						<label for="slide_pdf_file"><?php _e( 'PDF file', 'foyer' ); ?></label>
 					</th>
 					<td>
-						<div class="slide_image_field<?php if ( empty( $slide_pdf_file ) ) { ?> empty<?php } ?>">
+						<div class="slide_image_field file_type_pdf<?php if ( empty( $slide_pdf_file ) ) { ?> empty<?php } ?>">
 							<div class="image-preview-wrapper">
 								<img class="slide_image_preview" src="<?php echo esc_url( $slide_pdf_file_preview_url ); ?>" height="100">
 							</div>
