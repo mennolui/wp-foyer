@@ -73,6 +73,7 @@ class Foyer_Updater {
 	 * Resets all displays for certain updates.
 	 *
 	 * @since	1.5.4
+	 * @since	1.5.5	Added 1.5.5 to the list of versions that need displays to reset.
 	 *
 	 * @param	string	$db_version		The current database version.
 	 * @return	void
@@ -80,7 +81,13 @@ class Foyer_Updater {
 	static function reset_displays_for_certain_updates( $db_version ) {
 
 		$reset_displays = false;
-		$reset_displays_versions = array( '1.4.0', '1.5.0', '1.5.1' );
+
+		$reset_displays_versions = array(
+			'1.4.0',
+			'1.5.0',
+			'1.5.1',
+			'1.5.5',
+		);
 
 		foreach( $reset_displays_versions as $reset_displays_version ) {
 			if ( version_compare( $db_version, $reset_displays_version, '<' ) ) {

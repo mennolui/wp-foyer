@@ -17,7 +17,6 @@ jQuery(document).ready(function() {
 		foyer_slide_bg_video_bind_display_loading_events();
 		foyer_slide_bg_video_bind_ticker_events();
 	}
-
 });
 
 /**
@@ -55,6 +54,8 @@ function foyer_slide_bg_video_bind_display_loading_events() {
  * Binds events to be able to start and stop video playback at the right time, and prevent advancing to the next slide.
  *
  * @since	1.4.0
+ * @since	1.5.5	Let the slideshow continue to next slide when the video is not playing. This prevents holding
+ *					the slideshow indefinitely in case of network failure. Fixes #16.
  */
 function foyer_slide_bg_video_bind_ticker_events() {
 
@@ -73,7 +74,7 @@ function foyer_slide_bg_video_bind_ticker_events() {
 			var player = window.foyer_yt_players[container.attr('id')]
 
 			if (1 == container.data('foyer-hold-slide')) {
-				// We should wait for the end of the video before proceeding to the next slide
+				// We should wait for the end of the video before proceeding to the next slide, but only when playing
 
 				if (player && typeof player.playVideo === 'function') {
 					// Player exists and is ready
@@ -85,7 +86,10 @@ function foyer_slide_bg_video_bind_ticker_events() {
 						end = duration;
 					}
 
-					if ( current_time >= end - foyer_ticker_css_transition_duration ) {
+					if ( 1 !== player.getPlayerState() ) {
+						// Video not playing, do not prevent next slide
+					}
+					else if ( current_time >= end - foyer_ticker_css_transition_duration ) {
 						// Video almost ended, do not prevent next slide
 					}
 					else {
@@ -146,12 +150,18 @@ function foyer_slide_bg_video_bind_ticker_events() {
  * Used after newly loaded slide groups and replaced channels.
  *
  * @since	1.4.0
+ * @since	1.5.5	Removed the resize event trigger for players that are no longer present.
  */
 function foyer_slide_bg_video_cleanup_youtube_players() {
 	for (var player_id in window.foyer_yt_players) {
 		if (!jQuery('#' + player_id).length) {
 			// Video is no longer present in the document, remove its player reference
 			delete window.foyer_yt_players[player_id];
+
+			// Remove the resize event trigger for this player
+			jQuery(window).off('resize', function() {
+				foyer_slide_bg_video_resize_youtube_to_cover(player_id);
+			});
 		}
 	}
 }
@@ -162,6 +172,8 @@ function foyer_slide_bg_video_cleanup_youtube_players() {
  * @since	1.4.0
  * @since	1.5.1	Sets a unique ID attribute for each container, and no longer relies on unique ID's
  *					coming from the server as this failed when page caching was enabled. Fixes issue #15.
+ * @since	1.5.5	Added the 'playsinline' argument to encourage iOS to play YouTube background videos.
+ *					Works! However not when in "Low Power Mode", and not for videos with sound enabled.
  */
 function foyer_slide_bg_video_init_video_placeholders() {
 	// Loop over any video placeholders that are not yet replaced by an iframe
@@ -187,6 +199,7 @@ function foyer_slide_bg_video_init_video_placeholders() {
 					'modestbranding': 1,
 					'rel': 0,
 					'showinfo': 0,
+					'playsinline': 1,
 				},
 				events: {
 					'onReady': foyer_slide_bg_video_prepare_player_for_playback(player_id),
@@ -217,6 +230,8 @@ function foyer_slide_bg_video_load_youtube_api() {
  * @since	1.4.0
  * @since	1.5.1	Video slides no longer play when previewed while editing a Channel.
  *					Muting of video is now optional, based on the foyer-output-sound data attribute.
+ * @since	1.5.5	Invoked a method that resizes the YouTube player to cover the entire slide background
+ *					with video. Also on window resize.
  *
  * @param	string	player_id	The ID of the player
  */
@@ -229,6 +244,12 @@ function foyer_slide_bg_video_prepare_player_for_playback(player_id) {
 
 		// Set player reference
 		var player = window.foyer_yt_players[player_id];
+
+		// Make sure YouTube player covers the entire slide background with video, also on window resize
+		foyer_slide_bg_video_resize_youtube_to_cover(player_id);
+		jQuery(window).on('resize', function() {
+			foyer_slide_bg_video_resize_youtube_to_cover(player_id);
+		});
 
 		if ((window.self != window.top) && (top.location.href.search('/post.php?') != -1)) {
 			// Viewed on a slide displayed within a Channel edit page: don't play video
@@ -251,6 +272,43 @@ function foyer_slide_bg_video_prepare_player_for_playback(player_id) {
 			// pause, so it can start playing whenever it becomes active
 			player.pauseVideo();
 		}
+	}
+}
+
+/**
+ * Resizes the YouTube player to cover the entire slide background with video.
+ *
+ * Invoked whenever a YouTube player is prepared for playback, and on window resize.
+ *
+ * YouTube video always has 16:9 aspect ratio, and is contained within the player iframe.
+ * See: https://codepen.io/ccrch/pen/GgPLVW
+ *
+ * @since	1.5.5
+ *
+ * @param	string	player_id	The ID of the player
+ */
+function foyer_slide_bg_video_resize_youtube_to_cover(player_id) {
+
+	// Set container
+	var container = jQuery('#' + player_id);
+
+	// Set player reference
+	var player = window.foyer_yt_players[player_id];
+
+	var	w = jQuery( window ).width() + 0,
+		h = jQuery( window ).height() + 0;
+
+	// Make the YouTube player 16:9 so the video covers the entire player,
+	// and we can make the player cover the entire slide background
+	if ( w/h > 16/9 ) {
+		var new_h = w/16*9;
+		player.setSize(w, new_h);
+		container.css({'left': '0px'});
+	}
+	else {
+		var new_w = h/9*16;
+		player.setSize(new_w, h);
+		container.css({'left': -(new_w-w)/2});
 	}
 }
 

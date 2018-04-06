@@ -215,6 +215,7 @@ html {
   background-color: #fff;
   position: relative;
   z-index: 1;
+  overflow: hidden;
 }
 .foyer-slide .foyer-slide-field {
   color: #000;
@@ -246,6 +247,7 @@ html {
   left: 0;
   right: 0;
   z-index: -1;
+  overflow: hidden;
 }
 .foyer-slide.foyer-slide-iframe iframe {
   width: 100%;
@@ -422,6 +424,8 @@ html {
 .foyer-slide-background.foyer-slide-background-image figure,
 .foyer-slide-background.foyer-slide-background-default figure {
   margin: 0;
+  width: 100%;
+  height: 100%;
 }
 .foyer-slide-background.foyer-slide-background-image figure img,
 .foyer-slide-background.foyer-slide-background-default figure img {
@@ -431,8 +435,13 @@ html {
      object-fit: cover;
 }
 .foyer-slide-background.foyer-slide-background-video iframe {
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  max-width: none;
 }
 .foyer-slide-background.foyer-slide-background-video video {
   width: 100%;
