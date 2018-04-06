@@ -54,7 +54,7 @@ function foyer_slide_bg_video_bind_display_loading_events() {
  * Binds events to be able to start and stop video playback at the right time, and prevent advancing to the next slide.
  *
  * @since	1.4.0
- * @since	1.6.0	Let the slideshow continue to next slide when the video is not playing. This prevents holding
+ * @since	1.5.5	Let the slideshow continue to next slide when the video is not playing. This prevents holding
  *					the slideshow indefinitely in case of network failure. Fixes #16.
  */
 function foyer_slide_bg_video_bind_ticker_events() {
@@ -150,7 +150,7 @@ function foyer_slide_bg_video_bind_ticker_events() {
  * Used after newly loaded slide groups and replaced channels.
  *
  * @since	1.4.0
- * @since	1.6.0	Removed the resize event trigger for players that are no longer present.
+ * @since	1.5.5	Removed the resize event trigger for players that are no longer present.
  */
 function foyer_slide_bg_video_cleanup_youtube_players() {
 	for (var player_id in window.foyer_yt_players) {
@@ -172,7 +172,7 @@ function foyer_slide_bg_video_cleanup_youtube_players() {
  * @since	1.4.0
  * @since	1.5.1	Sets a unique ID attribute for each container, and no longer relies on unique ID's
  *					coming from the server as this failed when page caching was enabled. Fixes issue #15.
- * @since	1.6.0	Added the 'playsinline' argument to encourage iOS to play YouTube background videos.
+ * @since	1.5.5	Added the 'playsinline' argument to encourage iOS to play YouTube background videos.
  *					Works! However not when in "Low Power Mode", and not for videos with sound enabled.
  */
 function foyer_slide_bg_video_init_video_placeholders() {
@@ -230,7 +230,7 @@ function foyer_slide_bg_video_load_youtube_api() {
  * @since	1.4.0
  * @since	1.5.1	Video slides no longer play when previewed while editing a Channel.
  *					Muting of video is now optional, based on the foyer-output-sound data attribute.
- * @since	1.6.0	Invoked a method that resizes the YouTube player to cover the entire slide background
+ * @since	1.5.5	Invoked a method that resizes the YouTube player to cover the entire slide background
  *					with video. Also on window resize.
  *
  * @param	string	player_id	The ID of the player
@@ -283,7 +283,7 @@ function foyer_slide_bg_video_prepare_player_for_playback(player_id) {
  * YouTube video always has 16:9 aspect ratio, and is contained within the player iframe.
  * See: https://codepen.io/ccrch/pen/GgPLVW
  *
- * @since	1.6.0
+ * @since	1.5.5
  *
  * @param	string	player_id	The ID of the player
  */
