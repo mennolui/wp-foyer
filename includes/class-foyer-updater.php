@@ -14,6 +14,8 @@ class Foyer_Updater {
 	 * Adds an action on init that flushes the rewrite rules.
 	 *
 	 * @since	1.5.4
+	 * @since	1.6.0	Changed the callback from the non-existing method Foyer_Updater::flush_rewrite_rules()
+	 *					to the WordPress core method flush_rewrite_rules(). Fixes #26.
 	 *
 	 * @return	void
 	 */
@@ -29,7 +31,7 @@ class Foyer_Updater {
 		 * When network deactivated and later network activated again this is _not_ fired.
 		 * In this situation rewrite rules could go missing for all sites other than the primary site.
 		 */
-		add_action( 'init', array( __CLASS__ ,'flush_rewrite_rules' ), 6 );
+		add_action( 'init', 'flush_rewrite_rules', 6 );
 	}
 
 	/**
