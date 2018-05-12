@@ -162,6 +162,7 @@ Bug fixes:
 * Fixed a 404 Not Found issue when accessing a display on its pretty permalink in fresh Foyer installs (1.5.3).
 * Fixed an issue where slideshows would not continue to the next slide when the video of the current slide is not playing, eg. in case of prolonged network failure (1.5.5).
 * Fixed an issue where background images were not covering the entire slide, in Edge (1.5.5).
+* Fixed an issue where the rewrite rules are not flushed after plugin update, but a PHP Warning is thrown instead (1.5.6).
 
 = 1.4 =
 Release Date: February 14, 2018
@@ -244,6 +245,9 @@ Bug fixes:
 
 
 == Upgrade Notice ==
+= 1.5.6 =
+Bug fixes and minor enhancements. Check the changelog for full details.
+
 = 1.5.5 =
 Bug fixes and minor enhancements. Check the changelog for full details.
 
