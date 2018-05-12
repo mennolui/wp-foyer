@@ -39,7 +39,7 @@ Foyer comes with build in support for the [Theater for WordPress plugin](https:/
 * Video: Displays a YouTube video, or a specified fragment, as slide background.
 
 More features, slide formats and slide backgrounds are coming soon.
-Eg. <del>a WordPress Post slide, a Title & Text slide,</del> a widgets bar for displaying Time and Weather.
+Eg. uploaded video support, a Page slide, a Recent Posts slide stack, and multiple and recurring scheduled channels. Longer term goals include a widgets bar for displaying Time, Weather and other widgets.
 
 = Feature suggestions wanted! =
 Since this plugin is quite new, I'm curious..
@@ -49,6 +49,12 @@ Since this plugin is quite new, I'm curious..
 * what features are you looking for and are currently missing?
 
 [Send me an email](mailto:menno@mennoluitjes.nl) to let me know!
+
+= Translate Foyer into your native language =
+
+Chinese, French, Swedish, Italian, Arabic, ... Have you ever translated a WordPress plugin, or want to give it a try? [Find your language here](https://translate.wordpress.org/projects/wp-plugins/foyer) and translate some Foyer strings. Improvements of existing Foyer translations are welcome too.
+
+Whenever 90% or more of all strings in the _Development_ project (_Development Readme_ translations do not count) are translated send me a message. I will make sure a language pack for your language will be created.
 
 == Donations ==
 
@@ -102,7 +108,7 @@ You might want to use hardware that supports auto power-on after power outage. A
 You choose! Install your digital sign the way you prefer. Foyer will follow. Slide templates are designed to work in both landscape and portrait mode. Only the background image will be cropped differently, of course.
 
 = Can I change the looks of slides? =
-Yes, this is possible if you know how to write CSS. Just include some CSS in the theme of your website that targets the slide HTML. If you don't have access to the theme you can use a custom CSS plugin to add some CSS.
+Yes, this is possible if you know how to write CSS. Just include some CSS in the theme of your website that targets the slide HTML. If you don't have access to the theme you can add some CSS using the WordPress Customizer.
 
 = Can I change the template of a slide format? =
 Yes, this is possible if you know how to write WordPress templates. Create a foyer/slides/ directory in your theme. Next locate the template of the slide format you want to change in the public/templates/slides/ directory in the Foyer plugin directory. Copy the template file to your foyer/slides/ directory, without changing the filename. You should find the template in your theme now overrules the template included with the plugin. Note that this plugin is still in its early stages of development. You might have to copy the latest version of the template file and reapply your changes when major changes to the plugin are released.
