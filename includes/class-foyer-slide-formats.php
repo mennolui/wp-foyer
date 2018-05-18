@@ -174,6 +174,41 @@ class Foyer_Slide_Formats {
 	}
 
 	/**
+	 * Adds the Revslider slide format.
+	 *
+	 * @since	1.6.0
+	 *
+	 * @param 	array	$slide_formats	The current slide formats.
+	 * @return	array					The slide formats with the Revslider slide format added.
+	 */
+	static function add_revslider_slide_format( $slide_formats ) {
+
+		if ( ! Foyer_Revslider::is_revslider_activated() ) {
+			return $slide_formats;
+		}
+
+		$slide_format_backgrounds = array( 'default' );
+
+		/**
+		 * Filter available slide backgrounds for this slide format.
+		 *
+		 * @since	1.6.0
+		 * @param	array	$slide_format_backgrounds	The currently available slide backgrounds for this slide format.
+		 */
+		$slide_format_backgrounds = apply_filters( 'foyer/slides/backgrounds/format=revslider', $slide_format_backgrounds );
+
+		$slide_formats['revslider'] = array(
+			'title' => _x( 'Slider Revolution', 'slide-format', 'foyer' ),
+			'description' => __( 'Displays a Slider Revolution slideshow.', 'foyer' ),
+			'meta_box' => array( 'Foyer_Admin_Slide_Format_Revslider', 'slide_meta_box' ),
+			'save_post' => array( 'Foyer_Admin_Slide_Format_Revslider', 'save_slide' ),
+			'slide_backgrounds' => $slide_format_backgrounds,
+			'stack' => true,
+		);
+		return $slide_formats;
+	}
+
+	/**
 	 * Adds the Text slide format.
 	 *
 	 * @since	1.5.0

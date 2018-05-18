@@ -119,6 +119,7 @@ class Foyer_Admin {
 	 * @since	1.4.0	Included admin/class-foyer-admin-slide-background-image.php.
 	 *					Included admin/class-foyer-admin-slide-background-video.php.
 	 *					Removed include admin/class-foyer-admin-slide-format-video.php.
+	 * @since	1.6.0	Included admin/class-foyer-admin-slide-format-revslider.php.
 	 *
 	 * @access	private
 	 */
@@ -145,6 +146,7 @@ class Foyer_Admin {
 		require_once FOYER_PLUGIN_PATH . 'admin/class-foyer-admin-slide-format-pdf.php';
 		require_once FOYER_PLUGIN_PATH . 'admin/class-foyer-admin-slide-format-post.php';
 		require_once FOYER_PLUGIN_PATH . 'admin/class-foyer-admin-slide-format-production.php';
+		require_once FOYER_PLUGIN_PATH . 'admin/class-foyer-admin-slide-format-revslider.php';
 		require_once FOYER_PLUGIN_PATH . 'admin/class-foyer-admin-slide-format-text.php';
 	}
 }

@@ -30,6 +30,7 @@ class Foyer {
 	 * @since	1.5.3	Changed priority of Foyer_Setup::register_post_types() on init to 5 to make sure it is
 	 *					triggered before filters with default priority, and before the occasional flush_rewrite_rules()
 	 *					after updating.
+	 * @since	1.6.0	Registered a hook for the Revslider slide format.
 	 */
 	static function init() {
 
@@ -56,6 +57,7 @@ class Foyer {
 		add_filter( 'foyer/slides/formats', array( 'Foyer_Slide_Formats', 'add_production_slide_format' ), 5 );
 		add_filter( 'foyer/slides/formats', array( 'Foyer_Slide_Formats', 'add_iframe_slide_format' ), 5 );
 		add_filter( 'foyer/slides/formats', array( 'Foyer_Slide_Formats', 'add_pdf_slide_format' ), 5 );
+		add_filter( 'foyer/slides/formats', array( 'Foyer_Slide_Formats', 'add_revslider_slide_format' ), 5 );
 	}
 
 	/**
@@ -100,6 +102,7 @@ class Foyer {
 	 * 					Included includes/class-foyer-updater.php.
 	 * 					Included includes/class-foyer-displays.php.
 	 * 					Included includes/class-foyer-channels.php.
+	 * @since	1.6.0	Included includes/class-foyer-revslider.php.
 	 *
 	 * @access	private
 	 */
@@ -136,6 +139,9 @@ class Foyer {
 
 		/* Theater for WordPress helper functions. */
 		require_once FOYER_PLUGIN_PATH . 'includes/class-foyer-theater.php';
+
+		/* RevSlider helper functions. */
+		require_once FOYER_PLUGIN_PATH . 'includes/class-foyer-revslider.php';
 
 
 		/**
