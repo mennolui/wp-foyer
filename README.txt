@@ -41,14 +41,9 @@ Foyer comes with build in support for the [Theater for WordPress plugin](https:/
 More features, slide formats and slide backgrounds are coming soon.
 Eg. uploaded video support, a Page slide, a Recent Posts slide stack, and multiple and recurring scheduled channels. Longer term goals include a widgets bar for displaying Time, Weather and other widgets.
 
-= Feature suggestions wanted! =
-Since this plugin is quite new, I'm curious..
+= Missing feature? =
 
-* how do you plan to use it?
-* in what environment (theater foyer, school canteen, hotel lobby, private office, shop window, ..)?
-* what features are you looking for and are currently missing?
-
-[Send me an email](mailto:menno@mennoluitjes.nl) to let me know!
+Let me know! Create a request in the [support forum](https://wordpress.org/support/plugin/foyer).
 
 = Translate Foyer into your native language =
 
