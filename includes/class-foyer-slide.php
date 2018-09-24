@@ -44,11 +44,12 @@ class Foyer_Slide {
 	 * Outputs the background template HTML for use in the slide format template.
 	 *
 	 * @since	1.4.0
+	 * @since	1.X.X	Added support for template args.
 	 *
 	 * @return	string	The background template HTML.
 	 */
-	public function background() {
-		Foyer_Templates::get_template( 'slides/backgrounds/' . $this->get_background() . '.php' );
+	public function background( $template_args = false ) {
+		Foyer_Templates::get_template( 'slides/backgrounds/' . $this->get_background() . '.php', $template_args );
 	}
 
 	/**
@@ -141,12 +142,13 @@ class Foyer_Slide {
 	 * Used in the Default slide background template.
 	 *
 	 * @since	1.4.0
+	 * @since	1.X.X	Added support for template args.
 	 *
 	 * @return	string	The slide format's default background template HTML.
 	 */
-	public function default_background() {
+	public function default_background( $template_args = false ) {
 		if ( Foyer_Slides::slide_format_has_default_background_template( self::get_format() ) ) {
-			Foyer_Templates::get_template( 'slides/backgrounds/default-' . $this->get_format() . '.php' );
+			Foyer_Templates::get_template( 'slides/backgrounds/default-' . $this->get_format() . '.php', $template_args );
 		}
 	}
 
