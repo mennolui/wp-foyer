@@ -17,7 +17,7 @@ class Foyer_Templates {
 	 * Search for the template and include the file.
 	 *
 	 * @since	1.0.0
-	 * @since	1.X.X	Renamed the overly generic $args to $template_args so it can be re-used within templates.
+	 * @since	1.5.7	Renamed the overly generic $args to $template_args so it can be re-used within templates.
 	 *
 	 * @param	string 	$template_name			Template to load.
 	 * @param	array 	$template_args			Args passed for the template file.

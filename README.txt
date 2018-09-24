@@ -149,6 +149,7 @@ Enhancements:
 * Added a Web App manifest that enables displays to launch full screen on Android (1.5.4). Just tap 'Add to Home screen' from the Chrome menu and launch this shortcut.
 * Encouraged iOS to play YouTube background videos (1.5.5). Works! However not when in "Low Power Mode", and not for videos with sound enabled.
 * YouTube videos now cover the entire slide background (1.5.5). Hello vertical videos!
+* Added support for passing on template args to slide backgrounds, so developers (and I) can code more complex slide stacks (1.5.7).
 
 Bug fixes:
 
@@ -240,6 +241,9 @@ Bug fixes:
 
 
 == Upgrade Notice ==
+= 1.5.7 =
+Bug fixes and minor enhancements. Check the changelog for full details.
+
 = 1.5.6 =
 Bug fixes and minor enhancements. Check the changelog for full details.
 

@@ -44,7 +44,7 @@ class Foyer_Slide {
 	 * Outputs the background template HTML for use in the slide format template.
 	 *
 	 * @since	1.4.0
-	 * @since	1.X.X	Added support for template args.
+	 * @since	1.5.7	Added support for template args.
 	 *
 	 * @return	string	The background template HTML.
 	 */
@@ -142,7 +142,7 @@ class Foyer_Slide {
 	 * Used in the Default slide background template.
 	 *
 	 * @since	1.4.0
-	 * @since	1.X.X	Added support for template args.
+	 * @since	1.5.7	Added support for template args.
 	 *
 	 * @return	string	The slide format's default background template HTML.
 	 */

@@ -3,7 +3,7 @@
  * Default slide background template.
  *
  * @since	1.4.0
- * @since	1.X.X	Added support for passing on template args.
+ * @since	1.5.7	Added support for passing on template args.
  */
 
 $slide = new Foyer_Slide( get_the_id() );
