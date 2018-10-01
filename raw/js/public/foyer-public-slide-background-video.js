@@ -3,7 +3,7 @@ var foyer_yt_players = {};
 var foyer_yt_api_ready = false;
 
 /**
- * Sets up the Video slide background public functionality.
+ * Sets up the YouTube Video slide background public functionality.
  *
  * Functionality was copied from foyer-public-slide-video.js (since 1.2.0, removed in 1.4.0).
  *
@@ -12,7 +12,7 @@ var foyer_yt_api_ready = false;
 jQuery(document).ready(function() {
 
 	if (jQuery(foyer_slide_bg_video_selector).length) {
-		// Our view includes video slides, load YouTube API and bind events
+		// Our view includes YouTube Video slides, load YouTube API and bind events
 		foyer_slide_bg_video_load_youtube_api();
 		foyer_slide_bg_video_bind_display_loading_events();
 		foyer_slide_bg_video_bind_ticker_events();
