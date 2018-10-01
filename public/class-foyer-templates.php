@@ -17,16 +17,17 @@ class Foyer_Templates {
 	 * Search for the template and include the file.
 	 *
 	 * @since	1.0.0
+	 * @since	1.5.7	Renamed the overly generic $args to $template_args so it can be re-used within templates.
 	 *
 	 * @param	string 	$template_name			Template to load.
-	 * @param	array 	$args					Args passed for the template file.
+	 * @param	array 	$template_args			Args passed for the template file.
 	 * @param	string 	$string $template_path	Path to templates.
 	 * @param	string	$default_path			Default path to template files.
 	 * @return	void
 	 */
-	static function get_template( $template_name, $args = array(), $template_path = '', $default_path = '' ) {
-		if ( is_array( $args ) && isset( $args ) ) {
-			extract( $args );
+	static function get_template( $template_name, $template_args = array(), $template_path = '', $default_path = '' ) {
+		if ( is_array( $template_args ) && isset( $template_args ) ) {
+			extract( $template_args );
 		}
 		$template_file = self::locate_template( $template_name, $template_path, $default_path );
 		if ( ! file_exists( $template_file ) ) {
