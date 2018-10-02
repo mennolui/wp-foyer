@@ -55,7 +55,7 @@ class Foyer_Admin_Slide_Background_Image {
 					</th>
 					<td>
 						<div class="slide_file_field file_type_image<?php if ( empty( $slide_bg_image_image ) ) { ?> empty<?php } ?>">
-							<div class="image-preview-wrapper">
+							<div class="slide_file_preview_wrapper">
 								<img class="slide_file_preview" src="<?php echo esc_url( wp_get_attachment_url( $slide_bg_image_image ) ); ?>">
 							</div>
 

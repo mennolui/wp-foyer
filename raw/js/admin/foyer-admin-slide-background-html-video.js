@@ -6,12 +6,14 @@
 jQuery( function() {
 
 	if (jQuery('#slide_bg_html5_video_video_url').val() && jQuery('#slide_bg_html5_video_video_url').val().length) {
-		// YouTube video URL is set on load, load preview
+		// HTML5 Video URL is set on load, load preview
+		foyer_admin_slide_bg_html5_video_update_url_status();
 		foyer_admin_slide_bg_html5_video_update_youtube_video_preview();
 	}
 
 	jQuery('#slide_bg_html5_video_video_url').on('change', function() {
 		// Update player with changed URL
+		foyer_admin_slide_bg_html5_video_update_url_status();
 		foyer_admin_slide_bg_html5_video_update_youtube_video_preview();
 	});
 
@@ -42,7 +44,7 @@ jQuery( function() {
 function foyer_admin_slide_bg_html5_video_update_player_mute() {
 
 	// Set video reference
-	var vid = jQuery('#foyer-admin-html5-video-preview video').get(0);
+	var vid = jQuery('#slide_bg_html5_video_video_preview').get(0);
 
 	if (vid) {
 
@@ -52,6 +54,17 @@ function foyer_admin_slide_bg_html5_video_update_player_mute() {
 		else {
 			vid.muted = true;
 		}
+	}
+}
+
+function foyer_admin_slide_bg_html5_video_update_url_status() {
+	if (jQuery('#slide_bg_html5_video_video_url').val().length) {
+		// HTML5 Video URL is set, remove empty class
+		jQuery('#slide_bg_html5_video_file_field').removeClass('empty');
+	}
+	else {
+		// No HTML5 Video URL set, add empty class
+		jQuery('#slide_bg_html5_video_file_field').addClass('empty');
 	}
 }
 
@@ -65,7 +78,7 @@ function foyer_admin_slide_bg_html5_video_update_youtube_video_preview() {
 		// Video URL is set, update preview
 
 		// Set video reference
-		var vid = jQuery('#foyer-admin-html5-video-preview video').get(0);
+		var vid = jQuery('#slide_bg_html5_video_video_preview').get(0);
 
 		if (vid) {
 
@@ -92,7 +105,6 @@ function foyer_admin_slide_bg_html5_video_update_youtube_video_preview() {
 			vid.play();
 
 			jQuery('#slide_bg_html5_video_video_url_notification').addClass('hidden');
-
 
 			vid.ontimeupdate = function() {
 

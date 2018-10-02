@@ -20,6 +20,11 @@ class Foyer_Admin_Slide_Background_Html5_Video {
 	 * @return	void
 	 */
 	static function save_slide_background( $post_id ) {
+		$slide_bg_html5_video_video = intval( $_POST['slide_bg_html5_video_video'] );
+		if ( empty( $slide_bg_html5_video_video ) ) {
+			$slide_bg_html5_video_video = '';
+		}
+
 		$slide_bg_html5_video_video_url = sanitize_text_field( $_POST['slide_bg_html5_video_video_url'] );
 
 		$slide_bg_html5_video_video_start = intval( $_POST['slide_bg_html5_video_video_start'] );
@@ -48,6 +53,7 @@ class Foyer_Admin_Slide_Background_Html5_Video {
 			}
 		}
 
+		update_post_meta( $post_id, 'slide_bg_html5_video_video', $slide_bg_html5_video_video );
 		update_post_meta( $post_id, 'slide_bg_html5_video_video_url', $slide_bg_html5_video_video_url );
 		update_post_meta( $post_id, 'slide_bg_html5_video_video_start', $slide_bg_html5_video_video_start );
 		update_post_meta( $post_id, 'slide_bg_html5_video_video_end', $slide_bg_html5_video_video_end );
@@ -67,6 +73,7 @@ class Foyer_Admin_Slide_Background_Html5_Video {
 
 		wp_enqueue_media();
 
+		$slide_bg_html5_video_video = get_post_meta( $post->ID, 'slide_bg_html5_video_video', true );
 		$slide_bg_html5_video_video_url = get_post_meta( $post->ID, 'slide_bg_html5_video_video_url', true );
 		$slide_bg_html5_video_video_start = get_post_meta( $post->ID, 'slide_bg_html5_video_video_start', true );
 		$slide_bg_html5_video_video_end = get_post_meta( $post->ID, 'slide_bg_html5_video_video_end', true );
@@ -77,30 +84,21 @@ class Foyer_Admin_Slide_Background_Html5_Video {
 			<tbody>
 				<tr>
 					<th scope="row">
-						<label for="slide_bg_html5_video_video_url"><?php _e('Video file URL', 'foyer'); ?></label>
+						<label for="slide_bg_html5_video_video_url"><?php _e( 'Video file', 'foyer' ); ?></label>
 					</th>
 					<td>
-						<input type="text" name="slide_bg_html5_video_video_url" id="slide_bg_html5_video_video_url" class="all-options"
-							value="<?php echo $slide_bg_html5_video_video_url; ?>" />
-						<p class="wp-ui-text-notification hidden" id="slide_bg_html5_video_video_url_notification">
-							<?php printf( esc_html__( 'Unable to play video. Please check if the URL is valid, eg. %s', 'foyer' ), 'https://archive.org/24/items/WildlifeSampleVideo/Wildlife.mp4' ); ?>
-						</p>
-					</td>
-				</tr>
-				<tr>
-					<th scope="row">
-						<label for="slide_bg_image_image"><?php esc_html_e( 'Video file', 'foyer' ); ?></label>
-					</th>
-					<td>
-						<div class="slide_image_field file_type_video<?php if ( empty( $slide_bg_image_image ) ) { ?> empty<?php } ?>">
-							<div class="image-preview-wrapper">
-								<img class="slide_image_preview" src="<?php echo esc_url( wp_get_attachment_url( $slide_bg_image_image ) ); ?>">
-							</div>
+						<div class="slide_file_field file_type_video<?php if ( empty( $slide_bg_image_image ) ) { ?> empty<?php } ?>" id="slide_bg_html5_video_file_field">
 
-							<input type="button" class="button slide_image_upload_button" value="<?php esc_html_e( 'Upload image', 'foyer' ); ?>" />
-							<input type="button" class="button slide_image_delete_button" value="<?php esc_html_e( 'Remove image', 'foyer' ); ?>" />
-							<input type="hidden" name="slide_bg_image_image" class="slide_image_value" value='<?php echo intval( $slide_bg_image_image ); ?>'>
-							<p><?php _e( 'For the best results use an image that is at least 1920 x 1080 pixels (landscape), or 1080 x 1920 pixels (portrait).', 'foyer' ); ?></p>
+							<input type="text" name="slide_bg_html5_video_video_url" id="slide_bg_html5_video_video_url" class="large-text slide_file_value_url" value="<?php echo $slide_bg_html5_video_video_url; ?>" />
+
+							<p class="wp-ui-text-notification hidden" id="slide_bg_html5_video_video_url_notification">
+								<?php printf( esc_html__( 'Unable to play video. Please check if the URL is valid, eg. %s', 'foyer' ), 'https://archive.org/24/items/WildlifeSampleVideo/Wildlife.mp4' ); ?>
+							</p>
+
+							<input type="button" class="button slide_file_upload_button" value="<?php esc_html_e( 'Select video', 'foyer' ); ?>" />
+							<input type="button" class="button slide_file_delete_button" value="<?php esc_html_e( 'Remove video', 'foyer' ); ?>" />
+							<input type="hidden" name="slide_bg_html5_video_video" class="slide_file_value" value='<?php echo intval( $slide_bg_html5_video_video ); ?>'>
+							<p class="slide_file_empty_message"><?php _e( 'Select a video or manually enter a video URL.', 'foyer' ); ?> <?php _e( 'For the best results use an MP4 video that is at least 1920 x 1080 pixels (landscape), or 1080 x 1920 pixels (portrait).', 'foyer' ); ?></p>
 						</div>
 					</td>
 				</tr>
@@ -149,8 +147,8 @@ class Foyer_Admin_Slide_Background_Html5_Video {
 						<label for="slide_bg_html5_video_video_preview"><?php _e('Preview', 'foyer'); ?></label>
 					</th>
 					<td>
-						<div id="foyer-admin-html5-video-preview">
-							<video preload="auto" playsinline class="slide-html5-video-preview">
+						<div class="slide_file_preview_wrapper">
+							<video preload="auto" playsinline class="slide_file_preview" id="slide_bg_html5_video_video_preview">
 								<source src="">
 							</video>
 						</div>

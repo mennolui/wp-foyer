@@ -22,18 +22,17 @@ div[id^=foyer_slide_background_] {
 .slide_file_field .slide_file_delete_button {
 	margin-top: 14px;
 }
-.slide_file_field .slide_file_preview,
-foyer-admin-html5-video-preview .slide_file_preview {
+.slide_file_preview {
 	display: block;
 	max-width: 480px;
 	max-height: 480px;
 }
-.slide_file_field p {
+.slide_file_field p.slide_file_empty_message {
 	display: none;
 	color: @wp-form-alt-txt-color;
 	margin-top: 1em !important;
 }
-.slide_file_field.empty p {
+.slide_file_field.empty p.slide_file_empty_message {
 	display: block;
 }
 

@@ -108,8 +108,10 @@ jQuery( function() {
  *					the image was already in the media library.
  * @since	1.5.2	Removed setting the width to auto on the preview image, sizing is now done with CSS.
  * @since	1.6.0	Limited the media selector to certain file types, based on newly added file_type_* classes.
- * @since	1.X.X	Renamed everything slide_image_* to slide_file_*.
+ * @since	1.X.X	Renamed everything slide_image_* to slide_file_*, image_preview_url to file_preview_url.
  *					Displayed different texts in the media frame for each file type.
+ *					Set the value of a new possible input to contain the attachment url.
+ *					Triggered the change event after setting input values.
  *
  * Based on: http://jeroensormani.com/how-to-include-the-wordpress-media-selector-in-your-plugin/
  */
@@ -165,16 +167,22 @@ jQuery( function() {
 				attachment = file_frame.state().get('selection').first().toJSON();
 
 				// Do something with attachment.id and/or attachment.url here
-				var image_preview_url;
-console.log(attachment);
+				var file_preview_url;
+
 				if (typeof(attachment.sizes) !== 'undefined' && typeof(attachment.sizes.full.url) !== 'undefined') {
-					image_preview_url = attachment.sizes.full.url;
+					file_preview_url = attachment.sizes.full.url;
 				}
 				else {
-					image_preview_url = attachment.url;
+					file_preview_url = attachment.url;
 				}
-				slide_file_field.find('.slide_file_preview').attr('src', image_preview_url);
+
+				slide_file_field.find('.slide_file_preview').attr('src', file_preview_url);
+
+				slide_file_field.find('.slide_file_value_url').val(attachment.url);
+				slide_file_field.find('.slide_file_value_url').trigger('change');
+
 				slide_file_field.find('.slide_file_value').val(attachment.id);
+				slide_file_field.find('.slide_file_value').trigger('change');
 
 				// Restore the main post ID
 				wp.media.model.settings.post.id = wp_media_post_id;
@@ -192,8 +200,15 @@ console.log(attachment);
 			var file_frame;
 			event.preventDefault();
 			slide_file_field = jQuery(this).parent();
+
 			slide_file_field.find('.slide_file_preview').attr('src', '');
+
+			slide_file_field.find('.slide_file_value_url').val('');
+			slide_file_field.find('.slide_file_value_url').trigger('change');
+
 			slide_file_field.find('.slide_file_value').val('');
+			slide_file_field.find('.slide_file_value').trigger('change');
+
 			slide_file_field.addClass('empty');
 		});
 

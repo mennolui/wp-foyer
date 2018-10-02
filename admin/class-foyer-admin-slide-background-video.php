@@ -65,6 +65,7 @@ class Foyer_Admin_Slide_Background_Video {
 	 *
 	 * @since	1.4.0
 	 * @since	1.5.1	Added a slide_bg_video_enable_sound option.
+	 * @since	1.X.X	Displayed the YouTube video URL input with class large-text.
 	 *
 	 * @param	WP_Post	$post	The post of the current slide.
 	 * @return	void
@@ -85,7 +86,7 @@ class Foyer_Admin_Slide_Background_Video {
 					</th>
 					<td>
 						<input type="hidden" name="slide_bg_video_video_id" id="slide_bg_video_video_id" value="" />
-						<input type="text" name="slide_bg_video_video_url" id="slide_bg_video_video_url" class="all-options"
+						<input type="text" name="slide_bg_video_video_url" id="slide_bg_video_video_url" class="large-text"
 							value="<?php echo $slide_bg_video_video_url; ?>" />
 						<p class="wp-ui-text-notification hidden" id="slide_bg_video_video_url_notification">
 							<?php printf( esc_html__( 'Not a valid YouTube video URL, eg. %s', 'foyer' ), 'https://youtu.be/MlQunle406U' ); ?>
