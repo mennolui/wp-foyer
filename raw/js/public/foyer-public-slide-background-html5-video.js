@@ -50,7 +50,7 @@ function foyer_slide_bg_html5_video_bind_ticker_events() {
 						// Monitor play progress to trigger next slide when video almost ended
 						vid.ontimeupdate = function() {
 
-							if (foyer_slide_bg_html5_video_is_almost_ended($container, vid)) {
+							if (foyer_slide_bg_html5_video_is_almost_ended($container, this)) {
 								// Video almost ended, time for next slide
 								jQuery(foyer_slides_selector).trigger('slides:next-slide');
 							}

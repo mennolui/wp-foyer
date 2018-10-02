@@ -23,7 +23,7 @@ if ( ! empty( $video_url ) ) {
 			data-foyer-output-sound="<?php echo $enable_sound; ?>"
 		>
 			<video preload="auto" playsinline data-object-fit>
-				<source type="video/mp4" src="<?php echo $video_url; ?>">
+				<source src="<?php echo $video_url; ?>">
 			</video>
 		</div>
 	</div><?php

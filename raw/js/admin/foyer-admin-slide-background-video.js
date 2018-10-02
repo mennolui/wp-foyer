@@ -69,7 +69,7 @@ function foyer_admin_slide_bg_video_prepare_player_for_playback() {
 /**
  * Updates the slide admin video preview player's mute status.
  *
- * Invoked whenever a video starts playing, or .
+ * Invoked whenever a video starts playing, or the mute property is toggled by the user.
  *
  * @since	1.5.1
  */
