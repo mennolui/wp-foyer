@@ -100,6 +100,11 @@ div[id^=foyer_slide_background_] {
 .slide_image_field.empty p {
   display: block;
 }
+.slide-html5-video-preview {
+  display: block;
+  max-width: 480px;
+  max-height: 480px;
+}
 .foyer_slide_select_format_background {
   display: -webkit-box;
   display: -ms-flexbox;

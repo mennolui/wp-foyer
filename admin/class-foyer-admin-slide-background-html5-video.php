@@ -82,6 +82,9 @@ class Foyer_Admin_Slide_Background_Html5_Video {
 					<td>
 						<input type="text" name="slide_bg_html5_video_video_url" id="slide_bg_html5_video_video_url" class="all-options"
 							value="<?php echo $slide_bg_html5_video_video_url; ?>" />
+						<p class="wp-ui-text-notification hidden" id="slide_bg_html5_video_video_url_notification">
+							<?php printf( esc_html__( 'Unable to play video. Please check if the URL is valid, eg. %s', 'foyer' ), 'https://archive.org/24/items/WildlifeSampleVideo/Wildlife.mp4' ); ?>
+						</p>
 					</td>
 				</tr>
 				<tr>
@@ -146,7 +149,11 @@ class Foyer_Admin_Slide_Background_Html5_Video {
 						<label for="slide_bg_html5_video_video_preview"><?php _e('Preview', 'foyer'); ?></label>
 					</th>
 					<td>
-						<div class="youtube-video-container" id="foyer-admin-video-preview"></div>
+						<div id="foyer-admin-html5-video-preview">
+							<video preload="auto" playsinline class="slide-html5-video-preview">
+								<source src="">
+							</video>
+						</div>
 					</td>
 				</tr>
 			</tbody>
