@@ -8,38 +8,33 @@ div[id^=foyer_slide_background_] {
 	display: none;
 }
 
-.slide_image_field .slide_image_upload_button {
+.slide_file_field .slide_file_upload_button {
 	display: none;
 }
-.slide_image_field.empty .image-preview-wrapper,
-.slide_image_field.empty .slide_image_delete_button {
+.slide_file_field.empty .slide_file_preview,
+.slide_file_field.empty .slide_file_delete_button {
 	display: none;
 }
-.slide_image_field.empty .slide_image_upload_button {
+.slide_file_field.empty .slide_file_upload_button {
 	display: inline;
 }
-.slide_image_field .slide_image_upload_button,
-.slide_image_field .slide_image_delete_button {
+.slide_file_field .slide_file_upload_button,
+.slide_file_field .slide_file_delete_button {
 	margin-top: 14px;
 }
-.slide_image_field .slide_image_preview {
+.slide_file_field .slide_file_preview,
+foyer-admin-html5-video-preview .slide_file_preview {
 	display: block;
 	max-width: 480px;
 	max-height: 480px;
 }
-.slide_image_field p {
+.slide_file_field p {
 	display: none;
 	color: @wp-form-alt-txt-color;
 	margin-top: 1em !important;
 }
-.slide_image_field.empty p {
+.slide_file_field.empty p {
 	display: block;
-}
-
-.slide-html5-video-preview {
-	display: block;
-	max-width: 480px;
-	max-height: 480px;
 }
 
 .foyer_slide_select_format_background {

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Adds admin functionality for the Video slide background.
+ * Adds admin functionality for the YouTube Video slide background.
  *
  * Functionality was copied from Foyer_Admin_Slide_Format_Video (removed in 1.4.0).
  *

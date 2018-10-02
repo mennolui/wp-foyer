@@ -36,6 +36,7 @@ class Foyer_Admin_Slide_Background_Image {
 	 * @since	1.4.0
 	 * @since	1.5.2	Added a hint about minimal image sizes.
 	 *					Removed the height attribute of the preview image, sizing is now done with CSS.
+	 * @since	1.X.X	Renamed everything slide_image_* to slide_file_*, and 'Upload image' to 'Select image'.
 	 *
 	 * @param 	WP_Post	$post	The post of the slide that is being edited.
 	 * @return 	void
@@ -53,14 +54,14 @@ class Foyer_Admin_Slide_Background_Image {
 						<label for="slide_bg_image_image"><?php esc_html_e( 'Background image', 'foyer' ); ?></label>
 					</th>
 					<td>
-						<div class="slide_image_field<?php if ( empty( $slide_bg_image_image ) ) { ?> empty<?php } ?>">
+						<div class="slide_file_field file_type_image<?php if ( empty( $slide_bg_image_image ) ) { ?> empty<?php } ?>">
 							<div class="image-preview-wrapper">
-								<img class="slide_image_preview" src="<?php echo esc_url( wp_get_attachment_url( $slide_bg_image_image ) ); ?>">
+								<img class="slide_file_preview" src="<?php echo esc_url( wp_get_attachment_url( $slide_bg_image_image ) ); ?>">
 							</div>
 
-							<input type="button" class="button slide_image_upload_button" value="<?php esc_html_e( 'Upload image', 'foyer' ); ?>" />
-							<input type="button" class="button slide_image_delete_button" value="<?php esc_html_e( 'Remove image', 'foyer' ); ?>" />
-							<input type="hidden" name="slide_bg_image_image" class="slide_image_value" value='<?php echo intval( $slide_bg_image_image ); ?>'>
+							<input type="button" class="button slide_file_upload_button" value="<?php esc_html_e( 'Select image', 'foyer' ); ?>" />
+							<input type="button" class="button slide_file_delete_button" value="<?php esc_html_e( 'Remove image', 'foyer' ); ?>" />
+							<input type="hidden" name="slide_bg_image_image" class="slide_file_value" value='<?php echo intval( $slide_bg_image_image ); ?>'>
 							<p><?php _e( 'For the best results use an image that is at least 1920 x 1080 pixels (landscape), or 1080 x 1920 pixels (portrait).', 'foyer' ); ?></p>
 						</div>
 					</td>

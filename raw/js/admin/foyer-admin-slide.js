@@ -101,13 +101,15 @@ jQuery( function() {
 });
 
 /**
- * Handle file uploads for slide image fields
+ * Handle file uploads for slide file fields.
  *
  * @since	1.0.0
  * @since	1.1.3	Fixed an issue where adding an image to a slide was only possible when
  *					the image was already in the media library.
  * @since	1.5.2	Removed setting the width to auto on the preview image, sizing is now done with CSS.
  * @since	1.6.0	Limited the media selector to certain file types, based on newly added file_type_* classes.
+ * @since	1.X.X	Renamed everything slide_image_* to slide_file_*.
+ *					Displayed different texts in the media frame for each file type.
  *
  * Based on: http://jeroensormani.com/how-to-include-the-wordpress-media-selector-in-your-plugin/
  */
@@ -119,21 +121,21 @@ jQuery( function() {
 	if (wp.media) {
 		wp_media_post_id = wp.media.model.settings.post.id;
 
-		jQuery('.slide_image_upload_button').on('click', function(event) {
-			var slide_image_field;
+		jQuery('.slide_file_upload_button').on('click', function(event) {
+			var slide_file_field;
 			var file_frame;
 			var file_type = 'image';
 
-			if ( jQuery(this).parent('.slide_image_field').hasClass('file_type_video') ) {
+			if ( jQuery(this).parent('.slide_file_field').hasClass('file_type_video') ) {
 				file_type = 'video';
 			}
-			if ( jQuery(this).parent('.slide_image_field').hasClass('file_type_pdf') ) {
+			if ( jQuery(this).parent('.slide_file_field').hasClass('file_type_pdf') ) {
 				file_type = 'application/pdf';
 			}
 
 			event.preventDefault();
 
-			slide_image_field = jQuery(this).parent();
+			slide_file_field = jQuery(this).parent();
 
 			// If the media frame already exists, reopen it.
 			if (file_frame) {
@@ -145,9 +147,9 @@ jQuery( function() {
 
 			// Create the media frame.
 			file_frame = wp.media.frames.file_frame = wp.media({
-				title: foyer_slide_image_defaults.text_select_photo,
+				title: foyer_slide_file_defaults[file_type].text_select,
 				button: {
-					text: foyer_slide_image_defaults.text_use_photo
+					text: foyer_slide_file_defaults[file_type].text_use
 				},
 				library: {
 					type: file_type
@@ -164,20 +166,20 @@ jQuery( function() {
 
 				// Do something with attachment.id and/or attachment.url here
 				var image_preview_url;
-
+console.log(attachment);
 				if (typeof(attachment.sizes) !== 'undefined' && typeof(attachment.sizes.full.url) !== 'undefined') {
 					image_preview_url = attachment.sizes.full.url;
 				}
 				else {
 					image_preview_url = attachment.url;
 				}
-				slide_image_field.find('.slide_image_preview').attr('src', image_preview_url);
-				slide_image_field.find('.slide_image_value').val(attachment.id);
+				slide_file_field.find('.slide_file_preview').attr('src', image_preview_url);
+				slide_file_field.find('.slide_file_value').val(attachment.id);
 
 				// Restore the main post ID
 				wp.media.model.settings.post.id = wp_media_post_id;
 
-				slide_image_field.removeClass('empty');
+				slide_file_field.removeClass('empty');
 			});
 
 			// Finally, open the modal
@@ -185,14 +187,14 @@ jQuery( function() {
 		});
 
 		// Delete the selected image.
-		jQuery('.slide_image_delete_button').on('click', function(event) {
-			var slide_image_field;
+		jQuery('.slide_file_delete_button').on('click', function(event) {
+			var slide_file_field;
 			var file_frame;
 			event.preventDefault();
-			slide_image_field = jQuery(this).parent();
-			slide_image_field.find('.slide_image_preview').attr('src', '');
-			slide_image_field.find('.slide_image_value').val('');
-			slide_image_field.addClass('empty');
+			slide_file_field = jQuery(this).parent();
+			slide_file_field.find('.slide_file_preview').attr('src', '');
+			slide_file_field.find('.slide_file_value').val('');
+			slide_file_field.addClass('empty');
 		});
 
 		// Restore the main ID when the add media button is pressed

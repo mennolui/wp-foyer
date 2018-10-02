@@ -255,6 +255,7 @@ class Foyer_Admin_Slide_Format_PDF {
 	 * @since	1.3.1	Added notifications when PDF processing is not supported (no Imagick/Ghostscript installed),
 	 *					and when PDF file previews don’t work (PHP < 4.7).
 	 * @since	1.3.2	Removed the notifications added in 1.3.1 as they proved to be unreliable.
+	 * @since	1.X.X	Renamed everything slide_image_* to slide_file_*, and 'Upload PDF' to 'Select PDF'.
 	 *
 	 * @param	WP_Post	$post	The post of the current slide.
 	 * @return	void
@@ -275,14 +276,14 @@ class Foyer_Admin_Slide_Format_PDF {
 						<label for="slide_pdf_file"><?php _e( 'PDF file', 'foyer' ); ?></label>
 					</th>
 					<td>
-						<div class="slide_image_field file_type_pdf<?php if ( empty( $slide_pdf_file ) ) { ?> empty<?php } ?>">
+						<div class="slide_file_field file_type_pdf<?php if ( empty( $slide_pdf_file ) ) { ?> empty<?php } ?>">
 							<div class="image-preview-wrapper">
-								<img class="slide_image_preview" src="<?php echo esc_url( $slide_pdf_file_preview_url ); ?>" height="100">
+								<img class="slide_file_preview" src="<?php echo esc_url( $slide_pdf_file_preview_url ); ?>" height="100">
 							</div>
 
-							<input type="button" class="button slide_image_upload_button" value="<?php _e( 'Upload PDF file', 'foyer' ); ?>" />
-							<input type="button" class="button slide_image_delete_button" value="<?php _e( 'Remove PDF file', 'foyer' ); ?>" />
-							<input type="hidden" name="slide_pdf_file" class="slide_image_value" value='<?php echo intval( $slide_pdf_file ); ?>'>
+							<input type="button" class="button slide_file_upload_button" value="<?php _e( 'Select PDF file', 'foyer' ); ?>" />
+							<input type="button" class="button slide_file_delete_button" value="<?php _e( 'Remove PDF file', 'foyer' ); ?>" />
+							<input type="hidden" name="slide_pdf_file" class="slide_file_value" value='<?php echo intval( $slide_pdf_file ); ?>'>
 						</div>
 					</td>
 				</tr>

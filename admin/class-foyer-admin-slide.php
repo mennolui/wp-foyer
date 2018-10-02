@@ -92,14 +92,25 @@ class Foyer_Admin_Slide {
 	 * @since	1.3.2	Changed method to static.
 	 * @since	1.4.0	Renamed slide_format_default to slide_image_defaults.
 	 *					Added the slide formats backgrounds.
+	 * @since	1.X.X	Renamed slide_image_defaults to slide_file_defaults and added texts for different file types.
 	 *
 	 */
 	static function localize_scripts() {
-		$slide_image_defaults = array(
-			'text_select_photo' => esc_html__( 'Select an image', 'foyer' ),
-			'text_use_photo' => esc_html__( 'Use this image', 'foyer' ),
+		$slide_file_defaults = array(
+			'image' => array(
+				'text_select' => esc_html__( 'Select an image', 'foyer' ),
+				'text_use' => esc_html__( 'Use this image', 'foyer' ),
+			),
+			'application/pdf' => array(
+				'text_select' => esc_html__( 'Select a PDF', 'foyer' ),
+				'text_use' => esc_html__( 'Use this PDF', 'foyer' ),
+			),
+			'video' => array(
+				'text_select' => esc_html__( 'Select a video', 'foyer' ),
+				'text_use' => esc_html__( 'Use this video', 'foyer' ),
+			),
 		);
-		wp_localize_script( Foyer::get_plugin_name() . '-admin', 'foyer_slide_image_defaults', $slide_image_defaults );
+		wp_localize_script( Foyer::get_plugin_name() . '-admin', 'foyer_slide_file_defaults', $slide_file_defaults );
 
 		$slide_formats_backgrounds = Foyer_Slides::get_slide_formats_backgrounds();
 		wp_localize_script( Foyer::get_plugin_name() . '-admin', 'foyer_slide_formats_backgrounds', $slide_formats_backgrounds );
