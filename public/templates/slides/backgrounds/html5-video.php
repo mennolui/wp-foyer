@@ -22,7 +22,7 @@ if ( ! empty( $video_url ) ) {
 			data-foyer-hold-slide="<?php echo $hold_slide; ?>"
 			data-foyer-output-sound="<?php echo $enable_sound; ?>"
 		>
-			<video preload="auto" playsinline data-object-fit>
+			<video preload="auto" playsinline muted data-object-fit>
 				<source src="<?php echo $video_url; ?>">
 			</video>
 		</div>

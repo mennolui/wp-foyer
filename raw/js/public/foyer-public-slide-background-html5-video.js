@@ -37,7 +37,7 @@ function foyer_slide_bg_html5_video_bind_ticker_events() {
 			if (vid && 1 == $container.data('foyer-hold-slide')) {
 				// We should wait for the end of the video before proceeding to the next slide, but only when playing
 
-				if ( 0 < vid.currentTime ) {
+				if ( ( vid.currentTime > 0 && !vid.paused && !vid.ended && vid.readyState > 2 ) ) {
 					// Video is playing, maybe prevent next slide
 
 					if ( foyer_slide_bg_html5_video_is_almost_ended($container, vid) ) {
@@ -47,15 +47,10 @@ function foyer_slide_bg_html5_video_bind_ticker_events() {
 						// Not ended yet, prevent next slide
 						event.stopImmediatePropagation();
 
-						// Monitor play progress to trigger next slide when video almost ended
-						vid.ontimeupdate = function() {
-
-							if (foyer_slide_bg_html5_video_is_almost_ended($container, this)) {
-								// Video almost ended, time for next slide
-								jQuery(foyer_slides_selector).trigger('slides:next-slide');
-							}
-
-						};
+						// Try again in 0.5 seconds
+						setTimeout(function() {
+							jQuery(foyer_slides_selector).trigger('slides:next-slide');
+						}, 0.5 * 1000);
 					}
 				}
 			}
@@ -65,6 +60,9 @@ function foyer_slide_bg_html5_video_bind_ticker_events() {
 	jQuery('body').on('slide:became-active', foyer_slide_bg_html5_video_selector, function( event ) {
 		// A video slide became active
 
+		// Activate the object-fit polyfill for browsers that do not support it object fit on videos (Edge..)
+		objectFitPolyfill();
+
 		// Set container
 		var $container = jQuery(this).find('.html5-video-container');
 
@@ -73,12 +71,21 @@ function foyer_slide_bg_html5_video_bind_ticker_events() {
 
 		if (vid) {
 
+			// Set mute status
 			if (! $container.data('foyer-output-sound')) {
 				// No sound (unless enable sound option is checked)
 				vid.muted = true;
 			}
+			else {
+				vid.muted = false;
+			}
 
-			vid.currentTime = $container.data('foyer-video-start');
+			// Seek to start position, but only after video is ready to receive commands
+			vid.addEventListener('playing', function foyer_slide_bg_html5_video_seek_to_start() {
+				// Remove event listerner to avoid endless loop of triggered 'playing' events
+				this.removeEventListener('playing', foyer_slide_bg_html5_video_seek_to_start, false);
+				this.currentTime = $container.data('foyer-video-start');
+			}, false);
 
 			// Play video
 			vid.play();
@@ -95,9 +102,6 @@ function foyer_slide_bg_html5_video_bind_ticker_events() {
 		var vid = $container.find('video').get(0);
 
 		if (vid) {
-
-			// Stop monitoring play progress
-			vid.ontimeupdate = false;
 
 			// Pause video whenever CSS transitions are over
 			setTimeout(function() {
