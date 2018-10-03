@@ -36,10 +36,11 @@ Foyer comes with build in support for the [Theater for WordPress plugin](https:/
 
 = Slide backgrounds =
 * Image: Displays an image, covering the entire slide background.
-* Video: Displays a YouTube video, or a specified fragment, as slide background.
+* Video: Displays an uploaded or external video, or a specified fragment, as slide background.
+* YouTube: Displays a YouTube video, or a specified fragment, as slide background.
 
 More features, slide formats and slide backgrounds are coming soon.
-Eg. uploaded video support, a Page slide, a Recent Posts slide stack, and multiple and recurring scheduled channels. Longer term goals include a widgets bar for displaying Time, Weather and other widgets.
+Eg. a Page slide, a Recent Posts slide stack, and multiple and recurring scheduled channels. Longer term goals include a widgets bar for displaying Time, Weather and other widgets.
 
 = Missing feature? =
 
@@ -131,6 +132,15 @@ Settings for W3 Total Cache: Add `/foyer/*` on a new line under Performance > Pa
 Coming soon.
 
 == Changelog ==
+
+= 1.6 =
+Release Date: October 3, 2018
+
+Introduces the highly anticipated self-hosted Video slide background. Displays an uploaded or externally hosted video. Works best with MP4 files. The slide background displaying a YouTube video is now called... 'YouTube'.
+
+Enhancements:
+
+* Limited the WordPress media library to display only usable media files when adding media to a slide (1.6.0). PDF files only for the PDF slide format, video files only for the new Video slide background, image files only for the Image slide background.
 
 = 1.5 =
 Release Date: March 2, 2018
@@ -241,6 +251,9 @@ Bug fixes:
 
 
 == Upgrade Notice ==
+= 1.6.0 =
+Introduces the highly anticipated self-hosted Video slide background. Check the changelog for full details.
+
 = 1.5.7 =
 Bug fixes and minor enhancements. Check the changelog for full details.
 
