@@ -30,6 +30,7 @@ class Foyer {
 	 * @since	1.5.3	Changed priority of Foyer_Setup::register_post_types() on init to 5 to make sure it is
 	 *					triggered before filters with default priority, and before the occasional flush_rewrite_rules()
 	 *					after updating.
+	 * @since	1.X.X	Registered a hook that adds the HTML5 Video slide background.
 	 */
 	static function init() {
 

@@ -107,7 +107,7 @@ jQuery( function() {
  * @since	1.1.3	Fixed an issue where adding an image to a slide was only possible when
  *					the image was already in the media library.
  * @since	1.5.2	Removed setting the width to auto on the preview image, sizing is now done with CSS.
- * @since	1.6.0	Limited the media selector to certain file types, based on newly added file_type_* classes.
+ * @since	1.X.X	Limited the media selector to certain file types, based on newly added file_type_* classes.
  * @since	1.X.X	Renamed everything slide_image_* to slide_file_*, image_preview_url to file_preview_url.
  *					Displayed different texts in the media frame for each file type.
  *					Set the value of a new possible input to contain the attachment url.

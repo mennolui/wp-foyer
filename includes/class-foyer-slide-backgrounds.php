@@ -68,6 +68,7 @@ class Foyer_Slide_Backgrounds {
 	 * Adds the YouTube Video slide background.
 	 *
 	 * @since	1.4.0
+	 * @since	1.X.X	Renamed the slide background from 'Video' to 'YouTube', without changing internal names.
 	 *
 	 * @param 	array	$slide_backgrounds	The current slide backgrounds.
 	 * @return	array						The slide backgrounds with the YouTube Video slide background added.
