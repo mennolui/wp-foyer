@@ -16,7 +16,7 @@ class Foyer_Slide_Formats {
 	 *
 	 * @since	1.4.0	Default slide format is now also added through filter, instead of in Foyer_Slides.
 	 * 					Added appropriate slide backgrounds to the properties of this slide format.
-	 * @since	1.X.X	Added the HTML5 Video slide background to this slide format's list of available backgrounds.
+	 * @since	1.6.0	Added the HTML5 Video slide background to this slide format's list of available backgrounds.
 	 *
 	 * @param 	array	$slide_formats	The current slide formats.
 	 * @return	array					The slide formats with the Default slide format added.
@@ -78,7 +78,7 @@ class Foyer_Slide_Formats {
 	 * @since	1.1.0
 	 * @since	1.4.0	Added appropriate slide backgrounds to the properties of this slide format.
 	 * @since	1.5.0	Added the stack property.
-	 * @since	1.X.X	Added the HTML5 Video slide background to this slide format's list of available backgrounds.
+	 * @since	1.6.0	Added the HTML5 Video slide background to this slide format's list of available backgrounds.
 	 *
 	 * @param 	array	$slide_formats	The current slide formats.
 	 * @return	array					The slide formats with the PDF slide format added.
@@ -110,7 +110,7 @@ class Foyer_Slide_Formats {
 	 * Adds the Post slide format.
 	 *
 	 * @since	1.5.0
-	 * @since	1.X.X	Added the HTML5 Video slide background to this slide format's list of available backgrounds.
+	 * @since	1.6.0	Added the HTML5 Video slide background to this slide format's list of available backgrounds.
 	 *
 	 * @param 	array	$slide_formats	The current slide formats.
 	 * @return	array					The slide formats with the Post slide format added.
@@ -144,7 +144,7 @@ class Foyer_Slide_Formats {
 	 * @since	1.1.0	Moved here from Foyer_Theater, and changed to static.
 	 * @since	1.2.6	Changed the displayed name from Production to Event, same terminology as in Theater for WordPress.
 	 * @since	1.4.0	Added appropriate slide backgrounds to the properties of this slide format.
-	 * @since	1.X.X	Added the HTML5 Video slide background to this slide format's list of available backgrounds.
+	 * @since	1.6.0	Added the HTML5 Video slide background to this slide format's list of available backgrounds.
 	 *
 	 * @param 	array	$slide_formats	The current slide formats.
 	 * @return	array					The slide formats with the Production slide format added.
@@ -182,7 +182,7 @@ class Foyer_Slide_Formats {
 	 *
 	 * @since	1.5.0
 	 * @since	1.5.1	Renamed the slide format from 'Manual text' to 'Text'.
-	 * @since	1.X.X	Added the HTML5 Video slide background to this slide format's list of available backgrounds.
+	 * @since	1.6.0	Added the HTML5 Video slide background to this slide format's list of available backgrounds.
 	 *
 	 * @param 	array	$slide_formats	The current slide formats.
 	 * @return	array					The slide formats with the Text slide format added.

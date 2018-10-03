@@ -255,7 +255,7 @@ class Foyer_Admin_Slide_Format_PDF {
 	 * @since	1.3.1	Added notifications when PDF processing is not supported (no Imagick/Ghostscript installed),
 	 *					and when PDF file previews don’t work (PHP < 4.7).
 	 * @since	1.3.2	Removed the notifications added in 1.3.1 as they proved to be unreliable.
-	 * @since	1.X.X	Renamed everything slide_image_* to slide_file_*, and 'Upload PDF' to 'Select PDF'.
+	 * @since	1.6.0	Renamed everything slide_image_* to slide_file_*, and 'Upload PDF' to 'Select PDF'.
 	 *
 	 * @param	WP_Post	$post	The post of the current slide.
 	 * @return	void

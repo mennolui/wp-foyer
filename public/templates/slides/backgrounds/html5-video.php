@@ -2,7 +2,7 @@
 /**
  * HTML5 Video slide background template.
  *
- * @since	1.X.X
+ * @since	1.6.0
  */
 
 $slide = new Foyer_Slide( get_the_id() );

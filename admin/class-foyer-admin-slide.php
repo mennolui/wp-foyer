@@ -92,7 +92,7 @@ class Foyer_Admin_Slide {
 	 * @since	1.3.2	Changed method to static.
 	 * @since	1.4.0	Renamed slide_format_default to slide_image_defaults.
 	 *					Added the slide formats backgrounds.
-	 * @since	1.X.X	Renamed slide_image_defaults to slide_file_defaults and added texts for different file types.
+	 * @since	1.6.0	Renamed slide_image_defaults to slide_file_defaults and added texts for different file types.
 	 *
 	 */
 	static function localize_scripts() {

@@ -1,7 +1,7 @@
 /**
  * Sets up the HTML5 Video slide format admin functionality.
  *
- * @since	1.X.X
+ * @since	1.6.0
  */
 jQuery( function() {
 
@@ -39,7 +39,7 @@ jQuery( function() {
  *
  * Invoked whenever a video starts playing, or the mute property is toggled by the user.
  *
- * @since	1.X.X
+ * @since	1.6.0
  */
 function foyer_admin_slide_bg_html5_video_update_player_mute() {
 
@@ -71,7 +71,7 @@ function foyer_admin_slide_bg_html5_video_update_url_status() {
 /**
  * Updates the slide admin video preview with new parameters as entered by the user, and restarts playback.
  *
- * @since	1.X.X
+ * @since	1.6.0
  */
 function foyer_admin_slide_bg_html5_video_update_youtube_video_preview() {
 	if (jQuery('#slide_bg_html5_video_video_url').val() && jQuery('#slide_bg_html5_video_video_url').val().length) {

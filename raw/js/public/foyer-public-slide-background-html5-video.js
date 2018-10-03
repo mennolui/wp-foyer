@@ -3,7 +3,7 @@ var foyer_slide_bg_html5_video_selector = '.foyer-slide-background-html5-video';
 /**
  * Sets up the HTML5 Video slide background public functionality.
  *
- * @since	1.X.X
+ * @since	1.6.0
  */
 jQuery(document).ready(function() {
 
@@ -16,7 +16,7 @@ jQuery(document).ready(function() {
 /**
  * Binds events to be able to start and stop video playback at the right time, and prevent advancing to the next slide.
  *
- * @since	1.X.X
+ * @since	1.6.0
  */
 function foyer_slide_bg_html5_video_bind_ticker_events() {
 
@@ -117,7 +117,7 @@ function foyer_slide_bg_html5_video_bind_ticker_events() {
 /**
  * Checks if a video has almost ended.
  *
- * @since	1.X.X
+ * @since	1.6.0
  *
  * @param	jQuery		$container	The container of the video.
  * @param	HTMLElement	vid			The reference to our HTML5 video element.

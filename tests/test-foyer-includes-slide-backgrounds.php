@@ -27,7 +27,7 @@ class Test_Foyer_Slide_Backgrounds extends Foyer_UnitTestCase {
 	}
 
 	/**
-	 * @since	1.X.X
+	 * @since	1.6.0
 	 */
 	function test_is_html5_video_slide_background_registered() {
 		$slide_background = Foyer_Slides::get_slide_background_by_slug( 'html5-video' );

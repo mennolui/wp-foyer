@@ -65,7 +65,7 @@ class Foyer_Admin_Slide_Background_Video {
 	 *
 	 * @since	1.4.0
 	 * @since	1.5.1	Added a slide_bg_video_enable_sound option.
-	 * @since	1.X.X	Displayed the YouTube video URL input with class large-text.
+	 * @since	1.6.0	Displayed the YouTube video URL input with class large-text.
 	 *
 	 * @param	WP_Post	$post	The post of the current slide.
 	 * @return	void

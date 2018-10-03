@@ -36,7 +36,7 @@ class Foyer_Admin_Slide_Background_Image {
 	 * @since	1.4.0
 	 * @since	1.5.2	Added a hint about minimal image sizes.
 	 *					Removed the height attribute of the preview image, sizing is now done with CSS.
-	 * @since	1.X.X	Renamed everything slide_image_* to slide_file_*, and 'Upload image' to 'Select image'.
+	 * @since	1.6.0	Renamed everything slide_image_* to slide_file_*, and 'Upload image' to 'Select image'.
 	 *
 	 * @param 	WP_Post	$post	The post of the slide that is being edited.
 	 * @return 	void

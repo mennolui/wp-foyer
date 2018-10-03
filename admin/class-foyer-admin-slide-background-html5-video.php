@@ -3,7 +3,7 @@
 /**
  * Adds admin functionality for the Video slide background.
  *
- * @since		1.X.X
+ * @since		1.6.0
  *
  * @package		Foyer
  * @subpackage	Foyer/admin
@@ -14,7 +14,7 @@ class Foyer_Admin_Slide_Background_Html5_Video {
 	/**
 	 * Saves additional data for the Video slide background.
 	 *
-	 * @since	1.X.X
+	 * @since	1.6.0
 	 *
 	 * @param	int		$post_id	The ID of the post being saved.
 	 * @return	void
@@ -64,7 +64,7 @@ class Foyer_Admin_Slide_Background_Html5_Video {
 	/**
 	 * Outputs the meta box for the Video slide background.
 	 *
-	 * @since	1.X.X
+	 * @since	1.6.0
 	 *
 	 * @param	WP_Post	$post	The post of the current slide.
 	 * @return	void

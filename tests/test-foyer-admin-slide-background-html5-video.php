@@ -3,7 +3,7 @@
 class Test_Foyer_Admin_Slide_Background_Html5_Video extends Foyer_UnitTestCase {
 
 	/**
-	 * @since	1.X.X
+	 * @since	1.6.0
 	 */
 	function test_are_all_slide_background_html5_video_properties_saved() {
 
