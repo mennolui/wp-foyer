@@ -62,7 +62,7 @@ class Foyer_Admin_Slide_Background_Image {
 							<input type="button" class="button slide_file_upload_button" value="<?php esc_html_e( 'Select image', 'foyer' ); ?>" />
 							<input type="button" class="button slide_file_delete_button" value="<?php esc_html_e( 'Remove image', 'foyer' ); ?>" />
 							<input type="hidden" name="slide_bg_image_image" class="slide_file_value" value='<?php echo intval( $slide_bg_image_image ); ?>'>
-							<p><?php _e( 'For the best results use an image that is at least 1920 x 1080 pixels (landscape), or 1080 x 1920 pixels (portrait).', 'foyer' ); ?></p>
+							<p class="slide_file_empty_message"><?php _e( 'For the best results use an image that is at least 1920 x 1080 pixels (landscape), or 1080 x 1920 pixels (portrait).', 'foyer' ); ?></p>
 						</div>
 					</td>
 				</tr>
