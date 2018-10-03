@@ -57,7 +57,7 @@ class Test_Foyer_Slide_Formats extends Foyer_UnitTestCase {
 	 * @since	1.4.0
 	 */
 	function test_are_backgrounds_for_default_slide_format_registered() {
-		$expected = array( 'image', 'video' );
+		$expected = array( 'image', 'html5-video', 'video' );
 		$actual = array_keys( Foyer_Slides::get_slide_format_backgrounds_by_slug( 'default' ) );
 
 		$this->assertEquals( $expected, $actual );
