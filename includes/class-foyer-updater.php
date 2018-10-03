@@ -14,7 +14,7 @@ class Foyer_Updater {
 	 * Adds an action on init that flushes the rewrite rules.
 	 *
 	 * @since	1.5.4
-	 * @since	1.6.0	Changed the callback from the non-existing method Foyer_Updater::flush_rewrite_rules()
+	 * @since	1.5.6	Changed the callback from the non-existing method Foyer_Updater::flush_rewrite_rules()
 	 *					to the WordPress core method flush_rewrite_rules(). Fixes #26.
 	 *
 	 * @return	void
