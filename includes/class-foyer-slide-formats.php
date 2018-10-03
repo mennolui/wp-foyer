@@ -22,7 +22,7 @@ class Foyer_Slide_Formats {
 	 */
 	static function add_default_slide_format( $slide_formats ) {
 
-		$slide_format_backgrounds = array( 'image', 'video', 'html5-video' );
+		$slide_format_backgrounds = array( 'image', 'html5-video', 'video' );
 
 		/**
 		 * Filter available slide backgrounds for this slide format.
@@ -83,7 +83,7 @@ class Foyer_Slide_Formats {
 	 */
 	static function add_pdf_slide_format( $slide_formats ) {
 
-		$slide_format_backgrounds = array( 'default', 'image', 'video', 'html5-video' );
+		$slide_format_backgrounds = array( 'default', 'image', 'html5-video', 'video' );
 
 		/**
 		 * Filter available slide backgrounds for this slide format.
@@ -114,7 +114,7 @@ class Foyer_Slide_Formats {
 	 */
 	static function add_post_slide_format( $slide_formats ) {
 
-		$slide_format_backgrounds = array( 'default', 'image', 'video', 'html5-video' );
+		$slide_format_backgrounds = array( 'default', 'image', 'html5-video', 'video' );
 
 		/**
 		 * Filter available slide backgrounds for this slide format.
@@ -151,7 +151,7 @@ class Foyer_Slide_Formats {
 			return $slide_formats;
 		}
 
-		$slide_format_backgrounds = array( 'default', 'image', 'video', 'html5-video' );
+		$slide_format_backgrounds = array( 'default', 'image', 'html5-video', 'video' );
 
 		/**
 		 * Filter available slide backgrounds for this slide format.
@@ -184,7 +184,7 @@ class Foyer_Slide_Formats {
 	 */
 	static function add_text_slide_format( $slide_formats ) {
 
-		$slide_format_backgrounds = array( 'default', 'image', 'video', 'html5-video' );
+		$slide_format_backgrounds = array( 'default', 'image', 'html5-video', 'video' );
 
 		/**
 		 * Filter available slide backgrounds for this slide format.
