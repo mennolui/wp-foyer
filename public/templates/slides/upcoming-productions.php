@@ -21,7 +21,7 @@ else {
 }
 
 $production_args = array(
-	'start' => 'now',
+	'end_after' => 'now',
 	'cat' => implode( ',', $categories ),
 	'limit' => $limit,
 	'context' => 'foyer_slide_upcoming_productions',
