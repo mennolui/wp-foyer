@@ -2,15 +2,12 @@
 /**
  * @group theater
  */
-class Test_Foyer_Public_Templates_Slides_Backgrounds_Default_Production extends Foyer_UnitTestCase {
+class Test_Foyer_Public_Templates_Slides_Backgrounds_Default_Production extends Foyer_Theater_UnitTestCase {
 
 	/**
 	 * @since	1.4.0
 	 */
 	function test_are_all_default_background_properties_of_production_slide_included_in_slide() {
-
-		// Load Theater plugin (if not loaded already)
-		require_once dirname( dirname( __FILE__ ) ) . '/../../plugins/theatre/theater.php';
 
 		$this->assume_role( 'administrator' );
 

@@ -2,16 +2,13 @@
 /**
  * @group theater
  */
-class Test_Foyer_Admin_Slide_Format_Production extends Foyer_UnitTestCase {
+class Test_Foyer_Admin_Slide_Format_Production extends Foyer_Theater_UnitTestCase {
 
 	/**
 	 * @since	1.?
 	 * @since	1.4.0	Updated to work with slide backgrounds.
 	 */
 	function test_are_all_production_slide_properties_saved() {
-
-		// Load Theater plugin (if not loaded already)
-		require_once dirname( dirname( __FILE__ ) ) . '/../../plugins/theatre/theater.php';
 
 		$this->assume_role( 'administrator' );
 
