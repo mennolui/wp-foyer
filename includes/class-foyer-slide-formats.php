@@ -219,6 +219,10 @@ class Foyer_Slide_Formats {
 	 */
 	static function add_upcoming_productions_slide_format( $slide_formats ) {
 
+		if ( ! Foyer_Theater::is_theater_activated() ) {
+			return $slide_formats;
+		}
+
 		$slide_format_backgrounds = array( 'default' );
 
 		/**
