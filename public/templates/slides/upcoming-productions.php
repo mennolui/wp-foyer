@@ -11,7 +11,6 @@ $slide = new Foyer_Slide( get_the_id() );
 
 $limit = intval( get_post_meta( $slide->ID, 'slide_upcoming_productions_limit', true ) );
 $categories = get_post_meta( $slide->ID, 'slide_upcoming_productions_categories', true );
-$tags = get_post_meta( $slide->ID, 'slide_upcoming_productions_tags', true );
 
 // Prepare categories for Theater productions query
 if ( empty( $categories ) ) {
@@ -21,19 +20,9 @@ else {
 	$categories = array_map( 'intval', $categories );
 }
 
-// Prepare tags for Theater productions query
-$tag_slug = '';
-if ( ! empty( $tags ) ) {
-	$tag = get_tag( $tags[0] );
-	if ( ! empty( $tag ) ) {
-		$tag_slug = $tag->slug;
-	}
-}
-
 $production_args = array(
 	'start' => 'now',
 	'cat' => implode( ',', $categories ),
-	'tag' => $tag_slug,
 	'limit' => $limit,
 	'context' => 'foyer_slide_upcoming_productions',
 );
