@@ -78,6 +78,15 @@ class Test_Foyer_Slide_Formats extends Foyer_UnitTestCase {
 		$slide_format = Foyer_Slides::get_slide_format_by_slug( 'text' );
 		$this->assertNotEmpty( $slide_format );
 	}
+
+	/**
+	 * @since	1.X.X
+	 */
+	function test_is_upcoming_productions_slide_format_not_registered() {
+		// Theater plugin is not loaded by default
+		$slide_format = Foyer_Slides::get_slide_format_by_slug( 'upcoming-productions' );
+		$this->assertEmpty( $slide_format );
+	}
 }
 
 /**
@@ -91,8 +100,15 @@ class Test_Foyer_Slide_Formats_Theater extends Foyer_Theater_UnitTestCase {
 	 * @since	1.?
 	 */
 	function test_is_production_slide_format_registered_when_theater_is_active() {
-
 		$slide_format = Foyer_Slides::get_slide_format_by_slug( 'production' );
+		$this->assertNotEmpty( $slide_format );
+	}
+
+	/**
+	 * @since	1.X.X
+	 */
+	function test_is_upcoming_productions_slide_format_not_registered() {
+		$slide_format = Foyer_Slides::get_slide_format_by_slug( 'upcoming-productions' );
 		$this->assertNotEmpty( $slide_format );
 	}
 }
