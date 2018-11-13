@@ -421,6 +421,14 @@ html {
             justify-content: flex-end;
   }
 }
+.foyer-slide.foyer-slide-upcoming-productions .foyer-slide-fields {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2vmin 4vmin;
+  background-color: rgba(255, 255, 255, 0.8);
+}
 .foyer-slide-background.foyer-slide-background-image figure,
 .foyer-slide-background.foyer-slide-background-default figure {
   margin: 0;
