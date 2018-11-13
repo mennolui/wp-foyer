@@ -13,6 +13,8 @@ class Test_Foyer_Public_Templates_Slides_Upcoming_Productions extends Foyer_Thea
 
 		update_post_meta( $this->slide1, 'slide_format', 'upcoming-productions' );
 		update_post_meta( $this->slide1, 'slide_background', '' );
+		update_post_meta( $this->slide1, 'slide_upcoming_productions_limit', '' );
+		update_post_meta( $this->slide1, 'slide_upcoming_productions_categories', '' );
 
 		$this->go_to( get_permalink( $this->slide1 ) );
 
@@ -32,6 +34,8 @@ class Test_Foyer_Public_Templates_Slides_Upcoming_Productions extends Foyer_Thea
 
 		update_post_meta( $this->slide1, 'slide_format', 'upcoming-productions' );
 		update_post_meta( $this->slide1, 'slide_background', '' );
+		update_post_meta( $this->slide1, 'slide_upcoming_productions_limit', '' );
+		update_post_meta( $this->slide1, 'slide_upcoming_productions_categories', '' );
 
 		$this->go_to( get_permalink( $this->slide1 ) );
 
@@ -53,6 +57,7 @@ class Test_Foyer_Public_Templates_Slides_Upcoming_Productions extends Foyer_Thea
 
 		update_post_meta( $this->slide1, 'slide_format', 'upcoming-productions' );
 		update_post_meta( $this->slide1, 'slide_background', '' );
+		update_post_meta( $this->slide1, 'slide_upcoming_productions_limit', '' );
 		update_post_meta( $this->slide1, 'slide_upcoming_productions_categories', array( $this->category_concert ) );
 
 		$this->go_to( get_permalink( $this->slide1 ) );
@@ -75,6 +80,7 @@ class Test_Foyer_Public_Templates_Slides_Upcoming_Productions extends Foyer_Thea
 		update_post_meta( $this->slide1, 'slide_format', 'upcoming-productions' );
 		update_post_meta( $this->slide1, 'slide_background', '' );
 		update_post_meta( $this->slide1, 'slide_upcoming_productions_limit', 1 );
+		update_post_meta( $this->slide1, 'slide_upcoming_productions_categories', '' );
 
 		$this->go_to( get_permalink( $this->slide1 ) );
 
