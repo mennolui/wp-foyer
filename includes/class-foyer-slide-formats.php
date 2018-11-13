@@ -208,4 +208,37 @@ class Foyer_Slide_Formats {
 		);
 		return $slide_formats;
 	}
+
+	/**
+	 * Adds the Upcoming Productions slide format.
+	 *
+	 * @since	1.X.X
+	 *
+	 * @param 	array	$slide_formats	The current slide formats.
+	 * @return	array					The slide formats with the Upcoming Productions slide format added.
+	 */
+	static function add_upcoming_productions_slide_format( $slide_formats ) {
+
+		$slide_format_backgrounds = array( 'default' );
+
+		/**
+		 * Filter available slide backgrounds for this slide format.
+		 *
+		 * @since	1.X.X
+		 * @param	array	$slide_format_backgrounds	The currently available slide backgrounds for this slide format.
+		 */
+		$slide_format_backgrounds = apply_filters( 'foyer/slides/backgrounds/format=upcoming-productions', $slide_format_backgrounds );
+
+		$slide_formats['upcoming-productions'] = array(
+			'title' => 'Upcoming events',
+			'description' => 'Displays a slide for each upcoming event.',
+			'meta_box' => array( 'Foyer_Admin_Slide_Format_Upcoming_Productions', 'slide_meta_box'),
+			'save_post' => array( 'Foyer_Admin_Slide_Format_Upcoming_Productions', 'save_slide'),
+			'slide_backgrounds' => $slide_format_backgrounds,
+			'default_background_template' => true,
+			'stack' => true,
+		);
+
+		return $slide_formats;
+	}
 }
