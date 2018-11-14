@@ -5,7 +5,7 @@
 class Test_Foyer_Admin_Slide_Format_Upcoming_Productions extends Foyer_Theater_UnitTestCase {
 
 	/**
-	 * @since	1.X.X
+	 * @since	1.7.0
 	 */
 	function test_are_all_upcoming_productions_slide_properties_saved() {
 

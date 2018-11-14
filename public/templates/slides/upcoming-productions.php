@@ -2,7 +2,7 @@
 /**
  * Upcoming Productions slide format template.
  *
- * @since	1.X.X
+ * @since	1.7.0
  */
 
 global $wp_theatre;

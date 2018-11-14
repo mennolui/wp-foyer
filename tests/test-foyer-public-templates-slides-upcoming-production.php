@@ -5,7 +5,7 @@
 class Test_Foyer_Public_Templates_Slides_Upcoming_Productions extends Foyer_Theater_UnitTestCase {
 
 	/**
-	 * @since	1.X.X
+	 * @since	1.7.0
 	 */
 	function test_are_all_upcoming_productions_slide_properties_included_in_slide() {
 
@@ -26,7 +26,7 @@ class Test_Foyer_Public_Templates_Slides_Upcoming_Productions extends Foyer_Thea
 	}
 
 	/**
-	 * @since	1.X.X
+	 * @since	1.7.0
 	 */
 	function test_are_productions_upcoming_only() {
 
@@ -49,7 +49,7 @@ class Test_Foyer_Public_Templates_Slides_Upcoming_Productions extends Foyer_Thea
 	}
 
 	/**
-	 * @since	1.X.X
+	 * @since	1.7.0
 	 */
 	function test_are_productions_filtered_by_category() {
 
@@ -71,7 +71,7 @@ class Test_Foyer_Public_Templates_Slides_Upcoming_Productions extends Foyer_Thea
 	}
 
 	/**
-	 * @since	1.X.X
+	 * @since	1.7.0
 	 */
 	function test_are_productions_filtered_by_limit() {
 

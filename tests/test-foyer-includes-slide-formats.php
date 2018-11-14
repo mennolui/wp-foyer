@@ -80,7 +80,7 @@ class Test_Foyer_Slide_Formats extends Foyer_UnitTestCase {
 	}
 
 	/**
-	 * @since	1.X.X
+	 * @since	1.7.0
 	 */
 	function test_is_upcoming_productions_slide_format_not_registered() {
 		// Theater plugin is not loaded by default
@@ -105,7 +105,7 @@ class Test_Foyer_Slide_Formats_Theater extends Foyer_Theater_UnitTestCase {
 	}
 
 	/**
-	 * @since	1.X.X
+	 * @since	1.7.0
 	 */
 	function test_is_upcoming_productions_slide_format_registered_when_theater_is_active() {
 		$slide_format = Foyer_Slides::get_slide_format_by_slug( 'upcoming-productions' );

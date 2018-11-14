@@ -2,7 +2,7 @@
 /**
  * Default slide background template for the Upcoming Productions slide format.
  *
- * @since	1.X.X
+ * @since	1.7.0
  */
 
 $slide = new Foyer_Slide( get_the_id() );

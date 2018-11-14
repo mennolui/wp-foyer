@@ -212,7 +212,7 @@ class Foyer_Slide_Formats {
 	/**
 	 * Adds the Upcoming Productions slide format.
 	 *
-	 * @since	1.X.X
+	 * @since	1.7.0
 	 *
 	 * @param 	array	$slide_formats	The current slide formats.
 	 * @return	array					The slide formats with the Upcoming Productions slide format added.
@@ -228,7 +228,7 @@ class Foyer_Slide_Formats {
 		/**
 		 * Filter available slide backgrounds for this slide format.
 		 *
-		 * @since	1.X.X
+		 * @since	1.7.0
 		 * @param	array	$slide_format_backgrounds	The currently available slide backgrounds for this slide format.
 		 */
 		$slide_format_backgrounds = apply_filters( 'foyer/slides/backgrounds/format=upcoming-productions', $slide_format_backgrounds );

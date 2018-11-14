@@ -120,7 +120,7 @@ class Foyer_Admin {
 	 *					Included admin/class-foyer-admin-slide-background-video.php.
 	 *					Removed include admin/class-foyer-admin-slide-format-video.php.
 	 * @since	1.6.0	Included the HTML5 Video slide background admin.
-	 * @since	1.X.X	Included the Upcoming Productions slide background admin.
+	 * @since	1.7.0	Included the Upcoming Productions slide background admin.
 	 *
 	 * @access	private
 	 */
