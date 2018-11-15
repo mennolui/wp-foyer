@@ -2,7 +2,7 @@
 /**
  * Recent Posts slide format template.
  *
- * @since	1.X.X
+ * @since	1.7.1
  */
 
 $slide = new Foyer_Slide( get_the_id() );

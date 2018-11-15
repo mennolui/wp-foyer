@@ -2,7 +2,7 @@
 class Test_Foyer_Admin_Slide_Format_Recent_Posts extends Foyer_UnitTestCase {
 
 	/**
-	 * @since	1.X.X
+	 * @since	1.7.1
 	 */
 	function test_are_all_recent_posts_slide_properties_saved() {
 

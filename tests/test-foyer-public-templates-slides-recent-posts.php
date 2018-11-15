@@ -33,7 +33,7 @@ class Test_Foyer_Public_Templates_Slides_Recent_Posts extends Foyer_UnitTestCase
 	}
 
 	/**
-	 * @since	1.X.X
+	 * @since	1.7.1
 	 */
 	function test_are_all_default_recent_posts_slide_properties_included_in_slide() {
 
@@ -56,7 +56,7 @@ class Test_Foyer_Public_Templates_Slides_Recent_Posts extends Foyer_UnitTestCase
 	}
 
 	/**
-	 * @since	1.X.X
+	 * @since	1.7.1
 	 */
 	function test_are_posts_filtered_by_category() {
 
@@ -78,7 +78,7 @@ class Test_Foyer_Public_Templates_Slides_Recent_Posts extends Foyer_UnitTestCase
 	}
 
 	/**
-	 * @since	1.X.X
+	 * @since	1.7.1
 	 */
 	function test_are_posts_filtered_by_limit() {
 
@@ -100,7 +100,7 @@ class Test_Foyer_Public_Templates_Slides_Recent_Posts extends Foyer_UnitTestCase
 	}
 
 	/**
-	 * @since	1.X.X
+	 * @since	1.7.1
 	 */
 	function test_is_thumbnail_included_in_recent_posts_slide_with_display_thumbnail_set() {
 
@@ -126,7 +126,7 @@ class Test_Foyer_Public_Templates_Slides_Recent_Posts extends Foyer_UnitTestCase
 	}
 
 	/**
-	 * @since	1.X.X
+	 * @since	1.7.1
 	 */
 	function test_is_thumbnail_not_included_in_recent_posts_slide_with_display_thumbnail_not_set() {
 
@@ -152,7 +152,7 @@ class Test_Foyer_Public_Templates_Slides_Recent_Posts extends Foyer_UnitTestCase
 	}
 
 	/**
-	 * @since	1.X.X
+	 * @since	1.7.1
 	 */
 	function test_is_excerpt_included_in_recent_posts_slide_with_use_excerpt_set() {
 
@@ -174,7 +174,7 @@ class Test_Foyer_Public_Templates_Slides_Recent_Posts extends Foyer_UnitTestCase
 	}
 
 	/**
-	 * @since	1.X.X
+	 * @since	1.7.1
 	 */
 	function test_are_all_text_slide_field_elements_included_in_slide() {
 
@@ -197,7 +197,7 @@ class Test_Foyer_Public_Templates_Slides_Recent_Posts extends Foyer_UnitTestCase
 	}
 
 	/**
-	 * @since	1.X.X
+	 * @since	1.7.1
 	 */
 	function test_is_content_element_not_included_in_recent_posts_slide_when_empty() {
 

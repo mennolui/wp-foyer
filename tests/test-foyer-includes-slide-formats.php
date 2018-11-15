@@ -89,7 +89,7 @@ class Test_Foyer_Slide_Formats extends Foyer_UnitTestCase {
 	}
 
 	/**
-	 * @since	1.X.X
+	 * @since	1.7.1
 	 */
 	function test_is_recent_posts_slide_format_registered() {
 		$slide_format = Foyer_Slides::get_slide_format_by_slug( 'recent-posts' );

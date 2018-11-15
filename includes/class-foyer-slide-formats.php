@@ -180,7 +180,7 @@ class Foyer_Slide_Formats {
 	/**
 	 * Adds the Recent Posts slide format.
 	 *
-	 * @since	1.X.X
+	 * @since	1.7.1
 	 *
 	 * @param 	array	$slide_formats	The current slide formats.
 	 * @return	array					The slide formats with the Recent Posts slide format added.
