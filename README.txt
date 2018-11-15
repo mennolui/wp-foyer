@@ -24,13 +24,14 @@ Create slideshows and show them off on any networked display. Hardware not inclu
 * Schedule a temporary channel on a display.
 
 = Features for theaters, music venues, festivals =
-Foyer comes with build in support for the [Theater for WordPress plugin](https://wordpress.org/plugins/theatre/). With Theater & Foyer you can easily publish your events on your website, and showcase them on your onsite displays.
+Foyer comes with build in support for the [Theater for WordPress plugin](https://wordpress.org/plugins/theatre/). With Theater & Foyer you can easily publish your events on your website, and automatically showcase them on your onsite displays.
 
 = Slide formats =
 * Default: Displays a background only.
 * Text: Displays some text.
 * Post: Displays title, date and content of a post, and optionally the featured image.
 * Event: Displays title and details of an event, with its featured image as default background (requires Theater for WordPress).
+* Upcoming events: Displays a slide for each upcoming event (requires Theater for WordPress).
 * External web page: Displays a web page to your liking.
 * PDF: Creates a slide for each page in an uploaded PDF, displaying that page contained within the slide.
 
@@ -132,6 +133,11 @@ Settings for W3 Total Cache: Add `/foyer/*` on a new line under Performance > Pa
 Coming soon.
 
 == Changelog ==
+
+= 1.7 =
+Release Date: November 15, 2018
+
+Introduces the Upcoming Events slide format. Displays a slide for each of your upcoming events, limited to a certain category if you wish. Requires the Theater for WordPress plugin.
 
 = 1.6 =
 Release Date: October 3, 2018
@@ -251,6 +257,9 @@ Bug fixes:
 
 
 == Upgrade Notice ==
+= 1.7.0 =
+Introduces the Upcoming Events slide format. Check the changelog for full details.
+
 = 1.6.0 =
 Introduces the highly anticipated self-hosted Video slide background. Check the changelog for full details.
 
