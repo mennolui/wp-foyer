@@ -66,7 +66,7 @@ class Foyer_Admin_Slide_Format_Upcoming_Productions {
 				</tr>
 				<tr>
 					<th scope="row">
-						<label for="slide_upcoming_productions_categories[]"><?php _e( 'Only display events from categories', 'foyer', 'foyer' ); ?></label>
+						<label for="slide_upcoming_productions_categories[]"><?php _e( 'Only display events from categories', 'foyer' ); ?></label>
 					</th>
 					<td>
 						<select name="slide_upcoming_productions_categories[]" multiple><?php
