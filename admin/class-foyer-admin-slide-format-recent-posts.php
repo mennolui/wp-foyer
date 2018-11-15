@@ -33,8 +33,26 @@ class Foyer_Admin_Slide_Format_Recent_Posts {
 			$slide_recent_posts_categories = array_map( 'intval', $_POST['slide_recent_posts_categories'] );
 		}
 
+		$slide_recent_posts_display_thumbnail = '';
+		if ( isset( $_POST['slide_recent_posts_display_thumbnail'] ) ) {
+			$slide_recent_posts_display_thumbnail = intval( $_POST['slide_recent_posts_display_thumbnail'] );
+			if ( empty( $slide_recent_posts_display_thumbnail ) ) {
+				$slide_recent_posts_display_thumbnail = '';
+			}
+		}
+
+		$slide_recent_posts_use_excerpt = '';
+		if ( isset( $_POST['slide_recent_posts_use_excerpt'] ) ) {
+			$slide_recent_posts_use_excerpt = intval( $_POST['slide_recent_posts_use_excerpt'] );
+			if ( empty( $slide_recent_posts_use_excerpt ) ) {
+				$slide_recent_posts_use_excerpt = '';
+			}
+		}
+
 		update_post_meta( $post_id, 'slide_recent_posts_limit', $slide_recent_posts_limit );
 		update_post_meta( $post_id, 'slide_recent_posts_categories', $slide_recent_posts_categories );
+		update_post_meta( $post_id, 'slide_recent_posts_display_thumbnail', $slide_recent_posts_display_thumbnail );
+		update_post_meta( $post_id, 'slide_recent_posts_use_excerpt', $slide_recent_posts_use_excerpt );
 	}
 
 	/**
@@ -53,6 +71,9 @@ class Foyer_Admin_Slide_Format_Recent_Posts {
 		if ( empty( $slide_recent_posts_categories ) ) {
 			$slide_recent_posts_categories = array();
 		}
+
+		$slide_recent_posts_display_thumbnail = get_post_meta( $post->ID, 'slide_recent_posts_display_thumbnail', true );
+		$slide_recent_posts_use_excerpt = get_post_meta( $post->ID, 'slide_recent_posts_use_excerpt', true );
 
 		?><table class="form-table">
 			<tbody>
@@ -74,6 +95,26 @@ class Foyer_Admin_Slide_Format_Recent_Posts {
 								?><option value="<?php echo intval( $cat->term_id ); ?>" <?php if ( in_array( $cat->term_id, $slide_recent_posts_categories ) ) { ?>selected<?php } ?>><?php echo esc_html( $cat->name ); ?></option><?php
 							}
 						?></select>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row">
+						<label for="slide_recent_posts_display_thumbnail"><?php _e( 'Display featured image?', 'foyer' ); ?></label>
+					</th>
+					<td>
+						<input type="checkbox" name="slide_recent_posts_display_thumbnail" id="slide_recent_posts_display_thumbnail"
+							value="1" <?php checked( $slide_recent_posts_display_thumbnail, 1 ); ?> />
+						<span><?php _e( 'Yes, display the featured image.', 'foyer' ); ?></span>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row">
+						<label for="slide_recent_posts_use_excerpt"><?php _e( 'Use excerpt?', 'foyer' ); ?></label>
+					</th>
+					<td>
+						<input type="checkbox" name="slide_recent_posts_use_excerpt" id="slide_recent_posts_use_excerpt"
+							value="1" <?php checked( $slide_recent_posts_use_excerpt, 1 ); ?> />
+						<span><?php _e( 'Yes, use the manual excerpt instead of the post content.', 'foyer' ); ?></span>
 					</td>
 				</tr>
 			</tbody>
