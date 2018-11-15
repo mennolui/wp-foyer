@@ -87,6 +87,14 @@ class Test_Foyer_Slide_Formats extends Foyer_UnitTestCase {
 		$slide_format = Foyer_Slides::get_slide_format_by_slug( 'upcoming-productions' );
 		$this->assertEmpty( $slide_format );
 	}
+
+	/**
+	 * @since	1.X.X
+	 */
+	function test_is_recent_posts_slide_format_registered() {
+		$slide_format = Foyer_Slides::get_slide_format_by_slug( 'recent-posts' );
+		$this->assertNotEmpty( $slide_format );
+	}
 }
 
 /**
