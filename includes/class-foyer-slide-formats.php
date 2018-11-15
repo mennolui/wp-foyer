@@ -178,6 +178,38 @@ class Foyer_Slide_Formats {
 	}
 
 	/**
+	 * Adds the Recent Posts slide format.
+	 *
+	 * @since	1.X.X
+	 *
+	 * @param 	array	$slide_formats	The current slide formats.
+	 * @return	array					The slide formats with the Recent Posts slide format added.
+	 */
+	static function add_recent_posts_slide_format( $slide_formats ) {
+
+		$slide_format_backgrounds = array( 'default', 'image' );
+
+		/**
+		 * Filter available slide backgrounds for this slide format.
+		 *
+		 * @since	1.7.0
+		 * @param	array	$slide_format_backgrounds	The currently available slide backgrounds for this slide format.
+		 */
+		$slide_format_backgrounds = apply_filters( 'foyer/slides/backgrounds/format=recent-posts', $slide_format_backgrounds );
+
+		$slide_formats['recent-posts'] = array(
+			'title' => 'Recent posts',
+			'description' => 'Displays a slide for each recent post.',
+			'meta_box' => array( 'Foyer_Admin_Slide_Format_Recent_Posts', 'slide_meta_box'),
+			'save_post' => array( 'Foyer_Admin_Slide_Format_Recent_Posts', 'save_slide'),
+			'slide_backgrounds' => $slide_format_backgrounds,
+			'stack' => true,
+		);
+
+		return $slide_formats;
+	}
+
+	/**
 	 * Adds the Text slide format.
 	 *
 	 * @since	1.5.0

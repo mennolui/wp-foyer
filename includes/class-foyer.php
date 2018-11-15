@@ -57,8 +57,9 @@ class Foyer {
 		add_filter( 'foyer/slides/formats', array( 'Foyer_Slide_Formats', 'add_post_slide_format' ), 5 );
 		add_filter( 'foyer/slides/formats', array( 'Foyer_Slide_Formats', 'add_production_slide_format' ), 5 );
 		add_filter( 'foyer/slides/formats', array( 'Foyer_Slide_Formats', 'add_iframe_slide_format' ), 5 );
-		add_filter( 'foyer/slides/formats', array( 'Foyer_Slide_Formats', 'add_pdf_slide_format' ), 5 );
+		add_filter( 'foyer/slides/formats', array( 'Foyer_Slide_Formats', 'add_recent_posts_slide_format' ), 5 );
 		add_filter( 'foyer/slides/formats', array( 'Foyer_Slide_Formats', 'add_upcoming_productions_slide_format' ), 5 );
+		add_filter( 'foyer/slides/formats', array( 'Foyer_Slide_Formats', 'add_pdf_slide_format' ), 5 );
 	}
 
 	/**
