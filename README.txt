@@ -30,6 +30,7 @@ Foyer comes with build in support for the [Theater for WordPress plugin](https:/
 * Default: Displays a background only.
 * Text: Displays some text.
 * Post: Displays title, date and content of a post, and optionally the featured image.
+* Recent posts: Displays a slide for each recent post.
 * Event: Displays title and details of an event, with its featured image as default background (requires Theater for WordPress).
 * Upcoming events: Displays a slide for each upcoming event (requires Theater for WordPress).
 * External web page: Displays a web page to your liking.
@@ -41,7 +42,7 @@ Foyer comes with build in support for the [Theater for WordPress plugin](https:/
 * YouTube: Displays a YouTube video, or a specified fragment, as slide background.
 
 More features, slide formats and slide backgrounds are coming soon.
-Eg. a Page slide, a Recent Posts slide stack, and multiple and recurring scheduled channels. Longer term goals include a widgets bar for displaying Time, Weather and other widgets.
+Eg. an HTML/shortcode slide, multiple and recurring scheduled channels. Longer term goals include a widgets bar for displaying Time, Weather and other widgets.
 
 = Missing feature? =
 
@@ -137,7 +138,7 @@ Coming soon.
 = 1.7 =
 Release Date: November 15, 2018
 
-Introduces the Upcoming Events slide format. Displays a slide for each of your upcoming events, limited to a certain category if you wish. Requires the Theater for WordPress plugin.
+Introduces the Upcoming Events and Recent Posts slide formats. Displays a slide for each of your upcoming events / recent posts, limited to a certain category if you wish. Upcoming Events requires the Theater for WordPress plugin.
 
 = 1.6 =
 Release Date: October 3, 2018
@@ -257,6 +258,9 @@ Bug fixes:
 
 
 == Upgrade Notice ==
+= 1.7.1 =
+Introduces the Recent Posts slide format in addition to the Upcoming Events slide format. Check the changelog for full details.
+
 = 1.7.0 =
 Introduces the Upcoming Events slide format. Check the changelog for full details.
 
