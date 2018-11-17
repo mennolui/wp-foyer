@@ -8,15 +8,16 @@ var foyer_yt_api_ready = false;
  * Functionality was copied from foyer-public-slide-video.js (since 1.2.0, removed in 1.4.0).
  *
  * @since	1.4.0
+ * @since	1.X.X	Made sure binding of events and loading YouTube API also happens when our view does not
+ *					include YouTube backgrounds, as they could be added later on, or included on a channel
+ *					the display is later switched to. Fixes #31.
  */
 jQuery(document).ready(function() {
 
-	if (jQuery(foyer_slide_bg_video_selector).length) {
-		// Our view includes YouTube Video slides, load YouTube API and bind events
-		foyer_slide_bg_video_load_youtube_api();
-		foyer_slide_bg_video_bind_display_loading_events();
-		foyer_slide_bg_video_bind_ticker_events();
-	}
+	// Bind events & load YouTube API even though our view does not include YouTube slides (yet!)
+	foyer_slide_bg_video_load_youtube_api();
+	foyer_slide_bg_video_bind_display_loading_events();
+	foyer_slide_bg_video_bind_ticker_events();
 });
 
 /**
