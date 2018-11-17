@@ -132,6 +132,9 @@ class Foyer {
 		/* Setup of internationalization. */
 		require_once FOYER_PLUGIN_PATH . 'includes/class-foyer-i18n.php';
 
+		/* Add-ons. */
+		require_once FOYER_PLUGIN_PATH . 'includes/class-foyer-addons.php';
+
 		/* General (not public/admin) setup actions. */
 		require_once FOYER_PLUGIN_PATH . 'includes/class-foyer-setup.php';
 
