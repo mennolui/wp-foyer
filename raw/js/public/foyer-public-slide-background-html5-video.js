@@ -4,7 +4,7 @@ var foyer_slide_bg_html5_video_selector = '.foyer-slide-background-html5-video';
  * Sets up the HTML5 Video slide background public functionality.
  *
  * @since	1.6.0
- * @since	1.X.X	Made sure binding of ticker events also happens when our view does not include
+ * @since	1.7.2	Made sure binding of ticker events also happens when our view does not include
  *					HTML5 Video backgrounds, as they could be added later on, or included on a channel
  *					the display is later switched to. Fixes #31.
  */

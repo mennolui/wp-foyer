@@ -8,7 +8,7 @@ var foyer_yt_api_ready = false;
  * Functionality was copied from foyer-public-slide-video.js (since 1.2.0, removed in 1.4.0).
  *
  * @since	1.4.0
- * @since	1.X.X	Made sure binding of events and loading YouTube API also happens when our view does not
+ * @since	1.7.2	Made sure binding of events and loading YouTube API also happens when our view does not
  *					include YouTube backgrounds, as they could be added later on, or included on a channel
  *					the display is later switched to. Fixes #31.
  */
