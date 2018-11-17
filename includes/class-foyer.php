@@ -31,6 +31,8 @@ class Foyer {
 	 *					triggered before filters with default priority, and before the occasional flush_rewrite_rules()
 	 *					after updating.
 	 * @since	1.6.0	Registered a hook that adds the HTML5 Video slide background.
+	 * @since	1.7.0	Registered a hook that adds the Upcoming Events slide format.
+	 * @since	1.7.1	Registered a hook that adds the Recent Posts slide format.
 	 */
 	static function init() {
 
