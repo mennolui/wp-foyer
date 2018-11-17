@@ -42,6 +42,9 @@ class Foyer {
 		/* Foyer_i18n */
 		add_action( 'plugins_loaded', array( 'Foyer_i18n', 'load_plugin_textdomain' ) );
 
+		/* Foyer_Addons */
+		add_action( 'plugins_loaded', array( 'Foyer_Addons', 'trigger_foyer_loaded' ) );
+
 		/* Foyer_Setup */
 		add_action( 'init', array( 'Foyer_Setup', 'register_post_types' ), 5 );
 
