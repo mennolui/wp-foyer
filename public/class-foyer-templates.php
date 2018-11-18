@@ -38,15 +38,42 @@ class Foyer_Templates {
 	}
 
 	/**
+	 * Gets all template paths registered by plugins.
+	 *
+	 * Plugin template paths are added through a filter.
+	 *
+	 * @since	1.X.X
+	 *
+	 * @return	array	All registered plugin template paths.
+	 */
+	static function get_plugin_template_paths() {
+
+		$plugin_template_paths = array();
+
+		/**
+		 * Filter the plugin template paths.
+		 *
+		 * @since	1.X.X
+		 * @param	array	$plugin_template_paths	The currently registered plugin template paths.
+		 */
+		$plugin_template_paths = apply_filters( 'foyer/templates/plugin_template_paths', $plugin_template_paths );
+
+		return $plugin_template_paths;
+	}
+
+	/**
 	 * Locates a template.
 	 *
 	 * Locate the called template.
 	 * Search Order:
 	 * 1. /themes/theme/foyer/$template_name
-	 * 2. /themes/theme/$template_name
+	 * 2. <registered plugin template paths>/$template_name.
 	 * 3. /plugins/foyer/public/templates/$template_name.
 	 *
 	 * @since	1.0.0
+	 * @since	1.X.X	Removed searching the /themes/theme/$template_name path as this is bound to cause
+	 *					conflicts with generic template names.
+	 * @since	1.X.X	Added searching registered plugin template paths. This adds add-on plugin support.
 	 *
 	 * @param 	string 	$template_name		Template to load.
 	 * @param 	string 	$template_path		Path to templates.
@@ -54,24 +81,57 @@ class Foyer_Templates {
 	 * @return 	string 						Path to the template file.
 	 */
 	static function locate_template( $template_name, $template_path = '', $default_path = '' ) {
-		// Set template path to foyer folder of theme.
+
+		// Set template path to foyer folder of theme / registered plugin.
 		if ( ! $template_path ) {
 			$template_path = 'foyer/';
 		}
-		// Set default path to templates folder of plugin.
+		// Set default path to templates folder of Foyer plugin.
 		if ( ! $default_path ) {
 			$default_path = plugin_dir_path( __FILE__ ) . 'templates/'; // Path to the template folder
 		}
-		// Search template file in theme.
+
+		// 1. Search template file in (child)theme.
 		$template = locate_template( array(
 			$template_path . $template_name,
-			$template_name
 		) );
-		// Fall back to template file in plugin.
+
+		// 2. Search template file in registered plugin template paths.
+		if ( $plugin_paths = self::get_plugin_template_paths() ) {
+			foreach ( $plugin_paths as $plugin_path ) {
+				$full_path = trailingslashit( $plugin_path ) . $template_name;
+				if ( file_exists( $full_path ) ) {
+					$template = $full_path;
+					break;
+				}
+			}
+		}
+
+		// 3. Fall back to template file in plugin.
 		if ( ! $template ) {
 			$template = $default_path . $template_name;
 		}
+
 		return apply_filters( 'foyer/templates/template', $template, $template_name, $template_path, $default_path );
+	}
+
+	/**
+	 * Registers the template path for an add-on.
+	 *
+	 * @since 	1.X.X
+	 *
+	 * @param 	string 	$template_path		Path to templates for this plugin.
+	 * @return	void
+	 */
+	static function register_plugin_template_path( $template_path ) {
+		add_filter(
+			'foyer/templates/plugin_template_paths',
+			function( $plugin_template_paths ) use ( $template_path ) {
+				$plugin_template_paths[] = $template_path;
+				return $plugin_template_paths;
+			},
+			5
+		);
 	}
 
 	/**
