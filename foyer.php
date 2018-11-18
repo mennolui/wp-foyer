@@ -30,6 +30,38 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+// Create a helper function for easy Freemius SDK access.
+function foyer_freemius() {
+	global $foyer_freemius;
+
+	if ( ! isset( $foyer_freemius ) ) {
+		// Include Freemius SDK.
+		require_once dirname( __FILE__ ) . '/freemius/start.php';
+
+		$foyer_freemius = fs_dynamic_init( array(
+			'id'                  => '2853',
+			'slug'                => 'foyer',
+			'type'                => 'plugin',
+			'public_key'          => 'pk_86d35013a3140a70d2554f2a74188',
+			'is_premium'          => false,
+			'has_addons'          => false,
+			'has_paid_plans'      => false,
+			'menu'                => array(
+				'first-path' => 'plugins.php',
+			),
+		) );
+	}
+
+	return $foyer_freemius;
+}
+
+// Init Freemius.
+foyer_freemius();
+
+// Signal that Freemius SDK was initiated.
+do_action( 'foyer_freemius_loaded' );
+
+
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-foyer-activator.php
