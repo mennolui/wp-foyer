@@ -140,6 +140,15 @@ Release Date: November 15, 2018
 
 Introduces the Upcoming Events and Recent Posts slide formats. Displays a slide for each of your upcoming events / recent posts, limited to a certain category if you wish. Upcoming Events requires the Theater for WordPress plugin.
 
+Enhancements:
+
+* Added support for add-on plugins. You can now code Foyer add-on plugins, including template files that take precedence over Foyer template files (1.7.2).
+
+Bug fixes:
+
+* Fixed an issue where video and YouTube backgrounds did not play on displays that did not yet include a video or YouTube background (1.7.2). Thanks [amosar](https://wordpress.org/support/users/amosar/) for troubleshooting!
+
+
 = 1.6 =
 Release Date: October 3, 2018
 
@@ -258,6 +267,9 @@ Bug fixes:
 
 
 == Upgrade Notice ==
+= 1.7.2 =
+Bug fixes and minor enhancements. Check the changelog for full details.
+
 = 1.7.1 =
 Introduces the Recent Posts slide format in addition to the Upcoming Events slide format. Check the changelog for full details.
 
