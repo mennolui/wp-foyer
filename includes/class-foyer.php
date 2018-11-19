@@ -31,6 +31,9 @@ class Foyer {
 	 *					triggered before filters with default priority, and before the occasional flush_rewrite_rules()
 	 *					after updating.
 	 * @since	1.6.0	Registered a hook that adds the HTML5 Video slide background.
+	 * @since	1.7.0	Registered a hook that adds the Upcoming Events slide format.
+	 * @since	1.7.1	Registered a hook that adds the Recent Posts slide format.
+	 * @since	1.X.X	Registered a hook to trigger the 'foyer_loaded' action that can be used by add-ons.
 	 */
 	static function init() {
 
@@ -41,6 +44,9 @@ class Foyer {
 
 		/* Foyer_i18n */
 		add_action( 'plugins_loaded', array( 'Foyer_i18n', 'load_plugin_textdomain' ) );
+
+		/* Foyer_Addons */
+		add_action( 'plugins_loaded', array( 'Foyer_Addons', 'trigger_foyer_loaded' ) );
 
 		/* Foyer_Setup */
 		add_action( 'init', array( 'Foyer_Setup', 'register_post_types' ), 5 );
@@ -104,6 +110,7 @@ class Foyer {
 	 * 					Included includes/class-foyer-updater.php.
 	 * 					Included includes/class-foyer-displays.php.
 	 * 					Included includes/class-foyer-channels.php.
+	 * @since	1.X.X	Included includes/class-foyer-addons.php.
 	 *
 	 * @access	private
 	 */
@@ -128,6 +135,9 @@ class Foyer {
 
 		/* Setup of internationalization. */
 		require_once FOYER_PLUGIN_PATH . 'includes/class-foyer-i18n.php';
+
+		/* Add-ons. */
+		require_once FOYER_PLUGIN_PATH . 'includes/class-foyer-addons.php';
 
 		/* General (not public/admin) setup actions. */
 		require_once FOYER_PLUGIN_PATH . 'includes/class-foyer-setup.php';
