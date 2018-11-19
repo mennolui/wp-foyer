@@ -3,7 +3,7 @@
 /**
  * The class that holds all functionality to support add-ons.
  *
- * @since		1.X.X
+ * @since		1.7.2
  *
  * @package		Foyer
  * @subpackage	Foyer/includes
@@ -14,7 +14,7 @@ class Foyer_Addons {
 	/**
 	 * Triggers the 'foyer_loaded' action so add-ons can initialize.
 	 *
-	 * @since 	1.X.X
+	 * @since 	1.7.2
 	 *
 	 * @return void
 	 */

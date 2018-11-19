@@ -42,7 +42,7 @@ class Foyer_Templates {
 	 *
 	 * Plugin template paths are added through a filter.
 	 *
-	 * @since	1.X.X
+	 * @since	1.7.2
 	 *
 	 * @return	array	All registered plugin template paths.
 	 */
@@ -53,7 +53,7 @@ class Foyer_Templates {
 		/**
 		 * Filter the plugin template paths.
 		 *
-		 * @since	1.X.X
+		 * @since	1.7.2
 		 * @param	array	$plugin_template_paths	The currently registered plugin template paths.
 		 */
 		$plugin_template_paths = apply_filters( 'foyer/templates/plugin_template_paths', $plugin_template_paths );
@@ -71,9 +71,9 @@ class Foyer_Templates {
 	 * 3. /plugins/foyer/public/templates/$template_name.
 	 *
 	 * @since	1.0.0
-	 * @since	1.X.X	Removed searching the /themes/theme/$template_name path as this is bound to cause
+	 * @since	1.7.2	Removed searching the /themes/theme/$template_name path as this is bound to cause
 	 *					conflicts with generic template names.
-	 * @since	1.X.X	Added searching registered plugin template paths. This adds add-on plugin support.
+	 * @since	1.7.2	Added searching registered plugin template paths. This adds add-on plugin support.
 	 *
 	 * @param 	string 	$template_name		Template to load.
 	 * @param 	string 	$template_path		Path to templates.
@@ -118,7 +118,7 @@ class Foyer_Templates {
 	/**
 	 * Registers the template path for an add-on.
 	 *
-	 * @since 	1.X.X
+	 * @since 	1.7.2
 	 *
 	 * @param 	string 	$template_path		Path to templates for this plugin.
 	 * @return	void

@@ -3,7 +3,7 @@
 class Test_Foyer_Templates extends Foyer_UnitTestCase {
 
 	/**
-	 * @since	1.X.X
+	 * @since	1.7.2
 	 */
 	function test_are_plugin_template_paths_registered() {
 
