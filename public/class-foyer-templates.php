@@ -16,6 +16,8 @@ class Foyer_Templates {
 	 *
 	 * Search for the template and include the file.
 	 *
+	 * Inspired by https://jeroensormani.com/how-to-add-template-files-in-your-plugin/
+	 *
 	 * @since	1.0.0
 	 * @since	1.5.7	Renamed the overly generic $args to $template_args so it can be re-used within templates.
 	 *
@@ -62,13 +64,14 @@ class Foyer_Templates {
 	}
 
 	/**
-	 * Locates a template.
+	 * Locates a Foyer template.
 	 *
-	 * Locate the called template.
 	 * Search Order:
 	 * 1. /themes/theme/foyer/$template_name
 	 * 2. <registered plugin template paths>/$template_name.
 	 * 3. /plugins/foyer/public/templates/$template_name.
+	 *
+	 * Inspired by https://jeroensormani.com/how-to-add-template-files-in-your-plugin/
 	 *
 	 * @since	1.0.0
 	 * @since	1.7.2	Removed searching the /themes/theme/$template_name path as this is bound to cause
