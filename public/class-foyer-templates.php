@@ -40,7 +40,7 @@ class Foyer_Templates {
 	/**
 	 * Gets all template paths registered by plugins.
 	 *
-	 * Plugin template paths are added through a filter.
+	 * Add-ons can add their plugin template path using Foyer_Templates::register_plugin_template_path().
 	 *
 	 * @since	1.7.2
 	 *
@@ -91,13 +91,13 @@ class Foyer_Templates {
 			$default_path = plugin_dir_path( __FILE__ ) . 'templates/'; // Path to the template folder
 		}
 
-		// 1. Search template file in (child)theme.
+		// 1. Search template file in active (child)theme.
 		$template = locate_template( array(
 			$template_path . $template_name,
 		) );
 
-		// 2. Search template file in registered plugin template paths.
-		if ( $plugin_paths = self::get_plugin_template_paths() ) {
+		// 2. Search template file in registered plugin template paths (if no template found in previous step).
+		if ( ! $template && $plugin_paths = self::get_plugin_template_paths() ) {
 			foreach ( $plugin_paths as $plugin_path ) {
 				$full_path = trailingslashit( $plugin_path ) . $template_name;
 				if ( file_exists( $full_path ) ) {
@@ -107,7 +107,7 @@ class Foyer_Templates {
 			}
 		}
 
-		// 3. Fall back to template file in plugin.
+		// 3. Fall back to template file in Foyer plugin (if no template found in previous step).
 		if ( ! $template ) {
 			$template = $default_path . $template_name;
 		}
