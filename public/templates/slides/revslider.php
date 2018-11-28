@@ -13,15 +13,41 @@ $slider_id = get_post_meta( $slide->ID, 'slide_revslider_slider_id', true );
 	<div class="inner">
 		<?php if ( ! empty( $slider_id ) ) { ?>
 			<div class="revslider-container" data-foyer-hold-slide="1">
-				<?php Foyer_Revslider::output_slider( $slider_id ); ?>
+				<?php //Foyer_Revslider::output_slider( $slider_id ); ?>
 
 
-<div class="slider manual" id="revolutionSlider2" data-plugin-revolution-slider data-plugin-options='{"startheight": 500}'>
+<!--<div class="slider manual" id="revolutionSlider2" data-plugin-revolution-slider data-plugin-options='{"startheight": 500}'>-->
+
+
+				<script>
+					jQuery(document).ready(function() {
+
+						jQuery('#layerslider_1').on('sliderDidLoad', function(e,slider) { // only works with ID, #layerslider_1
+							console.log('sliderDidLoad');
+						});
+
+						jQuery('#layerslider_1').on('slideChangeWillStart', function(e,slider) {
+							console.log('slideChangeWillStart');
+							console.log(slider.slides.current.index);
+//							slider.api('stop');
+		//					return false;
+						});
+
+//						var data = jQuery('.layerslider-container').layerSlider('eventData');
+//						console.log( data );
+
+					});
+				</script>
+
+				<div class="layerslider-container"></div>
+
+					<?php layerslider(1) ?>
+				</div>
 
 			</div>
 		<?php } ?>
 
-<script type="text/javascript">
+<!--<script type="text/javascript">
 	// dit doet iets..?
     var revapi = jQuery(document).ready(function() {
 
@@ -43,9 +69,9 @@ $slider_id = get_post_meta( $slide->ID, 'slide_revslider_slider_id', true );
 
     });
 
-</script>
+</script>-->
 
-		<script>
+<!--		<script>
 			jQuery(document).ready(function() {
 				var revapi = jQuery('#rev_slider_1_1').show().revolution({
 					waitForInit: true,
@@ -90,7 +116,7 @@ $slider_id = get_post_meta( $slide->ID, 'slide_revslider_slider_id', true );
 				//get working with Wait for revapi1.revstart(), in theme
 			});
 
-		</script>
+		</script>-->
 
 	</div>
 	<?php $slide->background(); ?>
