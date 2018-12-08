@@ -30,34 +30,44 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-// Create a helper function for easy Freemius SDK access.
+// Create a helper function for easy SDK access.
 function foyer_freemius() {
-	global $foyer_freemius;
+    global $foyer_freemius;
 
-	if ( ! isset( $foyer_freemius ) ) {
-		// Include Freemius SDK.
-		require_once dirname( __FILE__ ) . '/freemius/start.php';
+    if ( ! isset( $foyer_freemius ) ) {
+        // Include Freemius SDK.
+        require_once dirname(__FILE__) . '/freemius/start.php';
 
-		$foyer_freemius = fs_dynamic_init( array(
-			'id'                  => '2853',
-			'slug'                => 'foyer',
-			'type'                => 'plugin',
-			'public_key'          => 'pk_86d35013a3140a70d2554f2a74188',
-			'is_premium'          => false,
-			'has_addons'          => false,
-			'has_paid_plans'      => false,
-			'menu'                => array(
-				'first-path' => 'plugins.php',
-			),
-		) );
-	}
+        $foyer_freemius = fs_dynamic_init( array(
+            'id'                  => '2853',
+            'slug'                => 'foyer',
+            'type'                => 'plugin',
+            'public_key'          => 'pk_86d35013a3140a70d2554f2a74188',
+            'is_premium'          => true,
+            'premium_suffix'      => 'Pro',
+            // If your plugin is a serviceware, set this option to false.
+            'has_premium_version' => true,
+            'has_addons'          => false,
+            'has_paid_plans'      => true,
+            'trial'               => array(
+                'days'               => 7,
+                'is_require_payment' => false,
+            ),
+            'menu'                => array(
+                'slug'           => 'foyer',
+                'contact'        => true,
+                'support'        => false,
+            ),
+            // Set the SDK to work in a sandbox mode (for development & testing).
+            // IMPORTANT: MAKE SURE TO REMOVE SECRET KEY BEFORE DEPLOYMENT.
+            'secret_key'          => 'sk_Sz>M(.D;%1dbnq?Gl9Yk%zJ5-K7b0',
+        ) );
+    }
 
-	return $foyer_freemius;
+    return $foyer_freemius;
 }
-
 // Init Freemius.
 foyer_freemius();
-
 // Signal that Freemius SDK was initiated.
 do_action( 'foyer_freemius_loaded' );
 

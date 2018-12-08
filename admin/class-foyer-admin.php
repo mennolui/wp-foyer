@@ -80,10 +80,14 @@ class Foyer_Admin {
 			_x( 'Foyer', 'plugin name in admin menu', 'foyer' ),
 			'edit_posts',
 			'foyer',
-			array(),
+			array( __CLASS__, 'yo' ),
 			'dashicons-welcome-view-site',
 			31
 		);
+	}
+
+	static function yo() {
+		echo 'Yo!';
 	}
 
 	/**
