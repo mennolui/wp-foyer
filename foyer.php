@@ -30,47 +30,49 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-// Create a helper function for easy SDK access.
-function foyer_freemius() {
-    global $foyer_freemius;
+if ( ! function_exists( 'foyer_fs' ) ) {
+    // Create a helper function for easy SDK access.
+    function foyer_fs() {
+        global $foyer_fs;
 
-    if ( ! isset( $foyer_freemius ) ) {
-        // Include Freemius SDK.
-        require_once dirname(__FILE__) . '/freemius/start.php';
+        if ( ! isset( $foyer_fs ) ) {
+            // Include Freemius SDK.
+            require_once dirname(__FILE__) . '/freemius/start.php';
 
-        $foyer_freemius = fs_dynamic_init( array(
-            'id'                  => '2853',
-            'slug'                => 'foyer',
-            'type'                => 'plugin',
-            'public_key'          => 'pk_86d35013a3140a70d2554f2a74188',
-            'is_premium'          => true,
-            'premium_suffix'      => 'Pro',
-            // If your plugin is a serviceware, set this option to false.
-            'has_premium_version' => true,
-            'has_addons'          => false,
-            'has_paid_plans'      => true,
-            'trial'               => array(
-                'days'               => 7,
-                'is_require_payment' => false,
-            ),
-            'menu'                => array(
-                'slug'           => 'foyer',
-                'contact'        => true,
-                'support'        => false,
-            ),
-            // Set the SDK to work in a sandbox mode (for development & testing).
-            // IMPORTANT: MAKE SURE TO REMOVE SECRET KEY BEFORE DEPLOYMENT.
-            'secret_key'          => 'sk_Sz>M(.D;%1dbnq?Gl9Yk%zJ5-K7b0',
-        ) );
+            $foyer_fs = fs_dynamic_init( array(
+                'id'                  => '2853',
+                'slug'                => 'foyer',
+                'type'                => 'plugin',
+                'public_key'          => 'pk_86d35013a3140a70d2554f2a74188',
+                'is_premium'          => true,
+                'premium_suffix'      => '',
+                // If your plugin is a serviceware, set this option to false.
+                'has_premium_version' => true,
+                'has_addons'          => true,
+                'has_paid_plans'      => true,
+                'trial'               => array(
+                    'days'               => 7,
+                    'is_require_payment' => false,
+                ),
+                'menu'                => array(
+                    'slug'           => 'foyer',
+                    'contact'        => false,
+                    'support'        => false,
+                ),
+                // Set the SDK to work in a sandbox mode (for development & testing).
+                // IMPORTANT: MAKE SURE TO REMOVE SECRET KEY BEFORE DEPLOYMENT.
+                'secret_key'          => 'sk_Sz>M(.D;%1dbnq?Gl9Yk%zJ5-K7b0',
+            ) );
+        }
+
+        return $foyer_fs;
     }
 
-    return $foyer_freemius;
+    // Init Freemius.
+    foyer_fs();
+    // Signal that SDK was initiated.
+    do_action( 'foyer_fs_loaded' );
 }
-// Init Freemius.
-foyer_freemius();
-// Signal that Freemius SDK was initiated.
-do_action( 'foyer_freemius_loaded' );
-
 
 /**
  * The code that runs during plugin activation.
