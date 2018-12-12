@@ -44,7 +44,7 @@ if ( ! function_exists( 'foyer_fs' ) ) {
                 'slug'                => 'foyer',
                 'type'                => 'plugin',
                 'public_key'          => 'pk_86d35013a3140a70d2554f2a74188',
-                'is_premium'          => true,
+                'is_premium'          => false,
                 'premium_suffix'      => '',
                 // If your plugin is a serviceware, set this option to false.
                 'has_premium_version' => true,

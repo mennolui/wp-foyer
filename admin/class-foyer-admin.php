@@ -125,10 +125,17 @@ class Foyer_Admin {
 	 *					Removed include admin/class-foyer-admin-slide-format-video.php.
 	 * @since	1.6.0	Included the HTML5 Video slide background admin.
 	 * @since	1.7.0	Included the Upcoming Productions slide background admin.
+	 * @since	1.X.X	Included the class with Freemius admin functionalitys.
 	 *
 	 * @access	private
 	 */
 	private static function load_dependencies() {
+
+		/**
+		 * Admin area functionality for Freemius integration.
+		 */
+		require_once FOYER_PLUGIN_PATH . 'admin/class-foyer-admin-freemius.php';
+		Foyer_Admin_Freemius::init();
 
 		/**
 		 * Admin area functionality for display, channel and slide.
