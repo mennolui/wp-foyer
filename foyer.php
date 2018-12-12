@@ -59,9 +59,6 @@ if ( ! function_exists( 'foyer_fs' ) ) {
                     'contact'        => false,
                     'support'        => false,
                 ),
-                // Set the SDK to work in a sandbox mode (for development & testing).
-                // IMPORTANT: MAKE SURE TO REMOVE SECRET KEY BEFORE DEPLOYMENT.
-                'secret_key'          => 'sk_Sz>M(.D;%1dbnq?Gl9Yk%zJ5-K7b0',
             ) );
         }
 
