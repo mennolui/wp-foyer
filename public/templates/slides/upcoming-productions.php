@@ -32,7 +32,7 @@ foreach ( $wp_theatre->productions->get( $production_args ) as $production ) {
 	?><div<?php $slide->classes(); ?><?php $slide->data_attr();?>>
 		<div class="inner">
 			<div class="foyer-slide-fields">
-				<div class="foyer-slide-field foyer-slide-field-title"><?php echo esc_html( $production->title() ); ?></div>
+				<div class="foyer-slide-field foyer-slide-field-title"><?php echo $production->title(); ?></div>
 				<div class="foyer-slide-field foyer-slide-field-date"><?php echo $production->dates_html(); ?></div>
 			</div>
 		</div><?php
