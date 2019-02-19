@@ -3,6 +3,7 @@
  * Upcoming Productions slide format template.
  *
  * @since	1.7.0
+ * @since	1.7.3	Fixed an issue where developers could not use HTML in the production title.
  */
 
 global $wp_theatre;

@@ -5,6 +5,7 @@
  * @since	1.0.0
  * @since	1.0.1	Sanitized the output.
  * @since	1.4.0	Rewrote the template to work with slide background.
+ * @since	1.7.3	Fixed an issue where developers could not use HTML in the production title.
  */
 
 $slide = new Foyer_Slide( get_the_id() );
