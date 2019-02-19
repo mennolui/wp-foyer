@@ -147,6 +147,7 @@ Enhancements:
 Bug fixes:
 
 * Fixed an issue where video and YouTube backgrounds did not play on displays that did not yet include a video or YouTube background (1.7.2). Thanks [amosar](https://wordpress.org/support/users/amosar/) for troubleshooting!
+* Fixed an issue where developers could not use HTML in Theater production titles on the Production and Upcoming productions slide formats (1.7.3).
 
 
 = 1.6 =
@@ -267,6 +268,9 @@ Bug fixes:
 
 
 == Upgrade Notice ==
+= 1.7.3 =
+Bug fixes and minor enhancements. Check the changelog for full details.
+
 = 1.7.2 =
 Bug fixes and minor enhancements. Check the changelog for full details.
 
