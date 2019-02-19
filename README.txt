@@ -2,7 +2,7 @@
 Contributors: mennolui, slimndap
 Tags: digital signage, signage, narrowcasting, slideshow, theater
 Requires at least: 4.1
-Tested up to: 5.0
+Tested up to: 5.1
 Stable tag: trunk
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.html
