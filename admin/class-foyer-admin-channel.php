@@ -339,6 +339,7 @@ class Foyer_Admin_Channel {
 	 * @since	1.5.0	Added a foyer-slide-is-stack class to stack slides.
 	 *					Added an overlay for slides containing slide title, format and background, to be shown on hover.
 	 * @since	1.5.1	Removed the translatable string 'x' to make translation easier.
+	 * @since	1.X.X	Added a filter that allows diplaying of slide previews to be disabled.
 	 *
 	 * @param	WP_Post	$post
 	 * @return	string	$html	The HTML that lists all slides in the slides editor.
@@ -347,6 +348,16 @@ class Foyer_Admin_Channel {
 
 		$channel = new Foyer_Channel( $post );
 		$slides = $channel->get_slides();
+
+		/**
+		 * Filters whether to display slide previews.
+		 *
+		 * @since	1.X.X
+		 *
+		 * @param	bool	$display_slide_previews		Indicates whether to display slide previews on the channel
+		 *												admin screen or not.
+		 */
+		$display_slide_previews = apply_filters( 'foyer/admin/channel/display_slide_previews', false );
 
 		ob_start();
 
@@ -388,7 +399,9 @@ class Foyer_Admin_Channel {
 												<dd><?php echo esc_html( $slide_background_data['title'] ); ?></dd>
 											</dl>
 										</div>
-										<iframe src="<?php echo esc_url( $slide_url ); ?>" width="1080" height="1920"></iframe>
+										<?php if ( $display_slide_previews ) { ?>
+											<iframe src="<?php echo esc_url( $slide_url ); ?>" width="1080" height="1920"></iframe>
+										<?php } ?>
 									</div>
 									<div class="foyer_slides_editor_slides_slide_caption">
 										<?php echo esc_html_x( 'Slide', 'slide cpt', 'foyer' ) . ' ' . ( $i + 1 ); ?>
