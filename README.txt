@@ -140,15 +140,18 @@ Release Date: November 15, 2018
 
 Introduces the Upcoming Events and Recent Posts slide formats. Displays a slide for each of your upcoming events / recent posts, limited to a certain category if you wish. Upcoming Events requires the Theater for WordPress plugin.
 
-Enhancements:
-
-* Added support for add-on plugins. You can now code Foyer add-on plugins, including template files that take precedence over Foyer template files (1.7.2).
-
 Bug fixes:
 
 * Fixed an issue where video and YouTube backgrounds did not play on displays that did not yet include a video or YouTube background (1.7.2). Thanks [amosar](https://wordpress.org/support/users/amosar/) for troubleshooting!
-* Fixed an issue where developers could not use HTML in Theater production titles on the Production and Upcoming productions slide formats (1.7.3).
 
+Hey developers!:
+
+* Added support for add-on plugins. You can now code Foyer add-on plugins, including template files that take precedence over Foyer template files (1.7.2).
+* Fixed an issue where developers could not use HTML in Theater production titles on the Production and Upcoming productions slide formats (1.7.3).
+* Added a 'foyer/public/enqueue_scripts/before' action hook that is triggered before the Foyer scripts are enqueued, so add-on plugins can bind events before Foyer does (1.7.4).
+* Added an event 'slides:removing-old-slide-group' that is triggered just before a slide group is removed (1.7.4).
+* Added the slide group class as parameter to the 'slides:removing-old-slide-group' and 'slides:loaded-new-slide-group' events, so these slide groups can be selectively targeted (1.7.4).
+* Added a filter that allows displaying of slide previews on the channel admin screen to be disabled (1.7.4).
 
 = 1.6 =
 Release Date: October 3, 2018
@@ -268,6 +271,9 @@ Bug fixes:
 
 
 == Upgrade Notice ==
+= 1.7.4 =
+Bug fixes and minor enhancements. Check the changelog for full details.
+
 = 1.7.3 =
 Bug fixes and minor enhancements. Check the changelog for full details.
 
