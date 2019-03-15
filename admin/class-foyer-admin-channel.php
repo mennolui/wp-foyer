@@ -357,7 +357,7 @@ class Foyer_Admin_Channel {
 		 * @param	bool	$display_slide_previews		Indicates whether to display slide previews on the channel
 		 *												admin screen or not.
 		 */
-		$display_slide_previews = apply_filters( 'foyer/admin/channel/display_slide_previews', false );
+		$display_slide_previews = apply_filters( 'foyer/admin/channel/display_slide_previews', true );
 
 		ob_start();
 
