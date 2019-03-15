@@ -125,6 +125,8 @@ class Foyer_Public {
 	 * @since	1.2.5	Register scripts before they are enqueued.
 	 *					Makes it possible to enqueue foyer scripts outside of the foyer plugin.
 	 * @since	1.3.2	Changed method to static.
+	 * @since	1.X.X	Added a 'foyer/public/enqueue_scripts/before' action hook that is triggered before the
+	 *					Foyer scripts are enqueued, so add-on plugins can bind events before Foyer does.
 	 *
 	 * @return	void
 	 */
@@ -136,13 +138,20 @@ class Foyer_Public {
 			return;
 		}
 
+		/*
+		 * Runs before the Foyer public scripts are enqueued.
+		 *
+		 * @since	1.X.X
+		 */
+		do_action( 'foyer/public/enqueue_scripts/before' );
+
 		wp_enqueue_script( Foyer::get_plugin_name() );
 
 		/*
 		 * Runs after the Foyer public scripts are enqueued.
 		 *
 		 * @since	1.2.5
-		*/
+		 */
 		do_action( 'foyer/public/enqueue_scripts' );
 	}
 
