@@ -35,7 +35,7 @@ function foyer_display_setup() {
  * Loads and processes new HTML for the current display.
  *
  * @since	1.?.?
- * @since	1.X.X	Added a trigger 'slides:removing-old-slide-group' that is fired just before a slide group is removed.
+ * @since	1.7.4	Added a trigger 'slides:removing-old-slide-group' that is fired just before a slide group is removed.
  *					Added the slide group class as parameter to the 'slides:removing-old-slide-group'
  *					and 'slides:loaded-new-slide-group' triggers, so these slide groups can be selectively targeted.
  */

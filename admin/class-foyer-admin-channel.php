@@ -339,7 +339,7 @@ class Foyer_Admin_Channel {
 	 * @since	1.5.0	Added a foyer-slide-is-stack class to stack slides.
 	 *					Added an overlay for slides containing slide title, format and background, to be shown on hover.
 	 * @since	1.5.1	Removed the translatable string 'x' to make translation easier.
-	 * @since	1.X.X	Added a filter that allows diplaying of slide previews to be disabled.
+	 * @since	1.7.4	Added a filter that allows diplaying of slide previews to be disabled.
 	 *
 	 * @param	WP_Post	$post
 	 * @return	string	$html	The HTML that lists all slides in the slides editor.
@@ -352,7 +352,7 @@ class Foyer_Admin_Channel {
 		/**
 		 * Filters whether to display slide previews.
 		 *
-		 * @since	1.X.X
+		 * @since	1.7.4
 		 *
 		 * @param	bool	$display_slide_previews		Indicates whether to display slide previews on the channel
 		 *												admin screen or not.
