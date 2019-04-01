@@ -24,30 +24,47 @@ class Foyer_Admin_Settings {
 			_x( 'Foyer', 'plugin name in admin menu', 'foyer' ) . ' ' . __( 'Settings' ),
 			__( 'Settings' ),
 			'manage_options',
-			'foyer_settings',
-			array( __CLASS__, 'settings_page' )
+			'foyer-settings',
+			array( __CLASS__, 'output_settings_page' )
 		);
 	}
 
 	/**
 	 * Gets the slug of the current settings tab.
 	 *
+	 * Checks if the selected tab exists.
+	 * Falls back to the first tab when no valid tab is selected.
+	 *
 	 * @since	1.X.X
 	 *
 	 * @return	string	The slug of the current tab.
 	 */
 	static function get_current_tab() {
-		if ( ! empty( $_GET['tab'] ) ) {
+		$tabs = self::get_tabs();
+
+		if ( ! empty( $_GET['tab'] ) && ! empty( $tabs[ $_GET['tab'] ] ) ) {
 			return $_GET['tab'];
 		}
 
-		$tab_keys = array_keys( self::get_tabs() );
+		$tab_keys = array_keys( $tabs );
 
 		if ( empty( $tab_keys ) ) {
 			return false;
 		}
 
 		return $tab_keys[0];
+	}
+
+	/**
+	 * Gets the settings page name for a tab.
+	 *
+	 * @since 	1.X.X
+	 *
+	 * @param	string	$tab		The slug of the tab to get the page name for.
+	 * @return	string			The settings page name for this tab.
+	 */
+	static function get_page_name_for_tab( $tab ) {
+		return 'foyer-' . $tab;
 	}
 
 	/**
@@ -75,31 +92,85 @@ class Foyer_Admin_Settings {
 	}
 
 	/**
+	 * Initializes the current settings tab.
+	 *
+	 * Only if a settings tab is being displayed.
+	 *
+	 * @since	1.X.X
+	 *
+	 * @return	void
+	 */
+	static function init_current_settings_tab() {
+
+		if ( ! self::is_foyer_settings() ) {
+			return false;
+		}
+
+		$tabs = self::get_tabs();
+
+		if ( empty( $tabs ) ) {
+			return;
+		}
+
+		$current_tab_data = $tabs[ self::get_current_tab() ];
+
+		if ( empty( $current_tab_data['callback'] ) )  {
+			return;
+		}
+
+		call_user_func( $current_tab_data['callback'] );
+	}
+
+	/**
+	 * Checks if we are viewing or saving a Foyer settings screen.
+	 *
+	 * Does not work on 'admin_init' hook. Use 'current_screen' hook or later.
+	 *
+	 * @since	1.X.X
+	 *
+	 * @return	bool		True if we are viewing or saving a Foyer settings screen, false otherwise.
+	 */
+	static function is_foyer_settings() {
+
+		$screen = get_current_screen();
+
+		if ( empty( $screen ) ) {
+			return false;
+		}
+
+		if ( 'foyer_page_foyer-settings' == $screen->id || 'options' == $screen->id ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
 	 * Outputs the settings page.
 	 *
 	 * @since	1.X.X
 	 *
 	 * @return	void
 	 */
-	static function settings_page() {
+	static function output_settings_page() {
 		?><div class="wrap">
 			<h1><?php echo _x( 'Foyer', 'plugin name in admin menu', 'foyer' ) . ' ' . __( 'Settings' ); ?></h1>
 
 			<?php if ( ! empty( self::get_tabs() ) ) { ?>
 
 				<h2 class="nav-tab-wrapper">
-					<?php foreach ( self::get_tabs() as $key => $val ) { ?>
-						<a class="nav-tab <?php echo $key == self::get_current_tab() ? 'nav-tab-active' : '';?>"
-							href="?page=foyer_settings&tab=<?php echo $key; ?>">
-							<?php echo $val; ?>
+					<?php foreach ( self::get_tabs() as $slug => $tab ) { ?>
+						<a class="nav-tab <?php echo $slug == self::get_current_tab() ? 'nav-tab-active' : '';?>"
+							href="?page=foyer-settings&tab=<?php echo $slug; ?>">
+							<?php echo $tab['name']; ?>
 						</a>
 					<?php } ?>
 				</h2>
 				<form method="post" action="options.php">
 					<?php
 						// This prints out all hidden setting fields
-						settings_fields( self::get_current_tab() );
-						do_settings_sections( self::get_current_tab() );
+						settings_fields( self::get_page_name_for_tab( self::get_current_tab() ) );
+						do_settings_sections( self::get_page_name_for_tab( self::get_current_tab() ) );
 						submit_button();
 					?>
 				</form>
