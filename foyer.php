@@ -71,6 +71,8 @@ function run_foyer() {
 	define( 'FOYER_PLUGIN_URL', trailingslashit( plugins_url( '', __FILE__ ) ) );
 	define( 'FOYER_PLUGIN_FILE', __FILE__ );
 
+	define( 'FOYER_EDD_STORE_URL', 'https://foyer.tv' );
+
 	Foyer::init();
 }
 

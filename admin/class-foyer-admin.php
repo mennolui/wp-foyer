@@ -30,6 +30,12 @@ class Foyer_Admin {
 		/* Foyer_Admin_Settings */
 		add_action( 'admin_menu', array( 'Foyer_Admin_Settings', 'add_settings_submenu' ) );
 
+		/* Foyer_Admin_Settings_Licenses */
+		add_action( 'foyer/admin/settings/tabs', array( 'Foyer_Admin_Settings_Licenses', 'register_settings_tab' ), 100 );
+
+		/* Foyer_Admin_Addons_Updater */
+		add_action( 'admin_init', array( 'Foyer_Admin_Addons_Updater', 'create_plugin_updaters' ), 0 );
+
 		/* Foyer_Admin_Display */
 		add_action( 'admin_enqueue_scripts', array( 'Foyer_Admin_Display', 'localize_scripts' ) );
 		add_action( 'add_meta_boxes', array( 'Foyer_Admin_Display', 'add_channel_editor_meta_box' ) );
@@ -133,6 +139,13 @@ class Foyer_Admin {
 		 * Admin area functionality for settings.
 		 */
 		require_once FOYER_PLUGIN_PATH . 'admin/class-foyer-admin-settings.php';
+		require_once FOYER_PLUGIN_PATH . 'admin/class-foyer-admin-settings-licenses.php';
+
+		/**
+		 * Admin area functionality for updating add-ons.
+		 */
+		require_once FOYER_PLUGIN_PATH . 'admin/class-foyer-admin-addons-updater.php';
+		require_once FOYER_PLUGIN_PATH . 'admin/Foyer_EDD_SL_Plugin_Updater.php';
 
 		/**
 		 * Admin area functionality for display, channel and slide.
