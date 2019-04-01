@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The admin-specific settings functionality.
+ * The admin settings functionality.
  *
  * @since		1.X.X
  *
@@ -59,7 +59,16 @@ class Foyer_Admin_Settings {
 	 */
 	static function get_tabs() {
 		if ( empty( self::$tabs ) ) {
-			self::$tabs = apply_filters( 'foyer/admin/settings/tabs', array() );
+
+			$tabs = array();
+
+			/**
+			 * Filter the settings tabs.
+			 *
+			 * @since	1.X.X
+			 * @param	array	$tabs	The currently registered settings tabs.
+			 */
+			self::$tabs = apply_filters( 'foyer/admin/settings/tabs', $tabs );
 		}
 
 		return self::$tabs;
