@@ -155,7 +155,6 @@ class Foyer_Admin_Settings {
 	 */
 	static function is_foyer_settings() {
 
-
 		if ( ! is_admin() ) {
 			return false;
 		}

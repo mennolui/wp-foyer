@@ -29,10 +29,11 @@ class Foyer_Admin {
 
 		/* Foyer_Admin_Settings */
 		add_action( 'admin_menu', array( 'Foyer_Admin_Settings', 'add_settings_submenu' ) );
-		add_action( 'current_screen', array( 'Foyer_Admin_Settings', 'init_current_settings_tab' ) );
+		add_action( 'admin_init', array( 'Foyer_Admin_Settings', 'init_current_settings_tab' ) );
 
 		/* Foyer_Admin_Settings_Licenses */
 		add_filter( 'foyer/admin/settings/tabs', array( 'Foyer_Admin_Settings_Licenses', 'register_settings_tab' ), 100 );
+		add_action( 'admin_init', array( 'Foyer_Admin_Settings_Licenses', 'process_actions' ) );
 
 		/* Foyer_Admin_Addons_Updater */
 		add_action( 'admin_init', array( 'Foyer_Admin_Addons_Updater', 'create_plugin_updaters' ), 0 );
