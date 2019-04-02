@@ -68,6 +68,29 @@ class Foyer_Admin_Settings {
 	}
 
 	/**
+	 * Gets the URL for a tab on the Foyer settings page.
+	 *
+	 * @since 	1.X.X
+	 *
+	 * @param	string	$tab		The slug of the tab to get the URL for.
+	 * @return	string			The URL of the tab on the Foyer settings page.
+	 */
+	static function get_settings_tab_url( $tab ) {
+		return add_query_arg( 'tab', $tab, self::get_settings_url() );
+	}
+
+	/**
+	 * Gets the URL for the Foyer settings page.
+	 *
+	 * @since 	1.X.X
+	 *
+	 * @return	string			The URL of the Foyer settings page.
+	 */
+	static function get_settings_url() {
+		return menu_page_url( 'foyer-settings', false );
+	}
+
+	/**
 	 * Gets all registered settings tabs.
 	 *
 	 * @since	1.X.X
@@ -124,7 +147,7 @@ class Foyer_Admin_Settings {
 	/**
 	 * Checks if we are viewing or saving a Foyer settings screen.
 	 *
-	 * Does not work on 'admin_init' hook. Use 'current_screen' hook or later.
+	 * Uses $_SERVER['REQUEST_URI'] because get_current_screen() does not work on 'admin_init'.
 	 *
 	 * @since	1.X.X
 	 *
@@ -132,17 +155,19 @@ class Foyer_Admin_Settings {
 	 */
 	static function is_foyer_settings() {
 
-		$screen = get_current_screen();
 
-		if ( empty( $screen ) ) {
+		if ( ! is_admin() ) {
 			return false;
 		}
 
-		if ( 'foyer_page_foyer-settings' == $screen->id || 'options' == $screen->id ) {
-			return true;
+		if (
+			false === strpos( $_SERVER['REQUEST_URI'], '/admin.php?page=foyer-settings' ) &&
+			false === strpos( $_SERVER['REQUEST_URI'], '/options.php' )
+		) {
+			return false;
 		}
 
-		return false;
+		return true;
 	}
 
 	/**
@@ -161,7 +186,7 @@ class Foyer_Admin_Settings {
 				<h2 class="nav-tab-wrapper">
 					<?php foreach ( self::get_tabs() as $slug => $tab ) { ?>
 						<a class="nav-tab <?php echo $slug == self::get_current_tab() ? 'nav-tab-active' : '';?>"
-							href="?page=foyer-settings&tab=<?php echo $slug; ?>">
+							href="<?php echo self::get_settings_tab_url( $slug ); ?>">
 							<?php echo $tab['name']; ?>
 						</a>
 					<?php } ?>
