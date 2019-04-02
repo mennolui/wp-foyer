@@ -51,8 +51,8 @@ class Foyer_Addons {
 			Foyer_Templates::register_plugin_template_path( $addon['template_path'] );
 		}
 
-		if ( ! empty( $addon['updater'] ) ) {
-			self::register_licensed_addon( $addon['updater'] );
+		if ( ! empty( $addon['licensed_addon'] ) ) {
+			self::register_licensed_addon( $addon['licensed_addon'] );
 		}
 	}
 
