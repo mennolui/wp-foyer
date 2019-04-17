@@ -2,7 +2,7 @@
 Contributors: mennolui, slimndap
 Tags: digital signage, signage, narrowcasting, slideshow, theater
 Requires at least: 4.1
-Tested up to: 5.1
+Tested up to: 5.2
 Stable tag: trunk
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.html
@@ -14,53 +14,60 @@ A free Digital Signage plugin for WordPress. Create and show off slideshows on y
 
 Create slideshows and show them off on any networked display. Hardware not included :-)
 
-**Check out this demo sign:**
-[http://demo.foyer.tv](http://demo.foyer.tv)
+**Check out the demo sign & website:**
+[https://demo.foyer.tv](https://demo.foyer.tv)
+[https://foyer.tv](https://foyer.tv)
 
 = Features =
-* Set up slides, channels (slideshows) and displays.
+* **Set up slides, channels (slideshows) and displays**.
+* Choose from various Slide formats and Slide backgrounds.
 * Choose slide duration and transition effect.
-* Set or change the channel on a display.
+* Change the channel on a display when needed, or..
 * Schedule a temporary channel on a display.
 
-= Features for theaters, music venues, festivals =
-Foyer comes with build in support for the [Theater for WordPress plugin](https://wordpress.org/plugins/theatre/). With Theater & Foyer you can easily publish your events on your website, and automatically showcase them on your onsite displays.
-
 = Slide formats =
-* Default: Displays a background only.
-* Text: Displays some text.
-* Post: Displays title, date and content of a post, and optionally the featured image.
-* Recent posts: Displays a slide for each recent post.
-* Event: Displays title and details of an event, with its featured image as default background (requires Theater for WordPress).
-* Upcoming events: Displays a slide for each upcoming event (requires Theater for WordPress).
-* External web page: Displays a web page to your liking.
-* PDF: Creates a slide for each page in an uploaded PDF, displaying that page contained within the slide.
+* **Default**: Displays a background only.
+* **Text**: Displays some text.
+* **Post**: Displays title, date and content of a post, and optionally the featured image.
+* **Recent posts**: Displays a slide for each recent post.
+* **Event**: Displays title and details of an event, with its featured image as default background (requires Theater for WordPress).
+* **Upcoming events**: Displays a slide for each upcoming event (requires Theater for WordPress).
+* **External web page**: Displays a web page to your liking.
+* **PDF**: Creates a slide for each page in an uploaded PDF, displaying that page contained within the slide.
 
 = Slide backgrounds =
-* Image: Displays an image, covering the entire slide background.
-* Video: Displays an uploaded or external video, or a specified fragment, as slide background.
-* YouTube: Displays a YouTube video, or a specified fragment, as slide background.
+* **Image**: Displays an image, covering the entire slide background.
+* **Video**: Displays an uploaded or external video, or a specified fragment, as slide background.
+* **YouTube**: Displays a YouTube video, or a specified fragment, as slide background.
 
-More features, slide formats and slide backgrounds are coming soon.
-Eg. an HTML/shortcode slide, multiple and recurring scheduled channels. Longer term goals include a widgets bar for displaying Time, Weather and other widgets.
+More features, slide formats and slide backgrounds are coming soon. Most notably advanced scheduling of channels and slides.
 
-= Missing feature? =
+= Features for theaters, music venues, festivals =
+Foyer comes with built-in support for [Theater for WordPress](https://wordpress.org/plugins/theatre/). With Theater & Foyer you can easily publish your events on your website *and* your onsite displays.
 
-Let me know! Create a request in the [support forum](https://wordpress.org/support/plugin/foyer).
+== Enjoying Foyer? ==
 
-= Translate Foyer into your native language =
+* Leave a review on [WordPress.org](https://wordpress.org/support/plugin/foyer/reviews/?filter=5/#new-post) :-)
+* Leave a review on [Capterra](https://www.capterra.nl/reviews/173756/foyer---digital-signage-for-wordpress).
+* Subscribe to the [Foyer Newsletter](https://eepurl.com/gkiymb).
+* Visit the [Foyer website & blog](https://foyer.tv/).
 
-Chinese, French, Swedish, Italian, Arabic, ... Have you ever translated a WordPress plugin, or want to give it a try? [Find your language here](https://translate.wordpress.org/projects/wp-plugins/foyer) and translate some Foyer strings. Improvements of existing Foyer translations are welcome too.
-
-Whenever 90% or more of all strings in the _Development_ project (_Development Readme_ translations do not count) are translated send me a message. I will make sure a language pack for your language will be created.
-
-== Donations ==
-
+= Donations =
 Donations are very welcome and help me dedicate more time to developing this plugin.
 
-* Bitcoin: 1LWZ4RRjpA34GqS5dVAw1fbrFweW97WZVG or..
-* ETH (or tokens): 0xfd8ab9b18960ffc72ad2ef110c50afd2985cca7d or..
 * [Donate through PayPal](https://www.paypal.me/mennoluitjes).
+* Bitcoin: 1LWZ4RRjpA34GqS5dVAw1fbrFweW97WZVG
+* ETH (or tokens): 0xfd8ab9b18960ffc72ad2ef110c50afd2985cca7d
+
+= Translate Foyer into your native language =
+Swedish, Hindi, Italian, French, Indonesian, Arabic, ... Have you ever translated a WordPress plugin, or want to give it a try? [Find your language here](https://translate.wordpress.org/projects/wp-plugins/foyer) and translate some Foyer strings. Improvements of existing Foyer translations are welcome too.
+
+= Missing feature? =
+Let me know what features you are missing! Create a request in the [support forum](https://wordpress.org/support/plugin/foyer).
+
+== Screenshots ==
+
+1. Manage your Digital Signage from the WordPress admin.
 
 == Installation ==
 
@@ -79,7 +86,7 @@ There are currently no settings. Just go ahead and add slides, channels and disp
 1. In WordPress go to _Slides_ and add some.
 1. Go to _Channels_, add one, and add some of your slides.
 1. Go to _Displays_, add one, and subscribe it to your channel.
-1. Preview the display, note the URL (something like http://your.site/foyer/name-of-your-display), and load this page in the web browser of your digital sign.
+1. Preview the display, note the URL (something like https://your.site/foyer/name-of-your-display), and load this page in the web browser of your digital sign. Make sure this is a browser where you are *not* logged-in to WordPress.
 
 Your digital sign will now display the channel it is subscribed to. If you change the channel for this display in WordPress, the digital sign will change with it. You can even schedule channels on displays.
 
@@ -128,10 +135,6 @@ Changes to displays, channels and slides are never instantly visible on your dig
 Yes, but your cache settings might need some tweaking. Your display loads new content every 5 minutes. With page cache or browser cache enabled your display will not show the changes you made within 5 minutes but instead this might take hours. Make sure all cache layers are disabled for Foyer displays.
 
 Settings for W3 Total Cache: Add `/foyer/*` on a new line under Performance > Page Cache > Never cache the following pages.
-
-== Screenshots ==
-
-Coming soon.
 
 == Changelog ==
 
