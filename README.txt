@@ -86,7 +86,7 @@ There are currently no settings. Just go ahead and add slides, channels and disp
 1. In WordPress go to _Slides_ and add some.
 1. Go to _Channels_, add one, and add some of your slides.
 1. Go to _Displays_, add one, and subscribe it to your channel.
-1. Preview the display, note the URL (something like https://your.site/foyer/name-of-your-display), and load this page in the web browser of your digital sign. Make sure this is a browser where you are *not* logged-in to WordPress.
+1. Preview the display, note the URL (something like https://your.site/foyer/name-of-your-display), and load this URL in the web browser of your digital sign. Make sure this is a browser where you are *not* logged-in to WordPress.
 
 Your digital sign will now display the channel it is subscribed to. If you change the channel for this display in WordPress, the digital sign will change with it. You can even schedule channels on displays.
 
@@ -102,12 +102,14 @@ When setting up multiple digital signs with their own content, each display need
 = Can I use a Raspberry Pi mini-computer for my digital sign? =
 Sure! Be aware that transitions and video playback on the Pi will be very choppy though, if they work at all. Use the 'No transition' setting for channels, don't add videos, and your Raspberry Pi digital sign will be fine.
 
-I can recommend installing the paid version of [Raspberry Digital Signage](http://www.binaryemotions.com/digital-signage/raspberry-digital-signage/) as operating system on the SD card of a Raspberry Pi 3 Model B. Just power up your Pi, enter the URL of your Foyer display when asked, and you'll have an instant digital sign each time you power up.
+I can recommend installing the paid version of [Raspberry Digital Signage](https://www.binaryemotions.com/digital-signage/raspberry-digital-signage/) as operating system on the SD card of a Raspberry Pi 3 or higher. Just power up your Pi, enter the URL of your Foyer display when asked, and you'll have an instant digital sign each time you power up.
 
 = Can I use an Android mini-computer or tablet for my digital sign? =
-Absolutely! Transitions and video playback should be smooth, of course depending on the hardware used. To set up your digital sign with the Chrome browser: Open your display URL in Chrome and tap 'Add to Home screen' from the Chrome menu. A shortcut will be added to your Home screen. When you launch this shortcut your display will be shown full screen.
+Absolutely! Transitions and video playback should be smooth, of course depending on the hardware used.
 
-You might want to use hardware that supports auto power-on after power outage. And you might want to use a Kiosk and Lockdown app, to make sure your display will launch when Android starts. And for tablets to make sure nobody can interact with the screen, and to avoid display sleep.
+I can recommend installing the free [Fully Kiosk Browser & App Lockdown](https://play.google.com/store/apps/details?id=de.ozerov.fully) app on your Android device. Use this app instead of the default Chrome browser. Just enter the URL of your Foyer display when asked, and you'll have an instant full screen digital sign each time you power up the device. This app also makes sure nobody can interact with the screen - handy for tablets - and avoids display sleep. You might want to use hardware that supports auto power-on after power outage.
+
+The default Chrome browser will also work, but without the benefits mentioned above. Open your Foyer display URL in Chrome and tap 'Add to Home screen' from the Chrome menu. A shortcut will be added to your Home screen. When you launch this shortcut your display will be shown full screen.
 
 = Landscape or portrait? =
 You choose! Install your digital sign the way you prefer. Foyer will follow. Slide templates are designed to work in both landscape and portrait mode. Only the background image will be cropped differently, of course.
@@ -129,7 +131,7 @@ The plugin always displays the center-middle part of each image. So if the impor
 If you want to have full control you can always create and upload images that have the exact same orientation and proportions as your display. For most displays this is 1920x1080 pixels (landscape) or 1080x1920 (portrait). That way the images will be 100% visible.
 
 = My changes are not directly visible on my displays, what's happening? =
-Changes to displays, channels and slides are never instantly visible on your digital signs. Each digital sign tries to contact your website every 5 minutes to see if you made any changes. If so and you changed the channel for a display, the new channel will be shown right after the slide that is currently being displayed. For any other changes, like adding slides, the new slides will be shown right after a full cycle of the slides that are currently being displayed.
+Changes to displays, channels and slides are never instantly visible on your digital signs. Each digital sign tries to contact your website every 5 minutes to load any changes. If you changed the channel for a display, the new channel will be shown right after the slide that is currently being displayed. For any other changes, like adding slides or updated content, the new slides will be shown right after a full cycle of the slides that are currently being displayed.
 
 = Does Foyer work together with caching plugins like W3 Total Cache or WP Super Cache? =
 Yes, but your cache settings might need some tweaking. Your display loads new content every 5 minutes. With page cache or browser cache enabled your display will not show the changes you made within 5 minutes but instead this might take hours. Make sure all cache layers are disabled for Foyer displays.
