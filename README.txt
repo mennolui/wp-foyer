@@ -133,6 +133,13 @@ If you want to have full control you can always create and upload images that ha
 = My changes are not directly visible on my displays, what's happening? =
 Changes to displays, channels and slides are never instantly visible on your digital signs. Each digital sign tries to contact your website every 5 minutes to load any changes. If you changed the channel for a display, the new channel will be shown right after the slide that is currently being displayed. For any other changes, like adding slides or updated content, the new slides will be shown right after a full cycle of the slides that are currently being displayed.
 
+= My favorite shortcode (slider, builder, script, embed, etc..) doesn't work on Foyer slides, can you help? =
+Using shortcodes (etc..) is possible, but it is not supported and unfortunately I can't help you if they don't work.
+
+Some shortcodes will work, some won't, and some work initially but will stop working after 5 minutes (when your display loads new slide content). This is because most shortcodes are simply coded to work on one static web page, not in the context of a Foyer slideshow.
+
+That being said please go ahead and test your favorite shortcode on a Foyer slide. Preview your display and if the shortcode still works as expected after 10 minutes you will be fine. If not maybe a different shortcode will work. An alternative approach that does work with shortcodes is building a page that includes the shortcode, then display that web page within your Foyer slideshow using the External web page slide format.
+
 = Does Foyer work together with caching plugins like W3 Total Cache or WP Super Cache? =
 Yes, but your cache settings might need some tweaking. Your display loads new content every 5 minutes. With page cache or browser cache enabled your display will not show the changes you made within 5 minutes but instead this might take hours. Make sure all cache layers are disabled for Foyer displays.
 
