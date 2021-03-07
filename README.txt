@@ -140,6 +140,32 @@ Some shortcodes will work, some won't, and some work initially but will stop wor
 
 That being said please go ahead and test your favorite shortcode on a Foyer slide. Preview your display and if the shortcode still works as expected after 10 minutes you will be fine. If not maybe a different shortcode will work. An alternative approach that does work with shortcodes is building a page that includes the shortcode, then display that web page within your Foyer slideshow using the External web page slide format.
 
+= My YouTube/Video won’t play, how can I solve this? =
+Since 2018 several browsers started blocking autoplaying videos to protect their users. Different browsers use different methods to determine when to block autoplaying and when not.
+
+At this moment, November 2019, most browsers still allow autoplaying videos as long as they are muted. So uncheck the 'Yes, enable sound' checkbox on your YouTube/Video slides and see what happens.
+
+Chrome also blocks autoplaying videos without sound if the page did not receive enough user interaction (sadly this is often the case with digital signage).
+
+https://stackoverflow.com/questions/57455849/chrome-autoplay-policy-chrome-76
+https://support.mozilla.org/en-US/kb/block-autoplay
+
+
+Some workarounds (mostly untested so any feedback is appreciated):
+
+1. Apply a setting to your Chrome browser so it will always allow autoplay.
+– open a Chrome browser and type: chrome://flags/#autoplay-policy
+– change the “Autoplay policy” setting from “Default” to “No user gesture is required”
+– more info here: https://stackoverflow.com/questions/49921453/how-to-allow-video-autoplay-in-a-google-chrome-kiosk-app-in-version-66-or-later
+2. Uncheck the 'Yes, enable sound' checkbox on your YouTube/Video slides.
+3. Run Chrome in kiosk mode (not sure how though..).
+4. Switch to a different browser, for example Firefox.
+
+Let me know if this helps.
+
+
+= My External web page slide displays a white/empty page, what can I do? =
+
 = Does Foyer work together with caching plugins like W3 Total Cache or WP Super Cache? =
 Yes, but your cache settings might need some tweaking. Your display loads new content every 5 minutes. With page cache or browser cache enabled your display will not show the changes you made within 5 minutes but instead this might take hours. Make sure all cache layers are disabled for Foyer displays.
 
