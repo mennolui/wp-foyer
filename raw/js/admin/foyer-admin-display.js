@@ -21,8 +21,10 @@ function foyer_display_setup_channel_scheduler() {
 			onChangeDateTime: function(start) {
 				if (start) {
 					if (!$end_datetime.val() || new Date($end_datetime.val()) < start) {
-						var new_end = new Date(start.getTime() + foyer_channel_scheduler_defaults.duration * 1000)
-						$end_datetime.val(new_end.dateFormat(foyer_channel_scheduler_defaults.datetime_format));
+						var new_end = new Date(start.getTime() + foyer_channel_scheduler_defaults.duration * 1000);
+						// Uses https://plugins.krajee.com/php-date-formatter included with datetimepicker
+						var fmt = new DateFormatter();
+						$end_datetime.val(fmt.formatDate(new_end, foyer_channel_scheduler_defaults.datetime_format));
 					}
 				}
 			}
