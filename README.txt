@@ -2,7 +2,7 @@
 Contributors: mennolui, slimndap
 Tags: digital signage, signage, narrowcasting, slideshow, theater
 Requires at least: 4.1
-Tested up to: 5.3
+Tested up to: 5.7
 Stable tag: trunk
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.html
@@ -124,7 +124,7 @@ Yes, this is possible if you know how to write WordPress templates. Create a foy
 Yes, this is possible if you know how to write WordPress templates, and how to register PHP functions to WordPress plugin hooks. Have a look at how the plugin adds slide formats itself, in includes/class-foyer.php. More documentation for developers is coming soon.
 
 = The top/bottom or left/right part of my image is missing, why? =
-All images are displayed in a way that they fully cover the display. So if your display has a landscape orientation, and you upload an image with portrait orientation, the image will still cover the entire width of the display, which is great. But of course the top and bottom part of that image will not be visible. The greater the difference between the display orientation and the uploaded image orientation, the greater the top/bottom part or left/right part that will be invisble.
+All images are displayed in a way that they fully cover the display. So if your display has a landscape orientation, and you upload an image with portrait orientation, the image will still cover the entire width of the display, which is great. But of course the top and bottom part of that image will not be visible. The greater the difference between the display orientation and the uploaded image orientation, the greater the top/bottom part or left/right part that will be invisible.
 
 The plugin always displays the center-middle part of each image. So if the important part of your image is in the top part of the image, that might not be visible. You might have to crop that image before uploading and adding to a slide.
 
@@ -155,6 +155,7 @@ Introduces the Upcoming Events and Recent Posts slide formats. Displays a slide 
 Bug fixes:
 
 * Fixed an issue where video and YouTube backgrounds did not play on displays that did not yet include a video or YouTube background (1.7.2). Thanks [amosar](https://wordpress.org/support/users/amosar/) for troubleshooting!
+* Fixed an issue where the end date was not set when selecting a start date for a temporary channel on the edit display screen, and a JavaScript error was thrown in the browser console (1.7.5).
 
 Hey developers!:
 
@@ -269,7 +270,7 @@ Bug fixes:
 * When adding slides to a channel, the list of possible slides was limited to 5 items (1.1.0).
 * Fatal error on install/upgrade on older PHP versions (< 5.5): Can't use function return value in write context (1.1.1).
 * All slide of a channel were removed after re-ordering the slides (1.1.2).
-* Javascript error occured when a slide’s freshly selected image didn't have a generated preview image (eg. PDFs on hosting not capable of converting PDFs) (1.1.2).
+* Javascript error occurred when a slide’s freshly selected image didn't have a generated preview image (eg. PDFs on hosting not capable of converting PDFs) (1.1.2).
 * Adding an image to a slide was only possible when the image was already in the media library (1.1.3).
 
 = 1.0 =
@@ -283,6 +284,9 @@ Bug fixes:
 
 
 == Upgrade Notice ==
+= 1.7.5 =
+Bug fixes and minor enhancements. Check the changelog for full details.
+
 = 1.7.4 =
 Bug fixes and minor enhancements. Check the changelog for full details.
 
@@ -365,7 +369,7 @@ Introduces the Video slide format. Displays a specified fragment of a YouTube vi
 Fixes an issue where adding an image to a slide was only possible when the image was already in the media library.
 
 = 1.1.2 =
-Fixes two bugs. Fixes an issue where all slides of a channel were removed after re-ordering the slides. Fixes a Javascript error that occured when a slide’s freshly selected image didn't have a generated preview image (eg. PDFs on hosting not capable of converting PDFs).
+Fixes two bugs. Fixes an issue where all slides of a channel were removed after re-ordering the slides. Fixes a Javascript error that occurred when a slide’s freshly selected image didn't have a generated preview image (eg. PDFs on hosting not capable of converting PDFs).
 
 = 1.1.1 =
 Fixes a fatal error on install/upgrade on older PHP versions (< 5.5).
