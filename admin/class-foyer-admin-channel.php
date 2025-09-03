@@ -143,32 +143,82 @@ class Foyer_Admin_Channel {
 
 		ob_start();
 
-		?>
-			<div class="foyer_slides_editor_add">
-				<table class="form-table">
-					<tbody>
-						<th>
-							<label for="foyer_slides_editor_add">
-								<?php echo esc_html__( 'Add slide', 'foyer' ); ?>
-							</label>
-						</th>
-						<td>
-							<select id="foyer_slides_editor_add" class="foyer_slides_editor_add_select">
-								<option value="">(<?php echo esc_html__( 'Select a slide', 'foyer' ); ?>)</option>
-								<?php
-									$slides = Foyer_Slides::get_posts();
-									foreach ( $slides as $slide ) {
-									?>
-										<option value="<?php echo intval( $slide->ID ); ?>"><?php echo esc_html( get_the_title( $slide->ID ) ); ?></option>
-									<?php
-									}
-								?>
-							</select>
-						</td>
-					</tbody>
-				</table>
-			</div>
-		<?php
+            ?>
+                <div class="foyer_slides_editor_add">
+                    <table class="form-table">
+                        <tbody>
+                            <th>
+                                <label for="foyer_slides_editor_add">
+                                    <?php echo esc_html__( 'Add slide', 'foyer' ); ?>
+                                </label>
+                            </th>
+                            <td>
+                                <input type="search"
+                                       id="foyer_slides_editor_search"
+                                       class="regular-text"
+                                       placeholder="<?php echo esc_attr__( 'Search slides…', 'foyer' ); ?>"
+                                       aria-label="<?php echo esc_attr__( 'Search slides', 'foyer' ); ?>"
+                                       style="margin: 0 0 8px 0; width: 100%; max-width: 420px;" />
+                                <select id="foyer_slides_editor_add" class="foyer_slides_editor_add_select">
+                                    <option value="">(<?php echo esc_html__( 'Select a slide', 'foyer' ); ?>)</option>
+                                    <?php
+                                        // Allow customization of the slides list via filters.
+                                        // Developers can hook into 'foyer/admin/channel/add_slide_query_args'
+                                        // to adjust get_posts() arguments (e.g., orderby, meta_query),
+                                        // and into 'foyer/admin/channel/add_slide_posts' to filter the results.
+                                        $query_args = apply_filters( 'foyer/admin/channel/add_slide_query_args', array() );
+                                        $slides = Foyer_Slides::get_posts( $query_args );
+                                        $slides = apply_filters( 'foyer/admin/channel/add_slide_posts', $slides );
+                                        foreach ( $slides as $slide ) {
+                                        ?>
+                                            <option value="<?php echo intval( $slide->ID ); ?>"><?php echo esc_html( get_the_title( $slide->ID ) ); ?></option>
+                                        <?php
+                                        }
+                                    ?>
+                                </select>
+                                <script type="text/javascript">
+                                (function($){
+                                    $(function(){
+                                        var $select = $('#foyer_slides_editor_add');
+                                        var $search = $('#foyer_slides_editor_search');
+                                        if(!$select.length || !$search.length) return;
+
+                                        // Cache all options except the placeholder (first empty option)
+                                        var allOptions = [];
+                                        $select.find('option').each(function(idx, opt){
+                                            var $opt = $(opt);
+                                            var val = $opt.attr('value');
+                                            if(!val) return; // skip placeholder
+                                            var text = $opt.text();
+                                            allOptions.push({value: val, text: text, textLower: text.toLowerCase()});
+                                        });
+
+                                        function rebuildOptions(query){
+                                            var q = (query||'').toLowerCase();
+                                            var matches = q ? allOptions.filter(function(o){ return o.textLower.indexOf(q) !== -1; }) : allOptions;
+                                            // Preserve first placeholder option
+                                            $select.find('option').not(':first').remove();
+                                            var frag = document.createDocumentFragment();
+                                            matches.forEach(function(o){
+                                                var opt = document.createElement('option');
+                                                opt.value = o.value;
+                                                opt.appendChild(document.createTextNode(o.text));
+                                                frag.appendChild(opt);
+                                            });
+                                            $select[0].appendChild(frag);
+                                        }
+
+                                        $search.on('input', function(){
+                                            rebuildOptions(this.value);
+                                        });
+                                    });
+                                })(jQuery);
+                                </script>
+                            </td>
+                        </tbody>
+                    </table>
+                </div>
+                <?php
 
 		$html = ob_get_clean();
 

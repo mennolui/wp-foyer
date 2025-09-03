@@ -43,7 +43,7 @@ function activate_foyer() {
  * The code that runs during plugin deactivation.
  * This action is documented in includes/class-foyer-deactivator.php
  */
-function deactivate_foyer() {
+function deactivate_foyer() { 
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-foyer-deactivator.php';
 	Foyer_Deactivator::deactivate();
 }
