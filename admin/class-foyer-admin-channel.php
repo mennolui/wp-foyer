@@ -145,78 +145,172 @@ class Foyer_Admin_Channel {
 
             ?>
                 <div class="foyer_slides_editor_add">
-                    <table class="form-table">
+                    <h4><?php echo esc_html__( 'Available slides', 'foyer' ); ?></h4>
+                    <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin:8px 0 12px;">
+                        <label for="foyer_slides_table_search" style="margin-right:6px;">
+                            <?php echo esc_html__( 'Search', 'foyer' ); ?>
+                        </label>
+                        <input type="search" id="foyer_slides_table_search" class="regular-text" placeholder="<?php echo esc_attr__( 'Search by title or author…', 'foyer' ); ?>" style="max-width:320px;" />
+                        <label style="display:flex; align-items:center; gap:6px;">
+                            <input type="checkbox" id="foyer_slides_table_hide_in_channel" checked="checked" />
+                            <?php echo esc_html__( 'Hide slides already in this channel', 'foyer' ); ?>
+                        </label>
+                        <label for="foyer_slides_table_per_page" style="margin-left:auto;">
+                            <?php echo esc_html__( 'Rows per page', 'foyer' ); ?>
+                        </label>
+                        <select id="foyer_slides_table_per_page">
+                            <option value="10">10</option>
+                            <option value="20" selected>20</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                    </div>
+                    <?php
+                        // Slides currently in this channel (to disable/hide in table)
+                        $current_channel = new Foyer_Channel( get_post() );
+                        $current_slides = $current_channel->get_slides();
+                        $in_channel_ids = array();
+                        if ( ! empty( $current_slides ) ) {
+                            foreach ( $current_slides as $s ) { $in_channel_ids[] = intval( $s->ID ); }
+                        }
+
+                        // Allow customization of the slides list via filters.
+                        $query_args = apply_filters( 'foyer/admin/channel/add_slide_query_args', array( 'post_status' => 'publish', 'orderby' => 'title', 'order' => 'ASC' ) );
+                        $slides = Foyer_Slides::get_posts( $query_args );
+                        $slides = apply_filters( 'foyer/admin/channel/add_slide_posts', $slides );
+                    ?>
+                    <table class="widefat fixed striped" id="foyer_available_slides_table">
+                        <thead>
+                            <tr>
+                                <th style="width:110px;">&nbsp;</th>
+                                <th><?php echo esc_html_x( 'Title', 'post title', 'foyer' ); ?></th>
+                                <th style="width:140px;"><?php echo esc_html__( 'Author', 'foyer' ); ?></th>
+                                <th style="width:160px;"><?php echo esc_html__( 'Date', 'foyer' ); ?></th>
+                                <th style="width:160px;"><?php echo esc_html__( 'Format', 'foyer' ); ?></th>
+                                <th style="width:200px;"><?php echo esc_html__( 'Background', 'foyer' ); ?></th>
+                            </tr>
+                        </thead>
                         <tbody>
-                            <th>
-                                <label for="foyer_slides_editor_add">
-                                    <?php echo esc_html__( 'Add slide', 'foyer' ); ?>
-                                </label>
-                            </th>
-                            <td>
-                                <input type="search"
-                                       id="foyer_slides_editor_search"
-                                       class="regular-text"
-                                       placeholder="<?php echo esc_attr__( 'Search slides…', 'foyer' ); ?>"
-                                       aria-label="<?php echo esc_attr__( 'Search slides', 'foyer' ); ?>"
-                                       style="margin: 0 0 8px 0; width: 100%; max-width: 420px;" />
-                                <select id="foyer_slides_editor_add" class="foyer_slides_editor_add_select">
-                                    <option value="">(<?php echo esc_html__( 'Select a slide', 'foyer' ); ?>)</option>
-                                    <?php
-                                        // Allow customization of the slides list via filters.
-                                        // Developers can hook into 'foyer/admin/channel/add_slide_query_args'
-                                        // to adjust get_posts() arguments (e.g., orderby, meta_query),
-                                        // and into 'foyer/admin/channel/add_slide_posts' to filter the results.
-                                        $query_args = apply_filters( 'foyer/admin/channel/add_slide_query_args', array() );
-                                        $slides = Foyer_Slides::get_posts( $query_args );
-                                        $slides = apply_filters( 'foyer/admin/channel/add_slide_posts', $slides );
-                                        foreach ( $slides as $slide ) {
-                                        ?>
-                                            <option value="<?php echo intval( $slide->ID ); ?>"><?php echo esc_html( get_the_title( $slide->ID ) ); ?></option>
-                                        <?php
-                                        }
-                                    ?>
-                                </select>
-                                <script type="text/javascript">
-                                (function($){
-                                    $(function(){
-                                        var $select = $('#foyer_slides_editor_add');
-                                        var $search = $('#foyer_slides_editor_search');
-                                        if(!$select.length || !$search.length) return;
-
-                                        // Cache all options except the placeholder (first empty option)
-                                        var allOptions = [];
-                                        $select.find('option').each(function(idx, opt){
-                                            var $opt = $(opt);
-                                            var val = $opt.attr('value');
-                                            if(!val) return; // skip placeholder
-                                            var text = $opt.text();
-                                            allOptions.push({value: val, text: text, textLower: text.toLowerCase()});
-                                        });
-
-                                        function rebuildOptions(query){
-                                            var q = (query||'').toLowerCase();
-                                            var matches = q ? allOptions.filter(function(o){ return o.textLower.indexOf(q) !== -1; }) : allOptions;
-                                            // Preserve first placeholder option
-                                            $select.find('option').not(':first').remove();
-                                            var frag = document.createDocumentFragment();
-                                            matches.forEach(function(o){
-                                                var opt = document.createElement('option');
-                                                opt.value = o.value;
-                                                opt.appendChild(document.createTextNode(o.text));
-                                                frag.appendChild(opt);
-                                            });
-                                            $select[0].appendChild(frag);
-                                        }
-
-                                        $search.on('input', function(){
-                                            rebuildOptions(this.value);
-                                        });
-                                    });
-                                })(jQuery);
-                                </script>
-                            </td>
+                        <?php if ( empty( $slides ) ) : ?>
+                            <tr>
+                                <td colspan="6"><?php echo esc_html__( 'No slides found.', 'foyer' ); ?></td>
+                            </tr>
+                        <?php else : ?>
+                            <?php foreach ( $slides as $slide ) :
+                                $slide_obj = new Foyer_Slide( $slide );
+                                $format = Foyer_Slides::get_slide_format_by_slug( $slide_obj->get_format() );
+                                $background = Foyer_Slides::get_slide_background_by_slug( $slide_obj->get_background() );
+                                $is_in_channel = in_array( intval( $slide->ID ), $in_channel_ids, true );
+                                $author_name = get_the_author_meta( 'display_name', $slide->post_author );
+                                $date_str = get_the_date( get_option( 'date_format' ), $slide ) . ' ' . get_the_time( get_option( 'time_format' ), $slide );
+                            ?>
+                            <tr data-slide-id="<?php echo intval( $slide->ID ); ?>" data-in-channel="<?php echo $is_in_channel ? '1' : '0'; ?>" data-title="<?php echo esc_attr( get_the_title( $slide->ID ) ); ?>" data-author="<?php echo esc_attr( $author_name ); ?>">
+                                <td>
+                                    <button type="button" class="button button-primary foyer_add_slide_btn" data-slide-id="<?php echo intval( $slide->ID ); ?>" <?php echo $is_in_channel ? 'disabled' : ''; ?>><?php echo $is_in_channel ? esc_html__( 'Added', 'foyer' ) : esc_html__( 'Add', 'foyer' ); ?></button>
+                                </td>
+                                <td><?php echo esc_html( get_the_title( $slide->ID ) ); ?></td>
+                                <td><?php echo esc_html( $author_name ); ?></td>
+                                <td><?php echo esc_html( $date_str ); ?></td>
+                                <td><?php echo esc_html( isset( $format['title'] ) ? $format['title'] : '' ); ?></td>
+                                <td><?php echo esc_html( isset( $background['title'] ) ? $background['title'] : '' ); ?></td>
+                            </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                         </tbody>
                     </table>
+                    <div id="foyer_slides_table_pager" style="display:flex; gap:8px; align-items:center; justify-content:flex-end; margin-top:8px;">
+                        <button type="button" class="button" id="foyer_slides_table_prev">&laquo; <?php echo esc_html__( 'Prev', 'foyer' ); ?></button>
+                        <span id="foyer_slides_table_page_info"></span>
+                        <button type="button" class="button" id="foyer_slides_table_next"><?php echo esc_html__( 'Next', 'foyer' ); ?> &raquo;</button>
+                    </div>
+                    <script type="text/javascript">
+                    (function($){
+                        $(function(){
+                            var $metaBox = $('.foyer_meta_box.foyer_slides_editor');
+                            var channelId = $metaBox.data('channel-id');
+                            var $table = $('#foyer_available_slides_table');
+                            var $rows = $table.find('tbody > tr');
+                            var $search = $('#foyer_slides_table_search');
+                            var $hideInChannel = $('#foyer_slides_table_hide_in_channel');
+                            var $perPage = $('#foyer_slides_table_per_page');
+                            var $pager = $('#foyer_slides_table_pager');
+                            var $prev = $('#foyer_slides_table_prev');
+                            var $next = $('#foyer_slides_table_next');
+                            var $info = $('#foyer_slides_table_page_info');
+                            var currentPage = 1;
+
+                            function applyFilters(){
+                                var q = ($search.val()||'').toLowerCase();
+                                var hideUsed = $hideInChannel.is(':checked');
+                                $rows.each(function(){
+                                    var $tr = $(this);
+                                    var inChannel = $tr.data('in-channel') == 1;
+                                    var title = (String($tr.data('title')||'')).toLowerCase();
+                                    var author = (String($tr.data('author')||'')).toLowerCase();
+                                    var matches = (!q || title.indexOf(q) !== -1 || author.indexOf(q) !== -1);
+                                    var visible = matches && !(hideUsed && inChannel);
+                                    $tr.toggle(visible);
+                                });
+                            }
+
+                            function paginate(){
+                                var per = parseInt($perPage.val(), 10) || 20;
+                                var visibleRows = $rows.filter(':visible');
+                                var total = visibleRows.length;
+                                var totalPages = Math.max(1, Math.ceil(total / per));
+                                if(currentPage > totalPages) currentPage = totalPages;
+                                var start = (currentPage - 1) * per;
+                                var end = start + per;
+                                visibleRows.hide().slice(start, end).show();
+                                $info.text(currentPage + ' / ' + totalPages);
+                                $prev.prop('disabled', currentPage <= 1);
+                                $next.prop('disabled', currentPage >= totalPages);
+                            }
+
+                            function refresh(){
+                                // First, show all rows to allow filtering logic to work on full set
+                                $rows.show();
+                                applyFilters();
+                                paginate();
+                            }
+
+                            $search.on('input', function(){ currentPage = 1; refresh(); });
+                            $hideInChannel.on('change', function(){ currentPage = 1; refresh(); });
+                            $perPage.on('change', function(){ currentPage = 1; refresh(); });
+                            $prev.on('click', function(){ if(currentPage>1){ currentPage--; paginate(); } });
+                            $next.on('click', function(){ currentPage++; paginate(); });
+
+                            refresh();
+
+                            $(document).on('click', '.foyer_add_slide_btn', function(e){
+                                e.preventDefault();
+                                var $btn = $(this);
+                                var slideId = parseInt($btn.data('slide-id'), 10);
+                                if(!channelId || !slideId) return;
+                                $btn.prop('disabled', true);
+                                $.post(ajaxurl, {
+                                    action: 'foyer_slides_editor_add_slide',
+                                    channel_id: channelId,
+                                    slide_id: slideId,
+                                    nonce: (window.foyer_slides_editor_security ? foyer_slides_editor_security.nonce : '')
+                                })
+                                .done(function(html){
+                                    // Replace slides list with refreshed HTML
+                                    var $list = $('.foyer_slides_editor_slides');
+                                    if($list.length){ $list.replaceWith(html); }
+                                    // Mark row as in-channel and disable button
+                                    var $row = $table.find('tr[data-slide-id="'+slideId+'"]');
+                                    $row.attr('data-in-channel','1');
+                                    $row.find('.foyer_add_slide_btn').prop('disabled', true).text('<?php echo esc_js( __( 'Added', 'foyer' ) ); ?>');
+                                    refresh();
+                                })
+                                .always(function(){
+                                    $btn.prop('disabled', false);
+                                });
+                            });
+                        });
+                    })(jQuery);
+                    </script>
                 </div>
                 <?php
 
