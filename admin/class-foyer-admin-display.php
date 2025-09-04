@@ -237,38 +237,133 @@ class Foyer_Admin_Display {
 		$display = new Foyer_Display( $post );
 		$default_channel = $display->get_default_channel();
 
-		ob_start();
+        ob_start();
 
-		?>
-			<tr>
-				<th>
-					<label for="foyer_channel_editor_default_channel">
-						<?php echo esc_html__( 'Default channel', 'foyer' ); ?>
-					</label>
-				</th>
-				<td>
-					<select id="foyer_channel_editor_default_channel" name="foyer_channel_editor_default_channel">
-						<option value="">(<?php echo esc_html__( 'Select a channel', 'foyer' ); ?>)</option>
-						<?php
-							$channels = Foyer_Channels::get_posts();
-							foreach ( $channels as $channel ) {
-								$checked = '';
-								if ( $default_channel == $channel->ID ) {
-									$checked = 'selected="selected"';
-								}
-							?>
-								<option value="<?php echo intval( $channel->ID ); ?>" <?php echo $checked; ?>><?php echo esc_html( get_the_title( $channel->ID ) ); ?></option>
-							<?php
-							}
-						?>
-					</select>
-				</td>
-			</tr>
-		<?php
+        ?>
+            <tr>
+                <th>
+                    <label>
+                        <?php echo esc_html__( 'Default channel', 'foyer' ); ?>
+                    </label>
+                </th>
+                <td>
+                    <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin:4px 0 8px;">
+                        <label for="foyer_default_channel_search" style="margin-right:6px;">
+                            <?php echo esc_html__( 'Search', 'foyer' ); ?>
+                        </label>
+                        <input type="search" id="foyer_default_channel_search" class="regular-text" placeholder="<?php echo esc_attr__( 'Search by title or author…', 'foyer' ); ?>" style="max-width:280px;" />
+                    </div>
+                    <?php
+                        $channels = Foyer_Channels::get_posts();
+                    ?>
+                    <table class="widefat fixed striped" id="foyer_default_channels_table" style="max-width:720px;">
+                        <thead>
+                            <tr>
+                                <th style="width:42px;">&nbsp;</th>
+                                <th data-sort="title" class="foyer-sort-col"><span class="sort-label"><?php echo esc_html_x( 'Title', 'post title', 'foyer' ); ?></span> <span class="sort-ind"></span></th>
+                                <th data-sort="author" class="foyer-sort-col" style="width:160px;"><span class="sort-label"><?php echo esc_html__( 'Author', 'foyer' ); ?></span> <span class="sort-ind"></span></th>
+                                <th data-sort="date" class="foyer-sort-col" style="width:180px;"><span class="sort-label"><?php echo esc_html__( 'Date', 'foyer' ); ?></span> <span class="sort-ind"></span></th>
+                                <th data-sort="slides" class="foyer-sort-col" style="width:120px;"><span class="sort-label"><?php echo esc_html__( 'Slides', 'foyer' ); ?></span> <span class="sort-ind"></span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php if ( empty( $channels ) ) : ?>
+                            <tr><td colspan="5"><?php echo esc_html__( 'No channels found.', 'foyer' ); ?></td></tr>
+                        <?php else : ?>
+                            <?php foreach ( $channels as $channel_post ) :
+                                $author_name = get_the_author_meta( 'display_name', $channel_post->post_author );
+                                $date_ts = get_post_time( 'U', true, $channel_post );
+                                $channel_obj = new Foyer_Channel( $channel_post );
+                                $slides_count = count( $channel_obj->get_slides() );
+                                $checked = $default_channel == $channel_post->ID ? 'checked="checked"' : '';
+                            ?>
+                            <tr data-title="<?php echo esc_attr( get_the_title( $channel_post->ID ) ); ?>" data-author="<?php echo esc_attr( $author_name ); ?>" data-date-ts="<?php echo esc_attr( $date_ts ); ?>" data-slides="<?php echo esc_attr( $slides_count ); ?>">
+                                <td>
+                                    <input type="radio" name="foyer_channel_editor_default_channel" value="<?php echo intval( $channel_post->ID ); ?>" <?php echo $checked; ?> />
+                                </td>
+                                <td><?php echo esc_html( get_the_title( $channel_post->ID ) ); ?></td>
+                                <td><?php echo esc_html( $author_name ); ?></td>
+                                <td><?php echo esc_html( get_the_date( get_option( 'date_format' ), $channel_post ) . ' ' . get_the_time( get_option( 'time_format' ), $channel_post ) ); ?></td>
+                                <td><?php echo esc_html( $slides_count ); ?></td>
+                            </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                        </tbody>
+                    </table>
+                    <script type="text/javascript">
+                    (function($){
+                        $(function(){
+                            var $table = $('#foyer_default_channels_table');
+                            var $rows = $table.find('tbody > tr');
+                            var $search = $('#foyer_default_channel_search');
+                            var sortKey = 'title';
+                            var sortDir = 'asc';
 
-		$html = ob_get_clean();
+                            function applyFilters(){
+                                var q = ($search.val()||'').toLowerCase();
+                                $rows.each(function(){
+                                    var $tr = $(this);
+                                    var title = (String($tr.data('title')||'')).toLowerCase();
+                                    var author = (String($tr.data('author')||'')).toLowerCase();
+                                    var visible = (!q || title.indexOf(q)!==-1 || author.indexOf(q)!==-1);
+                                    $tr.toggle(visible);
+                                });
+                            }
 
-		return $html;
+                            function compareRows(a,b){
+                                var $a=$(a),$b=$(b),dir=(sortDir==='asc')?1:-1;
+                                if (sortKey==='date' || sortKey==='slides'){
+                                    var va=parseInt($a.data(sortKey),10)||0;
+                                    var vb=parseInt($b.data(sortKey),10)||0;
+                                    if(va===vb) return 0; return (va<vb?-1:1)*dir;
+                                } else {
+                                    var sa=String($a.data(sortKey)||'').toLowerCase();
+                                    var sb=String($b.data(sortKey)||'').toLowerCase();
+                                    if(sa===sb) return 0; return (sa<sb?-1:1)*dir;
+                                }
+                            }
+
+                            function updateSortIndicators(){
+                                var arrows={asc:'\u25B2',desc:'\u25BC'};
+                                $table.find('thead th.foyer-sort-col .sort-ind').text('');
+                                $table.find('thead th.foyer-sort-col[data-sort="'+sortKey+'"] .sort-ind').text(arrows[sortDir]||'');
+                            }
+
+                            function sortRows(){
+                                var $tbody=$table.find('tbody');
+                                var visible=$rows.filter(':visible').get();
+                                visible.sort(compareRows);
+                                $tbody.append(visible);
+                                $tbody.append($rows.filter(':hidden'));
+                                updateSortIndicators();
+                            }
+
+                            function refresh(){
+                                $rows.show();
+                                applyFilters();
+                                sortRows();
+                            }
+
+                            $search.on('input', function(){ refresh(); });
+                            $table.find('thead').on('click', 'th.foyer-sort-col', function(){
+                                var key=$(this).data('sort');
+                                if(!key) return;
+                                if(key===sortKey){ sortDir=(sortDir==='asc')?'desc':'asc'; }
+                                else { sortKey=key; sortDir='asc'; }
+                                refresh();
+                            });
+
+                            refresh();
+                        });
+                    })(jQuery);
+                    </script>
+                </td>
+            </tr>
+        <?php
+
+        $html = ob_get_clean();
+
+        return $html;
 	}
 
 	/**
@@ -304,23 +399,115 @@ class Foyer_Admin_Display {
 						<?php echo esc_html__( 'Temporary channel', 'foyer' ); ?>
 					</label>
 				</th>
-				<td>
-					<select id="foyer_channel_editor_scheduled_channel" name="foyer_channel_editor_scheduled_channel">
-						<option value="">(<?php echo esc_html__( 'Select a channel', 'foyer' ); ?>)</option>
+					<td>
+						<div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin:4px 0 8px;">
+							<label for="foyer_scheduled_channel_search" style="margin-right:6px;"><?php echo esc_html__( 'Search', 'foyer' ); ?></label>
+							<input type="search" id="foyer_scheduled_channel_search" class="regular-text" placeholder="<?php echo esc_attr__( 'Search by title or author…', 'foyer' ); ?>" style="max-width:280px;" />
+						</div>
 						<?php
 							$channels = Foyer_Channels::get_posts();
-							foreach ( $channels as $channel ) {
-								$checked = '';
-								if ( ! empty( $scheduled_channel['channel'] ) && $scheduled_channel['channel'] == $channel->ID ) {
-									$checked = 'selected="selected"';
-								}
-							?>
-								<option value="<?php echo intval( $channel->ID ); ?>" <?php echo $checked; ?>><?php echo esc_html( $channel->post_title ); ?></option>
-							<?php
-							}
+							$selected_id = ! empty( $scheduled_channel['channel'] ) ? intval( $scheduled_channel['channel'] ) : 0;
 						?>
-					</select>
-				</td>
+						<table class="widefat fixed striped" id="foyer_scheduled_channels_table" style="max-width:720px;">
+							<thead>
+								<tr>
+									<th style="width:42px;">&nbsp;</th>
+									<th data-sort="title" class="foyer-sort-col"><span class="sort-label"><?php echo esc_html_x( 'Title', 'post title', 'foyer' ); ?></span> <span class="sort-ind"></span></th>
+									<th data-sort="author" class="foyer-sort-col" style="width:160px;"><span class="sort-label"><?php echo esc_html__( 'Author', 'foyer' ); ?></span> <span class="sort-ind"></span></th>
+									<th data-sort="date" class="foyer-sort-col" style="width:180px;"><span class="sort-label"><?php echo esc_html__( 'Date', 'foyer' ); ?></span> <span class="sort-ind"></span></th>
+									<th data-sort="slides" class="foyer-sort-col" style="width:120px;"><span class="sort-label"><?php echo esc_html__( 'Slides', 'foyer' ); ?></span> <span class="sort-ind"></span></th>
+								</tr>
+							</thead>
+							<tbody>
+							<?php if ( empty( $channels ) ) : ?>
+								<tr><td colspan="5"><?php echo esc_html__( 'No channels found.', 'foyer' ); ?></td></tr>
+							<?php else : ?>
+								<?php foreach ( $channels as $channel_post ) :
+									$author_name = get_the_author_meta( 'display_name', $channel_post->post_author );
+									$date_ts = get_post_time( 'U', true, $channel_post );
+									$channel_obj = new Foyer_Channel( $channel_post );
+									$slides_count = count( $channel_obj->get_slides() );
+									$checked = $selected_id == $channel_post->ID ? 'checked="checked"' : '';
+								?>
+								<tr data-title="<?php echo esc_attr( get_the_title( $channel_post->ID ) ); ?>" data-author="<?php echo esc_attr( $author_name ); ?>" data-date-ts="<?php echo esc_attr( $date_ts ); ?>" data-slides="<?php echo esc_attr( $slides_count ); ?>">
+									<td><input type="radio" name="foyer_channel_editor_scheduled_channel" value="<?php echo intval( $channel_post->ID ); ?>" <?php echo $checked; ?> /></td>
+									<td><?php echo esc_html( get_the_title( $channel_post->ID ) ); ?></td>
+									<td><?php echo esc_html( $author_name ); ?></td>
+									<td><?php echo esc_html( get_the_date( get_option( 'date_format' ), $channel_post ) . ' ' . get_the_time( get_option( 'time_format' ), $channel_post ) ); ?></td>
+									<td><?php echo esc_html( $slides_count ); ?></td>
+								</tr>
+								<?php endforeach; ?>
+							<?php endif; ?>
+							</tbody>
+						</table>
+						<script type="text/javascript">
+						(function($){
+							$(function(){
+								var $table = $('#foyer_scheduled_channels_table');
+								var $rows = $table.find('tbody > tr');
+								var $search = $('#foyer_scheduled_channel_search');
+								var sortKey = 'title';
+								var sortDir = 'asc';
+
+								function applyFilters(){
+									var q = ($search.val()||'').toLowerCase();
+									$rows.each(function(){
+										var $tr = $(this);
+										var title = (String($tr.data('title')||'')).toLowerCase();
+										var author = (String($tr.data('author')||'')).toLowerCase();
+										var visible = (!q || title.indexOf(q)!==-1 || author.indexOf(q)!==-1);
+										$tr.toggle(visible);
+									});
+								}
+
+								function compareRows(a,b){
+									var $a=$(a),$b=$(b),dir=(sortDir==='asc')?1:-1;
+									if (sortKey==='date' || sortKey==='slides'){
+										var va=parseInt($a.data(sortKey),10)||0;
+										var vb=parseInt($b.data(sortKey),10)||0;
+										if(va===vb) return 0; return (va<vb?-1:1)*dir;
+									} else {
+										var sa=String($a.data(sortKey)||'').toLowerCase();
+										var sb=String($b.data(sortKey)||'').toLowerCase();
+										if(sa===sb) return 0; return (sa<sb?-1:1)*dir;
+									}
+								}
+
+								function updateSortIndicators(){
+									var arrows={asc:'\u25B2',desc:'\u25BC'};
+									$table.find('thead th.foyer-sort-col .sort-ind').text('');
+									$table.find('thead th.foyer-sort-col[data-sort="'+sortKey+'"] .sort-ind').text(arrows[sortDir]||'');
+								}
+
+								function sortRows(){
+									var $tbody=$table.find('tbody');
+									var visible=$rows.filter(':visible').get();
+									visible.sort(compareRows);
+									$tbody.append(visible);
+									$tbody.append($rows.filter(':hidden'));
+									updateSortIndicators();
+								}
+
+								function refresh(){
+									$rows.show();
+									applyFilters();
+									sortRows();
+								}
+
+								$search.on('input', function(){ refresh(); });
+								$table.find('thead').on('click', 'th.foyer-sort-col', function(){
+									var key=$(this).data('sort');
+									if(!key) return;
+									if(key===sortKey){ sortDir=(sortDir==='asc')?'desc':'asc'; }
+									else { sortKey=key; sortDir='asc'; }
+									refresh();
+								});
+
+								refresh();
+							});
+						})(jQuery);
+						</script>
+					</td>
 			</tr>
 			<tr>
 				<th>
