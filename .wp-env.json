@@ -1,0 +1,10 @@
+{
+  "plugins": [ "." ],
+  "themes": [],
+  "config": {
+    "WP_DEBUG": true,
+    "SCRIPT_DEBUG": true
+  },
+  "phpVersion": "7.4",
+  "port": 8888
+}

@@ -9,7 +9,7 @@
  * @subpackage	Foyer/includes
  * @author		Menno Luitjes <menno@mennoluitjes.nl>
  */
-class Foyer_Channel {
+    class Foyer_Channel {
 
 	/**
 	 * The Foyer Channel post type name.
@@ -99,29 +99,52 @@ class Foyer_Channel {
 	 * @access	public
 	 * @return	array of Foyer_Slide	The slides for this channel.
 	 */
-	public function get_slides() {
+        public function get_slides() {
 
-		if ( ! isset( $this->slides ) ) {
+            if ( ! isset( $this->slides ) ) {
 
-			$slides = array();
+                $slides = array();
 
-			$posts = get_post_meta( $this->ID, Foyer_Slide::post_type_name, true );
+                $posts = get_post_meta( $this->ID, Foyer_Slide::post_type_name, true );
 
-			if ( ! empty( $posts ) ) {
-				foreach ( $posts as $post ) {
+                if ( ! empty( $posts ) ) {
+                    // Optional per-slide schedule windows: ['start'=>utc_ts|null,'end'=>utc_ts|null]
+                    $windows = get_post_meta( $this->ID, 'foyer_channel_slide_windows', true );
+                    if ( empty( $windows ) || ! is_array( $windows ) ) {
+                        $windows = array();
+                    }
+                    $is_admin = is_admin();
+                    $now_utc = current_time( 'timestamp', true );
+                    foreach ( $posts as $post ) {
 
-					// Only include slides with post status 'publish'
-					if ( 'publish' != get_post_status( $post ) ) {
-						continue;
-					}
+                        // Only include slides with post status 'publish'
+                        if ( 'publish' != get_post_status( $post ) ) {
+                            continue;
+                        }
 
-					$slide = new Foyer_Slide( $post );
-					$slides[] = $slide;
-				}
-			}
+                        // On frontend, honor schedule windows (if set)
+                        if ( ! $is_admin ) {
+                            $w = isset( $windows[ $post ] ) ? $windows[ $post ] : array();
+                            $start_ok = true;
+                            $end_ok = true;
+                            if ( ! empty( $w['start'] ) ) {
+                                $start_ok = ( $now_utc >= intval( $w['start'] ) );
+                            }
+                            if ( ! empty( $w['end'] ) ) {
+                                $end_ok = ( $now_utc <= intval( $w['end'] ) );
+                            }
+                            if ( ! ( $start_ok && $end_ok ) ) {
+                                continue;
+                            }
+                        }
 
-			$this->slides = $slides;
-		}
+                        $slide = new Foyer_Slide( $post );
+                        $slides[] = $slide;
+                    }
+                }
+
+                $this->slides = $slides;
+            }
 
 		return $this->slides;
 	}
