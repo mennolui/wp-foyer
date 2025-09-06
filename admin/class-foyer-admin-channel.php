@@ -21,19 +21,20 @@ class Foyer_Admin_Channel {
 	 * @param 	array	$columns	The current columns.
 	 * @return	array				The new columns.
 	 */
-	static function add_slides_count_column( $columns ) {
-		$new_columns = array();
+    static function add_slides_count_column( $columns ) {
+        $new_columns = array();
 
-		foreach( $columns as $key => $title ) {
-			$new_columns[$key] = $title;
+        foreach( $columns as $key => $title ) {
+            $new_columns[$key] = $title;
 
-			if ( 'title' == $key ) {
-				// Add slides count column after the title column
-				$new_columns['slides_count'] = __( 'Number of slides', 'foyer' );
-			}
-		}
-		return $new_columns;
-	}
+            if ( 'title' == $key ) {
+                // Add favorite star and slides count columns after the title column
+                $new_columns['favorite'] = __( 'Favorite', 'foyer' );
+                $new_columns['slides_count'] = __( 'Number of slides', 'foyer' );
+            }
+        }
+        return $new_columns;
+    }
 
 	/**
 	 * Adds a slide over AJAX and outputs the updated slides list HTML.
@@ -127,14 +128,77 @@ class Foyer_Admin_Channel {
 	 * @param 	int 	$post_id 	The current display ID.
 	 * @return	void
 	 */
-	static function do_slides_count_column( $column, $post_id ) {
-		if ( 'slides_count' == $column ) {
+    static function do_slides_count_column( $column, $post_id ) {
+        if ( 'slides_count' === $column ) {
+            $channel = new Foyer_Channel( $post_id );
+            echo intval( count( $channel->get_slides() ) );
+            return;
+        }
+        if ( 'favorite' === $column ) {
+            $is_fav = (bool) get_post_meta( $post_id, 'foyer_channel_is_favorite', true );
+            $icon = $is_fav ? '★' : '☆';
+            $title = $is_fav ? __( 'Unmark favorite', 'foyer' ) : __( 'Mark favorite', 'foyer' );
+            $cls = $is_fav ? 'foyer-fav is-fav' : 'foyer-fav';
+            echo '<a href="#" class="foyer-fav-toggle ' . esc_attr( $cls ) . '" data-postid="' . intval( $post_id ) . '" aria-label="' . esc_attr( $title ) . '" title="' . esc_attr( $title ) . '">' . esc_html( $icon ) . '</a>';
+            echo '<style>.column-favorite{width:80px}.foyer-fav{font-size:18px; text-decoration:none;}.foyer-fav.is-fav{color:#d98900}</style>';
+            return;
+        }
+    }
 
-			$channel = new Foyer_Channel( get_the_id() );
+    /**
+     * Toggles favorite flag over AJAX.
+     *
+     * @since 1.8.0
+     */
+    static function toggle_favorite_over_ajax() {
+        check_ajax_referer( 'foyer_channel_admin_ajax_nonce', 'nonce', true );
+        $post_id = intval( $_POST['post_id'] ?? 0 );
+        $set     = sanitize_text_field( $_POST['set'] ?? '' );
+        if ( empty( $post_id ) || ! current_user_can( 'edit_post', $post_id ) ) {
+            wp_send_json_error( array( 'message' => 'forbidden' ), 403 );
+        }
+        if ( $set === '1' ) {
+            update_post_meta( $post_id, 'foyer_channel_is_favorite', '1' );
+        } else {
+            delete_post_meta( $post_id, 'foyer_channel_is_favorite' );
+        }
+        wp_send_json_success( array( 'post_id' => $post_id, 'is_favorite' => ( $set === '1' ) ) );
+    }
 
-			echo count( $channel->get_slides() );
-	    }
-	}
+    /**
+     * In the Channels admin list, show favorites first by default.
+     *
+     * Keeps user-chosen sorting intact (only applies when no explicit orderby set).
+     *
+     * @since 1.8.0
+     */
+    static function prefer_favorites_in_admin_list( $query ) {
+        // No-op: replaced by posts_clauses-based ordering to include non-favorites as well.
+    }
+
+    /**
+     * Modify SQL ORDER BY to put favorites first without filtering out others.
+     *
+     * @since 1.8.0
+     */
+    static function order_favorites_first_clause( $clauses, $query ) {
+        if ( ! is_admin() || ! $query->is_main_query() ) { return $clauses; }
+        $post_type = $query->get( 'post_type' );
+        if ( empty( $post_type ) ) { $post_type = isset( $_GET['post_type'] ) ? sanitize_text_field( wp_unslash( $_GET['post_type'] ) ) : ''; }
+        if ( Foyer_Channel::post_type_name !== $post_type ) { return $clauses; }
+
+        global $wpdb;
+        $meta_key = 'foyer_channel_is_favorite';
+        $case = "CASE WHEN EXISTS (SELECT 1 FROM {$wpdb->postmeta} pmf WHERE pmf.post_id = {$wpdb->posts}.ID AND pmf.meta_key = '" . esc_sql( $meta_key ) . "' AND pmf.meta_value = '1') THEN 0 ELSE 1 END";
+
+        if ( ! empty( $clauses['orderby'] ) ) {
+            $clauses['orderby'] = $case . ' ASC, ' . $clauses['orderby'];
+        } else {
+            $clauses['orderby'] = $case . ' ASC';
+        }
+
+        return $clauses;
+    }
 
 	/**
 	 * Gets the HTML to add a slide in the slides editor.
@@ -808,14 +872,46 @@ class Foyer_Admin_Channel {
 	 * @since	1.2.6	Changed handle of script to {plugin_name}-admin.
 	 * @since	1.3.2	Changed method to static.
 	 */
-	static function localize_scripts() {
+    static function localize_scripts() {
 
-		$defaults = array( 'confirm_remove_message' => esc_html__( 'Are you sure you want to remove this slide from the channel?', 'foyer' ) );
-		wp_localize_script( Foyer::get_plugin_name() . '-admin', 'foyer_slides_editor_defaults', $defaults );
+        $defaults = array( 'confirm_remove_message' => esc_html__( 'Are you sure you want to remove this slide from the channel?', 'foyer' ) );
+        wp_localize_script( Foyer::get_plugin_name() . '-admin', 'foyer_slides_editor_defaults', $defaults );
 
-		$security = array( 'nonce' => wp_create_nonce( 'foyer_slides_editor_ajax_nonce' ) );
-		wp_localize_script( Foyer::get_plugin_name() . '-admin', 'foyer_slides_editor_security', $security );
-	}
+        $security = array( 'nonce' => wp_create_nonce( 'foyer_slides_editor_ajax_nonce' ) );
+        wp_localize_script( Foyer::get_plugin_name() . '-admin', 'foyer_slides_editor_security', $security );
+
+        // Nonce for channel list actions (e.g., toggle favorite)
+        $chan_sec = array( 'nonce' => wp_create_nonce( 'foyer_channel_admin_ajax_nonce' ) );
+        wp_localize_script( Foyer::get_plugin_name() . '-admin', 'foyer_channels_list_security', $chan_sec );
+
+        // Lightweight inline script to toggle favorite in list table
+        $inline_js = <<<'JS'
+(function($){$(function(){
+$(document).on('click','.foyer-fav-toggle',function(e){
+    e.preventDefault();
+    var $a=$(this);
+    var id=$a.data('postid');
+    if(!id) return;
+    var willSet=$a.hasClass('is-fav')? '0':'1';
+    $a.addClass('is-busy');
+    $.post(ajaxurl,{
+        action:'foyer_channel_toggle_favorite',
+        nonce:(window.foyer_channels_list_security?foyer_channels_list_security.nonce:''),
+        post_id:id,
+        set:willSet
+    }).done(function(resp){
+        if(resp&&resp.success){
+            if(willSet==='1'){ $a.addClass('is-fav').text('★'); }
+            else { $a.removeClass('is-fav').text('☆'); }
+        }
+    }).always(function(){ $a.removeClass('is-busy'); });
+});
+});})(jQuery);
+JS;
+        if ( function_exists( 'wp_add_inline_script' ) ) {
+            wp_add_inline_script( Foyer::get_plugin_name() . '-admin', $inline_js, 'after' );
+        }
+    }
 
 	/**
 	 * Removes the sample permalink from the Channel edit screen.
@@ -1074,6 +1170,14 @@ class Foyer_Admin_Channel {
 
 		update_post_meta( $post_id, Foyer_Channel::post_type_name . '_slides_duration' , $foyer_slides_settings_duration );
 		update_post_meta( $post_id, Foyer_Channel::post_type_name . '_slides_transition' , $foyer_slides_settings_transition );
+
+		// Save favorite flag (checkbox)
+		$fav = isset( $_POST['foyer_channel_is_favorite'] ) ? '1' : '';
+		if ( ! empty( $fav ) ) {
+			update_post_meta( $post_id, 'foyer_channel_is_favorite', '1' );
+		} else {
+			delete_post_meta( $post_id, 'foyer_channel_is_favorite' );
+		}
 	}
 
 	/**
@@ -1126,8 +1230,10 @@ class Foyer_Admin_Channel {
 				<tbody>
 					<?php
 
+
 						echo self::get_set_duration_html( $post );
 						echo self::get_set_transition_html( $post );
+						echo self::get_set_favorite_html( $post );
 
 					?>
 				</tbody>
@@ -1137,5 +1243,37 @@ class Foyer_Admin_Channel {
 		$html = ob_get_clean();
 
 		echo $html;
+	}
+
+	/**
+	 * Gets the HTML to set the favorite flag in the slides settings meta box.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @param WP_Post $post The post object of the current channel.
+	 * @return string $html  The HTML to set the favorite flag in the slides settings meta box.
+	 */
+	static function get_set_favorite_html( $post ) {
+		$checked = get_post_meta( $post->ID, 'foyer_channel_is_favorite', true ) ? 'checked="checked"' : '';
+
+		ob_start();
+		?>
+			<tr>
+				<th>
+					<label for="foyer_channel_is_favorite">
+						<?php echo esc_html__( 'Favorite', 'foyer' ); ?>
+					</label>
+				</th>
+				<td>
+					<label style="display:flex; align-items:center; gap:6px;">
+						<input type="checkbox" id="foyer_channel_is_favorite" name="foyer_channel_is_favorite" value="1" <?php echo $checked; ?> />
+						<span><?php echo esc_html__( 'Mark this channel as favorite', 'foyer' ); ?></span>
+					</label>
+				</td>
+			</tr>
+		<?php
+
+		$html = ob_get_clean();
+		return $html;
 	}
 }

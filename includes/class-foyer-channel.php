@@ -9,7 +9,7 @@
  * @subpackage	Foyer/includes
  * @author		Menno Luitjes <menno@mennoluitjes.nl>
  */
-    class Foyer_Channel {
+class Foyer_Channel {
 
 	/**
 	 * The Foyer Channel post type name.
@@ -48,7 +48,16 @@
 	 * @access   private
 	 * @var      string    $slides    The slides transition setting of this channel.
 	 */
-	private $slides_transition;
+    private $slides_transition;
+
+    /**
+     * Whether this channel is marked as favorite.
+     *
+     * @since    1.8.0
+     * @access   private
+     * @var      bool    $is_favorite
+     */
+    private $is_favorite;
 
 	/**
 	 * Initialize the class and set its properties.
@@ -199,7 +208,7 @@
 	 * @access	public
 	 * @return	string		The slides transition setting for this channel, or the default slides transition when not set.
 	 */
-	public function get_slides_transition() {
+    public function get_slides_transition() {
 
 		if ( ! isset( $this->slides_transition ) ) {
 
@@ -210,6 +219,21 @@
 			$this->slides_transition = $slides_transition;
 		}
 
-		return $this->slides_transition;
-	}
+        return $this->slides_transition;
+    }
+
+    /**
+     * Returns whether the channel is marked as favorite.
+     *
+     * @since 1.8.0
+     * @access public
+     * @return bool
+     */
+    public function is_favorite() {
+        if ( ! isset( $this->is_favorite ) ) {
+            $val = get_post_meta( $this->ID, 'foyer_channel_is_favorite', true );
+            $this->is_favorite = ( ! empty( $val ) && '1' === (string) $val );
+        }
+        return (bool) $this->is_favorite;
+    }
 }
