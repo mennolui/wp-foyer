@@ -151,6 +151,6 @@ class Foyer_Admin {
 		require_once FOYER_PLUGIN_PATH . 'admin/class-foyer-admin-slide-format-production.php';
 		require_once FOYER_PLUGIN_PATH . 'admin/class-foyer-admin-slide-format-recent-posts.php';
 		require_once FOYER_PLUGIN_PATH . 'admin/class-foyer-admin-slide-format-text.php';
-		require_once FOYER_PLUGIN_PATH . 'admin/class-foyer-admin-slide-format-upcoming-productions.php';
+        require_once FOYER_PLUGIN_PATH . 'admin/class-foyer-admin-slide-format-upcoming-productions.php';
 	}
 }

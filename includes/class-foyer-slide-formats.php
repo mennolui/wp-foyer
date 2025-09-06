@@ -41,6 +41,26 @@ class Foyer_Slide_Formats {
 		return $slide_formats;
 	}
 
+    /**
+     * Adds the Instagram slide format.
+     *
+     * @since 1.7.6
+     */
+    static function add_instagram_slide_format( $slide_formats ) {
+
+        $slide_format_backgrounds = array( 'default', 'image' );
+
+        $slide_formats['instagram'] = array(
+            'title' => _x( 'Instagram', 'slide-format', 'foyer' ),
+            'description' => __( 'Displays the latest media from an Instagram account.', 'foyer' ),
+            'meta_box' => array( 'Foyer_Admin_Slide_Format_Instagram', 'slide_meta_box' ),
+            'save_post' => array( 'Foyer_Admin_Slide_Format_Instagram', 'save_slide' ),
+            'slide_backgrounds' => $slide_format_backgrounds,
+            'stack' => true,
+        );
+
+        return $slide_formats;
+    }
 	/**
 	 * Adds the Iframe slide format.
 	 *
@@ -241,26 +261,8 @@ class Foyer_Slide_Formats {
         return $slide_formats;
     }
 
-    /**
-     * Adds the Channel Embed slide format (regional embedding of another channel).
-     *
-     * @since 1.7.6
-     */
-    static function add_channel_embed_slide_format( $slide_formats ) {
+    
 
-        $slide_format_backgrounds = array( 'default', 'image', 'html5-video', 'video' );
-
-        $slide_formats['channel-embed'] = array(
-            'title' => _x( 'Channel Embed', 'slide-format', 'foyer' ),
-            'description' => __( 'Displays your content and embeds another channel in a fixed region (70/30, 30/70, Ticker).', 'foyer' ),
-            'meta_box' => array( 'Foyer_Admin_Slide_Format_Channel_Embed', 'slide_meta_box' ),
-            'save_post' => array( 'Foyer_Admin_Slide_Format_Channel_Embed', 'save_slide' ),
-            'slide_backgrounds' => $slide_format_backgrounds,
-            // Not a stack – the inner area rotates on its own via JS
-        );
-
-        return $slide_formats;
-    }
 	/**
 	 * Adds the Upcoming Productions slide format.
 	 *
