@@ -219,7 +219,7 @@ class Foyer_Slide_Formats {
 	 * @param 	array	$slide_formats	The current slide formats.
 	 * @return	array					The slide formats with the Text slide format added.
 	 */
-	static function add_text_slide_format( $slide_formats ) {
+    static function add_text_slide_format( $slide_formats ) {
 
 		$slide_format_backgrounds = array( 'default', 'image', 'html5-video', 'video' );
 
@@ -238,9 +238,29 @@ class Foyer_Slide_Formats {
 			'save_post' => array( 'Foyer_Admin_Slide_Format_Text', 'save_slide' ),
 			'slide_backgrounds' => $slide_format_backgrounds,
 		);
-		return $slide_formats;
-	}
+        return $slide_formats;
+    }
 
+    /**
+     * Adds the Channel Embed slide format (regional embedding of another channel).
+     *
+     * @since 1.7.6
+     */
+    static function add_channel_embed_slide_format( $slide_formats ) {
+
+        $slide_format_backgrounds = array( 'default', 'image', 'html5-video', 'video' );
+
+        $slide_formats['channel-embed'] = array(
+            'title' => _x( 'Channel Embed', 'slide-format', 'foyer' ),
+            'description' => __( 'Displays your content and embeds another channel in a fixed region (70/30, 30/70, Ticker).', 'foyer' ),
+            'meta_box' => array( 'Foyer_Admin_Slide_Format_Channel_Embed', 'slide_meta_box' ),
+            'save_post' => array( 'Foyer_Admin_Slide_Format_Channel_Embed', 'save_slide' ),
+            'slide_backgrounds' => $slide_format_backgrounds,
+            // Not a stack – the inner area rotates on its own via JS
+        );
+
+        return $slide_formats;
+    }
 	/**
 	 * Adds the Upcoming Productions slide format.
 	 *
