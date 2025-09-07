@@ -26,9 +26,15 @@ class Foyer_Admin {
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_styles' ) );
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_scripts' ) );
 		add_action( 'admin_menu', array( __CLASS__, 'admin_menu' ) );
+		// Scheduler page submenu and save handler
+		add_action( 'admin_menu', array( 'Foyer_Admin_Scheduler', 'admin_menu' ) );
+		add_action( 'admin_post_foyer_save_scheduler', array( 'Foyer_Admin_Scheduler', 'handle_post' ) );
+		add_action( 'admin_post_foyer_apply_scheduler_template', array( 'Foyer_Admin_Scheduler', 'handle_apply_template' ) );
 
 		/* Foyer_Admin_Display */
 		add_action( 'admin_enqueue_scripts', array( 'Foyer_Admin_Display', 'localize_scripts' ) );
+		add_action( 'admin_notices', array( 'Foyer_Admin_Display', 'render_notices' ) );
+		add_action( 'wp_ajax_foyer_validate_schedule', array( 'Foyer_Admin_Display', 'validate_schedule_over_ajax' ) );
 		add_action( 'add_meta_boxes', array( 'Foyer_Admin_Display', 'add_channel_editor_meta_box' ) );
 			// Only use the new multi-entry scheduler list UI
 			add_action( 'add_meta_boxes', array( 'Foyer_Admin_Display', 'add_channel_scheduler_list_meta_box' ) );
@@ -156,5 +162,7 @@ class Foyer_Admin {
 		require_once FOYER_PLUGIN_PATH . 'admin/class-foyer-admin-slide-format-recent-posts.php';
 		require_once FOYER_PLUGIN_PATH . 'admin/class-foyer-admin-slide-format-text.php';
         require_once FOYER_PLUGIN_PATH . 'admin/class-foyer-admin-slide-format-upcoming-productions.php';
+		// Scheduler admin page
+		require_once FOYER_PLUGIN_PATH . 'admin/class-foyer-admin-scheduler.php';
 	}
 }

@@ -376,14 +376,40 @@ class Foyer_Admin_Display {
                     var $row = $(this).closest('tr');
                     var startVal = $row.find('.foyer-sched-start-input').val();
                     var endVal   = $row.find('.foyer-sched-end-input').val();
-                    $row.find('.foyer-sched-start-hidden').val(startVal);
-                    $row.find('.foyer-sched-end-hidden').val(endVal);
-                    $row.find('.foyer-sched-start-text').text(startVal || '—');
-                    $row.find('.foyer-sched-end-text').text(endVal || '—');
-                    $row.find('.foyer-sched-start-input, .foyer-sched-end-input').hide();
-                    $row.find('.foyer-sched-start-text, .foyer-sched-end-text').show();
-                    $row.find('.foyer-sched-save').hide();
-                    $row.find('.foyer-sched-edit').show();
+
+                    // Build full set with current row pending values
+                    var entries = [];
+                    $('#foyer_sched_list tbody tr').each(function(){
+                        var $r=$(this);
+                        var s = ($r.is($row)) ? startVal : $r.find('.foyer-sched-start-hidden').val();
+                        var e = ($r.is($row)) ? endVal   : $r.find('.foyer-sched-end-hidden').val();
+                        var c = $r.find('input[name=\'foyer_channel_scheduler_list_channel[]\']').val();
+                        if (c && s && e) { entries.push({channel:c, start:s, end:e}); }
+                    });
+
+                    // AJAX validate overlap server-side (reuses WP format + timezone)
+                    $.post(ajaxurl, {
+                        action: 'foyer_validate_schedule',
+                        nonce: (window.foyer_display_ajax?foyer_display_ajax.nonce:''),
+                        payload: JSON.stringify({ entries: entries })
+                    }).done(function(resp){
+                        if (resp && resp.success) {
+                            // Commit values into hidden + UI and exit edit mode
+                            $row.find('.foyer-sched-start-hidden').val(startVal);
+                            $row.find('.foyer-sched-end-hidden').val(endVal);
+                            $row.find('.foyer-sched-start-text').text(startVal || '—');
+                            $row.find('.foyer-sched-end-text').text(endVal || '—');
+                            $row.find('.foyer-sched-start-input, .foyer-sched-end-input').hide();
+                            $row.find('.foyer-sched-start-text, .foyer-sched-end-text').show();
+                            $row.find('.foyer-sched-save').hide();
+                            $row.find('.foyer-sched-edit').show();
+                        } else {
+                            var msg = (resp && resp.data && resp.data.message) ? resp.data.message : 'Validation failed';
+                            alert(msg);
+                        }
+                    }).fail(function(){
+                        alert('Validation failed');
+                    });
                 });
                 $(document).on('click','.foyer-sched-remove', function(){
                     var $tb=$('#foyer_sched_list tbody');
@@ -939,11 +965,15 @@ class Foyer_Admin_Display {
 	 * @since	1.3.1	Changed handle of script to {plugin_name}-admin.
 	 * @since	1.3.2	Changed method to static.
 	 */
-	static function localize_scripts() {
+    static function localize_scripts() {
 
-		$channel_scheduler_defaults = self::get_channel_scheduler_defaults();
-		wp_localize_script( Foyer::get_plugin_name() . '-admin', 'foyer_channel_scheduler_defaults', $channel_scheduler_defaults );
-	}
+        $channel_scheduler_defaults = self::get_channel_scheduler_defaults();
+        wp_localize_script( Foyer::get_plugin_name() . '-admin', 'foyer_channel_scheduler_defaults', $channel_scheduler_defaults );
+
+        // Security nonce for display admin AJAX
+        $ajax_sec = array( 'nonce' => wp_create_nonce( 'foyer_display_ajax_nonce' ) );
+        wp_localize_script( Foyer::get_plugin_name() . '-admin', 'foyer_display_ajax', $ajax_sec );
+    }
 
 	/**
 	 * Saves all custom fields for a display.
@@ -1025,9 +1055,9 @@ class Foyer_Admin_Display {
 	 */
     private static function save_schedule( $display_id ) {
 
-        delete_post_meta( $display_id, 'foyer_display_schedule' );
+        $new_schedules = array();
 
-        // First, save multi-entry list if present
+        // Build candidate schedules from POST without saving yet
         if ( isset( $_POST['foyer_channel_scheduler_list_channel'] ) && is_array( $_POST['foyer_channel_scheduler_list_channel'] ) ) {
             $chs = $_POST['foyer_channel_scheduler_list_channel'];
             $sts = isset($_POST['foyer_channel_scheduler_list_start']) ? $_POST['foyer_channel_scheduler_list_start'] : array();
@@ -1055,11 +1085,110 @@ class Foyer_Admin_Display {
                     $def = self::get_channel_scheduler_defaults();
                     $end = $start + $def['duration'];
                 }
-                $schedule = array( 'channel' => $cid, 'start' => $start, 'end' => $end );
-                add_post_meta( $display_id, 'foyer_display_schedule', $schedule, false );
+                $new_schedules[] = array( 'channel' => $cid, 'start' => $start, 'end' => $end );
             }
         }
 
+        // Validate for overlaps (only if two or more entries)
+        if ( count( $new_schedules ) > 1 ) {
+            // Sort by start asc
+            usort( $new_schedules, function( $a, $b ) { return ($a['start'] <=> $b['start']); } );
+            for ( $i = 1; $i < count( $new_schedules ); $i++ ) {
+                $prev = $new_schedules[$i-1];
+                $curr = $new_schedules[$i];
+                // Overlap if previous end is greater than current start
+                if ( intval( $prev['end'] ) > intval( $curr['start'] ) ) {
+                    self::add_admin_notice( 'error', __( 'Schedule conflict: time windows overlap. Please adjust the planned channels so they do not overlap.', 'foyer' ) );
+                    return; // Abort without saving any schedule changes
+                }
+            }
+        }
+
+        // Passed validation: replace existing schedule with new set
+        delete_post_meta( $display_id, 'foyer_display_schedule' );
+        foreach ( $new_schedules as $schedule ) {
+            add_post_meta( $display_id, 'foyer_display_schedule', $schedule, false );
+        }
+
         // Legacy single temporary channel fields removed; only list-based schedule is saved
+    }
+
+    /**
+     * Adds an admin notice to be displayed on next page load.
+     *
+     * @param string $type    One of 'error', 'warning', 'success', 'info'
+     * @param string $message The message to show
+     */
+    static function add_admin_notice( $type, $message ) {
+        $uid = get_current_user_id();
+        if ( empty( $uid ) ) { return; }
+        $key = 'foyer_display_notices_' . $uid;
+        $notices = get_transient( $key );
+        if ( empty( $notices ) || ! is_array( $notices ) ) { $notices = array(); }
+        $notices[] = array( 'type' => $type, 'message' => $message );
+        set_transient( $key, $notices, MINUTE_IN_SECONDS );
+    }
+
+    /**
+     * Renders any pending admin notices.
+     */
+    static function render_notices() {
+        $uid = get_current_user_id();
+        if ( empty( $uid ) ) { return; }
+        $key = 'foyer_display_notices_' . $uid;
+        $notices = get_transient( $key );
+        if ( empty( $notices ) || ! is_array( $notices ) ) { return; }
+        delete_transient( $key );
+        foreach ( $notices as $n ) {
+            $class = 'notice';
+            switch ( $n['type'] ) {
+                case 'error': $class .= ' notice-error'; break;
+                case 'warning': $class .= ' notice-warning'; break;
+                case 'success': $class .= ' notice-success'; break;
+                default: $class .= ' notice-info'; break;
+            }
+            echo '<div class="' . esc_attr( $class ) . '"><p>' . esc_html( $n['message'] ) . '</p></div>';
+        }
+    }
+
+    /**
+     * Validates schedule entries for overlaps using server-side parsing of WP-formatted datetimes.
+     *
+     * Expects POST 'payload' JSON with { entries: [ {channel,start,end}, ... ] }
+     */
+    static function validate_schedule_over_ajax() {
+        check_ajax_referer( 'foyer_display_ajax_nonce', 'nonce', true );
+
+        $payload = isset( $_POST['payload'] ) ? wp_unslash( $_POST['payload'] ) : '';
+        $data = json_decode( $payload, true );
+        if ( empty( $data ) || empty( $data['entries'] ) || ! is_array( $data['entries'] ) ) {
+            wp_send_json_error( array( 'message' => __( 'Invalid payload', 'foyer' ) ), 400 );
+        }
+        $fmt = self::get_channel_scheduler_defaults()['datetime_format'];
+        $tz  = wp_timezone();
+        $cands = array();
+        foreach ( $data['entries'] as $e ) {
+            $start = null; $end = null;
+            $s_in = isset( $e['start'] ) ? $e['start'] : '';
+            $e_in = isset( $e['end'] ) ? $e['end'] : '';
+            if ( empty( $s_in ) || empty( $e_in ) ) { continue; }
+            try { $dt = date_create_from_format( $fmt, $s_in, $tz ); if ( $dt instanceof DateTime ) { $dt->setTimezone( new DateTimeZone('UTC') ); $start = $dt->getTimestamp(); } } catch ( Exception $ex ) {}
+            try { $dt = date_create_from_format( $fmt, $e_in, $tz ); if ( $dt instanceof DateTime ) { $dt->setTimezone( new DateTimeZone('UTC') ); $end = $dt->getTimestamp(); } } catch ( Exception $ex ) {}
+            if ( is_null( $start ) || is_null( $end ) ) { continue; }
+            if ( $end <= $start ) {
+                $def = self::get_channel_scheduler_defaults();
+                $end = $start + $def['duration'];
+            }
+            $cands[] = array( 'start' => $start, 'end' => $end );
+        }
+        if ( count( $cands ) > 1 ) {
+            usort( $cands, function( $a, $b ) { return ( $a['start'] <=> $b['start'] ); } );
+            for ( $i = 1; $i < count( $cands ); $i++ ) {
+                if ( intval( $cands[$i-1]['end'] ) > intval( $cands[$i]['start'] ) ) {
+                    wp_send_json_error( array( 'message' => __( 'Schedule conflict: time windows overlap.', 'foyer' ) ), 200 );
+                }
+            }
+        }
+        wp_send_json_success( array( 'ok' => true ) );
     }
 }
