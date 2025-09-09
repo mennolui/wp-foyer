@@ -238,7 +238,8 @@ class Foyer_Admin_Display {
                         $i.foyer_datetimepicker({
                             format: foyer_channel_scheduler_defaults.datetime_format,
                             dayOfWeekStart: foyer_channel_scheduler_defaults.start_of_week,
-                            step: 15
+                            step: 15,
+                            validateOnBlur: false
                         });
                         $i.data('dtp-init', true);
                     });

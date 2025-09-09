@@ -110,6 +110,10 @@ class Foyer_Admin {
 
 		wp_register_script( Foyer::get_plugin_name() . '-admin', plugin_dir_url( __FILE__ ) . 'js/foyer-admin-min.js', array( 'jquery', 'jquery-ui-sortable' ), Foyer::get_version(), false );
 		wp_enqueue_script( Foyer::get_plugin_name() . '-admin' );
+
+		// Ensure datetimepicker does not normalize on blur, which can cause 1899 fallback dates
+		$inline = "jQuery(function($){ try { if ($.fn && $.fn.foyer_datetimepicker && $.fn.foyer_datetimepicker.defaults) { $.fn.foyer_datetimepicker.defaults.validateOnBlur = false; } } catch(e){} });";
+		wp_add_inline_script( Foyer::get_plugin_name() . '-admin', $inline, 'after' );
 	}
 
 	/**
