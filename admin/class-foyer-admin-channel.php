@@ -230,8 +230,8 @@ class Foyer_Admin_Channel {
                             <?php echo esc_html__( 'Rows per page', 'foyer' ); ?>
                         </label>
                         <select id="foyer_slides_table_per_page">
-                            <option value="10">10</option>
-                            <option value="20" selected>20</option>
+                            <option value="10" selected>10</option>
+                            <option value="20">20</option>
                             <option value="50">50</option>
                             <option value="100">100</option>
                         </select>
@@ -327,7 +327,10 @@ class Foyer_Admin_Channel {
                             }
 
                             function paginate(){
-                                var per = parseInt($perPage.val(), 10) || 20;
+                                var per = parseInt($perPage.val(), 10) || 10;
+                                // Reset to the full filtered set before slicing to avoid shrinking pool
+                                $rows.show();
+                                applyFilters();
                                 var visibleRows = $rows.filter(':visible');
                                 var total = visibleRows.length;
                                 var totalPages = Math.max(1, Math.ceil(total / per));

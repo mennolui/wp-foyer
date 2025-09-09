@@ -237,7 +237,7 @@ class Foyer_Admin_Scheduler {
         echo '<label for="foyer_template_selector_search" style="margin-right:6px;">' . esc_html__( 'Search', 'foyer' ) . '</label>';
         echo '<input type="search" id="foyer_template_selector_search" class="regular-text" placeholder="' . esc_attr__( 'Search by title or author…', 'foyer' ) . '" style="max-width:280px;" />';
         echo '<label for="foyer_template_selector_per_page" style="margin-left:auto;">' . esc_html__( 'Rows per page', 'foyer' ) . '</label>';
-        echo '<select id="foyer_template_selector_per_page"><option value="10">10</option><option value="20" selected>20</option><option value="50">50</option><option value="100">100</option></select>';
+        echo '<select id="foyer_template_selector_per_page"><option value="10" selected>10</option><option value="20">20</option><option value="50">50</option><option value="100">100</option></select>';
         echo '</div>';
         echo '<table class="widefat fixed striped" id="foyer_template_selector">';
         echo '<thead><tr>';
@@ -341,10 +341,11 @@ class Foyer_Admin_Scheduler {
                 }
                 function updateSortIndicators(){ var arrows={asc:'\u25B2',desc:'\u25BC'}; $selTable.find('thead th.foyer-sort-col .sort-ind').text(''); $selTable.find('thead th.foyer-sort-col[data-sort="'+sortKey+'"] .sort-ind').text(arrows[sortDir]||''); }
                 function sortRows(){ var $tbody=$selTable.find('tbody'); var vis=$rows.filter(':visible').get(); vis.sort(compareRows); $tbody.append(vis); $tbody.append($rows.filter(':hidden')); updateSortIndicators(); }
-                function paginate(){ var per=parseInt($perPage.val(),10)||20; var vis=$rows.filter(':visible'); var total=vis.length; var totalPages=Math.max(1, Math.ceil(total/per)); if(currentPage>totalPages) currentPage=totalPages; var start=(currentPage-1)*per; var end=start+per; vis.hide().slice(start,end).show(); $info.text(''+(total?start+1:0)+'-'+Math.min(end,total)+' / '+total); $prev.prop('disabled', currentPage<=1); $next.prop('disabled', currentPage>=totalPages); }
+                function paginate(){ var per=parseInt($perPage.val(),10)||10; $rows.show(); applyFilters(); var vis=$rows.filter(':visible'); var total=vis.length; var totalPages=Math.max(1, Math.ceil(total/per)); if(currentPage>totalPages) currentPage=totalPages; var start=(currentPage-1)*per; var end=start+per; vis.hide().slice(start,end).show(); $info.text(currentPage+' / '+totalPages); $prev.prop('disabled', currentPage<=1); $next.prop('disabled', currentPage>=totalPages); }
                 function refresh(){ $rows.show(); applyFilters(); sortRows(); paginate(); }
-                $search.on('input', refresh);
-                $selTable.find('thead').on('click','th.foyer-sort-col', function(){ var key=$(this).data('sort'); if(!key) return; if(key===sortKey){ sortDir=(sortDir==='asc')?'desc':'asc'; } else { sortKey=key; sortDir='asc'; } refresh(); });
+                $search.on('input', function(){ currentPage=1; refresh(); });
+                $perPage.on('change', function(){ currentPage=1; refresh(); });
+                $selTable.find('thead').on('click','th.foyer-sort-col', function(){ var key=$(this).data('sort'); if(!key) return; if(key===sortKey){ sortDir=(sortDir==='asc')?'desc':'asc'; } else { sortKey=key; sortDir='asc'; } currentPage=1; refresh(); });
                 $prev.on('click', function(){ currentPage=Math.max(1,currentPage-1); paginate(); });
                 $next.on('click', function(){ currentPage=currentPage+1; paginate(); });
                 refresh();
