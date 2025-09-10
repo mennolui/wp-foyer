@@ -120,7 +120,7 @@ jQuery( function() {
 	// Uploading files
 	var wp_media_post_id;
 
-	if (wp.media) {
+	if (typeof window.wp !== 'undefined' && window.wp.media) {
 		wp_media_post_id = wp.media.model.settings.post.id;
 
 		jQuery('.slide_file_upload_button').on('click', function(event) {

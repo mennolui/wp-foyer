@@ -108,7 +108,8 @@ class Foyer_Admin {
 	 */
 	static function enqueue_scripts() {
 
-		wp_register_script( Foyer::get_plugin_name() . '-admin', plugin_dir_url( __FILE__ ) . 'js/foyer-admin-min.js', array( 'jquery', 'jquery-ui-sortable' ), Foyer::get_version(), false );
+		// Load in footer so media scripts enqueued later (via meta boxes) are available on DOM ready
+		wp_register_script( Foyer::get_plugin_name() . '-admin', plugin_dir_url( __FILE__ ) . 'js/foyer-admin-min.js', array( 'jquery', 'jquery-ui-sortable', 'wp-util' ), Foyer::get_version(), true );
 		wp_enqueue_script( Foyer::get_plugin_name() . '-admin' );
 
 		// Ensure datetimepicker does not normalize on blur, which can cause 1899 fallback dates
