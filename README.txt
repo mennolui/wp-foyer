@@ -145,6 +145,10 @@ Yes, but your cache settings might need some tweaking. Your display loads new co
 
 Settings for W3 Total Cache: Add `/foyer/*` on a new line under Performance > Page Cache > Never cache the following pages.
 
+= Where do I report security bugs found in this plugin? =
+Please report security bugs found in the source code of the undefined plugin through the [Patchstack Vulnerability Disclosure  Program](https://patchstack.com/database/vdp/9e5fbb9e-f8ac-48a3-9c55-c1db67511f30). The Patchstack team will assist you with verification, CVE assignment, and notify the developers of this plugin.
+
+
 == Changelog ==
 
 = 1.7 =
