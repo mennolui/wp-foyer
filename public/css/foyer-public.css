@@ -347,7 +347,7 @@ html {
     height: 50%;
   }
 }
-.foyer-slide.foyer-slide-production .foyer-slide-fields {
+.foyer-slide.foyer-slide-production .foyer-slide-fields, .foyer-slide.foyer-slide-tec .foyer-slide-fields {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -503,7 +503,7 @@ html {
             justify-content: flex-end;
   }
 }
-.foyer-slide.foyer-slide-upcoming-productions .foyer-slide-fields {
+.foyer-slide.foyer-slide-upcoming-productions .foyer-slide-fields, .foyer-slide.foyer-slide-tec-magic .foyer-slide-fields {
   position: absolute;
   bottom: 0;
   left: 0;
