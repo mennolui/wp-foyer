@@ -49,6 +49,7 @@
 			'action': 'foyer_preview_save_orientation_choice',
 			'orientation': orientation,
 			'object_id' : foyer_preview.object_id,
+			'nonce' : foyer_preview.nonce,
 		};
 		jQuery.post(foyer_preview.ajax_url, data );
 	}

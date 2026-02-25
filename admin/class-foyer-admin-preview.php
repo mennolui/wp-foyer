@@ -30,6 +30,7 @@ class Foyer_Admin_Preview {
 			'ajax_url' => admin_url( 'admin-ajax.php' ),
 			'object_id' => get_the_id(),
 			'orientations' => self::get_orientations(),
+			'nonce' => wp_create_nonce( 'foyer_preview_save_orientation_choice' ),
 		) );
 
 		if ( ! is_user_logged_in() ) {
@@ -129,6 +130,8 @@ class Foyer_Admin_Preview {
 		if ( !is_user_logged_in( ) ) {
 			return;
 		}
+
+		check_ajax_referer( 'foyer_preview_save_orientation_choice', 'nonce' );
 
 		$orientation = sanitize_title( $_POST[ 'orientation' ] );
 		if ( empty(  $orientation ) ) {

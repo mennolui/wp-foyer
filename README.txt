@@ -151,6 +151,14 @@ Please report security bugs found in the source code of the undefined plugin thr
 
 == Changelog ==
 
+= 1.7.6 =
+Release Date: February 25, 2026
+
+Security fixes:
+
+* Fixed a broken access control vulnerability (CVE-2023-47663) that allowed authenticated users with Contributor-level access to add, remove, and reorder slides in any channel without proper authorization. Added capability checks to the `add_slide_over_ajax()`, `remove_slide_over_ajax()`, and `reorder_slides_over_ajax()` AJAX handlers in `Foyer_Admin_Channel`.
+* Fixed a missing nonce verification in the `save_orientation_choice()` AJAX handler in `Foyer_Admin_Preview` to prevent CSRF attacks.
+
 = 1.7 =
 Release Date: November 15, 2018
 

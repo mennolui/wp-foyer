@@ -60,6 +60,11 @@ class Foyer_Admin_Channel {
 			wp_die();
 		}
 
+		/* Check the user's permissions */
+		if ( ! current_user_can( 'edit_post', $channel_id ) ) {
+			wp_die( -1, 403 );
+		}
+
 		$channel = new Foyer_Channel( $channel_id );
 		$slides = $channel->get_slides();
 
@@ -514,6 +519,11 @@ class Foyer_Admin_Channel {
 			wp_die();
 		}
 
+		/* Check the user's permissions */
+		if ( ! current_user_can( 'edit_post', $channel_id ) ) {
+			wp_die( -1, 403 );
+		}
+
 		$channel = new Foyer_Channel( $channel_id );
 		$slides = $channel->get_slides();
 
@@ -561,6 +571,11 @@ class Foyer_Admin_Channel {
 		/* Check if this post exists */
 		if ( is_null( get_post( $channel_id  ) ) ) {
 			wp_die();
+		}
+
+		/* Check the user's permissions */
+		if ( ! current_user_can( 'edit_post', $channel_id ) ) {
+			wp_die( -1, 403 );
 		}
 
 		$new_slides = array();
