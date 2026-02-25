@@ -159,6 +159,12 @@ Security fixes:
 * Fixed a broken access control vulnerability (CVE-2023-47663) that allowed authenticated users with Contributor-level access to add, remove, and reorder slides in any channel without proper authorization. Added capability checks to the `add_slide_over_ajax()`, `remove_slide_over_ajax()`, and `reorder_slides_over_ajax()` AJAX handlers in `Foyer_Admin_Channel`.
 * Fixed a missing nonce verification in the `save_orientation_choice()` AJAX handler in `Foyer_Admin_Preview` to prevent CSRF attacks.
 
+PHP 8.2/8.3 compatibility fixes:
+
+* Declared `$pdf_file` and `$pdf_page_number` as explicit properties in `Foyer_Image_Editor_Imagick` to resolve dynamic property deprecation warnings introduced in PHP 8.2.
+* Changed `$template_args` default value from `false` to `array()` in `Foyer_Slide::background()` and `Foyer_Slide::default_background()` to match the `Foyer_Templates::get_template()` signature.
+* Removed redundant `isset()` check on `$template_args` in `Foyer_Templates::get_template()`.
+
 = 1.7 =
 Release Date: November 15, 2018
 

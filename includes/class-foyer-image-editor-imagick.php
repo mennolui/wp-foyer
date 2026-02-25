@@ -10,6 +10,24 @@
 class Foyer_Image_Editor_Imagick extends WP_Image_Editor_Imagick {
 
 	/**
+	 * The clean file path of the PDF (without page specifier).
+	 *
+	 * @since	1.1.0
+	 * @since	1.7.6	Declared explicitly for PHP 8.2+ compatibility (dynamic properties deprecated).
+	 * @var		string|null
+	 */
+	protected $pdf_file = null;
+
+	/**
+	 * The page number to load from the PDF.
+	 *
+	 * @since	1.1.0
+	 * @since	1.7.6	Declared explicitly for PHP 8.2+ compatibility (dynamic properties deprecated).
+	 * @var		int|null
+	 */
+	protected $pdf_page_number = null;
+
+	/**
 	 * Get the number of pages in the pdf file.
 	 *
 	 * @since	1.1.0

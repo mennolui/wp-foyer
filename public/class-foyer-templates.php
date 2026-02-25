@@ -28,7 +28,7 @@ class Foyer_Templates {
 	 * @return	void
 	 */
 	static function get_template( $template_name, $template_args = array(), $template_path = '', $default_path = '' ) {
-		if ( is_array( $template_args ) && isset( $template_args ) ) {
+		if ( is_array( $template_args ) ) {
 			extract( $template_args );
 		}
 		$template_file = self::locate_template( $template_name, $template_path, $default_path );
