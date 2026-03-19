@@ -2,7 +2,7 @@
 Contributors: mennolui, slimndap
 Tags: digital signage, signage, narrowcasting, slideshow, theater
 Requires at least: 4.1
-Tested up to: 5.7
+Tested up to: 6.9
 Stable tag: trunk
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.html
@@ -288,6 +288,9 @@ Bug fixes:
 
 
 == Upgrade Notice ==
+= 1.7.6 =
+Updates tested up to WP version.
+
 = 1.7.5 =
 Bug fixes and minor enhancements. Check the changelog for full details.
 
@@ -383,4 +386,3 @@ Added a PDF slide format. Creates a slide for each page in an uploaded PDF.
 
 = 1.0.1 =
 Improved code security: Sanitized and validated all user input, and escaped and sanitized the output of the plugin.
-
