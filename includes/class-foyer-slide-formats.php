@@ -277,4 +277,61 @@ class Foyer_Slide_Formats {
 
 		return $slide_formats;
 	}
+
+	/**
+	 * Adds The Events Calendar slide format for a single event
+	 *
+	 * @param 	array	$slide_formats	The current slide formats.
+	 * @return	array			The slide formats with the Events Calendar slide format added.
+	 */
+	static function add_tec_single_event_slide_format( $slide_formats ) {
+
+		if ( ! defined ('TRIBE_EVENTS_FILE') ) {
+			return $slide_formats;
+		}
+
+		$slide_format_backgrounds = array( 'default', 'image', 'html5-video', 'video' );
+
+		$slide_format_backgrounds = apply_filters( 'foyer/slides/backgrounds/format=tec', $slide_format_backgrounds );
+
+		$slide_formats['tec'] = array(
+			'title' => _x( 'Calendar Event', 'slide-format', 'foyer' ),
+			'description' => __( 'Displays title and details of an event, with its image as default background.', 'foyer' ),
+			'meta_box' => array( 'Foyer_Admin_Slide_Format_TEC', 'slide_tec_meta_box' ),
+			'save_post' => array( 'Foyer_Admin_Slide_Format_TEC', 'save_slide_tec' ),
+			'slide_backgrounds' => $slide_format_backgrounds,
+			'default_background_template' => true,
+		);
+
+		return $slide_formats;
+	}
+	
+	/**
+	 * Adds the Slide format for The Events Calendar Magic Mode
+	 *
+	 * @param 	array	$slide_formats	The current slide formats.
+	 * @return	array			The slide formats with the Events Calendar Magic slide format added.
+	 */
+	static function add_tec_events_slide_format( $slide_formats ) {
+
+		if ( ! defined ('TRIBE_EVENTS_FILE') ) {
+			return $slide_formats;
+		}
+
+		$slide_format_backgrounds = array( 'default' );
+
+		$slide_format_backgrounds = apply_filters( 'foyer/slides/backgrounds/format=tec-magic', $slide_format_backgrounds );
+
+		$slide_formats['tec-magic'] = array(
+			'title' => 'Calendar Events',
+			'description' => 'Displays a slide for each upcoming event.',
+			'meta_box' => array( 'Foyer_Admin_Slide_Format_TEC_Magic', 'slide_meta_box'),
+			'save_post' => array( 'Foyer_Admin_Slide_Format_TEC_Magic', 'save_slide'),
+			'slide_backgrounds' => $slide_format_backgrounds,
+			'default_background_template' => true,
+			'stack' => true,
+		);
+
+		return $slide_formats;
+	}
 }
