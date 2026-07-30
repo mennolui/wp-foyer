@@ -2,7 +2,7 @@
 Contributors: mennolui, slimndap
 Tags: digital signage, signage, narrowcasting, slideshow, theater
 Requires at least: 4.1
-Tested up to: 5.7
+Tested up to: 6.9
 Stable tag: trunk
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.html
@@ -145,6 +145,10 @@ Yes, but your cache settings might need some tweaking. Your display loads new co
 
 Settings for W3 Total Cache: Add `/foyer/*` on a new line under Performance > Page Cache > Never cache the following pages.
 
+= Where do I report security bugs found in this plugin? =
+Please report security bugs found in the source code of the undefined plugin through the [Patchstack Vulnerability Disclosure  Program](https://patchstack.com/database/vdp/9e5fbb9e-f8ac-48a3-9c55-c1db67511f30). The Patchstack team will assist you with verification, CVE assignment, and notify the developers of this plugin.
+
+
 == Changelog ==
 
 = 1.7 =
@@ -284,6 +288,9 @@ Bug fixes:
 
 
 == Upgrade Notice ==
+= 1.7.6 =
+Updates tested up to WP version.
+
 = 1.7.5 =
 Bug fixes and minor enhancements. Check the changelog for full details.
 
@@ -379,4 +386,3 @@ Added a PDF slide format. Creates a slide for each page in an uploaded PDF.
 
 = 1.0.1 =
 Improved code security: Sanitized and validated all user input, and escaped and sanitized the output of the plugin.
-
